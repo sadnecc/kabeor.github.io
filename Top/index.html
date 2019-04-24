@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html style="display: none;" lang="zh">
+    <head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <!--
+        © Material Theme
+        https://github.com/viosey/hexo-theme-material
+        Version: 1.5.2 -->
+    <script>
+        window.materialVersion = "1.5.2"
+        // Delete localstorage with these tags
+        window.oldVersion = [
+            'codestartv1',
+            '1.3.4',
+            '1.4.0',
+            '1.4.0b1',
+            '1.5.0'
+        ]
+    </script>
+
+    <!-- dns prefetch -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+
+
+    <link rel="dns-prefetch" href="https://cdn1.lncld.net">
+
+
+    <link rel="dns-prefetch" href="https://busuanzi.ibruce.info">
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Meta & Info -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!-- Title -->
+    
+    <title>
+        
+            写在前面的话 | 
+        
+        K&#39;s House
+    </title>
+
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/img/favicon.png">
+    <link rel="icon" href="/img/favicon.png">
+
+    <meta name="format-detection" content="telephone=no">
+    <meta name="description" itemprop="description" content="Trust me,Lisa.">
+    <meta name="keywords" content>
+    <meta name="theme-color" content="#0097A7">
+
+    <!-- Disable Fucking Bloody Baidu Tranformation -->
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+
+    <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+
+        
+            <script src="/js/ie-blocker.zhCN.js"></script>
+        
+    <![endif]-->
+
+    <!-- Import lsloader -->
+    <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(a){try{localStorage.removeItem(a)}catch(b){}};lsloader.setLS=function(a,c){try{localStorage.setItem(a,c)}catch(b){}};lsloader.getLS=function(a){var c="";try{c=localStorage.getItem(a)}catch(b){c=""}return c};versionString="/*"+(window.materialVersion||"unknownVersion")+"*/";lsloader.clean=function(){try{var b=[];for(var a=0;a<localStorage.length;a++){b.push(localStorage.key(a))}b.forEach(function(e){var f=lsloader.getLS(e);if(window.oldVersion){var d=window.oldVersion.reduce(function(g,h){return g||f.indexOf("/*"+h+"*/")!==-1},false);if(d){lsloader.removeLS(e)}}})}catch(c){}};lsloader.clean();lsloader.load=function(f,a,b,d){if(typeof b==="boolean"){d=b;b=undefined}d=d||false;b=b||function(){};var e;e=this.getLS(f);if(e&&e.indexOf(versionString)===-1){this.removeLS(f);this.requestResource(f,a,b,d);return}if(e){var c=e.split(versionString)[0];if(c!=a){console.log("reload:"+a);this.removeLS(f);this.requestResource(f,a,b,d);return}e=e.split(versionString)[1];if(d){this.jsRunSequence.push({name:f,code:e});this.runjs(a,f,e)}else{document.getElementById(f).appendChild(document.createTextNode(e));b()}}else{this.requestResource(f,a,b,d)}};lsloader.requestResource=function(b,e,a,c){var d=this;if(c){this.iojs(e,b,function(h,f,g){d.setLS(f,h+versionString+g);d.runjs(h,f,g)})}else{this.iocss(e,b,function(f){document.getElementById(b).appendChild(document.createTextNode(f));d.setLS(b,e+versionString+f)},a)}};lsloader.iojs=function(d,b,g){var a=this;a.jsRunSequence.push({name:b,code:""});try{var f=new XMLHttpRequest();f.open("get",d,true);f.onreadystatechange=function(){if(f.readyState==4){if((f.status>=200&&f.status<300)||f.status==304){if(f.response!=""){g(d,b,f.response);return}}a.jsfallback(d,b)}};f.send(null)}catch(c){a.jsfallback(d,b)}};lsloader.iocss=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.iofonts=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.runjs=function(f,c,e){if(!!c&&!!e){for(var b in this.jsRunSequence){if(this.jsRunSequence[b].name==c){this.jsRunSequence[b].code=e}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var a=document.createElement("script");a.appendChild(document.createTextNode(this.jsRunSequence[0].code));a.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(a);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else{if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var d=this;var a=document.createElement("script");a.src=this.jsRunSequence[0].path;a.type="text/javascript";this.jsRunSequence[0].status="loading";a.onload=function(){d.jsRunSequence.shift();if(d.jsRunSequence.length>0){d.runjs()}};document.body.appendChild(a)}}};lsloader.tagLoad=function(b,a){this.jsRunSequence.push({name:a,code:"",path:b,status:"failed"});this.runjs()};lsloader.jsfallback=function(c,b){if(!!this.jsnamemap[b]){return}else{this.jsnamemap[b]=b}for(var a in this.jsRunSequence){if(this.jsRunSequence[a].name==b){this.jsRunSequence[a].code="";this.jsRunSequence[a].status="failed";this.jsRunSequence[a].path=c}}this.runjs()};lsloader.cssfallback=function(e,c,b){if(!!this.cssnamemap[c]){return}else{this.cssnamemap[c]=1}var d=document.createElement("link");d.type="text/css";d.href=e;d.rel="stylesheet";d.onload=d.onerror=b;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(d,a)};lsloader.runInlineScript=function(c,b){var a=document.getElementById(b).innerText;this.jsRunSequence.push({name:c,code:a});this.runjs()}})();</script>
+
+    <!-- Import queue -->
+    <script>function Queue(){this.dataStore=[];this.offer=b;this.poll=d;this.execNext=a;this.debug=false;this.startDebug=c;function b(e){if(this.debug){console.log("Offered a Queued Function.")}if(typeof e==="function"){this.dataStore.push(e)}else{console.log("You must offer a function.")}}function d(){if(this.debug){console.log("Polled a Queued Function.")}return this.dataStore.shift()}function a(){var e=this.poll();if(e!==undefined){if(this.debug){console.log("Run a Queued Function.")}e()}}function c(){this.debug=true}}var queue=new Queue();</script>
+
+    <!-- Import CSS -->
+    
+        <style id="material_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_css","/css/material.min.css?Z7a72R1E4SxzBKR/WGctOA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+        <style id="style_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("style_css","/css/style.min.css?MKetZV3cUTfDxvMffaOezg==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+        
+            
+                <style id="prettify_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_css","/css/prettify.min.css?zp8STOU9v89XWFEnN+6YmQ==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+                <style id="prettify_theme"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_theme","/css/prettify/tomorrow-night-eighties.min.css?2LJQzURO+Kr8r/fl/T8oMA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+            
+        
+
+    
+
+    
+
+    <!-- Config CSS -->
+
+<!-- Other Styles -->
+<style>
+  body, html {
+    font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    overflow-x: hidden !important;
+  }
+  
+  code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  a {
+    color: #00838F;
+  }
+
+  .mdl-card__media,
+  #search-label,
+  #search-form-label:after,
+  #scheme-Paradox .hot_tags-count,
+  #scheme-Paradox .sidebar_archives-count,
+  #scheme-Paradox .sidebar-colored .sidebar-header,
+  #scheme-Paradox .sidebar-colored .sidebar-badge{
+    background-color: #8eb515 !important;
+  }
+
+  /* Sidebar User Drop Down Menu Text Color */
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus {
+    color: #8eb515 !important;
+  }
+
+  #post_entry-right-info,
+  .sidebar-colored .sidebar-nav li:hover > a,
+  .sidebar-colored .sidebar-nav li:hover > a i,
+  .sidebar-colored .sidebar-nav li > a:hover,
+  .sidebar-colored .sidebar-nav li > a:hover i,
+  .sidebar-colored .sidebar-nav li > a:focus i,
+  .sidebar-colored .sidebar-nav > .open > a,
+  .sidebar-colored .sidebar-nav > .open > a:hover,
+  .sidebar-colored .sidebar-nav > .open > a:focus,
+  #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a {
+    color: #8eb515 !important;
+  }
+
+  .toTop {
+    background: #66FFCC !important;
+  }
+
+  .material-layout .material-post>.material-nav,
+  .material-layout .material-index>.material-nav,
+  .material-nav a {
+    color: #66FFCC;
+  }
+
+  #scheme-Paradox .MD-burger-layer {
+    background-color: #66FFCC;
+  }
+
+  #scheme-Paradox #post-toc-trigger-btn {
+    color: #66FFCC;
+  }
+
+  .post-toc a:hover {
+    color: #00838F;
+    text-decoration: underline;
+  }
+
+</style>
+
+
+<!-- Theme Background Related-->
+
+    <style>
+      body{
+        background-image: url(https://i.loli.net/2018/07/14/5b49ef4ea363b.png);
+      }
+    </style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+      .fade {
+        transition: all 800ms linear;
+        -webkit-transform: translate3d(0,0,0);
+        -moz-transform: translate3d(0,0,0);
+        -ms-transform: translate3d(0,0,0);
+        -o-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+        opacity: 1;
+      }
+
+      .fade.out{
+        opacity: 0;
+      }
+    </style>
+
+
+<!-- Import Font -->
+<!-- Import Roboto -->
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+
+
+<!-- Import Material Icons -->
+
+
+    <style id="material_icons"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_icons","/css/material-icons.css?pqhB/Rd/ab0H2+kZp0RDmw==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+
+
+
+    <!-- Import jQuery -->
+    
+        <script>lsloader.load("jq_js","https://cdn.bootcss.com/jquery/2.2.1/jquery.js", true)</script>
+    
+
+    <!-- WebAPP Icons -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="K&#39;s House">
+    <meta name="msapplication-starturl" content="https://kabeor.github.io/Top/">
+    <meta name="msapplication-navbutton-color" content="#0097A7">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="K&#39;s House">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" href="/img/favicon.png">
+
+    <!-- Site Verification -->
+    <meta name="google-site-verification" content="Etqhw6dphuFVSwU2ZmblJOkL25LXRDWPJGSxC4cp3Ww">
+    
+
+    <!-- RSS -->
+    
+
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="https://kabeor.github.io/Top/">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="写在前面的话 | K&#39;s House">
+    <meta property="og:image" content="/img/favicon.png">
+    <meta property="og:description" content="Trust me,Lisa.">
+    
+
+    
+        <meta property="article:published_time" content="Fri May 18 2018 22:24:59 GMT+0800">
+        <meta property="article:modified_time" content="Thu Nov 22 2018 20:24:05 GMT+0800">
+    
+
+    <!-- The Twitter Card protocol -->
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Add canonical link for SEO -->
+    
+        <link rel="canonical" href="https://kabeor.github.io/Top/index.html">
+    
+
+    <!-- Structured-data for SEO -->
+    
+        
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": "https://kabeor.github.io/Top/index.html",
+    "headline": "写在前面的话",
+    "datePublished": "Fri May 18 2018 22:24:59 GMT+0800",
+    "dateModified": "Thu Nov 22 2018 20:24:05 GMT+0800",
+    "author": {
+        "@type": "Person",
+        "name": "kabeor",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/avatar.png"
+        },
+        "description": "We1C0me_t0_K's_House"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "K&#39;s House",
+        "logo": {
+            "@type":"ImageObject",
+            "url": "/img/favicon.png"
+        }
+    },
+    "keywords": "",
+    "description": "Trust me,Lisa.",
+}
+</script>
+
+
+    
+
+    <!-- Analytics -->
+    
+        <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-113413523-1', 'auto');ga('send', 'pageview');
+</script>
+    
+    
+        <script>
+    var _hmt = _hmt || [];
+    (function() {var hm = document.createElement('script');
+    hm.src = 'https://hm.baidu.com/hm.js?36fc4c782bfb2b103fe864229cd9ea5d';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+    
+    
+
+    <!-- Custom Head -->
+    
+
+</head>
+
+
+    
+        <body id="scheme-Paradox" class="lazy">
+            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+                
+
+                <!-- Main Container -->
+                <main class="material-layout__content" id="main">
+
+                    <!-- Top Anchor -->
+                    <div id="top"></div>
+
+                    
+                        <!-- Hamburger Button -->
+                        <button class="MD-burger-icon sidebar-toggle">
+                            <span class="MD-burger-layer"></span>
+                        </button>
+                    
+
+                    <!-- Post TOC -->
+
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+
+    <!-- Left aligned menu below button -->
+    
+    
+    <button id="post-toc-trigger-btn" class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#写在前面的话"><span class="post-toc-text">写在前面的话</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Issue"><span class="post-toc-text">Issue</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Begin"><span class="post-toc-text">Begin</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2018-11-22"><span class="post-toc-text">2018.11.22</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2018-10-18"><span class="post-toc-text">2018.10.18</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2018-9-23"><span class="post-toc-text">2018.9.23</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2018-9-4"><span class="post-toc-text">2018.9.4</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2018-9-2"><span class="post-toc-text">2018.9.2</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2018-8-30"><span class="post-toc-text">2018.8.30</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2018-8-3"><span class="post-toc-text">2018.8.3</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2018-7-19"><span class="post-toc-text">2018.7.19</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2018-7-10"><span class="post-toc-text">2018.7.10</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2018-7-5"><span class="post-toc-text">2018.7.5</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2018-6-23"><span class="post-toc-text">2018.6.23</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2018-6-20"><span class="post-toc-text">2018.6.20</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2018-6-15"><span class="post-toc-text">2018.6.15</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2018-6-14"><span class="post-toc-text">2018.6.14</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2018-6-13"><span class="post-toc-text">2018.6.13</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2018-6-12"><span class="post-toc-text">2018.6.12</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2018-6-11"><span class="post-toc-text">2018.6.11</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2018-6-10"><span class="post-toc-text">2018.6.10</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2018-6-9"><span class="post-toc-text">2018.6.9</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2018-6-8"><span class="post-toc-text">2018.6.8</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2018-6-6"><span class="post-toc-text">2018.6.6</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2018-6-2"><span class="post-toc-text">2018.6.2</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2018-5-25-27"><span class="post-toc-text">2018.5.25-27</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2018-5-24"><span class="post-toc-text">2018.5.24</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2018-5-23"><span class="post-toc-text">2018.5.23</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2018-5-22"><span class="post-toc-text">2018.5.22</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2018-5-21"><span class="post-toc-text">2018.5.21</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2018-5-20"><span class="post-toc-text">2018.5.20</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2018-5-19"><span class="post-toc-text">2018.5.19</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2018-5-18"><span class="post-toc-text">2018.5.18</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1-打造个性超赞博客Hexo-NexT-GithubPages的超深度优化"><span class="post-toc-text">1.打造个性超赞博客Hexo+NexT+GithubPages的超深度优化</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2-一个假装是死循环的有限循环"><span class="post-toc-text">2.一个假装是死循环的有限循环</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#3-IDA-技巧-处理动态导入"><span class="post-toc-text">3.IDA 技巧-处理动态导入</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#4-逆向-Path-of-Exile-游戏系列"><span class="post-toc-text">4.逆向 Path of Exile 游戏系列</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#5-Adobe-Acrobat-Reader-DC-远程代码执行漏洞详情披露-CVE-2018-4996、CVE-2018-4947"><span class="post-toc-text">5.Adobe Acrobat Reader DC 远程代码执行漏洞详情披露(CVE-2018-4996、CVE-2018-4947)</span></a></li></ol></li></ol></li></ol></li></ol>
+    </ul>
+    
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
+    
+        <!-- Custom Thumbnail -->
+        <div class="post_thumbnail-custom mdl-card__media mdl-color-text--grey-50" style="background-image:url(https://i.loli.net/2018/07/16/5b4c6341ac665.png)">
+    
+            <p class="article-headline-p">
+                写在前面的话
+            </p>
+        </div>
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar">
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>kabeor</strong>
+        <span>5月 18, 2018</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+
+    <!-- Share -->
+    
+        <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+        
+            <!-- Busuanzi Views -->
+            <a class="post_share-link" href="#">
+                <li class="mdl-menu__item">
+                    <span id="busuanzi_container_page_pv">
+                        <span id="busuanzi_value_page_pv"></span>&nbsp;浏览量
+                    </span>
+                </li>
+            </a>
+        
+    
+
+    <!-- Share Weibo -->
+    
+
+    <!-- Share Twitter -->
+    
+
+    <!-- Share Facebook -->
+    
+
+    <!-- Share Google+ -->
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+    
+</div>
+                
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <h1 id="写在前面的话"><a href="#写在前面的话" class="headerlink" title="写在前面的话"></a>写在前面的话</h1><p>一直想要写这个了，每天记录，每周上传吧，把每天有意思的事物写下来</p>
+<h2 id="Issue"><a href="#Issue" class="headerlink" title="Issue"></a>Issue</h2><p>先解答一些包括我也很崩溃的问题</p>
+<ol>
+<li>博客为什么加载这么慢，163为什么加载资源失败<blockquote>
+<p>首先我的博客是多图流，图片都是高清或是4K的，我尽量把图片都压缩到500k以下了，js也优化过，是真的尽力了啊。。<br>我侧边栏加了一个网易云音乐的js，如果提示资源加载失败的话，请把代理关了，或者如果不想听歌的话不用管它也行，直接确认好了。<br>大二了，还是买不起cdn，求大佬赞助2333(偷偷放链接 <a href="http://t.cn/R3YA9gO" target="_blank" rel="noopener">http://t.cn/R3YA9gO</a>)<br>然后其他理由想起来再补充</p>
+</blockquote>
+</li>
+<li>待补充，欢迎提问</li>
+</ol>
+<hr>
+<h2 id="Begin"><a href="#Begin" class="headerlink" title="Begin"></a>Begin</h2><h3 id="2018-11-22"><a href="#2018-11-22" class="headerlink" title="2018.11.22"></a>2018.11.22</h3><p>马上考试了，有点忙，最近估计更的要慢一点了<br>上星期的校赛打了AWD，既当主办方又当比赛成员，还好抱大腿拿了第一2333</p>
+<h3 id="2018-10-18"><a href="#2018-10-18" class="headerlink" title="2018.10.18"></a>2018.10.18</h3><p>国庆假期回来就一直很忙，实验报告好多。。。</p>
+<p><strong>Pin-in-CTF 学习整理记录</strong><br><a href="https://mp.weixin.qq.com/s/ch-WYgkpg5iDcppOPzCpRQ" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/ch-WYgkpg5iDcppOPzCpRQ</a></p>
+<p><strong>Fuzzing技术总结与工具列表 </strong><br><a href="https://zhuanlan.zhihu.com/p/43432370" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/43432370</a></p>
+<p><strong>用于检测 Windows PE 文件保护机制开启情况的工具 Winchecksec</strong><br><a href="https://blog.trailofbits.com/2018/09/26/effortless-security-feature-detection-with-winchecksec/" target="_blank" rel="noopener">https://blog.trailofbits.com/2018/09/26/effortless-security-feature-detection-with-winchecksec/</a></p>
+<p><strong>使用树莓派搭建拦截广告的 DNS 服务器 Pi-hole</strong><br><a href="https://www.troyhunt.com/mmm-pi-hole/" target="_blank" rel="noopener">https://www.troyhunt.com/mmm-pi-hole/</a></p>
+<p><strong>使用 Powershell 查看无线网络配置的密码</strong><br><a href="https://blogs.technet.microsoft.com/heyscriptingguy/2017/01/13/view-passwords-of-wireless-profiles-without-using-netsh-exe/" target="_blank" rel="noopener">https://blogs.technet.microsoft.com/heyscriptingguy/2017/01/13/view-passwords-of-wireless-profiles-without-using-netsh-exe/</a></p>
+<p><strong>Modernizing IDA Pro: how to make processor module glitches go away</strong><br><a href="http://blog.ptsecurity.com/2018/10/modernizing-ida-pro-how-to-make.html" target="_blank" rel="noopener">http://blog.ptsecurity.com/2018/10/modernizing-ida-pro-how-to-make.html</a></p>
+<h3 id="2018-9-23"><a href="#2018-9-23" class="headerlink" title="2018.9.23"></a>2018.9.23</h3><p><strong>DLL 劫持原理</strong><br><a href="https://astr0baby.wordpress.com/2018/09/08/understanding-how-dll-hijacking-works/" target="_blank" rel="noopener">https://astr0baby.wordpress.com/2018/09/08/understanding-how-dll-hijacking-works/</a></p>
+<p><strong>使用 Ubuntu 进行 x86-64 汇编语言编程(PDF)</strong><br><a href="http://www.egr.unlv.edu/~ed/assembly64.pdf" target="_blank" rel="noopener">http://www.egr.unlv.edu/~ed/assembly64.pdf</a></p>
+<h3 id="2018-9-4"><a href="#2018-9-4" class="headerlink" title="2018.9.4"></a>2018.9.4</h3><p><strong>符号执行——从入门到上高速</strong><br><a href="https://www.anquanke.com/post/id/157928" target="_blank" rel="noopener">https://www.anquanke.com/post/id/157928</a></p>
+<p><strong>Python恶意软件分析入门</strong><br><a href="https://xz.aliyun.com/t/2688" target="_blank" rel="noopener">https://xz.aliyun.com/t/2688</a></p>
+<p><strong>botnets - 僵尸网络恶意软件源码收集仓库</strong><br><a href="https://github.com/maestron/botnets" target="_blank" rel="noopener">https://github.com/maestron/botnets</a></p>
+<h3 id="2018-9-2"><a href="#2018-9-2" class="headerlink" title="2018.9.2"></a>2018.9.2</h3><p><strong>基于深度学习的恶意样本行为检测（含源码）</strong><br><a href="https://www.anquanke.com/post/id/158320" target="_blank" rel="noopener">https://www.anquanke.com/post/id/158320</a></p>
+<p><strong>逆向分析自定义格式加载的恶意软件：Hidden Bee</strong><br><a href="https://blog.malwarebytes.com/threat-analysis/2018/08/reversing-malware-in-a-custom-format-hidden-bee-elements/" target="_blank" rel="noopener">https://blog.malwarebytes.com/threat-analysis/2018/08/reversing-malware-in-a-custom-format-hidden-bee-elements/</a></p>
+<h3 id="2018-8-30"><a href="#2018-8-30" class="headerlink" title="2018.8.30"></a>2018.8.30</h3><p>开学很忙，一直没顾上更</p>
+<p><strong>Web渗透测试笔记</strong><br><a href="https://xz.aliyun.com/t/2516" target="_blank" rel="noopener">https://xz.aliyun.com/t/2516</a></p>
+<p><strong>逆向相关的wiki分享</strong><br><a href="https://lichao890427.github.io/wiki/" target="_blank" rel="noopener">https://lichao890427.github.io/wiki/</a></p>
+<p><strong>机器学习的数学基础</strong><br><a href="https://mp.weixin.qq.com/s/Cm-DNNLMqgcp_DJqUeM-Tw" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/Cm-DNNLMqgcp_DJqUeM-Tw</a></p>
+<p><strong>Windows下反反调试技术汇总</strong><br><a href="http://www.freebuf.com/articles/others-articles/181085.html" target="_blank" rel="noopener">http://www.freebuf.com/articles/others-articles/181085.html</a></p>
+<p><strong>A huge list of tools for CTF / Bug Bounties. </strong><br><a href="https://bitvijays.github.io/LFC-VulnerableMachines.html" target="_blank" rel="noopener">https://bitvijays.github.io/LFC-VulnerableMachines.html</a></p>
+<p><strong>CS:GO 远程代码执行 0-day - Real World CTF 资格赛 2018 解题报告</strong><br><a href="https://blog.perfect.blue/P90_Rush_B" target="_blank" rel="noopener">https://blog.perfect.blue/P90_Rush_B</a></p>
+<p><strong>在 Linux 上模拟 macOS 的工具</strong><br><a href="https://github.com/darlinghq/darling" target="_blank" rel="noopener">https://github.com/darlinghq/darling</a></p>
+<p><strong>逆向工程框架 - Miasm2，作者通过 IR 实现了符号执行，虚拟机对抗和shellcode 模拟执行等功能，来自 BlackHat USA 2018</strong><br><a href="http://i.blackhat.com/us-18/Wed-August-8/us-18-DesclauxMougey-Miasm-Reverse-Engineering-Framework.pdf" target="_blank" rel="noopener">http://i.blackhat.com/us-18/Wed-August-8/us-18-DesclauxMougey-Miasm-Reverse-Engineering-Framework.pdf</a></p>
+<p><strong>Runbooks - 各个方向的安全技术收集</strong><br><a href="https://github.com/sneakerhax/Runbooks" target="_blank" rel="noopener">https://github.com/sneakerhax/Runbooks</a></p>
+<p><strong>逆向一个密码保护的反向shell代码</strong><br><a href="https://scriptdotsh.com/index.php/2018/07/26/ground-zero-part-1-2-reverse-engineering-password-protected-reverse-shells-linux-x64/" target="_blank" rel="noopener">https://scriptdotsh.com/index.php/2018/07/26/ground-zero-part-1-2-reverse-engineering-password-protected-reverse-shells-linux-x64/</a> </p>
+<p><strong>逆向一个windows下的crackme</strong><br><a href="https://scriptdotsh.com/index.php/2018/06/09/ground-zero-part-2-3-reverse-engineering-building-cracked-binaries-windows-x64/" target="_blank" rel="noopener">https://scriptdotsh.com/index.php/2018/06/09/ground-zero-part-2-3-reverse-engineering-building-cracked-binaries-windows-x64/</a> </p>
+<p><strong>使用 r2 进行 arm64 架构二进制文件的 patch</strong><br><a href="https://scriptdotsh.com/index.php/2018/08/13/reverse-engineering-patching-binaries-with-radare2-arm-aarch64/" target="_blank" rel="noopener">https://scriptdotsh.com/index.php/2018/08/13/reverse-engineering-patching-binaries-with-radare2-arm-aarch64/</a></p>
+<p><strong>blackeye - 整合了32个网站模板的钓鱼工具</strong><br><a href="https://github.com/thelinuxchoice/blackeye" target="_blank" rel="noopener">https://github.com/thelinuxchoice/blackeye</a></p>
+<p><strong>用 IDAPython 解密 Gootkit 中的字符串</strong><br><a href="http://johnpeng47.com/2018/08/14/decrypting-strings-in-the-gootkit-with-idapython/" target="_blank" rel="noopener">http://johnpeng47.com/2018/08/14/decrypting-strings-in-the-gootkit-with-idapython/</a></p>
+<p><strong>使用 Radare2 模拟解密函数</strong><br><a href="http://www.mien.in/2018/08/14/emulating-decryption-function-with-radare2/" target="_blank" rel="noopener">http://www.mien.in/2018/08/14/emulating-decryption-function-with-radare2/</a></p>
+<h3 id="2018-8-3"><a href="#2018-8-3" class="headerlink" title="2018.8.3"></a>2018.8.3</h3><p><strong>CTF中常见的RSA相关问题总结</strong><br><a href="https://xz.aliyun.com/t/2446" target="_blank" rel="noopener">https://xz.aliyun.com/t/2446</a></p>
+<p><strong>x86_64逆向工程简介</strong><br><a href="https://xz.aliyun.com/t/2487" target="_blank" rel="noopener">https://xz.aliyun.com/t/2487</a></p>
+<p><strong>x86 汇编字符串指令总结</strong><br><a href="https://medium.com/@ophirharpaz/a-summary-of-x86-string-instructions-87566a28c20c" target="_blank" rel="noopener">https://medium.com/@ophirharpaz/a-summary-of-x86-string-instructions-87566a28c20c</a></p>
+<p><strong>动态二进制插桩的原理和基本实现</strong><br><a href="http://deniable.org/reversing/binary-instrumentation" target="_blank" rel="noopener">http://deniable.org/reversing/binary-instrumentation</a></p>
+<p><strong>seeker - 获取高精度地理信息和设备信息的工具</strong><br><a href="https://github.com/thewhiteh4t/seeker" target="_blank" rel="noopener">https://github.com/thewhiteh4t/seeker</a></p>
+<p><strong>现代二进制漏洞利用课程，由Rensselaer Polytechnic Institute的 RPISEC团队开发制作</strong><br><a href="http://security.cs.rpi.edu/courses/binexp-spring2015/" target="_blank" rel="noopener">http://security.cs.rpi.edu/courses/binexp-spring2015/</a></p>
+<p><strong>使用树莓派制作一个迷你的 wifi 攻击器</strong><br><a href="https://www.evilsocket.net/2018/07/28/Project-PITA-Writeup-build-a-mini-mass-deauther-using-bettercap-and-a-Raspberry-Pi-Zero-W/" target="_blank" rel="noopener">https://www.evilsocket.net/2018/07/28/Project-PITA-Writeup-build-a-mini-mass-deauther-using-bettercap-and-a-Raspberry-Pi-Zero-W/</a></p>
+<h3 id="2018-7-19"><a href="#2018-7-19" class="headerlink" title="2018.7.19"></a>2018.7.19</h3><p>练车真的很烦。。。<br><strong>cutter: A Qt and C++ GUI for radare2 reverse engineering framework</strong><br><a href="https://github.com/radareorg/cutter" target="_blank" rel="noopener">https://github.com/radareorg/cutter</a></p>
+<p><strong>PassphraseGen - 用于生成自定义密码短语列表的脚本，方便使用 hashcat 进行密码破解</strong><br><a href="https://github.com/dafthack/PassphraseGen" target="_blank" rel="noopener">https://github.com/dafthack/PassphraseGen</a></p>
+<p><strong>ISSISP 18 符号执行与模糊测试</strong><br><a href="https://cs.anu.edu.au/cybersec/issisp2018/assets/slides/AbhikISSISPMon.pdf" target="_blank" rel="noopener">https://cs.anu.edu.au/cybersec/issisp2018/assets/slides/AbhikISSISPMon.pdf</a></p>
+<p><strong>ISSISP 18 基于符号执行的自动程序修复</strong><br><a href="https://cs.anu.edu.au/cybersec/issisp2018/assets/slides/AbhikISSISPWed.pdf" target="_blank" rel="noopener">https://cs.anu.edu.au/cybersec/issisp2018/assets/slides/AbhikISSISPWed.pdf</a></p>
+<p><strong>Pwn Adventure 3</strong><br><a href="http://pwnadventure.com/" target="_blank" rel="noopener">http://pwnadventure.com/</a></p>
+<p><strong>通过 Pwn Adventure 3 游戏学习 FRIDA</strong><br><a href="https://x-c3ll.github.io/posts/Frida-Pwn-Adventure-3/" target="_blank" rel="noopener">https://x-c3ll.github.io/posts/Frida-Pwn-Adventure-3/</a></p>
+<p><strong>针对 Raspberry Pi 的内核研究</strong><br><a href="http://blog.k3170makan.com/2018/07/reversing-bare-bones-raspberry-pi.html" target="_blank" rel="noopener">http://blog.k3170makan.com/2018/07/reversing-bare-bones-raspberry-pi.html</a></p>
+<p><strong>如何使用 IDAPython 寻找漏洞</strong><br><a href="https://www.somersetrecon.com/blog/2018/7/6/introduction-to-idapython-for-vulnerability-hunting" target="_blank" rel="noopener">https://www.somersetrecon.com/blog/2018/7/6/introduction-to-idapython-for-vulnerability-hunting</a></p>
+<p><strong>killerbee - 攻击 ZigBee 以及 IEEE 802.15.4 网络的工具集</strong><br><a href="https://github.com/riverloopsec/killerbee" target="_blank" rel="noopener">https://github.com/riverloopsec/killerbee</a></p>
+<p><strong>ropgenerator - 帮助构造 ROP 链的工具</strong><br><a href="https://github.com/Boyan-MILANOV/ropgenerator" target="_blank" rel="noopener">https://github.com/Boyan-MILANOV/ropgenerator</a></p>
+<p><strong>Bypass Data Execution Protection绕过方法介绍</strong><br><a href="https://movaxbx.ru/2018/07/16/bypass-data-execution-protection-dep/" target="_blank" rel="noopener">https://movaxbx.ru/2018/07/16/bypass-data-execution-protection-dep/</a></p>
+<p><strong>METASPLOIT TUTORIALS</strong><br><a href="https://www.hackingtutorials.org/category/metasploit-tutorials/" target="_blank" rel="noopener">https://www.hackingtutorials.org/category/metasploit-tutorials/</a></p>
+<p><strong>mcsema - 一款二进制转换工具，可将机器码转换为LLVM中间代码，并提供了 IDA 和binninja 的接口脚本</strong><br><a href="https://github.com/trailofbits/mcsema" target="_blank" rel="noopener">https://github.com/trailofbits/mcsema</a></p>
+<p><strong>Review:Offensive Security Certified Professional (OSCP)</strong><br><a href="https://www.hackingtutorials.org/hacking-courses/offensive-security-certified-professional-oscp/" target="_blank" rel="noopener">https://www.hackingtutorials.org/hacking-courses/offensive-security-certified-professional-oscp/</a></p>
+<p><strong>如何开始逆向学习与病毒分析</strong><br><a href="https://hshrzd.wordpress.com/how-to-start/" target="_blank" rel="noopener">https://hshrzd.wordpress.com/how-to-start/</a></p>
+<p><strong>对 PE 文件签名的深入研究</strong><br><a href="http://research32.blogspot.com/2016/03/pe-file-signing.html" target="_blank" rel="noopener">http://research32.blogspot.com/2016/03/pe-file-signing.html</a></p>
+<h3 id="2018-7-10"><a href="#2018-7-10" class="headerlink" title="2018.7.10"></a>2018.7.10</h3><p><strong>GBA 游戏机自定义固件的源码</strong><br><a href="https://github.com/ez-flash/omega-kernel" target="_blank" rel="noopener">https://github.com/ez-flash/omega-kernel</a></p>
+<p><strong>warberry - 为树莓派设计的渗透测试工具包</strong><br><a href="https://github.com/secgroundzero/warberry" target="_blank" rel="noopener">https://github.com/secgroundzero/warberry</a></p>
+<p><strong>使用 r2pipe 协助逆向分析</strong><br><a href="https://goggleheadedhacker.com/blog/post/8" target="_blank" rel="noopener">https://goggleheadedhacker.com/blog/post/8</a></p>
+<p><strong>hawkeye - 从文件系统中搜索敏感文件的工具</strong><br><a href="https://github.com/Ice3man543/hawkeye" target="_blank" rel="noopener">https://github.com/Ice3man543/hawkeye</a></p>
+<p><strong>trackerjacker-无线网络追踪工具</strong><br><a href="https://github.com/calebmadrigal/trackerjacker" target="_blank" rel="noopener">https://github.com/calebmadrigal/trackerjacker</a></p>
+<p><strong>weixin:// 跳转研究</strong><br><a href="http://t.cn/Rdpmd8L" target="_blank" rel="noopener">http://t.cn/Rdpmd8L</a></p>
+<p><strong>collection-document:优质安全文章收藏,长期更新</strong><br><a href="https://github.com/tom0li/collection-document" target="_blank" rel="noopener">https://github.com/tom0li/collection-document</a></p>
+<p><strong>IDA Pro plugin to make functions tree view</strong><br><a href="https://github.com/ax330d/functions-plus" target="_blank" rel="noopener">https://github.com/ax330d/functions-plus</a></p>
+<h3 id="2018-7-5"><a href="#2018-7-5" class="headerlink" title="2018.7.5"></a>2018.7.5</h3><p>今天参加了2018工业信息安全技能大赛，实际的分析了一次工业固件，感觉难度很大，之前也没有接触过工控安全，还是挺有趣的，参赛选手大多是掉光头发的中年man。。。</p>
+<p><strong>The Return of Disassembly Desynchronization</strong><br><a href="https://github.com/yellowbyte/analysis-of-anti-analysis/blob/master/research/the_return_of_disassembly_desynchronization/the_return_of_disassembly_desynchronization.md" target="_blank" rel="noopener">https://github.com/yellowbyte/analysis-of-anti-analysis/blob/master/research/the_return_of_disassembly_desynchronization/the_return_of_disassembly_desynchronization.md</a></p>
+<p><strong>Zeratool - 自动化生成漏洞利用并寻找 Flag 的 CTF 比赛工具</strong><br><a href="https://github.com/ChrisTheCoolHut/Zeratool" target="_blank" rel="noopener">https://github.com/ChrisTheCoolHut/Zeratool</a></p>
+<p><strong>Detecting Reverse Engineering with Canaries</strong><br><a href="https://mulliner.org/collin/publications/Detecting_Reverse_Engineering_with_Canaries_CanSecWest2018.pdf" target="_blank" rel="noopener">https://mulliner.org/collin/publications/Detecting_Reverse_Engineering_with_Canaries_CanSecWest2018.pdf</a></p>
+<p><strong>10 Cool Nmap Tricks and Techniques</strong><br><a href="https://blog.urfix.com/10-cool-nmap-tricks-techniques/" target="_blank" rel="noopener">https://blog.urfix.com/10-cool-nmap-tricks-techniques/</a></p>
+<p><strong>基于 QEMU 的逆向分析沙箱 PyREBox</strong><br><a href="https://github.com/Cisco-Talos/pyrebox/tree/master/exploit_detect" target="_blank" rel="noopener">https://github.com/Cisco-Talos/pyrebox/tree/master/exploit_detect</a></p>
+<p><strong>针对 ELF 文件格式的解析与利用</strong><br><a href="https://0x00sec.org/t/dissecting-and-exploiting-elf-files/7267" target="_blank" rel="noopener">https://0x00sec.org/t/dissecting-and-exploiting-elf-files/7267</a></p>
+<p><strong>使用 IDA Python 进行相似漏洞搜索</strong><br><a href="https://www.zerodayinitiative.com/blog/2018/6/26/mindshare-variant-hunting-with-ida-python" target="_blank" rel="noopener">https://www.zerodayinitiative.com/blog/2018/6/26/mindshare-variant-hunting-with-ida-python</a></p>
+<p><strong>The 101 of ELF files on Linux</strong><br><a href="https://linux-audit.com/elf-binaries-on-linux-understanding-and-analysis/" target="_blank" rel="noopener">https://linux-audit.com/elf-binaries-on-linux-understanding-and-analysis/</a></p>
+<p><strong>初学者的逆向工程学习网站</strong><br><a href="https://begin.re" target="_blank" rel="noopener">https://begin.re</a></p>
+<p><strong>rogue - 无线网络攻击工具包</strong><br><a href="https://github.com/InfamousSYN/rogue" target="_blank" rel="noopener">https://github.com/InfamousSYN/rogue</a></p>
+<p><strong>反调试及绕过</strong><br><a href="http://jmpews.github.io/2017/08/09/darwin/%E5%8F%8D%E8%B0%83%E8%AF%95%E5%8F%8A%E7%BB%95%E8%BF%87/" target="_blank" rel="noopener">http://jmpews.github.io/2017/08/09/darwin/%E5%8F%8D%E8%B0%83%E8%AF%95%E5%8F%8A%E7%BB%95%E8%BF%87/</a></p>
+<p><strong>基于CTF挑战写就的二进制分析课程</strong>(很棒！)<br><a href="https://maxkersten.nl/binary-analysis-course/" target="_blank" rel="noopener">https://maxkersten.nl/binary-analysis-course/</a></p>
+<p><strong>Intro to x86 Assembly Language</strong><br>视频:  <a href="https://www.youtube.com/playlist?list=PLmxT2pVYo5LB5EzTPZGfFN0c2GDiSXgQe" target="_blank" rel="noopener">https://www.youtube.com/playlist?list=PLmxT2pVYo5LB5EzTPZGfFN0c2GDiSXgQe</a><br>代码:  <a href="https://github.com/code-tutorials/assembly-intro" target="_blank" rel="noopener">https://github.com/code-tutorials/assembly-intro</a></p>
+<p><strong>awesome-ninja-admins</strong><br><a href="https://github.com/trimstray/awesome-ninja-admins" target="_blank" rel="noopener">https://github.com/trimstray/awesome-ninja-admins</a></p>
+<p><strong>信息安全知识库 2018全站离线打包</strong><br><a href="https://pan.baidu.com/s/1gf4Brb1#list/path=%2F" target="_blank" rel="noopener">https://pan.baidu.com/s/1gf4Brb1#list/path=%2F</a></p>
+<p><strong>Docker概念详细的介绍</strong><br><a href="https://mp.weixin.qq.com/s?__biz=MzU4NDQ4MzU5OA==&amp;mid=2247484127&amp;idx=1&amp;sn=70ee95619ec761da884c4f9af3e83194&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">https://mp.weixin.qq.com/s?__biz=MzU4NDQ4MzU5OA==&amp;mid=2247484127&amp;idx=1&amp;sn=70ee95619ec761da884c4f9af3e83194&amp;scene=21#wechat_redirect</a></p>
+<p><strong>ip2region:ip地址定位库，0.0x毫秒级查询，数据库文件大小只有1.5M</strong><br><a href="http://t.cn/Rt9u3Ef" target="_blank" rel="noopener">http://t.cn/Rt9u3Ef</a></p>
+<h3 id="2018-6-23"><a href="#2018-6-23" class="headerlink" title="2018.6.23"></a>2018.6.23</h3><p><strong>针对恶意软件逆向工程的新手引导大挑战</strong><br><a href="https://www.malwaretech.com/beginner-malware-reversing-challenges" target="_blank" rel="noopener">https://www.malwaretech.com/beginner-malware-reversing-challenges</a></p>
+<p><strong>Hook原理</strong><br><a href="https://bbs.pediy.com/thread-228669.htm" target="_blank" rel="noopener">https://bbs.pediy.com/thread-228669.htm</a></p>
+<p><strong>用Python任意下载爱奇艺VIP视频</strong><br><a href="https://www.77169.com/html/211389.html" target="_blank" rel="noopener">https://www.77169.com/html/211389.html</a></p>
+<h3 id="2018-6-20"><a href="#2018-6-20" class="headerlink" title="2018.6.20"></a>2018.6.20</h3><p>放假快乐！</p>
+<p><strong>使用Radare2和Cutter解密APT33的Dropshot恶意软件</strong><br><a href="https://www.megabeets.net/decrypting-dropshot-with-radare2-and-cutter-part-1/" target="_blank" rel="noopener">https://www.megabeets.net/decrypting-dropshot-with-radare2-and-cutter-part-1/</a></p>
+<p><strong>A journey into Radare2</strong><br><a href="https://github.com/ITAYC0HEN/A-journey-into-Radare2/" target="_blank" rel="noopener">https://github.com/ITAYC0HEN/A-journey-into-Radare2/</a></p>
+<p><strong>逆向工程的发展过程回顾与展望，来自 SSTIC 2018 Halvar Flake</strong><br><a href="https://docs.google.com/presentation/d/1ljVUiXVi2PfEdolGXr7Wpepj0x2RxaOo9rzMKWXebG4/mobilepresent?slide=id.p" target="_blank" rel="noopener">https://docs.google.com/presentation/d/1ljVUiXVi2PfEdolGXr7Wpepj0x2RxaOo9rzMKWXebG4/mobilepresent?slide=id.p</a></p>
+<p><strong>x86 assembly doesn’t have to be scary (interactive)</strong><br><a href="https://blog.benjojo.co.uk/post/interactive-x86-bootloader-tutorial" target="_blank" rel="noopener">https://blog.benjojo.co.uk/post/interactive-x86-bootloader-tutorial</a></p>
+<p><strong>Penetration-Testing - 渗透测试方向优秀资源收集</strong><br><a href="https://github.com/Kinimiwar/Penetration-Testing" target="_blank" rel="noopener">https://github.com/Kinimiwar/Penetration-Testing</a></p>
+<p><strong>Reverse-engineered Diablo source code </strong><br><a href="https://github.com/galaxyhaxz/devilution" target="_blank" rel="noopener">https://github.com/galaxyhaxz/devilution</a></p>
+<h3 id="2018-6-15"><a href="#2018-6-15" class="headerlink" title="2018.6.15"></a>2018.6.15</h3><p><strong>使用 ptrace 进行反调试并实现对 ptrace 的隐藏调用</strong><br><a href="https://github.com/yellowbyte/analysis-of-anti-analysis/blob/master/research/hiding_call_to_ptrace/hiding_call_to_ptrace.md" target="_blank" rel="noopener">https://github.com/yellowbyte/analysis-of-anti-analysis/blob/master/research/hiding_call_to_ptrace/hiding_call_to_ptrace.md</a></p>
+<p><strong>如何在网络安全领域获得职业的成功：信息安全入门，学习，练习和成长指南(Daniel Miessler)</strong><br><a href="https://danielmiessler.com/blog/build-successful-infosec-career/" target="_blank" rel="noopener">https://danielmiessler.com/blog/build-successful-infosec-career/</a></p>
+<p><strong>手查PE导出表</strong><br><a href="https://bbs.pediy.com/thread-205989.htm" target="_blank" rel="noopener">https://bbs.pediy.com/thread-205989.htm</a></p>
+<p><strong>手查PE重定向</strong><br><a href="https://bbs.pediy.com/thread-206072.htm" target="_blank" rel="noopener">https://bbs.pediy.com/thread-206072.htm</a></p>
+<h3 id="2018-6-14"><a href="#2018-6-14" class="headerlink" title="2018.6.14"></a>2018.6.14</h3><p><strong>深入解析虚拟化</strong><br><a href="https://saferwall.com/blog" target="_blank" rel="noopener">https://saferwall.com/blog</a></p>
+<h3 id="2018-6-13"><a href="#2018-6-13" class="headerlink" title="2018.6.13"></a>2018.6.13</h3><p><strong>栈溢出攻击原理实例详解</strong><br><a href="http://www.purpleroc.com/html/961247.html" target="_blank" rel="noopener">http://www.purpleroc.com/html/961247.html</a></p>
+<h3 id="2018-6-12"><a href="#2018-6-12" class="headerlink" title="2018.6.12"></a>2018.6.12</h3><p><strong>逆向基于 Unity 引擎的 Android 游戏 Temple Run（神庙逃亡）</strong><br><a href="https://www.rotlogix.com/blog/2018/6/10/reverse-engineering-android-unity-games-part-one" target="_blank" rel="noopener">https://www.rotlogix.com/blog/2018/6/10/reverse-engineering-android-unity-games-part-one</a></p>
+<h3 id="2018-6-11"><a href="#2018-6-11" class="headerlink" title="2018.6.11"></a>2018.6.11</h3><p><strong>C语言实现虚拟机</strong><br><a href="https://felixangell.com/blog/virtual-machine-in-c" target="_blank" rel="noopener">https://felixangell.com/blog/virtual-machine-in-c</a></p>
+<p><strong>C语言实现哈希表</strong><br><a href="https://github.com/jamesroutley/write-a-hash-table" target="_blank" rel="noopener">https://github.com/jamesroutley/write-a-hash-table</a></p>
+<h3 id="2018-6-10"><a href="#2018-6-10" class="headerlink" title="2018.6.10"></a>2018.6.10</h3><p><strong>FC机之超级玛丽简单逆向分析</strong><br><a href="https://bbs.pediy.com/thread-175564.htm" target="_blank" rel="noopener">https://bbs.pediy.com/thread-175564.htm</a></p>
+<h3 id="2018-6-9"><a href="#2018-6-9" class="headerlink" title="2018.6.9"></a>2018.6.9</h3><p><strong>全球气候可视化</strong><br><a href="https://earth.nullschool.net/" target="_blank" rel="noopener">https://earth.nullschool.net/</a></p>
+<p><strong>图片文字清除插件</strong><br><a href="https://projectnaptha.com/" target="_blank" rel="noopener">https://projectnaptha.com/</a></p>
+<p><strong>一个神奇的手绘公式网站</strong><br><a href="http://webdemo.myscript.com/" target="_blank" rel="noopener">http://webdemo.myscript.com/</a></p>
+<p><strong>电影台词检索网站(英文)</strong><br><a href="http://www.subzin.com/" target="_blank" rel="noopener">http://www.subzin.com/</a></p>
+<h3 id="2018-6-8"><a href="#2018-6-8" class="headerlink" title="2018.6.8"></a>2018.6.8</h3><p><strong>一本面向极客，致力于提高 Mac 工作效率的实用手册 </strong><br><a href="https://bestswifter.gitbook.io/effectivemac/" target="_blank" rel="noopener">https://bestswifter.gitbook.io/effectivemac/</a></p>
+<p><strong>raspberry-pi-os - 使用 Linux 内核和 Raspberry Pi 进行操作系统开发的学习指南</strong><br><a href="https://github.com/s-matyukevich/raspberry-pi-os" target="_blank" rel="noopener">https://github.com/s-matyukevich/raspberry-pi-os</a></p>
+<p><strong>虚拟机保护逆向入门</strong><br><a href="http://t.cn/RB7VCDU" target="_blank" rel="noopener">http://t.cn/RB7VCDU</a></p>
+<h3 id="2018-6-6"><a href="#2018-6-6" class="headerlink" title="2018.6.6"></a>2018.6.6</h3><p>最近忙于复习</p>
+<p><strong>符号执行引擎KLEE</strong><br><a href="http://klee.github.io/" target="_blank" rel="noopener">http://klee.github.io/</a></p>
+<p><a href="https://srg.doc.ic.ac.uk/klee18/schedule.html" target="_blank" rel="noopener">https://srg.doc.ic.ac.uk/klee18/schedule.html</a></p>
+<h3 id="2018-6-2"><a href="#2018-6-2" class="headerlink" title="2018.6.2"></a>2018.6.2</h3><p>复习了几天，今天考完几门，下下星期还得考高数，惆怅</p>
+<p><strong>漫画风讲解DNS over HTTPS</strong><br><a href="https://hacks.mozilla.org/2018/05/a-cartoon-intro-to-dns-over-https/" target="_blank" rel="noopener">https://hacks.mozilla.org/2018/05/a-cartoon-intro-to-dns-over-https/</a></p>
+<hr>
+<h3 id="2018-5-25-27"><a href="#2018-5-25-27" class="headerlink" title="2018.5.25-27"></a>2018.5.25-27</h3><p>这两天在大佬的带领下参加了川渝赛区的西普杯信息安全铁人三项赛<br>赛题分为数据赛，个人赛和企业赛<br>数据赛为数据流量分析，企业赛为渗透真实企业环境都算是web吧应该<br>个人赛是pwn！pwn！pwn！<br>于是盯了一天的pwn1，是道rop的题，pwn师傅肯定两分钟就做出来了。。作为re菜鸡只能现学现卖，先逆了遍流程(反正也不会pwn)，然后照着网上的资料，用ROPgadget( <a href="https://github.com/JonathanSalwan/ROPgadget" target="_blank" rel="noopener">https://github.com/JonathanSalwan/ROPgadget</a> )生成了rop利用链，然后copy一个exp，改一改，运行。最后因为经验不足，没有找到真正的溢出长度，于是就很遗憾了(还是因为太菜</p>
+<p>这次比赛给我感触很大，在实际的环境当中要懂的不仅仅是软件自身的保护，还应该了解网络以及软件对用户的保障。在信息安全竞赛中，也应该拓宽自己的知识面，才能灵活应对。</p>
+<p>就写这么多吧，还是挺开心的</p>
+<hr>
+<h3 id="2018-5-24"><a href="#2018-5-24" class="headerlink" title="2018.5.24"></a>2018.5.24</h3><p>Miasm的博客，研究<strong>动态符号执行</strong><br><a href="http://www.miasm.re/blog/index.html" target="_blank" rel="noopener">http://www.miasm.re/blog/index.html</a></p>
+<p><strong>The Legend of Random的系列教程</strong><br><a href="https://legend.octopuslabs.io/index.html" target="_blank" rel="noopener">https://legend.octopuslabs.io/index.html</a></p>
+<hr>
+<h3 id="2018-5-23"><a href="#2018-5-23" class="headerlink" title="2018.5.23"></a>2018.5.23</h3><p>今天做完了那天的题，写了wp</p>
+<p>Dwarf Fortress真的很有意思，找到一个很易懂的教程 <a href="https://df-walkthrough.readthedocs.io/en/latest/" target="_blank" rel="noopener">https://df-walkthrough.readthedocs.io/en/latest/</a></p>
+<p><strong>理解与分析 ELF 二进制文件格式</strong><br> <a href="https://linux-audit.com/elf-binaries-on-linux-understanding-and-analysis/" target="_blank" rel="noopener">https://linux-audit.com/elf-binaries-on-linux-understanding-and-analysis/</a></p>
+<p><strong>使用 IDA Pro 和 x64dbg 逆向分析 Gootkit 恶意软件</strong><br><a href="https://www.youtube.com/watch?v=242Tn0IL2jE" target="_blank" rel="noopener">https://www.youtube.com/watch?v=242Tn0IL2jE</a></p>
+<hr>
+<h3 id="2018-5-22"><a href="#2018-5-22" class="headerlink" title="2018.5.22"></a>2018.5.22</h3><p>看到一个<strong>IDA快捷键的总结</strong> <a href="https://github.com/bt3gl/My-Gray-Hacker-Resources/blob/master/Reverse_Engineering/IDA/IDA_Pro_Shortcuts.pdf" target="_blank" rel="noopener">https://github.com/bt3gl/My-Gray-Hacker-Resources/blob/master/Reverse_Engineering/IDA/IDA_Pro_Shortcuts.pdf</a></p>
+<p><strong>GDB基本命令</strong><br><a href="https://github.com/bt3gl/My-Gray-Hacker-Resources/blob/master/Reverse_Engineering/gdb/GDB%20Cheat%20Sheet.pdf" target="_blank" rel="noopener">https://github.com/bt3gl/My-Gray-Hacker-Resources/blob/master/Reverse_Engineering/gdb/GDB%20Cheat%20Sheet.pdf</a></p>
+<p><strong>CTF知识合集</strong><br><a href="https://github.com/zardus/ctf-tools" target="_blank" rel="noopener">https://github.com/zardus/ctf-tools</a></p>
+<p>一个著名的游戏<strong>Dwarf Fortress</strong><br><a href="http://www.bay12games.com/dwarves/index.html" target="_blank" rel="noopener">http://www.bay12games.com/dwarves/index.html</a></p>
+<hr>
+<h3 id="2018-5-21"><a href="#2018-5-21" class="headerlink" title="2018.5.21"></a>2018.5.21</h3><p>早上五点被热醒。。。学校半夜断电，开不了空调，差评<br>开电脑继续看昨天的题，进展很大，在让栈指针平衡后，IDA可以F5了，瞬间很好理解，但是算法太复杂了，学习了gdb动态调试，的确是非常强大的工具。</p>
+<p>还是没做出来，很难受<br>晚上看了一个很棒的CTF总结 <a href="https://firmianay.gitbooks.io/ctf-all-in-one/content/" target="_blank" rel="noopener">https://firmianay.gitbooks.io/ctf-all-in-one/content/</a></p>
+<hr>
+<h3 id="2018-5-20"><a href="#2018-5-20" class="headerlink" title="2018.5.20"></a>2018.5.20</h3><p>本来准备“好好学英语”，结果实验室来了场练习赛<br>逆向是一道Linux的，压缩包里给了一个二进制文件和一个名为“out”的文件，里面是几行十六进制之类的，总感觉这个题给的形式在哪儿见过，但是想不起来了。F5不能分析，看看图形化分析，算法很复杂，想用angr，但存在alarm函数，angr脚本运行不了，毫无思路，感觉最近很浮躁</p>
+<p>晚上边看英语边看RNG。。。</p>
+<hr>
+<h3 id="2018-5-19"><a href="#2018-5-19" class="headerlink" title="2018.5.19"></a>2018.5.19</h3><p>一整天又是实验课又是ACM比赛，晚上九点多才好好吃了顿饭。<br>打ACM太菜了，没算法没数据没脑洞，有几道题好不容易输出符合，还不给AC。。。还是滚回来看逆向好了(虽说也很菜)</p>
+<hr>
+<h3 id="2018-5-18"><a href="#2018-5-18" class="headerlink" title="2018.5.18"></a>2018.5.18</h3><p>今天就把前几天的也记上吧</p>
+<h4 id="1-打造个性超赞博客Hexo-NexT-GithubPages的超深度优化"><a href="#1-打造个性超赞博客Hexo-NexT-GithubPages的超深度优化" class="headerlink" title="1.打造个性超赞博客Hexo+NexT+GithubPages的超深度优化"></a>1.打造个性超赞博客Hexo+NexT+GithubPages的超深度优化</h4><p>这篇文章加里面的链接可以说是优化博客非常全的一篇文章了</p>
+<blockquote>
+<p><a href="https://reuixiy.github.io/technology/computer/computer-aided-art/2017/06/09/hexo-next-optimization.html" target="_blank" rel="noopener">https://reuixiy.github.io/technology/computer/computer-aided-art/2017/06/09/hexo-next-optimization.html</a></p>
+</blockquote>
+<h4 id="2-一个假装是死循环的有限循环"><a href="#2-一个假装是死循环的有限循环" class="headerlink" title="2.一个假装是死循环的有限循环"></a>2.一个假装是死循环的有限循环</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">for(int i=1; i&lt;0; i++)</span><br><span class="line">&#123;</span><br><span class="line">    cout &lt;&lt; &quot;我不是死循环&quot; &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>原理: 明天写。。。</p>
+<h4 id="3-IDA-技巧-处理动态导入"><a href="#3-IDA-技巧-处理动态导入" class="headerlink" title="3.IDA 技巧-处理动态导入"></a>3.IDA 技巧-处理动态导入</h4><blockquote>
+<p><a href="https://www.usualsuspect.re/article/ida-tricks-handling-dynamic-imports" target="_blank" rel="noopener">https://www.usualsuspect.re/article/ida-tricks-handling-dynamic-imports</a></p>
+</blockquote>
+<h4 id="4-逆向-Path-of-Exile-游戏系列"><a href="#4-逆向-Path-of-Exile-游戏系列" class="headerlink" title="4.逆向 Path of Exile 游戏系列"></a>4.逆向 Path of Exile 游戏系列</h4><blockquote>
+<p>Part 1： <a href="http://tbinarii.blogspot.in/2018/05/reverse-engineering-path-of-exile.html" target="_blank" rel="noopener">http://tbinarii.blogspot.in/2018/05/reverse-engineering-path-of-exile.html</a><br>Part 2： <a href="http://tbinarii.blogspot.in/2018/05/reverse-engineering-path-of-exile_0.html" target="_blank" rel="noopener">http://tbinarii.blogspot.in/2018/05/reverse-engineering-path-of-exile_0.html</a><br>Part 3：<a href="http://tbinarii.blogspot.in/2018/05/reverse-engineering-path-of-exile-game.html" target="_blank" rel="noopener">http://tbinarii.blogspot.in/2018/05/reverse-engineering-path-of-exile-game.html</a></p>
+</blockquote>
+<h4 id="5-Adobe-Acrobat-Reader-DC-远程代码执行漏洞详情披露-CVE-2018-4996、CVE-2018-4947"><a href="#5-Adobe-Acrobat-Reader-DC-远程代码执行漏洞详情披露-CVE-2018-4996、CVE-2018-4947" class="headerlink" title="5.Adobe Acrobat Reader DC 远程代码执行漏洞详情披露(CVE-2018-4996、CVE-2018-4947)"></a>5.Adobe Acrobat Reader DC 远程代码执行漏洞详情披露(CVE-2018-4996、CVE-2018-4947)</h4><blockquote>
+<p><a href="https://blog.talosintelligence.com/2018/05/multiple-acrobat-reader-vulns.html" target="_blank" rel="noopener">https://blog.talosintelligence.com/2018/05/multiple-acrobat-reader-vulns.html</a></p>
+</blockquote>
+<p>From <a href="https://kabeor.github.io/Top/">https://kabeor.github.io/Top/</a> bye</p>
+
+        
+                <blockquote style="margin: 2em 0 0;padding: 0.5em 1em;border-left: 3px solid #F44336;background-color: #F5F5F5;list-style: none;">
+                    <p><strong>
+                         
+                            This blog is under a <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0 Unported License</a>
+                        </strong>
+                        <br>
+                        <strong>本文链接：</strong><a href="https://kabeor.github.io/Top/">https://kabeor.github.io/Top/</a>
+                    </p>
+                </blockquote>
+        
+    
+
+    
+</div>
+
+                
+                <!-- Post Comments -->
+                
+                    
+    <div id="comment" style="padding:10px;" class="vcomment"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+    var GUEST_INFO = ['nick','mail','link'];
+    var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+        return GUEST_INFO.indexOf(item) > -1
+    });
+    var notify = 'true' == true;
+    var verify = 'true' == true;
+    new Valine({
+        el: '.vcomment',
+        notify: notify,
+        verify: verify,
+        appId: "53gELcU5PPzXKUh1q21E5Nkh-gzGzoHsz",
+        appKey: "pSNnuMbRDkWAE7j44yChrEce",
+        placeholder: "都看到这里了还不评论一下吗(╯‵□′)╯︵┻━┻",
+        pageSize:'10',
+        avatar:'identicon',
+        lang:'zh-cn'
+    });
+</script>
+
+                
+            </div>
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+        <a href="/RCTF2018 babyre WriteUp/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/DDCTF2018 Reverse writeup(1) baby_mips/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
+
+                    
+                        <!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay"></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored sidebar-fixed-left" role="navigation">
+    <div id="sidebar-main">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.png);">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+        <i class="material-icons">clear_all</i>
+        <span class="mdl-button__ripple-container">
+            <span class="mdl-ripple">
+            </span>
+        </span>
+    </button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="/img/avatar.png" alt="kabeor's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        Trust me,Lisa.
+        <b class="caret"></b>
+    </a>
+</div>
+
+
+        <!-- Sidebar Navigation  -->
+        <ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+            
+                <li>
+                    <a href="mailto:1597915586@qq.com" target="_blank" title="Email Me">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
+                        
+                        Email Me
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://github.com/kabeor" target="_blank" title="GitHub">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">code</i>
+                        
+                        GitHub
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    
+        <li id="sidebar-first-li">
+            <a href="/">
+                
+                    <i class="material-icons sidebar-material-icons">home</i>
+                
+                主页
+            </a>
+        </li>
+        
+    
+
+    <!-- Archives  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">inbox</i>
+                
+                    归档
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+            <li>
+                <a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/02/">二月 2018<span class="sidebar_archives-count">47</span></a>
+            </li></ul>
+        </li>
+        
+    
+
+    <!-- Categories  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">chrome_reader_mode</i>
+                
+                分类
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                <a class="sidebar_archives-link" href="/categories/Code/">Code<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/Linux/">Linux<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/Linux/Kali/">Kali<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/Linux/网络/">网络<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/NexT/">NexT<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/Web/">Web<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/Web/WriteUP/">WriteUP<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/Web/渗透/">渗透<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/Web/渗透/工具集/">工具集<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/blog搭建/">blog搭建<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/密码学和杂项/">密码学和杂项<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/树莓派/">树莓派<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/汇编/">汇编<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/汇编/漏洞银行逆向教程/">漏洞银行逆向教程<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/">病毒分析<span class="sidebar_archives-count">16</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/《恶意代码分析实战》笔记/">《恶意代码分析实战》笔记<span class="sidebar_archives-count">16</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/《恶意代码分析实战》笔记/第一篇-静态分析/">第一篇 静态分析<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/《恶意代码分析实战》笔记/第三篇-动态分析高级技术篇/">第三篇 动态分析高级技术篇<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/《恶意代码分析实战》笔记/第二篇-静态分析高级技术篇/">第二篇 静态分析高级技术篇<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/《恶意代码分析实战》笔记/第五篇-逆向工程/">第五篇 逆向工程<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/《恶意代码分析实战》笔记/第四篇-恶意代码功能篇/">第四篇 恶意代码功能篇<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/计算机系统/">计算机系统<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/计算机系统/PE/">PE<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/逆向/">逆向<span class="sidebar_archives-count">37</span></a></li><li><a class="sidebar_archives-link" href="/categories/逆向/i春秋/">i春秋<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/逆向/i春秋Reverse赛题/">i春秋Reverse赛题<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/categories/逆向/吾爱破解培训/">吾爱破解培训<span class="sidebar_archives-count">10</span></a>
+            </li></ul>
+        </li>
+        
+    
+
+    <!-- Pages  -->
+    
+        <li>
+            <a href="/about" title="关于">
+                
+                    <i class="material-icons sidebar-material-icons">person</i>
+                
+                关于
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/links" title="各位大佬(╯°□°）╯︵ ┻━┻">
+                
+                    <i class="material-icons sidebar-material-icons">link</i>
+                
+                各位大佬(╯°□°）╯︵ ┻━┻
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/timeline" title="时间轴">
+                
+                    <i class="material-icons sidebar-material-icons">timeline</i>
+                
+                时间轴
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/gallery" title="EVERSPACE(请等待加载哦)">
+                
+                    <i class="material-icons sidebar-material-icons">flight</i>
+                
+                EVERSPACE(请等待加载哦)
+            </a>
+        </li>
+        
+    
+
+    <!-- Article Number  -->
+    
+        <li>
+            <a href="/archives">
+                文章总数
+                <span class="sidebar-badge">89</span>
+            </a>
+        </li>
+        
+    
+</ul>
+
+
+    <div id="music163player">
+         <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="310" src="//music.163.com/outchain/player?type=0&id=2194265908&auto=0&height=430">
+         </iframe>
+    </div>
+
+        <!-- Sidebar Footer -->
+        <!--
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持和动力。 :)
+-->
+
+<!-- Sidebar Divider -->
+
+    <div class="sidebar-divider"></div>
+
+
+<!-- Theme Material -->
+
+    <a href="https://github.com/viosey/hexo-theme-material" class="sidebar-footer-text-a" target="_blank">
+        <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+            主题 - Material
+            <span class="sidebar-badge badge-circle">i</span>
+        </div>
+    </a>
+
+
+<!-- Help & Support -->
+<!--
+
+    <a href="mailto:hiviosey@gmail.com" class="sidebar-footer-text-a">
+        <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+        sidebar.help
+        <span class="mdl-button__ripple-container">
+          <span class="mdl-ripple"></span>
+        </span>
+      </div>
+    </a>
+
+-->
+
+<!-- Feedback -->
+<!--
+
+    <a href="https://github.com/viosey/hexo-theme-material/issues" target="_blank" class="sidebar-footer-text-a">
+        <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+        sidebar.feedback
+        <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></div>
+    </a>
+
+-->
+
+<!-- About Theme -->
+<!--
+
+    <a href="https://blog.viosey.com/index.php/Material.html" target="_blank" class="sidebar-footer-text-a">
+        <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+             sidebar.about_theme
+            <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></div>
+    </a>
+
+-->
+
+    </div>
+
+
+
+    <!-- Sidebar Image -->
+    
+
+</aside>
+
+                    
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+
+                    
+
+                    <!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+    
+        <!-- Paradox Footer Left Section -->
+        <div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+
+    <!-- Facebook -->
+    
+
+    <!-- Google + -->
+    
+
+    <!-- Weibo -->
+    
+
+    <!-- Instagram -->
+    
+
+    <!-- Tumblr -->
+    
+
+    <!-- Github -->
+    
+        <a href="https://github.com/kabeor" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-github">
+                <span class="visuallyhidden">Github</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- LinkedIn -->
+    
+
+    <!-- Zhihu -->
+    
+
+    <!-- Bilibili -->
+    
+
+    <!-- Telegram -->
+    
+    
+    <!-- V2EX -->
+    
+
+    <span class="post-count">全站共</span> 
+    148.3k 
+    <span>字</span>
+</div>
+
+
+        <!--Copyright-->
+        <div id="copyright">
+            Copyright&nbsp;©<script type="text/javascript">var fd = new Date();document.write("&nbsp;" + fd.getFullYear() + "&nbsp;");</script>K's House
+            
+                <br>
+                
+                    2018
+                
+            
+        </div>
+
+        <!-- Paradox Footer Right Section -->
+
+        <!--
+        I am glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+        It will not impact the appearance and can give developers a lot of support :)
+
+        很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+        它不会影响美观并可以给开发者很大的支持。 :)
+        -->
+
+        <div class="mdl-mini-footer--right-section">
+            <div>
+                <div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
+                <div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+            </div>
+        </div>
+    
+</footer>
+
+
+                    <!-- Import JS File -->
+
+    <script>lsloader.load("lazyload_js","/js/lazyload.min.js?wgjW/HuQG9JDgvPDPoRAng==", true)</script>
+
+
+
+    <script>lsloader.load("js_js","/js/js.min.js?V/53wGualMuiPM3xoetD5Q==", true)</script>
+
+
+
+    <script>lsloader.load("np_js","https://cdn.bootcss.com/nprogress/0.2.0/nprogress.js", true)</script>
+
+
+<script type="text/ls-javascript" id="NProgress-script">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    $('#nprogress .bar').css({
+        'background': '#FF1493'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #FF1493, 0 0 15px #FF1493'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#FF1493',
+        'border-left-color': '#FF1493'
+    });
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+    
+        <script>lsloader.load("sm_js","/js/smoothscroll.js?tNQK2Tw2SUL8a1Scn/Mgew==", true)</script>
+    
+
+
+
+
+
+    <!-- Busuanzi -->
+    <script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+   
+
+
+
+
+
+<!-- UC Browser Compatible -->
+<script>
+	var agent = navigator.userAgent.toLowerCase();
+	if(agent.indexOf('ucbrowser')>0) {
+		document.write('<link rel="stylesheet" href="/css/uc.css">');
+	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+	}
+</script>
+
+<!-- Import prettify js  -->
+
+    
+        
+            <script>lsloader.load("prettify_js","https://cdn.bootcss.com/prettify/r298/prettify.js", true)</script>
+        
+    
+
+
+
+<!-- Window Load -->
+<!-- add class for prettify -->
+<script type="text/ls-javascript" id="window-load">
+    $(window).on('load', function() {
+        // Post_Toc parent position fixed
+        $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
+    });
+
+    
+        
+            $(function() {
+                $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto;');
+                prettyPrint();
+                })
+        
+    
+    
+</script>
+
+<!-- MathJax Load-->
+
+
+<!-- Bing Background -->
+
+
+<script type="text/ls-javascript" id="lazy-load">
+    // Offer LazyLoad
+    queue.offer(function(){
+        $('.lazy').lazyload({
+            effect : 'show'
+        });
+    });
+
+    // Start Queue
+    $(document).ready(function(){
+        setInterval(function(){
+            queue.execNext();
+        },200);
+    });
+</script>
+
+<!-- Custom Footer -->
+
+
+
+<script>
+    (function(){
+        var scriptList = document.querySelectorAll('script[type="text/ls-javascript"]')
+
+        for (var i = 0; i < scriptList.length; ++i) {
+            var item = scriptList[i];
+            lsloader.runInlineScript(item.id,item.id);
+        }
+    })()
+console.log('\n %c © Material Theme | Version: 1.5.2 | https://github.com/viosey/hexo-theme-material %c \n', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-left-radius:5px;border-bottom-left-radius:5px;', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-right-radius:5px;border-bottom-right-radius:5px;');
+</script>
+
+                </main>
+            </div>
+        </body>
+    
+</html>

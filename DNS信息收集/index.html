@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html style="display: none;" lang="zh">
+    <head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <!--
+        © Material Theme
+        https://github.com/viosey/hexo-theme-material
+        Version: 1.5.2 -->
+    <script>
+        window.materialVersion = "1.5.2"
+        // Delete localstorage with these tags
+        window.oldVersion = [
+            'codestartv1',
+            '1.3.4',
+            '1.4.0',
+            '1.4.0b1',
+            '1.5.0'
+        ]
+    </script>
+
+    <!-- dns prefetch -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+
+
+    <link rel="dns-prefetch" href="https://cdn1.lncld.net">
+
+
+    <link rel="dns-prefetch" href="https://busuanzi.ibruce.info">
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Meta & Info -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!-- Title -->
+    
+    <title>
+        
+            DNS信息收集 | 
+        
+        K&#39;s House
+    </title>
+
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/img/favicon.png">
+    <link rel="icon" href="/img/favicon.png">
+
+    <meta name="format-detection" content="telephone=no">
+    <meta name="description" itemprop="description" content="Trust me,Lisa.">
+    <meta name="keywords" content=",Kali,Linux">
+    <meta name="theme-color" content="#0097A7">
+
+    <!-- Disable Fucking Bloody Baidu Tranformation -->
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+
+    <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+
+        
+            <script src="/js/ie-blocker.zhCN.js"></script>
+        
+    <![endif]-->
+
+    <!-- Import lsloader -->
+    <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(a){try{localStorage.removeItem(a)}catch(b){}};lsloader.setLS=function(a,c){try{localStorage.setItem(a,c)}catch(b){}};lsloader.getLS=function(a){var c="";try{c=localStorage.getItem(a)}catch(b){c=""}return c};versionString="/*"+(window.materialVersion||"unknownVersion")+"*/";lsloader.clean=function(){try{var b=[];for(var a=0;a<localStorage.length;a++){b.push(localStorage.key(a))}b.forEach(function(e){var f=lsloader.getLS(e);if(window.oldVersion){var d=window.oldVersion.reduce(function(g,h){return g||f.indexOf("/*"+h+"*/")!==-1},false);if(d){lsloader.removeLS(e)}}})}catch(c){}};lsloader.clean();lsloader.load=function(f,a,b,d){if(typeof b==="boolean"){d=b;b=undefined}d=d||false;b=b||function(){};var e;e=this.getLS(f);if(e&&e.indexOf(versionString)===-1){this.removeLS(f);this.requestResource(f,a,b,d);return}if(e){var c=e.split(versionString)[0];if(c!=a){console.log("reload:"+a);this.removeLS(f);this.requestResource(f,a,b,d);return}e=e.split(versionString)[1];if(d){this.jsRunSequence.push({name:f,code:e});this.runjs(a,f,e)}else{document.getElementById(f).appendChild(document.createTextNode(e));b()}}else{this.requestResource(f,a,b,d)}};lsloader.requestResource=function(b,e,a,c){var d=this;if(c){this.iojs(e,b,function(h,f,g){d.setLS(f,h+versionString+g);d.runjs(h,f,g)})}else{this.iocss(e,b,function(f){document.getElementById(b).appendChild(document.createTextNode(f));d.setLS(b,e+versionString+f)},a)}};lsloader.iojs=function(d,b,g){var a=this;a.jsRunSequence.push({name:b,code:""});try{var f=new XMLHttpRequest();f.open("get",d,true);f.onreadystatechange=function(){if(f.readyState==4){if((f.status>=200&&f.status<300)||f.status==304){if(f.response!=""){g(d,b,f.response);return}}a.jsfallback(d,b)}};f.send(null)}catch(c){a.jsfallback(d,b)}};lsloader.iocss=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.iofonts=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.runjs=function(f,c,e){if(!!c&&!!e){for(var b in this.jsRunSequence){if(this.jsRunSequence[b].name==c){this.jsRunSequence[b].code=e}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var a=document.createElement("script");a.appendChild(document.createTextNode(this.jsRunSequence[0].code));a.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(a);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else{if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var d=this;var a=document.createElement("script");a.src=this.jsRunSequence[0].path;a.type="text/javascript";this.jsRunSequence[0].status="loading";a.onload=function(){d.jsRunSequence.shift();if(d.jsRunSequence.length>0){d.runjs()}};document.body.appendChild(a)}}};lsloader.tagLoad=function(b,a){this.jsRunSequence.push({name:a,code:"",path:b,status:"failed"});this.runjs()};lsloader.jsfallback=function(c,b){if(!!this.jsnamemap[b]){return}else{this.jsnamemap[b]=b}for(var a in this.jsRunSequence){if(this.jsRunSequence[a].name==b){this.jsRunSequence[a].code="";this.jsRunSequence[a].status="failed";this.jsRunSequence[a].path=c}}this.runjs()};lsloader.cssfallback=function(e,c,b){if(!!this.cssnamemap[c]){return}else{this.cssnamemap[c]=1}var d=document.createElement("link");d.type="text/css";d.href=e;d.rel="stylesheet";d.onload=d.onerror=b;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(d,a)};lsloader.runInlineScript=function(c,b){var a=document.getElementById(b).innerText;this.jsRunSequence.push({name:c,code:a});this.runjs()}})();</script>
+
+    <!-- Import queue -->
+    <script>function Queue(){this.dataStore=[];this.offer=b;this.poll=d;this.execNext=a;this.debug=false;this.startDebug=c;function b(e){if(this.debug){console.log("Offered a Queued Function.")}if(typeof e==="function"){this.dataStore.push(e)}else{console.log("You must offer a function.")}}function d(){if(this.debug){console.log("Polled a Queued Function.")}return this.dataStore.shift()}function a(){var e=this.poll();if(e!==undefined){if(this.debug){console.log("Run a Queued Function.")}e()}}function c(){this.debug=true}}var queue=new Queue();</script>
+
+    <!-- Import CSS -->
+    
+        <style id="material_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_css","/css/material.min.css?Z7a72R1E4SxzBKR/WGctOA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+        <style id="style_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("style_css","/css/style.min.css?MKetZV3cUTfDxvMffaOezg==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+        
+            
+                <style id="prettify_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_css","/css/prettify.min.css?zp8STOU9v89XWFEnN+6YmQ==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+                <style id="prettify_theme"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_theme","/css/prettify/tomorrow-night-eighties.min.css?2LJQzURO+Kr8r/fl/T8oMA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+            
+        
+
+    
+
+    
+
+    <!-- Config CSS -->
+
+<!-- Other Styles -->
+<style>
+  body, html {
+    font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    overflow-x: hidden !important;
+  }
+  
+  code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  a {
+    color: #00838F;
+  }
+
+  .mdl-card__media,
+  #search-label,
+  #search-form-label:after,
+  #scheme-Paradox .hot_tags-count,
+  #scheme-Paradox .sidebar_archives-count,
+  #scheme-Paradox .sidebar-colored .sidebar-header,
+  #scheme-Paradox .sidebar-colored .sidebar-badge{
+    background-color: #8eb515 !important;
+  }
+
+  /* Sidebar User Drop Down Menu Text Color */
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus {
+    color: #8eb515 !important;
+  }
+
+  #post_entry-right-info,
+  .sidebar-colored .sidebar-nav li:hover > a,
+  .sidebar-colored .sidebar-nav li:hover > a i,
+  .sidebar-colored .sidebar-nav li > a:hover,
+  .sidebar-colored .sidebar-nav li > a:hover i,
+  .sidebar-colored .sidebar-nav li > a:focus i,
+  .sidebar-colored .sidebar-nav > .open > a,
+  .sidebar-colored .sidebar-nav > .open > a:hover,
+  .sidebar-colored .sidebar-nav > .open > a:focus,
+  #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a {
+    color: #8eb515 !important;
+  }
+
+  .toTop {
+    background: #66FFCC !important;
+  }
+
+  .material-layout .material-post>.material-nav,
+  .material-layout .material-index>.material-nav,
+  .material-nav a {
+    color: #66FFCC;
+  }
+
+  #scheme-Paradox .MD-burger-layer {
+    background-color: #66FFCC;
+  }
+
+  #scheme-Paradox #post-toc-trigger-btn {
+    color: #66FFCC;
+  }
+
+  .post-toc a:hover {
+    color: #00838F;
+    text-decoration: underline;
+  }
+
+</style>
+
+
+<!-- Theme Background Related-->
+
+    <style>
+      body{
+        background-image: url(https://i.loli.net/2018/07/14/5b49ef4ea363b.png);
+      }
+    </style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+      .fade {
+        transition: all 800ms linear;
+        -webkit-transform: translate3d(0,0,0);
+        -moz-transform: translate3d(0,0,0);
+        -ms-transform: translate3d(0,0,0);
+        -o-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+        opacity: 1;
+      }
+
+      .fade.out{
+        opacity: 0;
+      }
+    </style>
+
+
+<!-- Import Font -->
+<!-- Import Roboto -->
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+
+
+<!-- Import Material Icons -->
+
+
+    <style id="material_icons"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_icons","/css/material-icons.css?pqhB/Rd/ab0H2+kZp0RDmw==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+
+
+
+    <!-- Import jQuery -->
+    
+        <script>lsloader.load("jq_js","https://cdn.bootcss.com/jquery/2.2.1/jquery.js", true)</script>
+    
+
+    <!-- WebAPP Icons -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="K&#39;s House">
+    <meta name="msapplication-starturl" content="https://kabeor.github.io/DNS信息收集/">
+    <meta name="msapplication-navbutton-color" content="#0097A7">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="K&#39;s House">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" href="/img/favicon.png">
+
+    <!-- Site Verification -->
+    <meta name="google-site-verification" content="Etqhw6dphuFVSwU2ZmblJOkL25LXRDWPJGSxC4cp3Ww">
+    
+
+    <!-- RSS -->
+    
+
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="https://kabeor.github.io/DNS信息收集/">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="DNS信息收集 | K&#39;s House">
+    <meta property="og:image" content="/img/favicon.png">
+    <meta property="og:description" content="Trust me,Lisa.">
+    <meta property="og:article:tag" content="Kali"> <meta property="og:article:tag" content="Linux"> 
+
+    
+        <meta property="article:published_time" content="Wed Feb 07 2018 12:37:00 GMT+0800">
+        <meta property="article:modified_time" content="Wed Feb 07 2018 12:38:42 GMT+0800">
+    
+
+    <!-- The Twitter Card protocol -->
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Add canonical link for SEO -->
+    
+        <link rel="canonical" href="https://kabeor.github.io/DNS信息收集/index.html">
+    
+
+    <!-- Structured-data for SEO -->
+    
+        
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": "https://kabeor.github.io/DNS信息收集/index.html",
+    "headline": "DNS信息收集",
+    "datePublished": "Wed Feb 07 2018 12:37:00 GMT+0800",
+    "dateModified": "Wed Feb 07 2018 12:38:42 GMT+0800",
+    "author": {
+        "@type": "Person",
+        "name": "kabeor",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/avatar.png"
+        },
+        "description": "We1C0me_t0_K's_House"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "K&#39;s House",
+        "logo": {
+            "@type":"ImageObject",
+            "url": "/img/favicon.png"
+        }
+    },
+    "keywords": ",Kali,Linux",
+    "description": "Trust me,Lisa.",
+}
+</script>
+
+
+    
+
+    <!-- Analytics -->
+    
+        <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-113413523-1', 'auto');ga('send', 'pageview');
+</script>
+    
+    
+        <script>
+    var _hmt = _hmt || [];
+    (function() {var hm = document.createElement('script');
+    hm.src = 'https://hm.baidu.com/hm.js?36fc4c782bfb2b103fe864229cd9ea5d';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+    
+    
+
+    <!-- Custom Head -->
+    
+
+</head>
+
+
+    
+        <body id="scheme-Paradox" class="lazy">
+            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+                
+
+                <!-- Main Container -->
+                <main class="material-layout__content" id="main">
+
+                    <!-- Top Anchor -->
+                    <div id="top"></div>
+
+                    
+                        <!-- Hamburger Button -->
+                        <button class="MD-burger-icon sidebar-toggle">
+                            <span class="MD-burger-layer"></span>
+                        </button>
+                    
+
+                    <!-- Post TOC -->
+
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+
+    <!-- Left aligned menu below button -->
+    
+    
+    <button id="post-toc-trigger-btn" class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#DNS信息收集"><span class="post-toc-text">DNS信息收集</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-DNS"><span class="post-toc-text">1. DNS</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#域名解析"><span class="post-toc-text">域名解析</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-WhoIs查询"><span class="post-toc-text">2. WhoIs查询</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#域名基本信息查询"><span class="post-toc-text">域名基本信息查询</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#域名枚举"><span class="post-toc-text">域名枚举</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#反向地址解析"><span class="post-toc-text">反向地址解析</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#DNS区域传送漏洞"><span class="post-toc-text">DNS区域传送漏洞</span></a></li></ol></li></ol>
+    </ul>
+    
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
+    
+        
+            <!-- Random Thumbnail -->
+            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
+
+    $('.post_thumbnail-random').attr('data-original', '/img/random1/m-' + randomNum + '.png');
+    $('.post_thumbnail-random').addClass('lazy');
+</script>
+
+        
+    
+            <p class="article-headline-p">
+                DNS信息收集
+            </p>
+        </div>
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar">
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>kabeor</strong>
+        <span>2月 07, 2018</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/Kali/">Kali</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/Linux/">Linux</a>
+    </li></ul>
+    
+
+    <!-- Share -->
+    
+        <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+        
+            <!-- Busuanzi Views -->
+            <a class="post_share-link" href="#">
+                <li class="mdl-menu__item">
+                    <span id="busuanzi_container_page_pv">
+                        <span id="busuanzi_value_page_pv"></span>&nbsp;浏览量
+                    </span>
+                </li>
+            </a>
+        
+    
+
+    <!-- Share Weibo -->
+    
+
+    <!-- Share Twitter -->
+    
+
+    <!-- Share Facebook -->
+    
+
+    <!-- Share Google+ -->
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+    
+</div>
+                
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <h1 id="DNS信息收集"><a href="#DNS信息收集" class="headerlink" title="DNS信息收集"></a>DNS信息收集</h1><h2 id="1-DNS"><a href="#1-DNS" class="headerlink" title="1. DNS"></a>1. DNS</h2><p>域名系统（英文：Domain Name System，DNS）是因特网的一项服务，它作为将域名和IP地址相互映射的一个分布式数据库，能够使人更方便的访问互联网。DNS 使用TCP和UDP端口53。当前，对于每一级域名长度的限制是63个字符，域名总长度则不能超过253个字符。</p>
+<h3 id="域名解析"><a href="#域名解析" class="headerlink" title="域名解析"></a>域名解析</h3><p>举一个例子，zh.wikipedia.org作为一个域名就和IP地址208.80.154.225相对应。DNS就像是一个自动的电话号码簿，我们可以直接拨打wikipedia的名字来代替电话号码（IP地址）。DNS在我们直接调用网站的名字以后就会将像zh.wikipedia.org一样便于人类使用的名字转化成像208.80.154.225一样便于机器识别的IP地址。</p>
+<p>DNS查询有两种方式：递归和迭代。DNS客户端设置使用的DNS服务器一般都是递归服务器，它负责全权处理客户端的DNS查询请求，直到返回最终结果。而DNS服务器之间一般采用迭代查询方式。</p>
+<p>以查询zh.wikipedia.org为例：</p>
+<p>客户端发送查询报文”query zh.wikipedia.org”至DNS服务器，DNS服务器首先检查自身缓存，如果存在记录则直接返回结果。<br>如果记录老化或不存在，则</p>
+<blockquote>
+<ol>
+<li>DNS服务器向根域名服务器发送查询报文”query zh.wikipedia.org”，根域名服务器返回.org域的权威域名服务器地址，这一级首先会返回的是顶级域名的权威域名服务器。</li>
+<li>DNS服务器向.org域的权威域名服务器发送查询报文”query zh.wikipedia.org”，得到.wikipedia.org域的权威域名服务器地址。</li>
+<li>DNS服务器向.wikipedia.org域的权威域名服务器发送查询报文”query zh.wikipedia.org”，得到主机zh的A记录，存入自身缓存并返回给客户端。</li>
+</ol>
+</blockquote>
+<p>当 DNS 客户端需要查询程序中使用的名称时，它会查询 DNS 服务器来解析该名称。客户端发送的每条查询消息都包括三条信息，指定服务器回答的问题：</p>
+<blockquote>
+<ul>
+<li><p>指定的 DNS 域名，规定为完全合格的域名 (FQDN)</p>
+</li>
+<li><p>指定的查询类型，可根据类型指定资源记录，或者指定查询操作的专用类型。</p>
+</li>
+<li><p>DNS 域名的指定类别。</p>
+</li>
+</ul>
+</blockquote>
+<p>DNS 查询进程分两部分进行：</p>
+<blockquote>
+<ul>
+<li><p>名称查询从客户端计算机开始，并传输至解析程序即 DNS 客户端服务程序进行解析。</p>
+</li>
+<li><p>不能在本地解析查询时，可根据需要查询 DNS 服务器来解析名称。</p>
+</li>
+</ul>
+</blockquote>
+<h2 id="2-WhoIs查询"><a href="#2-WhoIs查询" class="headerlink" title="2. WhoIs查询"></a>2. WhoIs查询</h2><p>一个域名的所有者可以通过查询WHOIS数据库而被找到；对于大多数根域名服务器，基本的WHOIS由ICANN维护，而WHOIS的细节则由控制那个域的域注册机构维护。</p>
+<p>对于240多个国家代码顶级域名（ccTLDs），通常由该域名权威注册机构负责维护WHOIS。</p>
+<h2 id="域名基本信息查询"><a href="#域名基本信息查询" class="headerlink" title="域名基本信息查询"></a>域名基本信息查询</h2><blockquote>
+<ol>
+<li>DNS服务器查询</li>
+</ol>
+</blockquote>
+<p>除了whois查询之外，我们还可以通过host命令来查询dns服务器，命令格式为：</p>
+<p><code>host -t ns domainName</code></p>
+<blockquote>
+<ol>
+<li>A记录查询</li>
+</ol>
+</blockquote>
+<p>A (Address) 记录是用来指定主机名（或域名）对应的IP地址记录。用户可以将该域名下的网站服务器指向到自己的web server上。同时也可以设置您域名的子域名。通俗来说A记录就是服务器的IP,域名绑定A记录就是告诉DNS,当你输入域名的时候给你引导向设置在DNS的A记录所对应的服务器。<br>通过<br><code>host -t a domainName</code><br>可以查询a记录</p>
+<blockquote>
+<p>MX记录查询</p>
+</blockquote>
+<p>MX记录也叫做邮件路由记录，用户可以将该域名下的邮件服务器指向到自己的mail server上，然后即可自行操控所有的邮箱设置。您只需在线填写您服务器的IP地址，即可将您域名下的邮件全部转到您自己设定相应的邮件服务器上。<br>简单的说，通过操作MX记录，您才可以得到以您域名结尾的邮局。</p>
+<p>通过<br><code>host -t mx domainName</code><br>可以查询该域名下的mx记录，从而可以得到邮件服务器信息。</p>
+<h2 id="域名枚举"><a href="#域名枚举" class="headerlink" title="域名枚举"></a>域名枚举</h2><p>在得到主域名信息之后，如果能通过主域名得到所有子域名信息，在通过子域名查询其对应的主机IP，这样我们能得到一个较为完整的信息。</p>
+<blockquote>
+<p>fierce</p>
+</blockquote>
+<p><code>fierce -dns domainName</code></p>
+<blockquote>
+<p>DNSenum</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd /usr/bin</span><br><span class="line">./dnsenum --enum adomainnameontheinternet.com</span><br></pre></td></tr></table></figure>
+<p>我们可以使用一些额外的选项来运行DNSenum，它们包括这些东西：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-- threads [number] 允许你设置一次所运行的线程数量。</span><br><span class="line">-r 允许你开启递归查找。</span><br><span class="line">-d 允许你设置在WHOIS请求之间的时间延迟，单位为秒。</span><br><span class="line">-o 允许我们制定输出位置。</span><br><span class="line">-w 允许我们开启WHOIS查询。</span><br></pre></td></tr></table></figure></p>
+<p>我们可以使用另一个命令 snmpwalk 来检测Windows主机。Snmpwalk是一个使用SNMP<br>GETNEXT请求在网络实体中查询信息树的SNMP应用。在命令行中键入下列命令：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">snmpwalk -c public 192.168.10.200 -v 2c</span><br></pre></td></tr></table></figure></p>
+<p>获取windows系统进程数<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">snmpwalk -v 1 -c public 192.168.1.200 .1.3.6.1.2.1.25.1.6</span><br><span class="line"></span><br><span class="line">这条命令的意思是：使用v1版本，共同体为public，来对192.168.1.200的.1.3.6.1.2.1.25.1.6分支进行walk。</span><br></pre></td></tr></table></figure></p>
+<p>获取windows系统总内存<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">snmpwalk -v 1 -c public 192.168.1.200 .1.3.6.1.2.1.25.2.2</span><br></pre></td></tr></table></figure></p>
+<p>获取windows系统的IP地址<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">snmpwalk -v 1 -c public 192.168.1.200 .1.3.6.1.2.1.4.20.1.1</span><br></pre></td></tr></table></figure></p>
+<p>获取windows系统信息<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">snmpwalk -v 1 -c public 192.168.1.200 system</span><br></pre></td></tr></table></figure></p>
+<p>获取windows系统的网卡信息<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">snmpwalk -v 1 192.168.1.200 -c public ifDescr</span><br></pre></td></tr></table></figure></p>
+<h3 id="反向地址解析"><a href="#反向地址解析" class="headerlink" title="反向地址解析"></a>反向地址解析</h3><p>我们经常使用到得DNS服务器里面有两个区域，即“正向查找区域”和“反向查找区域”，正向查找区域就是我们通常所说的域名解析，反向查找区域即是这里所说的IP反向解析，它的作用就是通过查询IP地址的PTR记录来得到该IP地址指向的域名，当然，要成功得到域名就必需要有该IP地址的PTR记录。PTR记录是邮件交换记录的一种，邮件交换记录中有A记录和PTR记录，A记录解析名字到地址，而PTR记录解析地址到名字。地址是指一个客户端的IP地址，名字是指一个客户的完全合格域名。通过对PTR记录的查询，达到反查的目的。</p>
+<p>反向域名解析系统(Reverse DNS)的功能确保适当的邮件交换记录是生效的。反向域名解析与通常的正向域名解析相反，提供IP地址到域名的对应。IP反向解析主要应用到邮件服务器中来阻拦垃圾邮件，特别是在国外。多数垃圾邮件发送者使用动态分配或者没有注册域名的IP地址来发送垃圾邮件，以逃避追踪，使用了域名反向解析后，就可以大大降低垃圾邮件的数量。</p>
+<p>比如你用 xxx@name.com 这个邮箱给我的邮箱 123@163.com 发了一封信。163邮件服务器接到这封信会查看这封信的信头文件，这封信的信头文件会显示这封信是由哪个IP地址发出来的。然后根据这个IP地址进行反向解析，如果反向解析到这个IP所对应的域名是name.com 那么就接受这封邮件，如果反向解析发现这个IP没有对应到name.com，那么就拒绝这封邮件。</p>
+<p>由于在域名系统中，一个IP地址可以对应多个域名，因此从IP出发去找域名，理论上应该遍历整个域名树，但这在Internet上是不现实的。为了完成逆向域名解析，系统提供一个特别域，该特别域称为逆向解析域in-addr.arpa。这样欲解析的IP地址就会被表达成一种像域名一样的可显示串形式，后缀以逆向解析域域</p>
+<p>名”in-addr.arpa”结尾。</p>
+<p>例如一个IP地址：222.211.233.244，其逆向域名表达方式为：244.233.221.222.in-addr.arpa</p>
+<p>两种表达方式中IP地址部分顺序恰好相反，因为域名结构是自底向上(从子域到域)，而IP地址结构是自顶向下(从网络到主机)的。实质上逆向域名解析是将IP地址表达成一个域名,以地址做为索引的域名空间,这样逆向解析的很大部分可以纳入正向解析中。</p>
+<p>linux中常用的反向解析工具为nslookup和dig。</p>
+<p>使用dig进行反向解析的命令格式为：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">dig -x ip @dnsserver        #用 dig 查看反向解析</span><br></pre></td></tr></table></figure></p>
+<h2 id="DNS区域传送漏洞"><a href="#DNS区域传送漏洞" class="headerlink" title="DNS区域传送漏洞"></a>DNS区域传送漏洞</h2><p>很多dns探测工具，都会首先尝试dns区域传送，然后才是暴力枚举，那么什么是DNS区域传送漏洞呢？</p>
+<p>区域传送操作指的是一台后备服务器使用来自主服务器的数据刷新自己的zone数据库。这为运行中的DNS服务提供了一定的冗余度，其目的是为了防止主域名服务器因意外故障变得不可用时影响到全局。一般来说，DNS区域传送操作只在网络里真的有后备域名DNS服务器时才有必要执行，但许多DNS服务器却被错误地配置成只要有人发出请求，就会向对方提供一个zone数据库的拷贝。如果所提供的信息只是与连到因特网上且具备有效主机名的系统相关，那么这种错误配置不一定是坏事，尽管这使得攻击者发现潜在目标要容易得多。真正的问题发生在一个单位没有使用公用/私用DNS机制来分割外部公用DNS信息和内部私用DNS信息的时候，此时内部主机名和IP地址都暴露给了攻击者。把内部IP地址信息提供给因特网上不受信任的用户，就像是把一个单位的内部网络完整蓝图或导航图奉送给了别人。</p>
+<p>使用dig工具可以检测dns 区域传送漏洞，语法如下：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">dig axfr @域名服务器 被检测域名</span><br></pre></td></tr></table></figure></p>
+<p>From <a href="https://kabeor.github.io/DNS信息收集/">https://kabeor.github.io/DNS信息收集/</a> bye</p>
+
+        
+                <blockquote style="margin: 2em 0 0;padding: 0.5em 1em;border-left: 3px solid #F44336;background-color: #F5F5F5;list-style: none;">
+                    <p><strong>
+                         
+                            This blog is under a <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0 Unported License</a>
+                        </strong>
+                        <br>
+                        <strong>本文链接：</strong><a href="https://kabeor.github.io/DNS信息收集/">https://kabeor.github.io/DNS信息收集/</a>
+                    </p>
+                </blockquote>
+        
+    
+
+    
+</div>
+
+                
+                <!-- Post Comments -->
+                
+                    
+    <div id="comment" style="padding:10px;" class="vcomment"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+    var GUEST_INFO = ['nick','mail','link'];
+    var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+        return GUEST_INFO.indexOf(item) > -1
+    });
+    var notify = 'true' == true;
+    var verify = 'true' == true;
+    new Valine({
+        el: '.vcomment',
+        notify: notify,
+        verify: verify,
+        appId: "53gELcU5PPzXKUh1q21E5Nkh-gzGzoHsz",
+        appKey: "pSNnuMbRDkWAE7j44yChrEce",
+        placeholder: "都看到这里了还不评论一下吗(╯‵□′)╯︵┻━┻",
+        pageSize:'10',
+        avatar:'identicon',
+        lang:'zh-cn'
+    });
+</script>
+
+                
+            </div>
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+        <a href="/SQLMAP介绍/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/对NexT主题风格的修改/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
+
+                    
+                        <!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay"></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored sidebar-fixed-left" role="navigation">
+    <div id="sidebar-main">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.png);">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+        <i class="material-icons">clear_all</i>
+        <span class="mdl-button__ripple-container">
+            <span class="mdl-ripple">
+            </span>
+        </span>
+    </button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="/img/avatar.png" alt="kabeor's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        Trust me,Lisa.
+        <b class="caret"></b>
+    </a>
+</div>
+
+
+        <!-- Sidebar Navigation  -->
+        <ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+            
+                <li>
+                    <a href="mailto:1597915586@qq.com" target="_blank" title="Email Me">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
+                        
+                        Email Me
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://github.com/kabeor" target="_blank" title="GitHub">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">code</i>
+                        
+                        GitHub
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    
+        <li id="sidebar-first-li">
+            <a href="/">
+                
+                    <i class="material-icons sidebar-material-icons">home</i>
+                
+                主页
+            </a>
+        </li>
+        
+    
+
+    <!-- Archives  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">inbox</i>
+                
+                    归档
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+            <li>
+                <a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/02/">二月 2018<span class="sidebar_archives-count">47</span></a>
+            </li></ul>
+        </li>
+        
+    
+
+    <!-- Categories  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">chrome_reader_mode</i>
+                
+                分类
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                <a class="sidebar_archives-link" href="/categories/Code/">Code<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/Linux/">Linux<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/Linux/Kali/">Kali<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/Linux/网络/">网络<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/NexT/">NexT<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/Web/">Web<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/Web/WriteUP/">WriteUP<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/Web/渗透/">渗透<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/Web/渗透/工具集/">工具集<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/blog搭建/">blog搭建<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/密码学和杂项/">密码学和杂项<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/树莓派/">树莓派<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/汇编/">汇编<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/汇编/漏洞银行逆向教程/">漏洞银行逆向教程<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/">病毒分析<span class="sidebar_archives-count">16</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/《恶意代码分析实战》笔记/">《恶意代码分析实战》笔记<span class="sidebar_archives-count">16</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/《恶意代码分析实战》笔记/第一篇-静态分析/">第一篇 静态分析<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/《恶意代码分析实战》笔记/第三篇-动态分析高级技术篇/">第三篇 动态分析高级技术篇<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/《恶意代码分析实战》笔记/第二篇-静态分析高级技术篇/">第二篇 静态分析高级技术篇<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/《恶意代码分析实战》笔记/第五篇-逆向工程/">第五篇 逆向工程<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/《恶意代码分析实战》笔记/第四篇-恶意代码功能篇/">第四篇 恶意代码功能篇<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/计算机系统/">计算机系统<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/计算机系统/PE/">PE<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/逆向/">逆向<span class="sidebar_archives-count">37</span></a></li><li><a class="sidebar_archives-link" href="/categories/逆向/i春秋/">i春秋<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/逆向/i春秋Reverse赛题/">i春秋Reverse赛题<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/categories/逆向/吾爱破解培训/">吾爱破解培训<span class="sidebar_archives-count">10</span></a>
+            </li></ul>
+        </li>
+        
+    
+
+    <!-- Pages  -->
+    
+        <li>
+            <a href="/about" title="关于">
+                
+                    <i class="material-icons sidebar-material-icons">person</i>
+                
+                关于
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/links" title="各位大佬(╯°□°）╯︵ ┻━┻">
+                
+                    <i class="material-icons sidebar-material-icons">link</i>
+                
+                各位大佬(╯°□°）╯︵ ┻━┻
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/timeline" title="时间轴">
+                
+                    <i class="material-icons sidebar-material-icons">timeline</i>
+                
+                时间轴
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/gallery" title="EVERSPACE(请等待加载哦)">
+                
+                    <i class="material-icons sidebar-material-icons">flight</i>
+                
+                EVERSPACE(请等待加载哦)
+            </a>
+        </li>
+        
+    
+
+    <!-- Article Number  -->
+    
+        <li>
+            <a href="/archives">
+                文章总数
+                <span class="sidebar-badge">89</span>
+            </a>
+        </li>
+        
+    
+</ul>
+
+
+    <div id="music163player">
+         <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="310" src="//music.163.com/outchain/player?type=0&id=2194265908&auto=0&height=430">
+         </iframe>
+    </div>
+
+        <!-- Sidebar Footer -->
+        <!--
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持和动力。 :)
+-->
+
+<!-- Sidebar Divider -->
+
+    <div class="sidebar-divider"></div>
+
+
+<!-- Theme Material -->
+
+    <a href="https://github.com/viosey/hexo-theme-material" class="sidebar-footer-text-a" target="_blank">
+        <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+            主题 - Material
+            <span class="sidebar-badge badge-circle">i</span>
+        </div>
+    </a>
+
+
+<!-- Help & Support -->
+<!--
+
+    <a href="mailto:hiviosey@gmail.com" class="sidebar-footer-text-a">
+        <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+        sidebar.help
+        <span class="mdl-button__ripple-container">
+          <span class="mdl-ripple"></span>
+        </span>
+      </div>
+    </a>
+
+-->
+
+<!-- Feedback -->
+<!--
+
+    <a href="https://github.com/viosey/hexo-theme-material/issues" target="_blank" class="sidebar-footer-text-a">
+        <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+        sidebar.feedback
+        <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></div>
+    </a>
+
+-->
+
+<!-- About Theme -->
+<!--
+
+    <a href="https://blog.viosey.com/index.php/Material.html" target="_blank" class="sidebar-footer-text-a">
+        <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+             sidebar.about_theme
+            <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></div>
+    </a>
+
+-->
+
+    </div>
+
+
+
+    <!-- Sidebar Image -->
+    
+
+</aside>
+
+                    
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+
+                    
+
+                    <!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+    
+        <!-- Paradox Footer Left Section -->
+        <div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+
+    <!-- Facebook -->
+    
+
+    <!-- Google + -->
+    
+
+    <!-- Weibo -->
+    
+
+    <!-- Instagram -->
+    
+
+    <!-- Tumblr -->
+    
+
+    <!-- Github -->
+    
+        <a href="https://github.com/kabeor" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-github">
+                <span class="visuallyhidden">Github</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- LinkedIn -->
+    
+
+    <!-- Zhihu -->
+    
+
+    <!-- Bilibili -->
+    
+
+    <!-- Telegram -->
+    
+    
+    <!-- V2EX -->
+    
+
+    <span class="post-count">全站共</span> 
+    148.3k 
+    <span>字</span>
+</div>
+
+
+        <!--Copyright-->
+        <div id="copyright">
+            Copyright&nbsp;©<script type="text/javascript">var fd = new Date();document.write("&nbsp;" + fd.getFullYear() + "&nbsp;");</script>K's House
+            
+                <br>
+                
+                    2018
+                
+            
+        </div>
+
+        <!-- Paradox Footer Right Section -->
+
+        <!--
+        I am glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+        It will not impact the appearance and can give developers a lot of support :)
+
+        很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+        它不会影响美观并可以给开发者很大的支持。 :)
+        -->
+
+        <div class="mdl-mini-footer--right-section">
+            <div>
+                <div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
+                <div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+            </div>
+        </div>
+    
+</footer>
+
+
+                    <!-- Import JS File -->
+
+    <script>lsloader.load("lazyload_js","/js/lazyload.min.js?wgjW/HuQG9JDgvPDPoRAng==", true)</script>
+
+
+
+    <script>lsloader.load("js_js","/js/js.min.js?V/53wGualMuiPM3xoetD5Q==", true)</script>
+
+
+
+    <script>lsloader.load("np_js","https://cdn.bootcss.com/nprogress/0.2.0/nprogress.js", true)</script>
+
+
+<script type="text/ls-javascript" id="NProgress-script">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    $('#nprogress .bar').css({
+        'background': '#FF1493'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #FF1493, 0 0 15px #FF1493'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#FF1493',
+        'border-left-color': '#FF1493'
+    });
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+    
+        <script>lsloader.load("sm_js","/js/smoothscroll.js?tNQK2Tw2SUL8a1Scn/Mgew==", true)</script>
+    
+
+
+
+
+
+    <!-- Busuanzi -->
+    <script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+   
+
+
+
+
+
+<!-- UC Browser Compatible -->
+<script>
+	var agent = navigator.userAgent.toLowerCase();
+	if(agent.indexOf('ucbrowser')>0) {
+		document.write('<link rel="stylesheet" href="/css/uc.css">');
+	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+	}
+</script>
+
+<!-- Import prettify js  -->
+
+    
+        
+            <script>lsloader.load("prettify_js","https://cdn.bootcss.com/prettify/r298/prettify.js", true)</script>
+        
+    
+
+
+
+<!-- Window Load -->
+<!-- add class for prettify -->
+<script type="text/ls-javascript" id="window-load">
+    $(window).on('load', function() {
+        // Post_Toc parent position fixed
+        $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
+    });
+
+    
+        
+            $(function() {
+                $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto;');
+                prettyPrint();
+                })
+        
+    
+    
+</script>
+
+<!-- MathJax Load-->
+
+
+<!-- Bing Background -->
+
+
+<script type="text/ls-javascript" id="lazy-load">
+    // Offer LazyLoad
+    queue.offer(function(){
+        $('.lazy').lazyload({
+            effect : 'show'
+        });
+    });
+
+    // Start Queue
+    $(document).ready(function(){
+        setInterval(function(){
+            queue.execNext();
+        },200);
+    });
+</script>
+
+<!-- Custom Footer -->
+
+
+
+<script>
+    (function(){
+        var scriptList = document.querySelectorAll('script[type="text/ls-javascript"]')
+
+        for (var i = 0; i < scriptList.length; ++i) {
+            var item = scriptList[i];
+            lsloader.runInlineScript(item.id,item.id);
+        }
+    })()
+console.log('\n %c © Material Theme | Version: 1.5.2 | https://github.com/viosey/hexo-theme-material %c \n', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-left-radius:5px;border-bottom-left-radius:5px;', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-right-radius:5px;border-bottom-right-radius:5px;');
+</script>
+
+                </main>
+            </div>
+        </body>
+    
+</html>

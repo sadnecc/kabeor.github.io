@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html style="display: none;" lang="zh">
+    <head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <!--
+        © Material Theme
+        https://github.com/viosey/hexo-theme-material
+        Version: 1.5.2 -->
+    <script>
+        window.materialVersion = "1.5.2"
+        // Delete localstorage with these tags
+        window.oldVersion = [
+            'codestartv1',
+            '1.3.4',
+            '1.4.0',
+            '1.4.0b1',
+            '1.5.0'
+        ]
+    </script>
+
+    <!-- dns prefetch -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+
+
+    <link rel="dns-prefetch" href="https://cdn1.lncld.net">
+
+
+    <link rel="dns-prefetch" href="https://busuanzi.ibruce.info">
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Meta & Info -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!-- Title -->
+    
+    <title>
+        
+            施耐德NOE77101以太网模块固件逆向及后门挖掘 | 
+        
+        K&#39;s House
+    </title>
+
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/img/favicon.png">
+    <link rel="icon" href="/img/favicon.png">
+
+    <meta name="format-detection" content="telephone=no">
+    <meta name="description" itemprop="description" content="Trust me,Lisa.">
+    <meta name="keywords" content=",逆向,PLC固件">
+    <meta name="theme-color" content="#0097A7">
+
+    <!-- Disable Fucking Bloody Baidu Tranformation -->
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+
+    <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+
+        
+            <script src="/js/ie-blocker.zhCN.js"></script>
+        
+    <![endif]-->
+
+    <!-- Import lsloader -->
+    <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(a){try{localStorage.removeItem(a)}catch(b){}};lsloader.setLS=function(a,c){try{localStorage.setItem(a,c)}catch(b){}};lsloader.getLS=function(a){var c="";try{c=localStorage.getItem(a)}catch(b){c=""}return c};versionString="/*"+(window.materialVersion||"unknownVersion")+"*/";lsloader.clean=function(){try{var b=[];for(var a=0;a<localStorage.length;a++){b.push(localStorage.key(a))}b.forEach(function(e){var f=lsloader.getLS(e);if(window.oldVersion){var d=window.oldVersion.reduce(function(g,h){return g||f.indexOf("/*"+h+"*/")!==-1},false);if(d){lsloader.removeLS(e)}}})}catch(c){}};lsloader.clean();lsloader.load=function(f,a,b,d){if(typeof b==="boolean"){d=b;b=undefined}d=d||false;b=b||function(){};var e;e=this.getLS(f);if(e&&e.indexOf(versionString)===-1){this.removeLS(f);this.requestResource(f,a,b,d);return}if(e){var c=e.split(versionString)[0];if(c!=a){console.log("reload:"+a);this.removeLS(f);this.requestResource(f,a,b,d);return}e=e.split(versionString)[1];if(d){this.jsRunSequence.push({name:f,code:e});this.runjs(a,f,e)}else{document.getElementById(f).appendChild(document.createTextNode(e));b()}}else{this.requestResource(f,a,b,d)}};lsloader.requestResource=function(b,e,a,c){var d=this;if(c){this.iojs(e,b,function(h,f,g){d.setLS(f,h+versionString+g);d.runjs(h,f,g)})}else{this.iocss(e,b,function(f){document.getElementById(b).appendChild(document.createTextNode(f));d.setLS(b,e+versionString+f)},a)}};lsloader.iojs=function(d,b,g){var a=this;a.jsRunSequence.push({name:b,code:""});try{var f=new XMLHttpRequest();f.open("get",d,true);f.onreadystatechange=function(){if(f.readyState==4){if((f.status>=200&&f.status<300)||f.status==304){if(f.response!=""){g(d,b,f.response);return}}a.jsfallback(d,b)}};f.send(null)}catch(c){a.jsfallback(d,b)}};lsloader.iocss=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.iofonts=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.runjs=function(f,c,e){if(!!c&&!!e){for(var b in this.jsRunSequence){if(this.jsRunSequence[b].name==c){this.jsRunSequence[b].code=e}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var a=document.createElement("script");a.appendChild(document.createTextNode(this.jsRunSequence[0].code));a.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(a);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else{if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var d=this;var a=document.createElement("script");a.src=this.jsRunSequence[0].path;a.type="text/javascript";this.jsRunSequence[0].status="loading";a.onload=function(){d.jsRunSequence.shift();if(d.jsRunSequence.length>0){d.runjs()}};document.body.appendChild(a)}}};lsloader.tagLoad=function(b,a){this.jsRunSequence.push({name:a,code:"",path:b,status:"failed"});this.runjs()};lsloader.jsfallback=function(c,b){if(!!this.jsnamemap[b]){return}else{this.jsnamemap[b]=b}for(var a in this.jsRunSequence){if(this.jsRunSequence[a].name==b){this.jsRunSequence[a].code="";this.jsRunSequence[a].status="failed";this.jsRunSequence[a].path=c}}this.runjs()};lsloader.cssfallback=function(e,c,b){if(!!this.cssnamemap[c]){return}else{this.cssnamemap[c]=1}var d=document.createElement("link");d.type="text/css";d.href=e;d.rel="stylesheet";d.onload=d.onerror=b;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(d,a)};lsloader.runInlineScript=function(c,b){var a=document.getElementById(b).innerText;this.jsRunSequence.push({name:c,code:a});this.runjs()}})();</script>
+
+    <!-- Import queue -->
+    <script>function Queue(){this.dataStore=[];this.offer=b;this.poll=d;this.execNext=a;this.debug=false;this.startDebug=c;function b(e){if(this.debug){console.log("Offered a Queued Function.")}if(typeof e==="function"){this.dataStore.push(e)}else{console.log("You must offer a function.")}}function d(){if(this.debug){console.log("Polled a Queued Function.")}return this.dataStore.shift()}function a(){var e=this.poll();if(e!==undefined){if(this.debug){console.log("Run a Queued Function.")}e()}}function c(){this.debug=true}}var queue=new Queue();</script>
+
+    <!-- Import CSS -->
+    
+        <style id="material_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_css","/css/material.min.css?Z7a72R1E4SxzBKR/WGctOA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+        <style id="style_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("style_css","/css/style.min.css?MKetZV3cUTfDxvMffaOezg==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+        
+            
+                <style id="prettify_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_css","/css/prettify.min.css?zp8STOU9v89XWFEnN+6YmQ==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+                <style id="prettify_theme"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_theme","/css/prettify/tomorrow-night-eighties.min.css?2LJQzURO+Kr8r/fl/T8oMA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+            
+        
+
+    
+
+    
+
+    <!-- Config CSS -->
+
+<!-- Other Styles -->
+<style>
+  body, html {
+    font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    overflow-x: hidden !important;
+  }
+  
+  code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  a {
+    color: #00838F;
+  }
+
+  .mdl-card__media,
+  #search-label,
+  #search-form-label:after,
+  #scheme-Paradox .hot_tags-count,
+  #scheme-Paradox .sidebar_archives-count,
+  #scheme-Paradox .sidebar-colored .sidebar-header,
+  #scheme-Paradox .sidebar-colored .sidebar-badge{
+    background-color: #8eb515 !important;
+  }
+
+  /* Sidebar User Drop Down Menu Text Color */
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus {
+    color: #8eb515 !important;
+  }
+
+  #post_entry-right-info,
+  .sidebar-colored .sidebar-nav li:hover > a,
+  .sidebar-colored .sidebar-nav li:hover > a i,
+  .sidebar-colored .sidebar-nav li > a:hover,
+  .sidebar-colored .sidebar-nav li > a:hover i,
+  .sidebar-colored .sidebar-nav li > a:focus i,
+  .sidebar-colored .sidebar-nav > .open > a,
+  .sidebar-colored .sidebar-nav > .open > a:hover,
+  .sidebar-colored .sidebar-nav > .open > a:focus,
+  #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a {
+    color: #8eb515 !important;
+  }
+
+  .toTop {
+    background: #66FFCC !important;
+  }
+
+  .material-layout .material-post>.material-nav,
+  .material-layout .material-index>.material-nav,
+  .material-nav a {
+    color: #66FFCC;
+  }
+
+  #scheme-Paradox .MD-burger-layer {
+    background-color: #66FFCC;
+  }
+
+  #scheme-Paradox #post-toc-trigger-btn {
+    color: #66FFCC;
+  }
+
+  .post-toc a:hover {
+    color: #00838F;
+    text-decoration: underline;
+  }
+
+</style>
+
+
+<!-- Theme Background Related-->
+
+    <style>
+      body{
+        background-image: url(https://i.loli.net/2018/07/14/5b49ef4ea363b.png);
+      }
+    </style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+      .fade {
+        transition: all 800ms linear;
+        -webkit-transform: translate3d(0,0,0);
+        -moz-transform: translate3d(0,0,0);
+        -ms-transform: translate3d(0,0,0);
+        -o-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+        opacity: 1;
+      }
+
+      .fade.out{
+        opacity: 0;
+      }
+    </style>
+
+
+<!-- Import Font -->
+<!-- Import Roboto -->
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+
+
+<!-- Import Material Icons -->
+
+
+    <style id="material_icons"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_icons","/css/material-icons.css?pqhB/Rd/ab0H2+kZp0RDmw==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+
+
+
+    <!-- Import jQuery -->
+    
+        <script>lsloader.load("jq_js","https://cdn.bootcss.com/jquery/2.2.1/jquery.js", true)</script>
+    
+
+    <!-- WebAPP Icons -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="K&#39;s House">
+    <meta name="msapplication-starturl" content="https://kabeor.github.io/施耐德NOE77101以太网模块固件逆向及后门挖掘/">
+    <meta name="msapplication-navbutton-color" content="#0097A7">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="K&#39;s House">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" href="/img/favicon.png">
+
+    <!-- Site Verification -->
+    <meta name="google-site-verification" content="Etqhw6dphuFVSwU2ZmblJOkL25LXRDWPJGSxC4cp3Ww">
+    
+
+    <!-- RSS -->
+    
+
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="https://kabeor.github.io/施耐德NOE77101以太网模块固件逆向及后门挖掘/">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="施耐德NOE77101以太网模块固件逆向及后门挖掘 | K&#39;s House">
+    <meta property="og:image" content="/img/favicon.png">
+    <meta property="og:description" content="Trust me,Lisa.">
+    <meta property="og:article:tag" content="逆向"> <meta property="og:article:tag" content="PLC固件"> 
+
+    
+        <meta property="article:published_time" content="Mon Jul 09 2018 16:20:21 GMT+0800">
+        <meta property="article:modified_time" content="Thu Jul 19 2018 13:30:35 GMT+0800">
+    
+
+    <!-- The Twitter Card protocol -->
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Add canonical link for SEO -->
+    
+        <link rel="canonical" href="https://kabeor.github.io/施耐德NOE77101以太网模块固件逆向及后门挖掘/index.html">
+    
+
+    <!-- Structured-data for SEO -->
+    
+        
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": "https://kabeor.github.io/施耐德NOE77101以太网模块固件逆向及后门挖掘/index.html",
+    "headline": "施耐德NOE77101以太网模块固件逆向及后门挖掘",
+    "datePublished": "Mon Jul 09 2018 16:20:21 GMT+0800",
+    "dateModified": "Thu Jul 19 2018 13:30:35 GMT+0800",
+    "author": {
+        "@type": "Person",
+        "name": "kabeor",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/avatar.png"
+        },
+        "description": "We1C0me_t0_K's_House"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "K&#39;s House",
+        "logo": {
+            "@type":"ImageObject",
+            "url": "/img/favicon.png"
+        }
+    },
+    "keywords": ",逆向,PLC固件",
+    "description": "Trust me,Lisa.",
+}
+</script>
+
+
+    
+
+    <!-- Analytics -->
+    
+        <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-113413523-1', 'auto');ga('send', 'pageview');
+</script>
+    
+    
+        <script>
+    var _hmt = _hmt || [];
+    (function() {var hm = document.createElement('script');
+    hm.src = 'https://hm.baidu.com/hm.js?36fc4c782bfb2b103fe864229cd9ea5d';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+    
+    
+
+    <!-- Custom Head -->
+    
+
+</head>
+
+
+    
+        <body id="scheme-Paradox" class="lazy">
+            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+                
+
+                <!-- Main Container -->
+                <main class="material-layout__content" id="main">
+
+                    <!-- Top Anchor -->
+                    <div id="top"></div>
+
+                    
+                        <!-- Hamburger Button -->
+                        <button class="MD-burger-icon sidebar-toggle">
+                            <span class="MD-burger-layer"></span>
+                        </button>
+                    
+
+                    <!-- Post TOC -->
+
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+
+    <!-- Left aligned menu below button -->
+    
+    
+    <button id="post-toc-trigger-btn" class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#施耐德NOE77101以太网模块固件逆向及后门挖掘"><span class="post-toc-text">施耐德NOE77101以太网模块固件逆向及后门挖掘</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-静态网站分析"><span class="post-toc-text">1.静态网站分析</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-Web配置APP默认账户及密码的获取"><span class="post-toc-text">2.Web配置APP默认账户及密码的获取</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3-bin固件分析"><span class="post-toc-text">3.bin固件分析</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-binwalk提取文件"><span class="post-toc-text">1.binwalk提取文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-IDA分析"><span class="post-toc-text">2.IDA分析</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#载入"><span class="post-toc-text">载入</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#确定固件的代码段基址"><span class="post-toc-text">确定固件的代码段基址</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#重构符号表"><span class="post-toc-text">重构符号表</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#固件后门账户"><span class="post-toc-text">固件后门账户</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#总结"><span class="post-toc-text">总结</span></a></li></ol></li></ol>
+    </ul>
+    
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
+    
+        <!-- Custom Thumbnail -->
+        <div class="post_thumbnail-custom mdl-card__media mdl-color-text--grey-50" style="background-image:url(https://i.loli.net/2018/07/16/5b4c6341bc8a9.png)">
+    
+            <p class="article-headline-p">
+                施耐德NOE77101以太网模块固件逆向及后门挖掘
+            </p>
+        </div>
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar">
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>kabeor</strong>
+        <span>7月 09, 2018</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/PLC固件/">PLC固件</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/逆向/">逆向</a>
+    </li></ul>
+    
+
+    <!-- Share -->
+    
+        <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+        
+            <!-- Busuanzi Views -->
+            <a class="post_share-link" href="#">
+                <li class="mdl-menu__item">
+                    <span id="busuanzi_container_page_pv">
+                        <span id="busuanzi_value_page_pv"></span>&nbsp;浏览量
+                    </span>
+                </li>
+            </a>
+        
+    
+
+    <!-- Share Weibo -->
+    
+
+    <!-- Share Twitter -->
+    
+
+    <!-- Share Facebook -->
+    
+
+    <!-- Share Google+ -->
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+    
+</div>
+                
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <h1 id="施耐德NOE77101以太网模块固件逆向及后门挖掘"><a href="#施耐德NOE77101以太网模块固件逆向及后门挖掘" class="headerlink" title="施耐德NOE77101以太网模块固件逆向及后门挖掘"></a>施耐德NOE77101以太网模块固件逆向及后门挖掘</h1><p>前几天参加了 2018工业信息安全技能大赛 ，之前从没有接触过工控安全，这次的比赛让我学习了很多。</p>
+<p>此次比赛其中一道题就是考察了施耐德NOE77101固件后门账号漏洞的问题，比赛题目要求是提交该固件Web配置APP的默认账号的密码，事实上这个版本的固件还有其他漏洞，我将在下面研究其中的一部分。</p>
+<blockquote>
+<p>部分思路参考了此次比赛主办方灯塔实验室的文章 <a href="http://t.cn/RdORUWo" target="_blank" rel="noopener">http://t.cn/RdORUWo</a></p>
+</blockquote>
+<p>NOE 771是施耐德Quantum系列PLC的以太网模块，Quantum系列PLC是施耐德的高端PLC，应用在我国核心能源调度网络系统中，如：西气东输的区域子段SCADA系统。</p>
+<h2 id="1-静态网站分析"><a href="#1-静态网站分析" class="headerlink" title="1.静态网站分析"></a>1.静态网站分析</h2><p>题目给了一个网站文件如下<br><img src="https://i.loli.net/2018/07/19/5b50212a8e4c2.jpg" alt="mark"></p>
+<p><strong>文件列表</strong><br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">FLASH0</span><br><span class="line">FLASH0/bin</span><br><span class="line">FLASH0/ftp</span><br><span class="line">FLASH0/fw</span><br><span class="line">FLASH0/gdt</span><br><span class="line">FLASH0/rdt</span><br><span class="line">FLASH0/webloader.ini</span><br><span class="line">FLASH0/wwwroot</span><br><span class="line">FLASH0/bin/$TMP_EMPTY_DIR</span><br><span class="line">FLASH0/ftp/$TMP_EMPTY_DIR</span><br><span class="line">FLASH0/fw/crashlog.txt</span><br><span class="line">FLASH0/fw/fw.ini //固件版本</span><br><span class="line">FLASH0/fw/hw.ini</span><br><span class="line">FLASH0/gdt/$TMP_EMPTY_DIR</span><br><span class="line">FLASH0/rdt/password.rde //调用密码</span><br><span class="line">FLASH0/wwwroot/cgi-bin</span><br><span class="line">FLASH0/wwwroot/classes</span><br><span class="line">FLASH0/wwwroot/conf</span><br><span class="line">FLASH0/wwwroot/html</span><br><span class="line">FLASH0/wwwroot/images</span><br><span class="line">FLASH0/wwwroot/index.htm //web首页文件</span><br><span class="line">FLASH0/wwwroot/lib</span><br><span class="line">FLASH0/wwwroot/SchneiderTFE.zip //施耐德MIB文件</span><br><span class="line">FLASH0/wwwroot/secure</span><br><span class="line">FLASH0/wwwroot/unsecure</span><br><span class="line">FLASH0/wwwroot/cgi-bin/$TMP_EMPTY_DIR</span><br><span class="line">FLASH0/wwwroot/classes/jvmver.jar //JAVA APP</span><br><span class="line">FLASH0/wwwroot/classes/RDE.jar //JAVA APP</span><br><span class="line">FLASH0/wwwroot/classes/SAComm.jar //JAVA APP</span><br><span class="line">FLASH0/wwwroot/classes/SysDiag.jar //JAVA APP</span><br><span class="line">FLASH0/wwwroot/classes/webcfg.jar //JAVA APP</span><br><span class="line">FLASH0/wwwroot/classes/webdiag.jar //JAVA APP</span><br><span class="line">FLASH0/wwwroot/classes/XMLParser.jar//JAVA APP</span><br><span class="line">FLASH0/wwwroot/classes/xmlrpc-1.1.jar //JAVA APP</span><br><span class="line">FLASH0/wwwroot/conf/bootp</span><br><span class="line">FLASH0/wwwroot/conf/dhcp</span><br><span class="line">FLASH0/wwwroot/conf/diag</span><br><span class="line">FLASH0/wwwroot/conf/exec</span><br><span class="line">FLASH0/wwwroot/conf/fw</span><br><span class="line">FLASH0/wwwroot/conf/Gcnftcop.sys</span><br><span class="line">FLASH0/wwwroot/conf/glbdata</span><br><span class="line">FLASH0/wwwroot/conf/ioscanner</span><br><span class="line">FLASH0/wwwroot/conf/snmp</span><br><span class="line">FLASH0/wwwroot/conf/bootp/$TMP_EMPTY_DIR</span><br><span class="line">FLASH0/wwwroot/conf/dhcp/$TMP_EMPTY_DIR</span><br><span class="line">FLASH0/wwwroot/conf/diag/$TMP_EMPTY_DIR</span><br><span class="line">FLASH0/wwwroot/conf/exec/kerVer</span><br><span class="line">FLASH0/wwwroot/conf/exec/NOE77101.bin //Quantum Ethernet Executive firmware Ver. 3.60</span><br><span class="line">FLASH0/wwwroot/conf/fw/fw.ini</span><br><span class="line">FLASH0/wwwroot/conf/glbdata/glbdata.ini</span><br><span class="line">FLASH0/wwwroot/conf/ioscanner/$TMP_EMPTY_DIR</span><br><span class="line">FLASH0/wwwroot/conf/snmp/snmp.ini</span><br><span class="line">FLASH0/wwwroot/html/config.js //定义了WEB界面title可做通用设备识别</span><br><span class="line">FLASH0/wwwroot/html/english</span><br><span class="line">FLASH0/wwwroot/html/images</span><br><span class="line">FLASH0/wwwroot/html/lib</span><br><span class="line">FLASH0/wwwroot/html/english/control</span><br><span class="line">FLASH0/wwwroot/html/english/diagnostic</span><br><span class="line">FLASH0/wwwroot/html/english/documentation</span><br><span class="line">FLASH0/wwwroot/html/english/header.htm</span><br><span class="line">FLASH0/wwwroot/html/english/home</span><br><span class="line">FLASH0/wwwroot/html/english/index.htm</span><br><span class="line">FLASH0/wwwroot/html/english/maintenance</span><br><span class="line">FLASH0/wwwroot/html/english/monitoring</span><br><span class="line">FLASH0/wwwroot/html/english/setup</span><br><span class="line">FLASH0/wwwroot/html/english/control/index.htm</span><br><span class="line">FLASH0/wwwroot/html/english/control/menu.htm</span><br><span class="line">FLASH0/wwwroot/html/english/diagnostic/index.htm</span><br><span class="line">FLASH0/wwwroot/html/english/diagnostic/menu.htm</span><br><span class="line">FLASH0/wwwroot/html/english/documentation/index.htm</span><br><span class="line">FLASH0/wwwroot/html/english/documentation/menu.htm</span><br><span class="line">FLASH0/wwwroot/html/english/home/home.htm</span><br><span class="line">FLASH0/wwwroot/html/english/home/index.htm</span><br><span class="line">FLASH0/wwwroot/html/english/home/menu.htm</span><br><span class="line">FLASH0/wwwroot/html/english/maintenance/index.htm</span><br><span class="line">FLASH0/wwwroot/html/english/maintenance/menu.htm</span><br><span class="line">FLASH0/wwwroot/html/english/monitoring/index.htm</span><br><span class="line">FLASH0/wwwroot/html/english/monitoring/menu.htm</span><br><span class="line">FLASH0/wwwroot/html/english/setup/index.htm</span><br><span class="line">FLASH0/wwwroot/html/english/setup/menu.htm</span><br><span class="line">FLASH0/wwwroot/html/images/noe77101.jpg //产品型号图片</span><br><span class="line">FLASH0/wwwroot/html/images/Telemecanique.gif</span><br><span class="line">FLASH0/wwwroot/html/images/TelemecaniquePocketPC.gif</span><br><span class="line">FLASH0/wwwroot/html/lib/css</span><br><span class="line">FLASH0/wwwroot/html/lib/images</span><br><span class="line">FLASH0/wwwroot/html/lib/js</span><br><span class="line">FLASH0/wwwroot/html/lib/css/header.css</span><br><span class="line">FLASH0/wwwroot/html/lib/css/main.css</span><br><span class="line">FLASH0/wwwroot/html/lib/css/menu.css</span><br><span class="line">FLASH0/wwwroot/html/lib/images/left.gif</span><br><span class="line">FLASH0/wwwroot/html/lib/images/moins.gif</span><br><span class="line">FLASH0/wwwroot/html/lib/images/plus.gif</span><br><span class="line">FLASH0/wwwroot/html/lib/images/right.gif</span><br><span class="line">FLASH0/wwwroot/html/lib/js/header.js</span><br><span class="line">FLASH0/wwwroot/html/lib/js/home.js</span><br><span class="line">FLASH0/wwwroot/html/lib/js/index.js</span><br><span class="line">FLASH0/wwwroot/html/lib/js/menu.js</span><br><span class="line">FLASH0/wwwroot/html/lib/js/tools.js</span><br><span class="line">FLASH0/wwwroot/images/eight_io.gif</span><br><span class="line">FLASH0/wwwroot/images/empty.gif</span><br><span class="line">FLASH0/wwwroot/images/hiendcpu.gif</span><br><span class="line">FLASH0/wwwroot/images/logo.gif</span><br><span class="line">FLASH0/wwwroot/images/miniplc.gif</span><br><span class="line">FLASH0/wwwroot/images/module.gif</span><br><span class="line">FLASH0/wwwroot/lib/home.js</span><br><span class="line">FLASH0/wwwroot/lib/main.css</span><br><span class="line">FLASH0/wwwroot/lib/main.js</span><br><span class="line">FLASH0/wwwroot/secure/embedded</span><br><span class="line">FLASH0/wwwroot/secure/system</span><br><span class="line">FLASH0/wwwroot/secure/user</span><br><span class="line">FLASH0/wwwroot/secure/embedded/bandwidth.htm</span><br><span class="line">FLASH0/wwwroot/secure/embedded/chkdsk.htm</span><br><span class="line">FLASH0/wwwroot/secure/embedded/classes</span><br><span class="line">FLASH0/wwwroot/secure/embedded/dhcp_node_config.htm</span><br><span class="line">FLASH0/wwwroot/secure/embedded/format_flash.htm</span><br><span class="line">FLASH0/wwwroot/secure/embedded/french</span><br><span class="line">FLASH0/wwwroot/secure/embedded/ftp_passwd_config.htm</span><br><span class="line">FLASH0/wwwroot/secure/embedded/german</span><br><span class="line">FLASH0/wwwroot/secure/embedded/globaldata.htm</span><br><span class="line">FLASH0/wwwroot/secure/embedded/http_passwd_config.htm</span><br><span class="line">FLASH0/wwwroot/secure/embedded/images</span><br><span class="line">FLASH0/wwwroot/secure/embedded/ioscanning.htm</span><br><span class="line">FLASH0/wwwroot/secure/embedded/messaging.htm</span><br><span class="line">FLASH0/wwwroot/secure/embedded/reboot.htm</span><br><span class="line">FLASH0/wwwroot/secure/embedded/set_readonly.htm</span><br><span class="line">FLASH0/wwwroot/secure/embedded/smtpconf.htm</span><br><span class="line">FLASH0/wwwroot/secure/embedded/smtpdiag.htm</span><br><span class="line">FLASH0/wwwroot/secure/embedded/spanish</span><br><span class="line">FLASH0/wwwroot/secure/embedded/support.htm</span><br><span class="line">FLASH0/wwwroot/secure/embedded/web_page_Ver.ini</span><br><span class="line">FLASH0/wwwroot/secure/embedded/classes/$TMP_EMPTY_DIR</span><br><span class="line">FLASH0/wwwroot/secure/embedded/french/$TMP_EMPTY_DIR</span><br><span class="line">FLASH0/wwwroot/secure/embedded/german/$TMP_EMPTY_DIR</span><br><span class="line">FLASH0/wwwroot/secure/embedded/images/$TMP_EMPTY_DIR</span><br><span class="line">FLASH0/wwwroot/secure/embedded/spanish/$TMP_EMPTY_DIR</span><br><span class="line">FLASH0/wwwroot/secure/system/ctrlstat.htm</span><br><span class="line">FLASH0/wwwroot/secure/system/ethernet.htm</span><br><span class="line">FLASH0/wwwroot/secure/system/plccfg.htm</span><br><span class="line">FLASH0/wwwroot/secure/system/rde.htm</span><br><span class="line">FLASH0/wwwroot/secure/system/riostat.htm</span><br><span class="line">FLASH0/wwwroot/secure/user/$TMP_EMPTY_DIR</span><br><span class="line">FLASH0/wwwroot/unsecure/user</span><br><span class="line">FLASH0/wwwroot/unsecure/user/$TMP_EMPTY_DIR</span><br></pre></td></tr></table></figure></p>
+<p><strong>fw/fw.ini文件内是固件版本，可以看到是3.60版本</strong><br><img src="https://i.loli.net/2018/07/19/5b50212aa5d39.jpg" alt="mark"></p>
+<p><strong>wwwroot/classes/内的jar文件即是Web配置端APP文件</strong><br><img src="https://i.loli.net/2018/07/19/5b50212abff53.jpg" alt="mark"></p>
+<p><strong>wwwroot/conf/exec/NOE77101.bin很明显就是NOE77101的固件了</strong><br><img src="https://i.loli.net/2018/07/19/5b50212adfc34.jpg" alt="mark"></p>
+<p>那么接下来我们所要做的就是分析jar格式的APP文件，这也是此次题目所要求的，然后再研究bin文件中的其他漏洞</p>
+<h2 id="2-Web配置APP默认账户及密码的获取"><a href="#2-Web配置APP默认账户及密码的获取" class="headerlink" title="2.Web配置APP默认账户及密码的获取"></a>2.Web配置APP默认账户及密码的获取</h2><p>针对jar包的逆向分析，常使用的工具是JD-GUI，安装该工具需要配置java环境。</p>
+<p>打开后拖入所有jar包<br><img src="https://i.loli.net/2018/07/19/5b50212b11461.jpg" alt="mark"></p>
+<p>发现没有加壳和混淆，于是我们直奔主题，搜索字符串PASSWORD<br><img src="https://i.loli.net/2018/07/19/5b50212b3d26f.jpg" alt="mark"></p>
+<p>密码来的太突然了</p>
+<blockquote>
+<p>USER = “sysdiag”<br>PASSWORD = “factorycast@schneider”</p>
+</blockquote>
+<p><img src="https://i.loli.net/2018/07/19/5b50212b599c6.jpg" alt="mark"><br>可以看到是ftp连接的默认账号及密码</p>
+<p>到这里题目所要求的就完成了</p>
+<h2 id="3-bin固件分析"><a href="#3-bin固件分析" class="headerlink" title="3.bin固件分析"></a>3.bin固件分析</h2><h3 id="1-binwalk提取文件"><a href="#1-binwalk提取文件" class="headerlink" title="1.binwalk提取文件"></a>1.binwalk提取文件</h3><p>将NOE77101.bin在Ubuntu环境下用binwalk进行识别，显示为Zlib压缩类型<br><img src="https://i.loli.net/2018/07/19/5b50212b77c89.jpg" alt="mark"></p>
+<p>使用<code>binwalk -e</code>命令提取文件<br><img src="https://i.loli.net/2018/07/19/5b50212b9494d.jpg" alt="mark"><br>解压后的文件217存储在_NOE77101.bin.extracted目录中，并以文件在固件升级包中的起始位置来命名。</p>
+<p>binwalk分析217文件<br><img src="https://i.loli.net/2018/07/19/5b50212bbc928.jpg" alt="mark"><br><img src="https://i.loli.net/2018/07/19/5b5021407fa27.jpg" alt="mark"><br><img src="https://i.loli.net/2018/07/19/5b502140a5855.jpg" alt="mark"></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">2406504       0x24B868        VxWorks WIND kernel version &quot;2.5&quot;</span><br><span class="line">2421452       0x24F2CC        Copyright string: &quot;Copyright Wind River Systems, Inc., 1984-2000&quot;</span><br><span class="line">2435046       0x2527E6        Unix path: /host/resource/tcl/wtxerrdb.tcl</span><br><span class="line">2529396       0x269874        Copyright string: &quot;copyright_wind_river&quot;</span><br><span class="line">3232572       0x31533C        Copyright string: &quot;Copyright, Real-Time Innovations, Inc., 1991.  All rights reserved.&quot;</span><br><span class="line">3244384       0x318160        Copyright string: &quot;Copyright 1984-1996 Wind River Systems, Inc.&quot;</span><br><span class="line">3272404       0x31EED4        VxWorks symbol table, big endian, first entry: [type: function, code address: 0x223D64, symbol address: 0x2A8BC8]</span><br></pre></td></tr></table></figure>
+<p>从最后几行看到，固件的操作系统版本是VxWorks 2.5，符号表地址也在最后给出，可以用于稍后修复函数名</p>
+<blockquote>
+<p>VxWorks 操作系统是美国WindRiver（风河）公司于设计开发。它以其良好的可靠性和卓越的实时性被广泛地应用在通信、军事、航空、航天等高精尖技术及实时性要求极高的领域中，如卫星通讯、军事演习、弹道制导、飞机导航等。在美国的 F-16、FA-18战斗机、B-2 隐形轰炸机和爱国者导弹上，甚至在火星登陆的探测器也都使用了VxWorks系统。最新的VxWorks7的口号是——为全球智能连接设备和系统提供动力。</p>
+<p>由于固件特性，在普通逆向步骤上需要多三个部分</p>
+<ol>
+<li>修复代码函数位置</li>
+<li>确定固件代码段基址</li>
+<li>重构符号表</li>
+</ol>
+</blockquote>
+<h3 id="2-IDA分析"><a href="#2-IDA分析" class="headerlink" title="2.IDA分析"></a>2.IDA分析</h3><h4 id="载入"><a href="#载入" class="headerlink" title="载入"></a>载入</h4><p>将217文件在IDA中分析<br>IDA加载固件后使用PPC Big-endian（PowerPC大端）处理器类型。<br><img src="https://i.loli.net/2018/07/19/5b502140c2b33.jpg" alt="mark"><br><img src="https://i.loli.net/2018/07/19/5b502140d7195.jpg" alt="mark"></p>
+<p>载入后没有出现“由于找不到代码段起始地址从而反编译失败”的问题，应该是出题人为了降低难度，已经修复好函数位置。(如果没有修复好的话可以用Ruben的idc脚本，但现在脚本链接不能访问了 <a href="http://www.reversemode.com/images/stories/schneider/files/fix_functions_ppc.idc" target="_blank" rel="noopener">http://www.reversemode.com/images/stories/schneider/files/fix_functions_ppc.idc</a>)</p>
+<p>载入后如下<br><img src="https://i.loli.net/2018/07/19/5b50214106755.jpg" alt="mark"></p>
+<h4 id="确定固件的代码段基址"><a href="#确定固件的代码段基址" class="headerlink" title="确定固件的代码段基址"></a>确定固件的代码段基址</h4><p>虽然现在我们可以成功反编译，但我们还需要确定固件的代码段基址才能重构符号表<br>确定基址的思路是寻找一条相对寻址方式的lis指令。<br><img src="https://i.loli.net/2018/07/19/5b5021411a2fa.jpg" alt="mark"></p>
+<p>在IDA中使用ALT+T直接搜lis指令，CTRL+T进行向下(上)搜索，发现在<code>00000AA0</code>处的lis指令<br><img src="https://i.loli.net/2018/07/19/5b5021412daed.jpg" alt="mark"></p>
+<p><code>ROM:00000AA0       lis       r9, dword_358848@ha</code></p>
+<p>观察地址后面的@ha确定基址为0x10000,这也是固件常用基址</p>
+<p>对@h和@ha的问题，在IBM官网看到一篇文章</p>
+<blockquote>
+<p><a href="https://www.ibm.com/developerworks/cn/linux/hardware/ppc/assembly/index.html" target="_blank" rel="noopener">https://www.ibm.com/developerworks/cn/linux/hardware/ppc/assembly/index.html</a><br><img src="https://i.loli.net/2018/07/19/5b50214142c8e.jpg" alt="mark"></p>
+</blockquote>
+<p>具体也不是很懂，还有这篇</p>
+<blockquote>
+<p><a href="http://blog.chinaunix.net/uid-20663797-id-35772.html" target="_blank" rel="noopener">http://blog.chinaunix.net/uid-20663797-id-35772.html</a></p>
+</blockquote>
+<p>接下来重新载入ida，ppc模式，基址0x10000<br><img src="https://i.loli.net/2018/07/19/5b50214155d97.jpg" alt="mark"></p>
+<p>成功反编译(和刚刚的应该没有变化)</p>
+<p>接下来就该导入符号表了</p>
+<h4 id="重构符号表"><a href="#重构符号表" class="headerlink" title="重构符号表"></a>重构符号表</h4><p>binwalk分析217文件时最后一行的符号表地址还记得吗？<br><img src="https://i.loli.net/2018/07/19/5b5021f2f24a9.jpg" alt="mark"></p>
+<p>地址为<code>0x31EED4</code></p>
+<p>使用010Editor打开217文件，搜索地址0x31EED4(ctrl+G)<br><img src="https://i.loli.net/2018/07/19/5b5021417134c.jpg" alt="mark"></p>
+<blockquote>
+<p>VxWorks系列的字节排序有独特的格式，以16个字节为一组数据，前4个字节是函数名的内存地址，后4个字节是函数的内存位置，然后以另4个特征字节数据+4个字节0x00结尾。</p>
+</blockquote>
+<p>于是符号表的起始地址是上一行的<strong><code>0x31EEC4</code></strong></p>
+<p>一直向下查找，根据结构分析，结束地址为<strong><code>0x348114</code></strong><br><img src="https://i.loli.net/2018/07/19/5b5021f317c30.jpg" alt="mark"></p>
+<p>接下来我们就可以编写IDPython脚本重构符号表</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># coding:utf-8</span><br><span class="line">from idaapi import *</span><br><span class="line">import time</span><br><span class="line"></span><br><span class="line">eaStart = 0x31eec4 </span><br><span class="line">eaEnd = 0x348114</span><br><span class="line">ea = eaStart</span><br><span class="line">while ea &lt; eaEnd:</span><br><span class="line">	offset = 0</span><br><span class="line">	MakeStr(Dword(ea - offset), BADADDR)</span><br><span class="line">	sName = GetString(Dword(ea - offset), -1, ASCSTR_C)</span><br><span class="line">	print sName</span><br><span class="line">	if sName:</span><br><span class="line">		eaFunc = Dword(ea - offset + 4)</span><br><span class="line">		MakeName(eaFunc,sName)</span><br><span class="line">		MakeCode(eaFunc)</span><br><span class="line">		MakeFunction(eaFunc,BADADDR)</span><br><span class="line">		ea = ea + 16</span><br><span class="line">print&quot;ok&quot;</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.loli.net/2018/07/19/5b5021f33ad49.jpg" alt="mark"></p>
+<p>运行脚本<br><img src="https://i.loli.net/2018/07/19/5b5021f35a8ec.jpg" alt="mark"><br>修复完成</p>
+<h4 id="固件后门账户"><a href="#固件后门账户" class="headerlink" title="固件后门账户"></a>固件后门账户</h4><p>查看usrAppInit函数，发现多个后门账户<br><img src="https://i.loli.net/2018/07/19/5b5021f37329a.jpg" alt="mark"></p>
+<p>而密码则是经过loginDefaultEncrypt函数哈希加密<br>结合vxworks5的源码来看</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">/******************************************************************************</span><br><span class="line">*</span><br><span class="line">* loginDefaultEncrypt - default password encryption routine</span><br><span class="line">*</span><br><span class="line">* This routine provides default encryption for login passwords.  It employs</span><br><span class="line">* a simple encryption algorithm.  It takes as arguments a string &lt;in&gt; and a</span><br><span class="line">* pointer to a buffer &lt;out&gt;.  The encrypted string is then stored in the</span><br><span class="line">* buffer.</span><br><span class="line">*</span><br><span class="line">* The input strings must be at least 8 characters and no more than 40</span><br><span class="line">* characters.</span><br><span class="line">*</span><br><span class="line">* If a more sophisticated encryption algorithm is needed, this routine can</span><br><span class="line">* be replaced, as long as the new encryption routine retains the same</span><br><span class="line">* declarations as the default routine.  The routine vxencrypt</span><br><span class="line">* in \f3host/&lt;hostOs&gt;/bin\fP</span><br><span class="line">* should also be replaced by a host version of &lt;encryptionRoutine&gt;.  For more</span><br><span class="line">* information, see the manual entry for loginEncryptInstall().</span><br><span class="line">*</span><br><span class="line">* RETURNS: OK, or ERROR if the password is invalid.</span><br><span class="line">*</span><br><span class="line">* SEE ALSO: loginEncryptInstall(), vxencrypt</span><br><span class="line">*</span><br><span class="line">* INTERNAL</span><br><span class="line">* The encryption is done by summing the password and multiplying it by</span><br><span class="line">* a magic number.</span><br><span class="line">*/</span><br><span class="line"></span><br><span class="line">STATUS loginDefaultEncrypt</span><br><span class="line">    (</span><br><span class="line">    char *in,                           /* input string */</span><br><span class="line">    char *out                           /* encrypted string */</span><br><span class="line">    )</span><br><span class="line">    &#123;</span><br><span class="line">    int            ix;</span><br><span class="line">    unsigned long  magic     = 31695317;</span><br><span class="line">    unsigned long  passwdInt = 0;</span><br><span class="line"></span><br><span class="line">   if (strlen (in) &lt; 8 || strlen (in) &gt; 40)</span><br><span class="line">        &#123;</span><br><span class="line">	errnoSet (S_loginLib_INVALID_PASSWORD);</span><br><span class="line">        return (ERROR);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    for (ix = 0; ix &lt; strlen(in); ix++)         /* sum the string */</span><br><span class="line">        passwdInt += (in[ix]) * (ix+1) ^ (ix+1);</span><br><span class="line"></span><br><span class="line">    sprintf (out, &quot;%u&quot;, (long) (passwdInt * magic)); /* convert interger</span><br><span class="line">							to string */</span><br><span class="line">    /* make encrypted passwd printable */</span><br><span class="line"></span><br><span class="line">    for (ix = 0; ix &lt; strlen (out); ix++)</span><br><span class="line">        &#123;</span><br><span class="line">        if (out[ix] &lt; &apos;3&apos;)</span><br><span class="line">            out[ix] = out[ix] + &apos;!&apos;;    /* arbitrary */</span><br><span class="line"></span><br><span class="line">        if (out[ix] &lt; &apos;7&apos;)</span><br><span class="line">            out[ix] = out[ix] + &apos;/&apos;;    /* arbitrary */</span><br><span class="line"></span><br><span class="line">        if (out[ix] &lt; &apos;9&apos;)</span><br><span class="line">            out[ix] = out[ix] + &apos;B&apos;;    /* arbitrary */</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    return (OK);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.loli.net/2018/07/19/5b5021f38a71a.jpg" alt="mark"><br><img src="https://i.loli.net/2018/07/19/5b5021f39f749.jpg" alt="mark"><br><img src="https://i.loli.net/2018/07/19/5b5021f3b3958.jpg" alt="mark"></p>
+<p>结合源码看汇编就非常清晰了</p>
+<blockquote>
+<p>加密过程：</p>
+<p>1.在第一个for循环中密码字符串逐字节与位置下标相乘再按位进行异或操作，然后将每一个字符的运算结果累加起来算出passwdInt。<br>2.passwdInt值与magic相乘再转化为String类型。<br>3.字符串逐字符与’3’、’7’、’9’进行比较，加相应的值。</p>
+<p>可以通过随机生成密码来构建一个序列化的输入密码和passwdInt的对应表，同时passwdInt与输出密码之间也可构建对应表，这样输入密码和输出密码讲通过长度有限的Int类型passwdInt打通，这样我们就能通过查表的方式由输出密码得到输入密码。相比于MD5、SHA1等加密算法，vxencrypt加密算法由于加密方式问题导致密文长度受限，以至于存在弱点。</p>
+</blockquote>
+<p>Rapid7 研究员HD Moore曾经发现VxWorks 5.x系统默认加密方式存在缺陷的研究文章</p>
+<blockquote>
+<p><a href="http://cvk.posthaven.com/how-to-crack-vxworks-password-hashes" target="_blank" rel="noopener">http://cvk.posthaven.com/how-to-crack-vxworks-password-hashes</a></p>
+</blockquote>
+<p>解密程序</p>
+<blockquote>
+<p><a href="https://github.com/cvonkleist/vxworks_hash" target="_blank" rel="noopener">https://github.com/cvonkleist/vxworks_hash</a></p>
+</blockquote>
+<p>这里贴上C的<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// cvk/2010-08-09</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line"></span><br><span class="line">// password settings</span><br><span class="line">#define MIN_LENGTH 8</span><br><span class="line">#define MAX_LENGTH 40</span><br><span class="line">char *charset = &quot; !\&quot;#$%&amp;&apos;()*+,-./0123456789:;&lt;=&gt;?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz&#123;|&#125;~&quot;;</span><br><span class="line">#define CHARSET_LENGTH 95</span><br><span class="line"></span><br><span class="line">// shortcut hash table</span><br><span class="line">#define MAX_SUM 110000</span><br><span class="line">char sums[MAX_SUM][MAX_LENGTH + 1];</span><br><span class="line"></span><br><span class="line">// stage one of the hashing algorithm: the sum</span><br><span class="line">unsigned long sum(char *plaintext) &#123;</span><br><span class="line">  unsigned long s = 0;</span><br><span class="line">  int i;</span><br><span class="line">  for (i = 0; i &lt; strlen(plaintext); i++)</span><br><span class="line">    s += (plaintext[i]) * (i + 1) ^ (i + 1);</span><br><span class="line">  return s;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// builds a random password</span><br><span class="line">void random_password(char *password) &#123;</span><br><span class="line">  int i;</span><br><span class="line">  int length = rand() % (MAX_LENGTH - MIN_LENGTH) + MIN_LENGTH;</span><br><span class="line">  for(i = 0; i &lt; length; i++)</span><br><span class="line">    password[i] = charset[rand() % CHARSET_LENGTH];</span><br><span class="line">  password[length] = &apos;\0&apos;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// randomly creates checksums</span><br><span class="line">//</span><br><span class="line">// when it discovers a shorter input plaintext for a checksum that has already</span><br><span class="line">// been calculated, it replaces the existing plaintext with the new, shorter</span><br><span class="line">// one</span><br><span class="line">void brute(int runs) &#123;</span><br><span class="line">  int i;</span><br><span class="line">  char password[MAX_LENGTH + 1];</span><br><span class="line">  unsigned long s;</span><br><span class="line"></span><br><span class="line">  for(i = 0; i &lt; runs; i++) &#123;</span><br><span class="line">    random_password(password);</span><br><span class="line">    s = sum(password);</span><br><span class="line">    if(s &gt; MAX_SUM) &#123;</span><br><span class="line">      printf(&quot;error! sum too big&quot;);</span><br><span class="line">      return;</span><br><span class="line">    &#125;</span><br><span class="line">    if(sums[s][0] == &apos;\0&apos; || strlen(password) &lt; strlen(sums[s])) &#123;</span><br><span class="line">      strcpy(sums[s], password);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// returns the number of checksums in the table</span><br><span class="line">int count() &#123;</span><br><span class="line">  int i;</span><br><span class="line">  int c = 0;</span><br><span class="line">  for(i = 0; i &lt; MAX_SUM; i++)</span><br><span class="line">    if(sums[i][0] != &apos;\0&apos;)</span><br><span class="line">      c++;</span><br><span class="line">  return c;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// prints discovered checksums</span><br><span class="line">void dump_table() &#123;</span><br><span class="line">  int i;</span><br><span class="line">  for(i = 0; i &lt; MAX_SUM; i++)</span><br><span class="line">    if(sums[i][0] != &apos;\0&apos;)</span><br><span class="line">      printf(&quot;%d\t%s\n&quot;, i, sums[i]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main(int argc, char **argv) &#123;</span><br><span class="line">  brute(1000000000);</span><br><span class="line">  printf(&quot;%d checksums\n&quot;, count());</span><br><span class="line">  dump_table();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>至此，对施耐德NOE77101的基本探究就结束了，其他漏洞还包括wireshark抓ftp包，账号密码明文显示等，就留着以后研究了，总体来说还是很有收获。</p>
+<p>See you again！</p>
+<p>From <a href="https://kabeor.github.io/施耐德NOE77101以太网模块固件逆向及后门挖掘/">https://kabeor.github.io/施耐德NOE77101以太网模块固件逆向及后门挖掘/</a> bye</p>
+
+        
+                <blockquote style="margin: 2em 0 0;padding: 0.5em 1em;border-left: 3px solid #F44336;background-color: #F5F5F5;list-style: none;">
+                    <p><strong>
+                         
+                            This blog is under a <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0 Unported License</a>
+                        </strong>
+                        <br>
+                        <strong>本文链接：</strong><a href="https://kabeor.github.io/施耐德NOE77101以太网模块固件逆向及后门挖掘/">https://kabeor.github.io/施耐德NOE77101以太网模块固件逆向及后门挖掘/</a>
+                    </p>
+                </blockquote>
+        
+    
+
+    
+</div>
+
+                
+                <!-- Post Comments -->
+                
+                    
+    <div id="comment" style="padding:10px;" class="vcomment"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+    var GUEST_INFO = ['nick','mail','link'];
+    var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+        return GUEST_INFO.indexOf(item) > -1
+    });
+    var notify = 'true' == true;
+    var verify = 'true' == true;
+    new Valine({
+        el: '.vcomment',
+        notify: notify,
+        verify: verify,
+        appId: "53gELcU5PPzXKUh1q21E5Nkh-gzGzoHsz",
+        appKey: "pSNnuMbRDkWAE7j44yChrEce",
+        placeholder: "都看到这里了还不评论一下吗(╯‵□′)╯︵┻━┻",
+        pageSize:'10',
+        avatar:'identicon',
+        lang:'zh-cn'
+    });
+</script>
+
+                
+            </div>
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+        <a href="/第8章 动态调试/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/对WiFi密码安全的基础认识/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
+
+                    
+                        <!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay"></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored sidebar-fixed-left" role="navigation">
+    <div id="sidebar-main">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.png);">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+        <i class="material-icons">clear_all</i>
+        <span class="mdl-button__ripple-container">
+            <span class="mdl-ripple">
+            </span>
+        </span>
+    </button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="/img/avatar.png" alt="kabeor's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        Trust me,Lisa.
+        <b class="caret"></b>
+    </a>
+</div>
+
+
+        <!-- Sidebar Navigation  -->
+        <ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+            
+                <li>
+                    <a href="mailto:1597915586@qq.com" target="_blank" title="Email Me">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
+                        
+                        Email Me
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://github.com/kabeor" target="_blank" title="GitHub">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">code</i>
+                        
+                        GitHub
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    
+        <li id="sidebar-first-li">
+            <a href="/">
+                
+                    <i class="material-icons sidebar-material-icons">home</i>
+                
+                主页
+            </a>
+        </li>
+        
+    
+
+    <!-- Archives  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">inbox</i>
+                
+                    归档
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+            <li>
+                <a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/02/">二月 2018<span class="sidebar_archives-count">47</span></a>
+            </li></ul>
+        </li>
+        
+    
+
+    <!-- Categories  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">chrome_reader_mode</i>
+                
+                分类
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                <a class="sidebar_archives-link" href="/categories/Code/">Code<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/Linux/">Linux<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/Linux/Kali/">Kali<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/Linux/网络/">网络<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/NexT/">NexT<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/Web/">Web<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/Web/WriteUP/">WriteUP<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/Web/渗透/">渗透<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/Web/渗透/工具集/">工具集<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/blog搭建/">blog搭建<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/密码学和杂项/">密码学和杂项<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/树莓派/">树莓派<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/汇编/">汇编<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/汇编/漏洞银行逆向教程/">漏洞银行逆向教程<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/">病毒分析<span class="sidebar_archives-count">16</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/《恶意代码分析实战》笔记/">《恶意代码分析实战》笔记<span class="sidebar_archives-count">16</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/《恶意代码分析实战》笔记/第一篇-静态分析/">第一篇 静态分析<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/《恶意代码分析实战》笔记/第三篇-动态分析高级技术篇/">第三篇 动态分析高级技术篇<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/《恶意代码分析实战》笔记/第二篇-静态分析高级技术篇/">第二篇 静态分析高级技术篇<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/《恶意代码分析实战》笔记/第五篇-逆向工程/">第五篇 逆向工程<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/《恶意代码分析实战》笔记/第四篇-恶意代码功能篇/">第四篇 恶意代码功能篇<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/计算机系统/">计算机系统<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/计算机系统/PE/">PE<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/逆向/">逆向<span class="sidebar_archives-count">37</span></a></li><li><a class="sidebar_archives-link" href="/categories/逆向/i春秋/">i春秋<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/逆向/i春秋Reverse赛题/">i春秋Reverse赛题<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/categories/逆向/吾爱破解培训/">吾爱破解培训<span class="sidebar_archives-count">10</span></a>
+            </li></ul>
+        </li>
+        
+    
+
+    <!-- Pages  -->
+    
+        <li>
+            <a href="/about" title="关于">
+                
+                    <i class="material-icons sidebar-material-icons">person</i>
+                
+                关于
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/links" title="各位大佬(╯°□°）╯︵ ┻━┻">
+                
+                    <i class="material-icons sidebar-material-icons">link</i>
+                
+                各位大佬(╯°□°）╯︵ ┻━┻
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/timeline" title="时间轴">
+                
+                    <i class="material-icons sidebar-material-icons">timeline</i>
+                
+                时间轴
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/gallery" title="EVERSPACE(请等待加载哦)">
+                
+                    <i class="material-icons sidebar-material-icons">flight</i>
+                
+                EVERSPACE(请等待加载哦)
+            </a>
+        </li>
+        
+    
+
+    <!-- Article Number  -->
+    
+        <li>
+            <a href="/archives">
+                文章总数
+                <span class="sidebar-badge">89</span>
+            </a>
+        </li>
+        
+    
+</ul>
+
+
+    <div id="music163player">
+         <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="310" src="//music.163.com/outchain/player?type=0&id=2194265908&auto=0&height=430">
+         </iframe>
+    </div>
+
+        <!-- Sidebar Footer -->
+        <!--
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持和动力。 :)
+-->
+
+<!-- Sidebar Divider -->
+
+    <div class="sidebar-divider"></div>
+
+
+<!-- Theme Material -->
+
+    <a href="https://github.com/viosey/hexo-theme-material" class="sidebar-footer-text-a" target="_blank">
+        <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+            主题 - Material
+            <span class="sidebar-badge badge-circle">i</span>
+        </div>
+    </a>
+
+
+<!-- Help & Support -->
+<!--
+
+    <a href="mailto:hiviosey@gmail.com" class="sidebar-footer-text-a">
+        <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+        sidebar.help
+        <span class="mdl-button__ripple-container">
+          <span class="mdl-ripple"></span>
+        </span>
+      </div>
+    </a>
+
+-->
+
+<!-- Feedback -->
+<!--
+
+    <a href="https://github.com/viosey/hexo-theme-material/issues" target="_blank" class="sidebar-footer-text-a">
+        <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+        sidebar.feedback
+        <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></div>
+    </a>
+
+-->
+
+<!-- About Theme -->
+<!--
+
+    <a href="https://blog.viosey.com/index.php/Material.html" target="_blank" class="sidebar-footer-text-a">
+        <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+             sidebar.about_theme
+            <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></div>
+    </a>
+
+-->
+
+    </div>
+
+
+
+    <!-- Sidebar Image -->
+    
+
+</aside>
+
+                    
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+
+                    
+
+                    <!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+    
+        <!-- Paradox Footer Left Section -->
+        <div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+
+    <!-- Facebook -->
+    
+
+    <!-- Google + -->
+    
+
+    <!-- Weibo -->
+    
+
+    <!-- Instagram -->
+    
+
+    <!-- Tumblr -->
+    
+
+    <!-- Github -->
+    
+        <a href="https://github.com/kabeor" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-github">
+                <span class="visuallyhidden">Github</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- LinkedIn -->
+    
+
+    <!-- Zhihu -->
+    
+
+    <!-- Bilibili -->
+    
+
+    <!-- Telegram -->
+    
+    
+    <!-- V2EX -->
+    
+
+    <span class="post-count">全站共</span> 
+    148.3k 
+    <span>字</span>
+</div>
+
+
+        <!--Copyright-->
+        <div id="copyright">
+            Copyright&nbsp;©<script type="text/javascript">var fd = new Date();document.write("&nbsp;" + fd.getFullYear() + "&nbsp;");</script>K's House
+            
+                <br>
+                
+                    2018
+                
+            
+        </div>
+
+        <!-- Paradox Footer Right Section -->
+
+        <!--
+        I am glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+        It will not impact the appearance and can give developers a lot of support :)
+
+        很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+        它不会影响美观并可以给开发者很大的支持。 :)
+        -->
+
+        <div class="mdl-mini-footer--right-section">
+            <div>
+                <div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
+                <div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+            </div>
+        </div>
+    
+</footer>
+
+
+                    <!-- Import JS File -->
+
+    <script>lsloader.load("lazyload_js","/js/lazyload.min.js?wgjW/HuQG9JDgvPDPoRAng==", true)</script>
+
+
+
+    <script>lsloader.load("js_js","/js/js.min.js?V/53wGualMuiPM3xoetD5Q==", true)</script>
+
+
+
+    <script>lsloader.load("np_js","https://cdn.bootcss.com/nprogress/0.2.0/nprogress.js", true)</script>
+
+
+<script type="text/ls-javascript" id="NProgress-script">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    $('#nprogress .bar').css({
+        'background': '#FF1493'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #FF1493, 0 0 15px #FF1493'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#FF1493',
+        'border-left-color': '#FF1493'
+    });
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+    
+        <script>lsloader.load("sm_js","/js/smoothscroll.js?tNQK2Tw2SUL8a1Scn/Mgew==", true)</script>
+    
+
+
+
+
+
+    <!-- Busuanzi -->
+    <script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+   
+
+
+
+
+
+<!-- UC Browser Compatible -->
+<script>
+	var agent = navigator.userAgent.toLowerCase();
+	if(agent.indexOf('ucbrowser')>0) {
+		document.write('<link rel="stylesheet" href="/css/uc.css">');
+	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+	}
+</script>
+
+<!-- Import prettify js  -->
+
+    
+        
+            <script>lsloader.load("prettify_js","https://cdn.bootcss.com/prettify/r298/prettify.js", true)</script>
+        
+    
+
+
+
+<!-- Window Load -->
+<!-- add class for prettify -->
+<script type="text/ls-javascript" id="window-load">
+    $(window).on('load', function() {
+        // Post_Toc parent position fixed
+        $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
+    });
+
+    
+        
+            $(function() {
+                $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto;');
+                prettyPrint();
+                })
+        
+    
+    
+</script>
+
+<!-- MathJax Load-->
+
+
+<!-- Bing Background -->
+
+
+<script type="text/ls-javascript" id="lazy-load">
+    // Offer LazyLoad
+    queue.offer(function(){
+        $('.lazy').lazyload({
+            effect : 'show'
+        });
+    });
+
+    // Start Queue
+    $(document).ready(function(){
+        setInterval(function(){
+            queue.execNext();
+        },200);
+    });
+</script>
+
+<!-- Custom Footer -->
+
+
+
+<script>
+    (function(){
+        var scriptList = document.querySelectorAll('script[type="text/ls-javascript"]')
+
+        for (var i = 0; i < scriptList.length; ++i) {
+            var item = scriptList[i];
+            lsloader.runInlineScript(item.id,item.id);
+        }
+    })()
+console.log('\n %c © Material Theme | Version: 1.5.2 | https://github.com/viosey/hexo-theme-material %c \n', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-left-radius:5px;border-bottom-left-radius:5px;', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-right-radius:5px;border-bottom-right-radius:5px;');
+</script>
+
+                </main>
+            </div>
+        </body>
+    
+</html>

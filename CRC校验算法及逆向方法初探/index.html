@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html style="display: none;" lang="zh">
+    <head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <!--
+        © Material Theme
+        https://github.com/viosey/hexo-theme-material
+        Version: 1.5.2 -->
+    <script>
+        window.materialVersion = "1.5.2"
+        // Delete localstorage with these tags
+        window.oldVersion = [
+            'codestartv1',
+            '1.3.4',
+            '1.4.0',
+            '1.4.0b1',
+            '1.5.0'
+        ]
+    </script>
+
+    <!-- dns prefetch -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+
+
+    <link rel="dns-prefetch" href="https://cdn1.lncld.net">
+
+
+    <link rel="dns-prefetch" href="https://busuanzi.ibruce.info">
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Meta & Info -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!-- Title -->
+    
+    <title>
+        
+            CRC校验算法及逆向方法初探 | 
+        
+        K&#39;s House
+    </title>
+
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/img/favicon.png">
+    <link rel="icon" href="/img/favicon.png">
+
+    <meta name="format-detection" content="telephone=no">
+    <meta name="description" itemprop="description" content="Trust me,Lisa.">
+    <meta name="keywords" content=",逆向，CRC加密">
+    <meta name="theme-color" content="#0097A7">
+
+    <!-- Disable Fucking Bloody Baidu Tranformation -->
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+
+    <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+
+        
+            <script src="/js/ie-blocker.zhCN.js"></script>
+        
+    <![endif]-->
+
+    <!-- Import lsloader -->
+    <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(a){try{localStorage.removeItem(a)}catch(b){}};lsloader.setLS=function(a,c){try{localStorage.setItem(a,c)}catch(b){}};lsloader.getLS=function(a){var c="";try{c=localStorage.getItem(a)}catch(b){c=""}return c};versionString="/*"+(window.materialVersion||"unknownVersion")+"*/";lsloader.clean=function(){try{var b=[];for(var a=0;a<localStorage.length;a++){b.push(localStorage.key(a))}b.forEach(function(e){var f=lsloader.getLS(e);if(window.oldVersion){var d=window.oldVersion.reduce(function(g,h){return g||f.indexOf("/*"+h+"*/")!==-1},false);if(d){lsloader.removeLS(e)}}})}catch(c){}};lsloader.clean();lsloader.load=function(f,a,b,d){if(typeof b==="boolean"){d=b;b=undefined}d=d||false;b=b||function(){};var e;e=this.getLS(f);if(e&&e.indexOf(versionString)===-1){this.removeLS(f);this.requestResource(f,a,b,d);return}if(e){var c=e.split(versionString)[0];if(c!=a){console.log("reload:"+a);this.removeLS(f);this.requestResource(f,a,b,d);return}e=e.split(versionString)[1];if(d){this.jsRunSequence.push({name:f,code:e});this.runjs(a,f,e)}else{document.getElementById(f).appendChild(document.createTextNode(e));b()}}else{this.requestResource(f,a,b,d)}};lsloader.requestResource=function(b,e,a,c){var d=this;if(c){this.iojs(e,b,function(h,f,g){d.setLS(f,h+versionString+g);d.runjs(h,f,g)})}else{this.iocss(e,b,function(f){document.getElementById(b).appendChild(document.createTextNode(f));d.setLS(b,e+versionString+f)},a)}};lsloader.iojs=function(d,b,g){var a=this;a.jsRunSequence.push({name:b,code:""});try{var f=new XMLHttpRequest();f.open("get",d,true);f.onreadystatechange=function(){if(f.readyState==4){if((f.status>=200&&f.status<300)||f.status==304){if(f.response!=""){g(d,b,f.response);return}}a.jsfallback(d,b)}};f.send(null)}catch(c){a.jsfallback(d,b)}};lsloader.iocss=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.iofonts=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.runjs=function(f,c,e){if(!!c&&!!e){for(var b in this.jsRunSequence){if(this.jsRunSequence[b].name==c){this.jsRunSequence[b].code=e}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var a=document.createElement("script");a.appendChild(document.createTextNode(this.jsRunSequence[0].code));a.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(a);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else{if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var d=this;var a=document.createElement("script");a.src=this.jsRunSequence[0].path;a.type="text/javascript";this.jsRunSequence[0].status="loading";a.onload=function(){d.jsRunSequence.shift();if(d.jsRunSequence.length>0){d.runjs()}};document.body.appendChild(a)}}};lsloader.tagLoad=function(b,a){this.jsRunSequence.push({name:a,code:"",path:b,status:"failed"});this.runjs()};lsloader.jsfallback=function(c,b){if(!!this.jsnamemap[b]){return}else{this.jsnamemap[b]=b}for(var a in this.jsRunSequence){if(this.jsRunSequence[a].name==b){this.jsRunSequence[a].code="";this.jsRunSequence[a].status="failed";this.jsRunSequence[a].path=c}}this.runjs()};lsloader.cssfallback=function(e,c,b){if(!!this.cssnamemap[c]){return}else{this.cssnamemap[c]=1}var d=document.createElement("link");d.type="text/css";d.href=e;d.rel="stylesheet";d.onload=d.onerror=b;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(d,a)};lsloader.runInlineScript=function(c,b){var a=document.getElementById(b).innerText;this.jsRunSequence.push({name:c,code:a});this.runjs()}})();</script>
+
+    <!-- Import queue -->
+    <script>function Queue(){this.dataStore=[];this.offer=b;this.poll=d;this.execNext=a;this.debug=false;this.startDebug=c;function b(e){if(this.debug){console.log("Offered a Queued Function.")}if(typeof e==="function"){this.dataStore.push(e)}else{console.log("You must offer a function.")}}function d(){if(this.debug){console.log("Polled a Queued Function.")}return this.dataStore.shift()}function a(){var e=this.poll();if(e!==undefined){if(this.debug){console.log("Run a Queued Function.")}e()}}function c(){this.debug=true}}var queue=new Queue();</script>
+
+    <!-- Import CSS -->
+    
+        <style id="material_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_css","/css/material.min.css?Z7a72R1E4SxzBKR/WGctOA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+        <style id="style_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("style_css","/css/style.min.css?MKetZV3cUTfDxvMffaOezg==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+        
+            
+                <style id="prettify_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_css","/css/prettify.min.css?zp8STOU9v89XWFEnN+6YmQ==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+                <style id="prettify_theme"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_theme","/css/prettify/tomorrow-night-eighties.min.css?2LJQzURO+Kr8r/fl/T8oMA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+            
+        
+
+    
+
+    
+
+    <!-- Config CSS -->
+
+<!-- Other Styles -->
+<style>
+  body, html {
+    font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    overflow-x: hidden !important;
+  }
+  
+  code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  a {
+    color: #00838F;
+  }
+
+  .mdl-card__media,
+  #search-label,
+  #search-form-label:after,
+  #scheme-Paradox .hot_tags-count,
+  #scheme-Paradox .sidebar_archives-count,
+  #scheme-Paradox .sidebar-colored .sidebar-header,
+  #scheme-Paradox .sidebar-colored .sidebar-badge{
+    background-color: #8eb515 !important;
+  }
+
+  /* Sidebar User Drop Down Menu Text Color */
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus {
+    color: #8eb515 !important;
+  }
+
+  #post_entry-right-info,
+  .sidebar-colored .sidebar-nav li:hover > a,
+  .sidebar-colored .sidebar-nav li:hover > a i,
+  .sidebar-colored .sidebar-nav li > a:hover,
+  .sidebar-colored .sidebar-nav li > a:hover i,
+  .sidebar-colored .sidebar-nav li > a:focus i,
+  .sidebar-colored .sidebar-nav > .open > a,
+  .sidebar-colored .sidebar-nav > .open > a:hover,
+  .sidebar-colored .sidebar-nav > .open > a:focus,
+  #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a {
+    color: #8eb515 !important;
+  }
+
+  .toTop {
+    background: #66FFCC !important;
+  }
+
+  .material-layout .material-post>.material-nav,
+  .material-layout .material-index>.material-nav,
+  .material-nav a {
+    color: #66FFCC;
+  }
+
+  #scheme-Paradox .MD-burger-layer {
+    background-color: #66FFCC;
+  }
+
+  #scheme-Paradox #post-toc-trigger-btn {
+    color: #66FFCC;
+  }
+
+  .post-toc a:hover {
+    color: #00838F;
+    text-decoration: underline;
+  }
+
+</style>
+
+
+<!-- Theme Background Related-->
+
+    <style>
+      body{
+        background-image: url(https://i.loli.net/2018/07/14/5b49ef4ea363b.png);
+      }
+    </style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+      .fade {
+        transition: all 800ms linear;
+        -webkit-transform: translate3d(0,0,0);
+        -moz-transform: translate3d(0,0,0);
+        -ms-transform: translate3d(0,0,0);
+        -o-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+        opacity: 1;
+      }
+
+      .fade.out{
+        opacity: 0;
+      }
+    </style>
+
+
+<!-- Import Font -->
+<!-- Import Roboto -->
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+
+
+<!-- Import Material Icons -->
+
+
+    <style id="material_icons"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_icons","/css/material-icons.css?pqhB/Rd/ab0H2+kZp0RDmw==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+
+
+
+    <!-- Import jQuery -->
+    
+        <script>lsloader.load("jq_js","https://cdn.bootcss.com/jquery/2.2.1/jquery.js", true)</script>
+    
+
+    <!-- WebAPP Icons -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="K&#39;s House">
+    <meta name="msapplication-starturl" content="https://kabeor.github.io/CRC校验算法及逆向方法初探/">
+    <meta name="msapplication-navbutton-color" content="#0097A7">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="K&#39;s House">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" href="/img/favicon.png">
+
+    <!-- Site Verification -->
+    <meta name="google-site-verification" content="Etqhw6dphuFVSwU2ZmblJOkL25LXRDWPJGSxC4cp3Ww">
+    
+
+    <!-- RSS -->
+    
+
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="https://kabeor.github.io/CRC校验算法及逆向方法初探/">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="CRC校验算法及逆向方法初探 | K&#39;s House">
+    <meta property="og:image" content="/img/favicon.png">
+    <meta property="og:description" content="Trust me,Lisa.">
+    <meta property="og:article:tag" content="逆向，CRC加密"> 
+
+    
+        <meta property="article:published_time" content="Thu Aug 16 2018 15:13:30 GMT+0800">
+        <meta property="article:modified_time" content="Fri Aug 17 2018 15:13:31 GMT+0800">
+    
+
+    <!-- The Twitter Card protocol -->
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Add canonical link for SEO -->
+    
+        <link rel="canonical" href="https://kabeor.github.io/CRC校验算法及逆向方法初探/index.html">
+    
+
+    <!-- Structured-data for SEO -->
+    
+        
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": "https://kabeor.github.io/CRC校验算法及逆向方法初探/index.html",
+    "headline": "CRC校验算法及逆向方法初探",
+    "datePublished": "Thu Aug 16 2018 15:13:30 GMT+0800",
+    "dateModified": "Fri Aug 17 2018 15:13:31 GMT+0800",
+    "author": {
+        "@type": "Person",
+        "name": "kabeor",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/avatar.png"
+        },
+        "description": "We1C0me_t0_K's_House"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "K&#39;s House",
+        "logo": {
+            "@type":"ImageObject",
+            "url": "/img/favicon.png"
+        }
+    },
+    "keywords": ",逆向，CRC加密",
+    "description": "Trust me,Lisa.",
+}
+</script>
+
+
+    
+
+    <!-- Analytics -->
+    
+        <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-113413523-1', 'auto');ga('send', 'pageview');
+</script>
+    
+    
+        <script>
+    var _hmt = _hmt || [];
+    (function() {var hm = document.createElement('script');
+    hm.src = 'https://hm.baidu.com/hm.js?36fc4c782bfb2b103fe864229cd9ea5d';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+    
+    
+
+    <!-- Custom Head -->
+    
+
+</head>
+
+
+    
+        <body id="scheme-Paradox" class="lazy">
+            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+                
+
+                <!-- Main Container -->
+                <main class="material-layout__content" id="main">
+
+                    <!-- Top Anchor -->
+                    <div id="top"></div>
+
+                    
+                        <!-- Hamburger Button -->
+                        <button class="MD-burger-icon sidebar-toggle">
+                            <span class="MD-burger-layer"></span>
+                        </button>
+                    
+
+                    <!-- Post TOC -->
+
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+
+    <!-- Left aligned menu below button -->
+    
+    
+    <button id="post-toc-trigger-btn" class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#CRC校验算法及逆向方法初探"><span class="post-toc-text">CRC校验算法及逆向方法初探</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#循环冗余校验（Cyclic-redundancy-check）介绍"><span class="post-toc-text">循环冗余校验（Cyclic redundancy check）介绍</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#CRC校验计算步骤"><span class="post-toc-text">CRC校验计算步骤</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#CRC16校验C-实现"><span class="post-toc-text">CRC16校验C++实现</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#CRC32生成表算法C实现"><span class="post-toc-text">CRC32生成表算法C实现</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#CRC查表法"><span class="post-toc-text">CRC查表法</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#CRC32逆向实例分析"><span class="post-toc-text">CRC32逆向实例分析</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#魔改CRC分析方法"><span class="post-toc-text">魔改CRC分析方法</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#CRC32发送端接收端完整校验验证性程序"><span class="post-toc-text">CRC32发送端接收端完整校验验证性程序</span></a></li></ol></li></ol>
+    </ul>
+    
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
+    
+        <!-- Custom Thumbnail -->
+        <div class="post_thumbnail-custom mdl-card__media mdl-color-text--grey-50" style="background-image:url(https://i.loli.net/2018/07/16/5b4c62738681b.png)">
+    
+            <p class="article-headline-p">
+                CRC校验算法及逆向方法初探
+            </p>
+        </div>
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar">
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>kabeor</strong>
+        <span>8月 16, 2018</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/逆向，CRC加密/">逆向，CRC加密</a>
+    </li></ul>
+    
+
+    <!-- Share -->
+    
+        <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+        
+            <!-- Busuanzi Views -->
+            <a class="post_share-link" href="#">
+                <li class="mdl-menu__item">
+                    <span id="busuanzi_container_page_pv">
+                        <span id="busuanzi_value_page_pv"></span>&nbsp;浏览量
+                    </span>
+                </li>
+            </a>
+        
+    
+
+    <!-- Share Weibo -->
+    
+
+    <!-- Share Twitter -->
+    
+
+    <!-- Share Facebook -->
+    
+
+    <!-- Share Google+ -->
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+    
+</div>
+                
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <h1 id="CRC校验算法及逆向方法初探"><a href="#CRC校验算法及逆向方法初探" class="headerlink" title="CRC校验算法及逆向方法初探"></a>CRC校验算法及逆向方法初探</h1><h2 id="循环冗余校验（Cyclic-redundancy-check）介绍"><a href="#循环冗余校验（Cyclic-redundancy-check）介绍" class="headerlink" title="循环冗余校验（Cyclic redundancy check）介绍"></a>循环冗余校验（Cyclic redundancy check）介绍</h2><blockquote>
+<p>循环冗余校验（英语：Cyclic redundancy check，通称“CRC”）是一种根据网络数据包或计算机文件等数据产生简短固定位数校验码的一种散列函数，主要用来检测或校验数据传输或者保存后可能出现的错误。生成的数字在传输或者存储之前计算出来并且附加到数据后面，然后接收方进行检验确定数据是否发生变化。   –维基百科(<a href="https://zh.wikipedia.org/wiki/%E5%BE%AA%E7%92%B0%E5%86%97%E9%A4%98%E6%A0%A1%E9%A9%97" target="_blank" rel="noopener">https://zh.wikipedia.org/wiki/%E5%BE%AA%E7%92%B0%E5%86%97%E9%A4%98%E6%A0%A1%E9%A9%97</a>)</p>
+</blockquote>
+<h2 id="CRC校验计算步骤"><a href="#CRC校验计算步骤" class="headerlink" title="CRC校验计算步骤"></a><strong>CRC校验计算步骤</strong></h2><ol>
+<li>选择一个生成多项式G(x)。</li>
+<li>假设该生成多项式G(x)的二进制数有k位，在发送的数据帧B(x)(设为m位)后加k-1个0，得到新二进制串H(x)，H(x)位数应该为m+k-1。</li>
+<li>H(x)“模2除法”除以G(x)，所得到的余数(记为F(x))就是原数据帧的CRC校验码，又称FCS(帧校验序列)。注意，F(x)的位数只能比G(x)少一位，0不能省略。</li>
+<li>将F(x)附加到B(x)后面，组成新帧N(x),然后发送到接收端。</li>
+<li>接收端将N(x)以“模2除法”除以G(x)，如果没有余数，则表明没有出错(因为在发送端发送数据帧之前就已附加了一个数,做了去余处理(也就已经能整除了),所以结果应该没有余数。如果有余数,则表明该帧在传输过程中出现了差错)。</li>
+</ol>
+<p>来看一些关键点</p>
+<blockquote>
+<ol>
+<li><strong>生成多项式</strong></li>
+</ol>
+</blockquote>
+<p>当进行CRC检验时，发送方与接收方需要事先约定一个除数，即生成多项式，一般记作G(x)。生成多项式的最高位与最低位必须是1。</p>
+<p>常见CRC标准如下</p>
+<p><img src="https://i.loli.net/2018/08/16/5b751c8007704.jpg" alt></p>
+<p>逆向中常见的是<br>CRC16  ：<img src="https://i.loli.net/2018/08/16/5b751d408104c.jpg" alt><br>CRC32  ：<img src="https://i.loli.net/2018/08/16/5b751d71c13bd.jpg" alt></p>
+<p>生成多项式中幂代表在二进制串中该位为1，注意1是x的0次方，二进制串第一位的幂是0</p>
+<p>因此CRC16的二进制串转换为HEX为 <code>0x1 1021</code> ，<br>CRC32 HEX为 <code>0x1 04C11DB7</code>(另一个CRC32:     <code>1 1110 1101 1011 1000 1000 0011 0010 0000 = 0x1 EDB8 8320</code>)。<strong>计算CRC X，就取后X位，如CRC16取后16位，则0x1 1021变为0x1021</strong>。</p>
+<p>这些数值也可以在逆向过程中作为特征，让我们快速识别算法，至于魔改大多数也是从这些数值下手，后面会详细说。</p>
+<blockquote>
+<ol>
+<li><strong>模2除法</strong></li>
+</ol>
+</blockquote>
+<p>模2除法与算术除法类似,但它既不向上位借位也不比较除数和被除数的相同位数值的大小,只以相同位数进行相除。</p>
+<p>模2加法运算为:1+1=0,0+1=1,0+0=0,无进位,也无借位。<br>模2减法运算为:1-1=0,0-1=1,1-0=1,0-0=0,也无进位,无借位。</p>
+<p><img src="https://i.loli.net/2018/08/16/5b7580db445d3.jpg" alt></p>
+<blockquote>
+<p>过程图示</p>
+</blockquote>
+<p><img src="https://i.loli.net/2018/08/16/5b758077e370f.jpg" alt></p>
+<h2 id="CRC16校验C-实现"><a href="#CRC16校验C-实现" class="headerlink" title="CRC16校验C++实现"></a>CRC16校验C++实现</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    unsigned int crc = &apos;a&apos;;//计算字符a的crc16校验码</span><br><span class="line">    //右移8位，和手动计算一样，左移相当于补0，这里相当于直接补了8个0，开始计算。</span><br><span class="line">    crc &lt;&lt;= 8; //&lt;&lt;= 相当余 crc=crc&lt;&lt;8;</span><br><span class="line">    //计算8次。</span><br><span class="line">    for (int i = 0; i &lt; 8; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        //如果最高位是1的话需要计算，如果不是直接左移。（左移的操作可以想象成补0)</span><br><span class="line">        if ((crc &amp; 0x8000) != 0)</span><br><span class="line">        &#123;</span><br><span class="line">            crc &lt;&lt;= 1;</span><br><span class="line">            crc = crc ^ 0x1021;//这个说明用的是 CRC16   x16+x12+x5+1.</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">        &#123;</span><br><span class="line">            crc &lt;&lt;= 1;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    //取后16位，如果用的是crc使用的是unsigned short 就不需要这一步了。</span><br><span class="line">    crc = crc &amp; 0xffff;</span><br><span class="line">    //输出。</span><br><span class="line">    std::cout &lt;&lt; crc &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="CRC32生成表算法C实现"><a href="#CRC32生成表算法C实现" class="headerlink" title="CRC32生成表算法C实现"></a>CRC32生成表算法C实现</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;stdint.h&gt;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">static uint32_t table[256];</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">//位逆转</span><br><span class="line">static uint32_t bitrev(uint32_t input, int bw)</span><br><span class="line">&#123;</span><br><span class="line">    int i;</span><br><span class="line">    uint32_t var;</span><br><span class="line">    var = 0;</span><br><span class="line">    for(i=0; i&lt;bw; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        if(input &amp; 0x01)</span><br><span class="line">        &#123;</span><br><span class="line">            var |= 1&lt;&lt;(bw - 1 - i);</span><br><span class="line">        &#125;</span><br><span class="line">        input &gt;&gt;= 1;</span><br><span class="line">    &#125;</span><br><span class="line">    return var;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">//码表生成</span><br><span class="line">void crc32_init(uint32_t poly)</span><br><span class="line">&#123;</span><br><span class="line">    int i;</span><br><span class="line">    int j;</span><br><span class="line">    uint32_t c;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">    poly = bitrev(poly, 32);</span><br><span class="line">    for(i=0; i&lt;256; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        c = i;</span><br><span class="line">        for (j=0; j&lt;8; j++)</span><br><span class="line">        &#123;</span><br><span class="line">            c = (c &amp; 1) ? (poly ^ (c &gt;&gt; 1)) : (c &gt;&gt; 1);</span><br><span class="line">        &#125;</span><br><span class="line">        table[i] = c;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">//计算CRC</span><br><span class="line">uint32_t crc32(uint32_t crc, void* input, int len)</span><br><span class="line">&#123;</span><br><span class="line">    int i;</span><br><span class="line">    uint8_t index;</span><br><span class="line">    uint8_t *p;</span><br><span class="line">    p = (uint8_t*)input;</span><br><span class="line">    for(i=0; i&lt;len; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        index = (*p ^ crc);</span><br><span class="line">        crc = (crc &gt;&gt; 8) ^ table[index];</span><br><span class="line">        p++;</span><br><span class="line">    &#125;</span><br><span class="line">    return crc;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">//测试用例</span><br><span class="line">void main(void)</span><br><span class="line">&#123;</span><br><span class="line">    uint32_t crc;</span><br><span class="line">    crc32_init(0x4C11DB7);</span><br><span class="line">    crc = crc32(0xFFFFFFFF, &quot;1234567890&quot;, 10);</span><br><span class="line">    printf(&quot;CRC32 = 0x%08X\n&quot;, crc ^ 0xFFFFFFFF);</span><br><span class="line">    system(&quot;pause&quot;);</span><br></pre></td></tr></table></figure>
+<h2 id="CRC查表法"><a href="#CRC查表法" class="headerlink" title="CRC查表法"></a>CRC查表法</h2><p>查表法是将移位异或的计算结果做成了一个表，就是将0~256放入一个长度为16位的寄存器中的低八位，高八位填充0，然后将该寄存器与生成多项式按照把CRC寄存器的内容右移一位（朝低位）用0填补最高位，并检查右移后的移出位；如果移出位为0：再次右移一位；如果移出位为1，CRC寄存器与多项式进行异或，直到八位全部移出，最后寄存器中的值就是表格中的数据，高八位、低八位分别单独一个表。</p>
+<p>CRC32数据表生成<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int make_crc32_table()  </span><br><span class="line">&#123;  </span><br><span class="line">    unsigned c;  </span><br><span class="line">    int i = 0;  </span><br><span class="line">    int bit = 0;  </span><br><span class="line">    for(i = 0; i &lt; 256; i++)  </span><br><span class="line">    &#123;  </span><br><span class="line">        c  = (unsigned)i;      </span><br><span class="line">        for(bit = 0; bit &lt; 8; bit++)  </span><br><span class="line">        &#123;  </span><br><span class="line">            if(c&amp;1)  </span><br><span class="line">            &#123;  </span><br><span class="line">                c = (c &gt;&gt; 1)^(0xEDB88320);  //生成多项式，如果动态生成这张CRC32表，则必定会有这个数</span><br><span class="line">                 </span><br><span class="line">            &#125;  </span><br><span class="line">            else </span><br><span class="line">            &#123;  </span><br><span class="line">                c =  c &gt;&gt; 1;  </span><br><span class="line">            &#125;     </span><br><span class="line">        &#125;  </span><br><span class="line">        crc32_table = c; </span><br><span class="line">    &#125;        </span><br><span class="line">&#125;  //这个算法，会产生包含有256个元素的CRC32表</span><br></pre></td></tr></table></figure></p>
+<p>逆向时若是动态生成表，则应留意生成多项式，若是静态表，则会在数据段留下整个表</p>
+<p>常用表如下<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CRC-16 Table</span><br><span class="line"></span><br><span class="line">  00h   0000 C0C1 C181 0140 C301 03C0 0280 C241</span><br><span class="line">  08h   C601 06C0 0780 C741 0500 C5C1 C481 0440</span><br><span class="line">  10h   CC01 0CC0 0D80 CD41 0F00 CFC1 CE81 0E40</span><br><span class="line">  18h   0A00 CAC1 CB81 0B40 C901 09C0 0880 C841</span><br><span class="line"></span><br><span class="line">  20h   D801 18C0 1980 D941 1B00 DBC1 DA81 1A40</span><br><span class="line">  28h   1E00 DEC1 DF81 1F40 DD01 1DC0 1C80 DC41</span><br><span class="line">  30h   1400 D4C1 D581 1540 D701 17C0 1680 D641</span><br><span class="line">  38h   D201 12C0 1380 D341 1100 D1C1 D081 1040</span><br><span class="line"></span><br><span class="line">  40h   F001 30C0 3180 F141 3300 F3C1 F281 3240</span><br><span class="line">  48h   3600 F6C1 F781 3740 F501 35C0 3480 F441</span><br><span class="line">  50h   3C00 FCC1 FD81 3D40 FF01 3FC0 3E80 FE41</span><br><span class="line">  58h   FA01 3AC0 3B80 FB41 3900 F9C1 F881 3840</span><br><span class="line"></span><br><span class="line">  60h   2800 E8C1 E981 2940 EB01 2BC0 2A80 EA41</span><br><span class="line">  68h   EE01 2EC0 2F80 EF41 2D00 EDC1 EC81 2C40</span><br><span class="line">  70h   E401 24C0 2580 E541 2700 E7C1 E681 2640</span><br><span class="line">  78h   2200 E2C1 E381 2340 E101 21C0 2080 E041</span><br><span class="line"></span><br><span class="line">  80h   A001 60C0 6180 A141 6300 A3C1 A281 6240</span><br><span class="line">  88h   6600 A6C1 A781 6740 A501 65C0 6480 A441</span><br><span class="line">  90h   6C00 ACC1 AD81 6D40 AF01 6FC0 6E80 AE41</span><br><span class="line">  98h   AA01 6AC0 6B80 AB41 6900 A9C1 A881 6840</span><br><span class="line"></span><br><span class="line">  A0h   7800 B8C1 B981 7940 BB01 7BC0 7A80 BA41</span><br><span class="line">  A8h   BE01 7EC0 7F80 BF41 7D00 BDC1 BC81 7C40</span><br><span class="line">  B0h   B401 74C0 7580 B541 7700 B7C1 B681 7640</span><br><span class="line">  B8h   7200 B2C1 B381 7340 B101 71C0 7080 B041</span><br><span class="line"></span><br><span class="line">  C0h   5000 90C1 9181 5140 9301 53C0 5280 9241</span><br><span class="line">  C8h   9601 56C0 5780 9741 5500 95C1 9481 5440</span><br><span class="line">  D0h   9C01 5CC0 5D80 9D41 5F00 9FC1 9E81 5E40</span><br><span class="line">  D8h   5A00 9AC1 9B81 5B40 9901 59C0 5880 9841</span><br><span class="line"></span><br><span class="line">  E0h   8801 48C0 4980 8941 4B00 8BC1 8A81 4A40</span><br><span class="line">  E8h   4E00 8EC1 8F81 4F40 8D01 4DC0 4C80 8C41</span><br><span class="line">  F0h   4400 84C1 8581 4540 8701 47C0 4680 8641</span><br><span class="line">  F8h   8201 42C0 4380 8341 4100 81C1 8081 4040</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CRC-32 Table</span><br><span class="line"></span><br><span class="line">  00h   00000000 77073096 EE0E612C 990951BA</span><br><span class="line">  04h   076DC419 706AF48F E963A535 9E6495A3</span><br><span class="line">  08h   0EDB8832 79DCB8A4 E0D5E91E 97D2D988</span><br><span class="line">  0Ch   09B64C2B 7EB17CBD E7B82D07 90BF1D91</span><br><span class="line"></span><br><span class="line">  10h   1DB71064 6AB020F2 F3B97148 84BE41DE</span><br><span class="line">  14h   1ADAD47D 6DDDE4EB F4D4B551 83D385C7</span><br><span class="line">  18h   136C9856 646BA8C0 FD62F97A 8A65C9EC</span><br><span class="line">  1Ch   14015C4F 63066CD9 FA0F3D63 8D080DF5</span><br><span class="line"></span><br><span class="line">  20h   3B6E20C8 4C69105E D56041E4 A2677172</span><br><span class="line">  24h   3C03E4D1 4B04D447 D20D85FD A50AB56B</span><br><span class="line">  28h   35B5A8FA 42B2986C DBBBC9D6 ACBCF940</span><br><span class="line">  2Ch   32D86CE3 45DF5C75 DCD60DCF ABD13D59</span><br><span class="line"></span><br><span class="line">  30h   26D930AC 51DE003A C8D75180 BFD06116</span><br><span class="line">  34h   21B4F4B5 56B3C423 CFBA9599 B8BDA50F</span><br><span class="line">  38h   2802B89E 5F058808 C60CD9B2 B10BE924</span><br><span class="line">  3Ch   2F6F7C87 58684C11 C1611DAB B6662D3D</span><br><span class="line"></span><br><span class="line">  40h   76DC4190 01DB7106 98D220BC EFD5102A</span><br><span class="line">  44h   71B18589 06B6B51F 9FBFE4A5 E8B8D433</span><br><span class="line">  48h   7807C9A2 0F00F934 9609A88E E10E9818</span><br><span class="line">  4Ch   7F6A0DBB 086D3D2D 91646C97 E6635C01</span><br><span class="line"></span><br><span class="line">  50h   6B6B51F4 1C6C6162 856530D8 F262004E</span><br><span class="line">  54h   6C0695ED 1B01A57B 8208F4C1 F50FC457</span><br><span class="line">  58h   65B0D9C6 12B7E950 8BBEB8EA FCB9887C</span><br><span class="line">  5Ch   62DD1DDF 15DA2D49 8CD37CF3 FBD44C65</span><br><span class="line"></span><br><span class="line">  60h   4DB26158 3AB551CE A3BC0074 D4BB30E2</span><br><span class="line">  64h   4ADFA541 3DD895D7 A4D1C46D D3D6F4FB</span><br><span class="line">  68h   4369E96A 346ED9FC AD678846 DA60B8D0</span><br><span class="line">  6Ch   44042D73 33031DE5 AA0A4C5F DD0D7CC9</span><br><span class="line"></span><br><span class="line">  70h   5005713C 270241AA BE0B1010 C90C2086</span><br><span class="line">  74h   5768B525 206F85B3 B966D409 CE61E49F</span><br><span class="line">  78h   5EDEF90E 29D9C998 B0D09822 C7D7A8B4</span><br><span class="line">  7Ch   59B33D17 2EB40D81 B7BD5C3B C0BA6CAD</span><br><span class="line"></span><br><span class="line">  80h   EDB88320 9ABFB3B6 03B6E20C 74B1D29A</span><br><span class="line">  84h   EAD54739 9DD277AF 04DB2615 73DC1683</span><br><span class="line">  88h   E3630B12 94643B84 0D6D6A3E 7A6A5AA8</span><br><span class="line">  8Ch   E40ECF0B 9309FF9D 0A00AE27 7D079EB1</span><br><span class="line"></span><br><span class="line">  90h   F00F9344 8708A3D2 1E01F268 6906C2FE</span><br><span class="line">  94h   F762575D 806567CB 196C3671 6E6B06E7</span><br><span class="line">  98h   FED41B76 89D32BE0 10DA7A5A 67DD4ACC</span><br><span class="line">  9Ch   F9B9DF6F 8EBEEFF9 17B7BE43 60B08ED5</span><br><span class="line"></span><br><span class="line">  A0h   D6D6A3E8 A1D1937E 38D8C2C4 4FDFF252</span><br><span class="line">  A4h   D1BB67F1 A6BC5767 3FB506DD 48B2364B</span><br><span class="line">  A8h   D80D2BDA AF0A1B4C 36034AF6 41047A60</span><br><span class="line">  ACh   DF60EFC3 A867DF55 316E8EEF 4669BE79</span><br><span class="line"></span><br><span class="line">  B0h   CB61B38C BC66831A 256FD2A0 5268E236</span><br><span class="line">  B4h   CC0C7795 BB0B4703 220216B9 5505262F</span><br><span class="line">  B8h   C5BA3BBE B2BD0B28 2BB45A92 5CB36A04</span><br><span class="line">  BCh   C2D7FFA7 B5D0CF31 2CD99E8B 5BDEAE1D</span><br><span class="line"></span><br><span class="line">  C0h   9B64C2B0 EC63F226 756AA39C 026D930A</span><br><span class="line">  C4h   9C0906A9 EB0E363F 72076785 05005713</span><br><span class="line">  C8h   95BF4A82 E2B87A14 7BB12BAE 0CB61B38</span><br><span class="line">  CCh   92D28E9B E5D5BE0D 7CDCEFB7 0BDBDF21</span><br><span class="line"></span><br><span class="line">  D0h   86D3D2D4 F1D4E242 68DDB3F8 1FDA836E</span><br><span class="line">  D4h   81BE16CD F6B9265B 6FB077E1 18B74777</span><br><span class="line">  D8h   88085AE6 FF0F6A70 66063BCA 11010B5C</span><br><span class="line">  DCh   8F659EFF F862AE69 616BFFD3 166CCF45</span><br><span class="line"></span><br><span class="line">  E0h   A00AE278 D70DD2EE 4E048354 3903B3C2</span><br><span class="line">  E4h   A7672661 D06016F7 4969474D 3E6E77DB</span><br><span class="line">  E8h   AED16A4A D9D65ADC 40DF0B66 37D83BF0</span><br><span class="line">  ECh   A9BCAE53 DEBB9EC5 47B2CF7F 30B5FFE9</span><br><span class="line"></span><br><span class="line">  F0h   BDBDF21C CABAC28A 53B39330 24B4A3A6</span><br><span class="line">  F4h   BAD03605 CDD70693 54DE5729 23D967BF</span><br><span class="line">  F8h   B3667A2E C4614AB8 5D681B02 2A6F2B94</span><br><span class="line">  FCh   B40BBE37 C30C8EA1 5A05DF1B 2D02EF8D</span><br></pre></td></tr></table></figure>
+<h2 id="CRC32逆向实例分析"><a href="#CRC32逆向实例分析" class="headerlink" title="CRC32逆向实例分析"></a>CRC32逆向实例分析</h2><p><img src="https://i.loli.net/2018/08/16/5b758eff9d88b.jpg" alt></p>
+<p>要求输入name和code，拖入IDA查看<br>查找字符串，来到算法位置</p>
+<p><img src="https://i.loli.net/2018/08/16/5b758fe0ba199.jpg" alt></p>
+<p>name存放到v3，code存放到v8<br>首先要求name字符数大于等于5<br>sub_402F1C将DiKeN附加到输入的name前</p>
+<p><img src="https://i.loli.net/2018/08/16/5b75955a6c465.jpg" alt></p>
+<p>sub_402ED0计算拼接后字符串长度<br>sub_403DF0是CRC32计算部分</p>
+<p><img src="https://i.loli.net/2018/08/16/5b759975b94c4.jpg" alt></p>
+<p>table如下</p>
+<p><img src="https://i.loli.net/2018/08/16/5b759a7bb849d.jpg" alt></p>
+<p>可以看到与CRC32相同，由此确定为CRC32加密</p>
+<p>code部分则是将字符0加到code前，然后将其每个字符-30h，转换为数字，最后name与code异或校验。<br>这里着重谈逆向时的要点，具体分析请参考这篇文章 <a href="https://bbs.ichunqiu.com/thread-30717-1-1.html" target="_blank" rel="noopener">https://bbs.ichunqiu.com/thread-30717-1-1.html</a></p>
+<h2 id="魔改CRC分析方法"><a href="#魔改CRC分析方法" class="headerlink" title="魔改CRC分析方法"></a>魔改CRC分析方法</h2><p>首先还是要对标准CRC算法有一些了解。<br>能够修改的部分其实很少，感觉一般会修改生成多项式或修改数据表</p>
+<ol>
+<li><p>对于修改生成多项式，我们需要自己生成数据表，参照脚本如下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int make_crc32_table()  </span><br><span class="line">&#123;  </span><br><span class="line">    unsigned c;  </span><br><span class="line">    int i = 0;  </span><br><span class="line">    int bit = 0;  </span><br><span class="line">    for(i = 0; i &lt; 256; i++)  </span><br><span class="line">    &#123;  </span><br><span class="line">        c  = (unsigned)i;      </span><br><span class="line">        for(bit = 0; bit &lt; 8; bit++)  </span><br><span class="line">        &#123;  </span><br><span class="line">            if(c&amp;1)  </span><br><span class="line">            &#123;  </span><br><span class="line">                c = (c &gt;&gt; 1)^(0xEDB88320);  //生成多项式自行修改</span><br><span class="line">                 </span><br><span class="line">            &#125;  </span><br><span class="line">            else </span><br><span class="line">            &#123;  </span><br><span class="line">                c =  c &gt;&gt; 1;  </span><br><span class="line">            &#125;     </span><br><span class="line">        &#125;  </span><br><span class="line">        crc32_table = c; </span><br><span class="line">    &#125;        </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>对于修改数据表，应该只能通过与常用表进行对照了</p>
+</li>
+</ol>
+<h2 id="CRC32发送端接收端完整校验验证性程序"><a href="#CRC32发送端接收端完整校验验证性程序" class="headerlink" title="CRC32发送端接收端完整校验验证性程序"></a>CRC32发送端接收端完整校验验证性程序</h2><p>发送端发送数据后显示CRC32加密密文，接收端解码返回0证明校验成功</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include &quot;stdafx.h&quot;</span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line">#define POLY 0x04C11DB7L // CRC32生成多项式  </span><br><span class="line"></span><br><span class="line">unsigned int CRC32INV(char * data, int length) //接收端</span><br><span class="line">&#123;</span><br><span class="line">        unsigned char* p = new unsigned char[length];</span><br><span class="line">        memcpy(p, data, length);</span><br><span class="line">        unsigned int reg = 0, sum_poly = 0;</span><br><span class="line">        for (int i = 0; i &lt; length; i++)</span><br><span class="line">        &#123;</span><br><span class="line">                sum_poly = reg &amp; 0xFF000000;</span><br><span class="line">                for (int j = 0; j &lt; 8; j++)</span><br><span class="line">                &#123;</span><br><span class="line">                        int hi = sum_poly &amp; 0x80000000;</span><br><span class="line">                        sum_poly &lt;&lt;= 1;</span><br><span class="line">                        if (hi) sum_poly = sum_poly ^ POLY;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                reg = (reg &lt;&lt; 8) | p[i];</span><br><span class="line">                reg = reg ^ sum_poly;</span><br><span class="line">        &#125;</span><br><span class="line">        return reg;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">unsigned int CRC32(char * data, int length) //发送端</span><br><span class="line">&#123;</span><br><span class="line">        unsigned char* p = new unsigned char[length + 4];</span><br><span class="line">        memset(p, 0, length + 4);</span><br><span class="line">        memcpy(p, data, length);</span><br><span class="line">        unsigned int reg = 0, sum_poly = 0;</span><br><span class="line">        for (int i = 0; i &lt; length + 4; i++)</span><br><span class="line">        &#123;</span><br><span class="line">                sum_poly = reg &amp; 0xFF000000;</span><br><span class="line">                for (int j = 0; j &lt; 8; j++)</span><br><span class="line">                &#123;</span><br><span class="line">                        int hi = sum_poly &amp; 0x80000000;</span><br><span class="line">                        sum_poly &lt;&lt;= 1;</span><br><span class="line">                        if (hi) sum_poly = sum_poly ^ POLY;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                reg = (reg &lt;&lt; 8) | p[i];</span><br><span class="line">                reg = reg ^ sum_poly;</span><br><span class="line">        &#125;</span><br><span class="line">        return reg;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">        char *crcin = new char[5];</span><br><span class="line">        crcin[0] = &apos;1&apos;;</span><br><span class="line">        crcin[1] = &apos;2&apos;;</span><br><span class="line">        crcin[2] = &apos;3&apos;;</span><br><span class="line">        crcin[3] = &apos;4&apos;;</span><br><span class="line">        crcin[4] = &apos;\0&apos;;</span><br><span class="line">        unsigned int crcout = CRC32(crcin, 4);</span><br><span class="line">        char *crcinvin = new char[9];</span><br><span class="line">        memcpy(crcinvin, crcin, 4);</span><br><span class="line">        delete[] crcin;</span><br><span class="line">        for (int i = 0; i&lt;4; i++)</span><br><span class="line">                memcpy(crcinvin + i + 4, (char*)&amp;crcout + 3 - i, 1);</span><br><span class="line">        crcinvin[8] = &apos;\0&apos;;</span><br><span class="line">        unsigned int crcinvout = CRC32INV(crcinvin, 8);</span><br><span class="line">        cout &lt;&lt; &quot;crc&quot; &lt;&lt; crcout &lt;&lt; endl;</span><br><span class="line">        cout &lt;&lt; &quot;crc&quot; &lt;&lt; crcinvout &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">        getchar();</span><br><span class="line">        return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.loli.net/2018/08/17/5b767581d0468.png" alt></p>
+<hr>
+<p>目前想到的就先这些<br>参考链接：<br><a href="https://www.cnblogs.com/dacainiao/p/5565046.html" target="_blank" rel="noopener">https://www.cnblogs.com/dacainiao/p/5565046.html</a><br><a href="http://wdhdmx.iteye.com/blog/1464269" target="_blank" rel="noopener">http://wdhdmx.iteye.com/blog/1464269</a><br><a href="https://blog.csdn.net/qq446252221/article/details/51426434" target="_blank" rel="noopener">https://blog.csdn.net/qq446252221/article/details/51426434</a><br><a href="https://blog.csdn.net/wave_1102/article/details/2184901" target="_blank" rel="noopener">https://blog.csdn.net/wave_1102/article/details/2184901</a><br><a href="https://bbs.ichunqiu.com/thread-30717-1-1.html" target="_blank" rel="noopener">https://bbs.ichunqiu.com/thread-30717-1-1.html</a><br><a href="https://blog.csdn.net/android_lover2014/article/details/78260884" target="_blank" rel="noopener">https://blog.csdn.net/android_lover2014/article/details/78260884</a><br><a href="https://bbs.pediy.com/thread-30975.htm" target="_blank" rel="noopener">https://bbs.pediy.com/thread-30975.htm</a><br><a href="https://blog.csdn.net/sparkliang/article/details/5671510" target="_blank" rel="noopener">https://blog.csdn.net/sparkliang/article/details/5671510</a></p>
+<p>End。。</p>
+<p>From <a href="https://kabeor.github.io/CRC校验算法及逆向方法初探/">https://kabeor.github.io/CRC校验算法及逆向方法初探/</a> bye</p>
+
+        
+                <blockquote style="margin: 2em 0 0;padding: 0.5em 1em;border-left: 3px solid #F44336;background-color: #F5F5F5;list-style: none;">
+                    <p><strong>
+                         
+                            This blog is under a <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0 Unported License</a>
+                        </strong>
+                        <br>
+                        <strong>本文链接：</strong><a href="https://kabeor.github.io/CRC校验算法及逆向方法初探/">https://kabeor.github.io/CRC校验算法及逆向方法初探/</a>
+                    </p>
+                </blockquote>
+        
+    
+
+    
+</div>
+
+                
+                <!-- Post Comments -->
+                
+                    
+    <div id="comment" style="padding:10px;" class="vcomment"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+    var GUEST_INFO = ['nick','mail','link'];
+    var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+        return GUEST_INFO.indexOf(item) > -1
+    });
+    var notify = 'true' == true;
+    var verify = 'true' == true;
+    new Valine({
+        el: '.vcomment',
+        notify: notify,
+        verify: verify,
+        appId: "53gELcU5PPzXKUh1q21E5Nkh-gzGzoHsz",
+        appKey: "pSNnuMbRDkWAE7j44yChrEce",
+        placeholder: "都看到这里了还不评论一下吗(╯‵□′)╯︵┻━┻",
+        pageSize:'10',
+        avatar:'identicon',
+        lang:'zh-cn'
+    });
+</script>
+
+                
+            </div>
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+        <a href="/第12章  隐蔽的恶意代码启动/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/001_Acid_burn.exe 算法分析/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
+
+                    
+                        <!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay"></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored sidebar-fixed-left" role="navigation">
+    <div id="sidebar-main">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.png);">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+        <i class="material-icons">clear_all</i>
+        <span class="mdl-button__ripple-container">
+            <span class="mdl-ripple">
+            </span>
+        </span>
+    </button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="/img/avatar.png" alt="kabeor's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        Trust me,Lisa.
+        <b class="caret"></b>
+    </a>
+</div>
+
+
+        <!-- Sidebar Navigation  -->
+        <ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+            
+                <li>
+                    <a href="mailto:1597915586@qq.com" target="_blank" title="Email Me">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
+                        
+                        Email Me
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://github.com/kabeor" target="_blank" title="GitHub">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">code</i>
+                        
+                        GitHub
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    
+        <li id="sidebar-first-li">
+            <a href="/">
+                
+                    <i class="material-icons sidebar-material-icons">home</i>
+                
+                主页
+            </a>
+        </li>
+        
+    
+
+    <!-- Archives  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">inbox</i>
+                
+                    归档
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+            <li>
+                <a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/02/">二月 2018<span class="sidebar_archives-count">47</span></a>
+            </li></ul>
+        </li>
+        
+    
+
+    <!-- Categories  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">chrome_reader_mode</i>
+                
+                分类
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                <a class="sidebar_archives-link" href="/categories/Code/">Code<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/Linux/">Linux<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/Linux/Kali/">Kali<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/Linux/网络/">网络<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/NexT/">NexT<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/Web/">Web<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/Web/WriteUP/">WriteUP<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/Web/渗透/">渗透<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/Web/渗透/工具集/">工具集<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/blog搭建/">blog搭建<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/密码学和杂项/">密码学和杂项<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/树莓派/">树莓派<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/汇编/">汇编<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/汇编/漏洞银行逆向教程/">漏洞银行逆向教程<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/">病毒分析<span class="sidebar_archives-count">16</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/《恶意代码分析实战》笔记/">《恶意代码分析实战》笔记<span class="sidebar_archives-count">16</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/《恶意代码分析实战》笔记/第一篇-静态分析/">第一篇 静态分析<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/《恶意代码分析实战》笔记/第三篇-动态分析高级技术篇/">第三篇 动态分析高级技术篇<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/《恶意代码分析实战》笔记/第二篇-静态分析高级技术篇/">第二篇 静态分析高级技术篇<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/《恶意代码分析实战》笔记/第五篇-逆向工程/">第五篇 逆向工程<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/《恶意代码分析实战》笔记/第四篇-恶意代码功能篇/">第四篇 恶意代码功能篇<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/计算机系统/">计算机系统<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/计算机系统/PE/">PE<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/逆向/">逆向<span class="sidebar_archives-count">37</span></a></li><li><a class="sidebar_archives-link" href="/categories/逆向/i春秋/">i春秋<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/逆向/i春秋Reverse赛题/">i春秋Reverse赛题<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/categories/逆向/吾爱破解培训/">吾爱破解培训<span class="sidebar_archives-count">10</span></a>
+            </li></ul>
+        </li>
+        
+    
+
+    <!-- Pages  -->
+    
+        <li>
+            <a href="/about" title="关于">
+                
+                    <i class="material-icons sidebar-material-icons">person</i>
+                
+                关于
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/links" title="各位大佬(╯°□°）╯︵ ┻━┻">
+                
+                    <i class="material-icons sidebar-material-icons">link</i>
+                
+                各位大佬(╯°□°）╯︵ ┻━┻
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/timeline" title="时间轴">
+                
+                    <i class="material-icons sidebar-material-icons">timeline</i>
+                
+                时间轴
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/gallery" title="EVERSPACE(请等待加载哦)">
+                
+                    <i class="material-icons sidebar-material-icons">flight</i>
+                
+                EVERSPACE(请等待加载哦)
+            </a>
+        </li>
+        
+    
+
+    <!-- Article Number  -->
+    
+        <li>
+            <a href="/archives">
+                文章总数
+                <span class="sidebar-badge">89</span>
+            </a>
+        </li>
+        
+    
+</ul>
+
+
+    <div id="music163player">
+         <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="310" src="//music.163.com/outchain/player?type=0&id=2194265908&auto=0&height=430">
+         </iframe>
+    </div>
+
+        <!-- Sidebar Footer -->
+        <!--
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持和动力。 :)
+-->
+
+<!-- Sidebar Divider -->
+
+    <div class="sidebar-divider"></div>
+
+
+<!-- Theme Material -->
+
+    <a href="https://github.com/viosey/hexo-theme-material" class="sidebar-footer-text-a" target="_blank">
+        <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+            主题 - Material
+            <span class="sidebar-badge badge-circle">i</span>
+        </div>
+    </a>
+
+
+<!-- Help & Support -->
+<!--
+
+    <a href="mailto:hiviosey@gmail.com" class="sidebar-footer-text-a">
+        <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+        sidebar.help
+        <span class="mdl-button__ripple-container">
+          <span class="mdl-ripple"></span>
+        </span>
+      </div>
+    </a>
+
+-->
+
+<!-- Feedback -->
+<!--
+
+    <a href="https://github.com/viosey/hexo-theme-material/issues" target="_blank" class="sidebar-footer-text-a">
+        <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+        sidebar.feedback
+        <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></div>
+    </a>
+
+-->
+
+<!-- About Theme -->
+<!--
+
+    <a href="https://blog.viosey.com/index.php/Material.html" target="_blank" class="sidebar-footer-text-a">
+        <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+             sidebar.about_theme
+            <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></div>
+    </a>
+
+-->
+
+    </div>
+
+
+
+    <!-- Sidebar Image -->
+    
+
+</aside>
+
+                    
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+
+                    
+
+                    <!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+    
+        <!-- Paradox Footer Left Section -->
+        <div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+
+    <!-- Facebook -->
+    
+
+    <!-- Google + -->
+    
+
+    <!-- Weibo -->
+    
+
+    <!-- Instagram -->
+    
+
+    <!-- Tumblr -->
+    
+
+    <!-- Github -->
+    
+        <a href="https://github.com/kabeor" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-github">
+                <span class="visuallyhidden">Github</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- LinkedIn -->
+    
+
+    <!-- Zhihu -->
+    
+
+    <!-- Bilibili -->
+    
+
+    <!-- Telegram -->
+    
+    
+    <!-- V2EX -->
+    
+
+    <span class="post-count">全站共</span> 
+    148.3k 
+    <span>字</span>
+</div>
+
+
+        <!--Copyright-->
+        <div id="copyright">
+            Copyright&nbsp;©<script type="text/javascript">var fd = new Date();document.write("&nbsp;" + fd.getFullYear() + "&nbsp;");</script>K's House
+            
+                <br>
+                
+                    2018
+                
+            
+        </div>
+
+        <!-- Paradox Footer Right Section -->
+
+        <!--
+        I am glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+        It will not impact the appearance and can give developers a lot of support :)
+
+        很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+        它不会影响美观并可以给开发者很大的支持。 :)
+        -->
+
+        <div class="mdl-mini-footer--right-section">
+            <div>
+                <div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
+                <div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+            </div>
+        </div>
+    
+</footer>
+
+
+                    <!-- Import JS File -->
+
+    <script>lsloader.load("lazyload_js","/js/lazyload.min.js?wgjW/HuQG9JDgvPDPoRAng==", true)</script>
+
+
+
+    <script>lsloader.load("js_js","/js/js.min.js?V/53wGualMuiPM3xoetD5Q==", true)</script>
+
+
+
+    <script>lsloader.load("np_js","https://cdn.bootcss.com/nprogress/0.2.0/nprogress.js", true)</script>
+
+
+<script type="text/ls-javascript" id="NProgress-script">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    $('#nprogress .bar').css({
+        'background': '#FF1493'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #FF1493, 0 0 15px #FF1493'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#FF1493',
+        'border-left-color': '#FF1493'
+    });
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+    
+        <script>lsloader.load("sm_js","/js/smoothscroll.js?tNQK2Tw2SUL8a1Scn/Mgew==", true)</script>
+    
+
+
+
+
+
+    <!-- Busuanzi -->
+    <script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+   
+
+
+
+
+
+<!-- UC Browser Compatible -->
+<script>
+	var agent = navigator.userAgent.toLowerCase();
+	if(agent.indexOf('ucbrowser')>0) {
+		document.write('<link rel="stylesheet" href="/css/uc.css">');
+	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+	}
+</script>
+
+<!-- Import prettify js  -->
+
+    
+        
+            <script>lsloader.load("prettify_js","https://cdn.bootcss.com/prettify/r298/prettify.js", true)</script>
+        
+    
+
+
+
+<!-- Window Load -->
+<!-- add class for prettify -->
+<script type="text/ls-javascript" id="window-load">
+    $(window).on('load', function() {
+        // Post_Toc parent position fixed
+        $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
+    });
+
+    
+        
+            $(function() {
+                $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto;');
+                prettyPrint();
+                })
+        
+    
+    
+</script>
+
+<!-- MathJax Load-->
+
+
+<!-- Bing Background -->
+
+
+<script type="text/ls-javascript" id="lazy-load">
+    // Offer LazyLoad
+    queue.offer(function(){
+        $('.lazy').lazyload({
+            effect : 'show'
+        });
+    });
+
+    // Start Queue
+    $(document).ready(function(){
+        setInterval(function(){
+            queue.execNext();
+        },200);
+    });
+</script>
+
+<!-- Custom Footer -->
+
+
+
+<script>
+    (function(){
+        var scriptList = document.querySelectorAll('script[type="text/ls-javascript"]')
+
+        for (var i = 0; i < scriptList.length; ++i) {
+            var item = scriptList[i];
+            lsloader.runInlineScript(item.id,item.id);
+        }
+    })()
+console.log('\n %c © Material Theme | Version: 1.5.2 | https://github.com/viosey/hexo-theme-material %c \n', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-left-radius:5px;border-bottom-left-radius:5px;', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-right-radius:5px;border-bottom-right-radius:5px;');
+</script>
+
+                </main>
+            </div>
+        </body>
+    
+</html>

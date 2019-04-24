@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html style="display: none;" lang="zh">
+    <head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <!--
+        © Material Theme
+        https://github.com/viosey/hexo-theme-material
+        Version: 1.5.2 -->
+    <script>
+        window.materialVersion = "1.5.2"
+        // Delete localstorage with these tags
+        window.oldVersion = [
+            'codestartv1',
+            '1.3.4',
+            '1.4.0',
+            '1.4.0b1',
+            '1.5.0'
+        ]
+    </script>
+
+    <!-- dns prefetch -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+
+
+    <link rel="dns-prefetch" href="https://cdn1.lncld.net">
+
+
+    <link rel="dns-prefetch" href="https://busuanzi.ibruce.info">
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Meta & Info -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!-- Title -->
+    
+    <title>
+        
+            第4章 x86反汇编速成班 | 
+        
+        K&#39;s House
+    </title>
+
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/img/favicon.png">
+    <link rel="icon" href="/img/favicon.png">
+
+    <meta name="format-detection" content="telephone=no">
+    <meta name="description" itemprop="description" content="Trust me,Lisa.">
+    <meta name="keywords" content=",病毒分析">
+    <meta name="theme-color" content="#0097A7">
+
+    <!-- Disable Fucking Bloody Baidu Tranformation -->
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+
+    <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+
+        
+            <script src="/js/ie-blocker.zhCN.js"></script>
+        
+    <![endif]-->
+
+    <!-- Import lsloader -->
+    <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(a){try{localStorage.removeItem(a)}catch(b){}};lsloader.setLS=function(a,c){try{localStorage.setItem(a,c)}catch(b){}};lsloader.getLS=function(a){var c="";try{c=localStorage.getItem(a)}catch(b){c=""}return c};versionString="/*"+(window.materialVersion||"unknownVersion")+"*/";lsloader.clean=function(){try{var b=[];for(var a=0;a<localStorage.length;a++){b.push(localStorage.key(a))}b.forEach(function(e){var f=lsloader.getLS(e);if(window.oldVersion){var d=window.oldVersion.reduce(function(g,h){return g||f.indexOf("/*"+h+"*/")!==-1},false);if(d){lsloader.removeLS(e)}}})}catch(c){}};lsloader.clean();lsloader.load=function(f,a,b,d){if(typeof b==="boolean"){d=b;b=undefined}d=d||false;b=b||function(){};var e;e=this.getLS(f);if(e&&e.indexOf(versionString)===-1){this.removeLS(f);this.requestResource(f,a,b,d);return}if(e){var c=e.split(versionString)[0];if(c!=a){console.log("reload:"+a);this.removeLS(f);this.requestResource(f,a,b,d);return}e=e.split(versionString)[1];if(d){this.jsRunSequence.push({name:f,code:e});this.runjs(a,f,e)}else{document.getElementById(f).appendChild(document.createTextNode(e));b()}}else{this.requestResource(f,a,b,d)}};lsloader.requestResource=function(b,e,a,c){var d=this;if(c){this.iojs(e,b,function(h,f,g){d.setLS(f,h+versionString+g);d.runjs(h,f,g)})}else{this.iocss(e,b,function(f){document.getElementById(b).appendChild(document.createTextNode(f));d.setLS(b,e+versionString+f)},a)}};lsloader.iojs=function(d,b,g){var a=this;a.jsRunSequence.push({name:b,code:""});try{var f=new XMLHttpRequest();f.open("get",d,true);f.onreadystatechange=function(){if(f.readyState==4){if((f.status>=200&&f.status<300)||f.status==304){if(f.response!=""){g(d,b,f.response);return}}a.jsfallback(d,b)}};f.send(null)}catch(c){a.jsfallback(d,b)}};lsloader.iocss=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.iofonts=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.runjs=function(f,c,e){if(!!c&&!!e){for(var b in this.jsRunSequence){if(this.jsRunSequence[b].name==c){this.jsRunSequence[b].code=e}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var a=document.createElement("script");a.appendChild(document.createTextNode(this.jsRunSequence[0].code));a.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(a);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else{if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var d=this;var a=document.createElement("script");a.src=this.jsRunSequence[0].path;a.type="text/javascript";this.jsRunSequence[0].status="loading";a.onload=function(){d.jsRunSequence.shift();if(d.jsRunSequence.length>0){d.runjs()}};document.body.appendChild(a)}}};lsloader.tagLoad=function(b,a){this.jsRunSequence.push({name:a,code:"",path:b,status:"failed"});this.runjs()};lsloader.jsfallback=function(c,b){if(!!this.jsnamemap[b]){return}else{this.jsnamemap[b]=b}for(var a in this.jsRunSequence){if(this.jsRunSequence[a].name==b){this.jsRunSequence[a].code="";this.jsRunSequence[a].status="failed";this.jsRunSequence[a].path=c}}this.runjs()};lsloader.cssfallback=function(e,c,b){if(!!this.cssnamemap[c]){return}else{this.cssnamemap[c]=1}var d=document.createElement("link");d.type="text/css";d.href=e;d.rel="stylesheet";d.onload=d.onerror=b;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(d,a)};lsloader.runInlineScript=function(c,b){var a=document.getElementById(b).innerText;this.jsRunSequence.push({name:c,code:a});this.runjs()}})();</script>
+
+    <!-- Import queue -->
+    <script>function Queue(){this.dataStore=[];this.offer=b;this.poll=d;this.execNext=a;this.debug=false;this.startDebug=c;function b(e){if(this.debug){console.log("Offered a Queued Function.")}if(typeof e==="function"){this.dataStore.push(e)}else{console.log("You must offer a function.")}}function d(){if(this.debug){console.log("Polled a Queued Function.")}return this.dataStore.shift()}function a(){var e=this.poll();if(e!==undefined){if(this.debug){console.log("Run a Queued Function.")}e()}}function c(){this.debug=true}}var queue=new Queue();</script>
+
+    <!-- Import CSS -->
+    
+        <style id="material_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_css","/css/material.min.css?Z7a72R1E4SxzBKR/WGctOA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+        <style id="style_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("style_css","/css/style.min.css?MKetZV3cUTfDxvMffaOezg==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+        
+            
+                <style id="prettify_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_css","/css/prettify.min.css?zp8STOU9v89XWFEnN+6YmQ==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+                <style id="prettify_theme"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_theme","/css/prettify/tomorrow-night-eighties.min.css?2LJQzURO+Kr8r/fl/T8oMA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+            
+        
+
+    
+
+    
+
+    <!-- Config CSS -->
+
+<!-- Other Styles -->
+<style>
+  body, html {
+    font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    overflow-x: hidden !important;
+  }
+  
+  code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  a {
+    color: #00838F;
+  }
+
+  .mdl-card__media,
+  #search-label,
+  #search-form-label:after,
+  #scheme-Paradox .hot_tags-count,
+  #scheme-Paradox .sidebar_archives-count,
+  #scheme-Paradox .sidebar-colored .sidebar-header,
+  #scheme-Paradox .sidebar-colored .sidebar-badge{
+    background-color: #8eb515 !important;
+  }
+
+  /* Sidebar User Drop Down Menu Text Color */
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus {
+    color: #8eb515 !important;
+  }
+
+  #post_entry-right-info,
+  .sidebar-colored .sidebar-nav li:hover > a,
+  .sidebar-colored .sidebar-nav li:hover > a i,
+  .sidebar-colored .sidebar-nav li > a:hover,
+  .sidebar-colored .sidebar-nav li > a:hover i,
+  .sidebar-colored .sidebar-nav li > a:focus i,
+  .sidebar-colored .sidebar-nav > .open > a,
+  .sidebar-colored .sidebar-nav > .open > a:hover,
+  .sidebar-colored .sidebar-nav > .open > a:focus,
+  #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a {
+    color: #8eb515 !important;
+  }
+
+  .toTop {
+    background: #66FFCC !important;
+  }
+
+  .material-layout .material-post>.material-nav,
+  .material-layout .material-index>.material-nav,
+  .material-nav a {
+    color: #66FFCC;
+  }
+
+  #scheme-Paradox .MD-burger-layer {
+    background-color: #66FFCC;
+  }
+
+  #scheme-Paradox #post-toc-trigger-btn {
+    color: #66FFCC;
+  }
+
+  .post-toc a:hover {
+    color: #00838F;
+    text-decoration: underline;
+  }
+
+</style>
+
+
+<!-- Theme Background Related-->
+
+    <style>
+      body{
+        background-image: url(https://i.loli.net/2018/07/14/5b49ef4ea363b.png);
+      }
+    </style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+      .fade {
+        transition: all 800ms linear;
+        -webkit-transform: translate3d(0,0,0);
+        -moz-transform: translate3d(0,0,0);
+        -ms-transform: translate3d(0,0,0);
+        -o-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+        opacity: 1;
+      }
+
+      .fade.out{
+        opacity: 0;
+      }
+    </style>
+
+
+<!-- Import Font -->
+<!-- Import Roboto -->
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+
+
+<!-- Import Material Icons -->
+
+
+    <style id="material_icons"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_icons","/css/material-icons.css?pqhB/Rd/ab0H2+kZp0RDmw==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+
+
+
+    <!-- Import jQuery -->
+    
+        <script>lsloader.load("jq_js","https://cdn.bootcss.com/jquery/2.2.1/jquery.js", true)</script>
+    
+
+    <!-- WebAPP Icons -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="K&#39;s House">
+    <meta name="msapplication-starturl" content="https://kabeor.github.io/第4章 x86反汇编速成班/">
+    <meta name="msapplication-navbutton-color" content="#0097A7">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="K&#39;s House">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" href="/img/favicon.png">
+
+    <!-- Site Verification -->
+    <meta name="google-site-verification" content="Etqhw6dphuFVSwU2ZmblJOkL25LXRDWPJGSxC4cp3Ww">
+    
+
+    <!-- RSS -->
+    
+
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="https://kabeor.github.io/第4章 x86反汇编速成班/">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="第4章 x86反汇编速成班 | K&#39;s House">
+    <meta property="og:image" content="/img/favicon.png">
+    <meta property="og:description" content="Trust me,Lisa.">
+    <meta property="og:article:tag" content="病毒分析"> 
+
+    
+        <meta property="article:published_time" content="Fri Mar 23 2018 13:56:19 GMT+0800">
+        <meta property="article:modified_time" content="Thu Jul 19 2018 13:16:17 GMT+0800">
+    
+
+    <!-- The Twitter Card protocol -->
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Add canonical link for SEO -->
+    
+        <link rel="canonical" href="https://kabeor.github.io/第4章 x86反汇编速成班/index.html">
+    
+
+    <!-- Structured-data for SEO -->
+    
+        
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": "https://kabeor.github.io/第4章 x86反汇编速成班/index.html",
+    "headline": "第4章 x86反汇编速成班",
+    "datePublished": "Fri Mar 23 2018 13:56:19 GMT+0800",
+    "dateModified": "Thu Jul 19 2018 13:16:17 GMT+0800",
+    "author": {
+        "@type": "Person",
+        "name": "kabeor",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/avatar.png"
+        },
+        "description": "We1C0me_t0_K's_House"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "K&#39;s House",
+        "logo": {
+            "@type":"ImageObject",
+            "url": "/img/favicon.png"
+        }
+    },
+    "keywords": ",病毒分析",
+    "description": "Trust me,Lisa.",
+}
+</script>
+
+
+    
+
+    <!-- Analytics -->
+    
+        <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-113413523-1', 'auto');ga('send', 'pageview');
+</script>
+    
+    
+        <script>
+    var _hmt = _hmt || [];
+    (function() {var hm = document.createElement('script');
+    hm.src = 'https://hm.baidu.com/hm.js?36fc4c782bfb2b103fe864229cd9ea5d';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+    
+    
+
+    <!-- Custom Head -->
+    
+
+</head>
+
+
+    
+        <body id="scheme-Paradox" class="lazy">
+            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+                
+
+                <!-- Main Container -->
+                <main class="material-layout__content" id="main">
+
+                    <!-- Top Anchor -->
+                    <div id="top"></div>
+
+                    
+                        <!-- Hamburger Button -->
+                        <button class="MD-burger-icon sidebar-toggle">
+                            <span class="MD-burger-layer"></span>
+                        </button>
+                    
+
+                    <!-- Post TOC -->
+
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+
+    <!-- Left aligned menu below button -->
+    
+    
+    <button id="post-toc-trigger-btn" class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#第4章-x86反汇编速成班"><span class="post-toc-text">第4章 x86反汇编速成班</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#4x1-抽象层次"><span class="post-toc-text">4x1 抽象层次</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#4x2-逆向工程"><span class="post-toc-text">4x2 逆向工程</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#4x3-x86体系结构"><span class="post-toc-text">4x3 x86体系结构</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-内存"><span class="post-toc-text">1.内存</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-指令"><span class="post-toc-text">2. 指令</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-操作码和字节序"><span class="post-toc-text">3. 操作码和字节序</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-操作数"><span class="post-toc-text">4. 操作数</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5-寄存器"><span class="post-toc-text">5. 寄存器</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#6-简单指令"><span class="post-toc-text">6. 简单指令</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#mov"><span class="post-toc-text">mov</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#lea"><span class="post-toc-text">lea</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#算术运算"><span class="post-toc-text">算术运算</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#逻辑运算"><span class="post-toc-text">逻辑运算</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#NOP指令"><span class="post-toc-text">NOP指令</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#7-栈"><span class="post-toc-text">7. 栈</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#函数调用"><span class="post-toc-text">函数调用</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#8-条件指令"><span class="post-toc-text">8. 条件指令</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#9-分支指令"><span class="post-toc-text">9. 分支指令</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#10-重复指令"><span class="post-toc-text">10. 重复指令</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#11-C语言主函数和偏移"><span class="post-toc-text">11. C语言主函数和偏移</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#12-更多信息：Intel×86-Architecture-Manual"><span class="post-toc-text">12. 更多信息：Intel×86 Architecture Manual</span></a></li></ol></li></ol></li></ol>
+    </ul>
+    
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
+    
+        <!-- Custom Thumbnail -->
+        <div class="post_thumbnail-custom mdl-card__media mdl-color-text--grey-50" style="background-image:url(https://i.loli.net/2018/07/16/5b4c62f901955.png)">
+    
+            <p class="article-headline-p">
+                第4章 x86反汇编速成班
+            </p>
+        </div>
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar">
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>kabeor</strong>
+        <span>3月 23, 2018</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/病毒分析/">病毒分析</a>
+    </li></ul>
+    
+
+    <!-- Share -->
+    
+        <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+        
+            <!-- Busuanzi Views -->
+            <a class="post_share-link" href="#">
+                <li class="mdl-menu__item">
+                    <span id="busuanzi_container_page_pv">
+                        <span id="busuanzi_value_page_pv"></span>&nbsp;浏览量
+                    </span>
+                </li>
+            </a>
+        
+    
+
+    <!-- Share Weibo -->
+    
+
+    <!-- Share Twitter -->
+    
+
+    <!-- Share Facebook -->
+    
+
+    <!-- Share Google+ -->
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+    
+</div>
+                
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <h1 id="第4章-x86反汇编速成班"><a href="#第4章-x86反汇编速成班" class="headerlink" title="第4章 x86反汇编速成班"></a>第4章 x86反汇编速成班</h1><h2 id="4x1-抽象层次"><a href="#4x1-抽象层次" class="headerlink" title="4x1 抽象层次"></a>4x1 抽象层次</h2><blockquote>
+<p>恶意代码分析时的三种编码层次<br><img src="https://i.loli.net/2018/07/19/5b501e70df5dd.jpg" alt="mark"></p>
+<p>计算机系统的六个抽象层次</p>
+</blockquote>
+<p><strong>硬件</strong>   硬件层是唯一的一个物理层，由电子电路组成。这些电路实现了XOR门、AND门、OR门和NOT门等逻辑运算器的复杂组合，称为数字逻辑（digital logic）。由于物理特性，硬件很难被软件所操纵。</p>
+<p><strong>微指令</strong>  微指令层又称为固件（firmware）。微指令只能在为它设计的特定电路上执行。这层由一些微指令构成，它们从更高的机器码层翻译而来，提供了访问硬件的接口。当分析恶意代码时，我们通常不关心微指令，因为它们通常是为特定的计算机硬件设计的。</p>
+<p><strong>机器码</strong>  机器码层由操作码（opcode ）组成，操作码是一 些十六进制形式的数字，用于告诉处理器你想要它做什么。机器码一般由多条微指令实现，这样底层硬件就能实际执行代码了。而机器码本身又由高级语言编写的计算机程序编译而来。</p>
+<p><strong>低级语言</strong>  低级语言是计算机体系结构指令集的人类易读版本，主要是汇编语言。恶意代码分析师使用这一层，因为对人来说，机器码太难理解了。我们使用反汇编器来生成低级语言的文本，这些文本由一些简单的助记符组成，如mov和jmp。</p>
+<p><strong>高级语言</strong> 大部分程序员使用高级语言。高级语言对机器层做了很强的抽象，从而可以很轻松地使用程序逻辑和流控制机制。高级语言包括C、C＋＋等。它们被一个编译器经过称为编译的过程转化为机器码。</p>
+<p><strong>解释性语言</strong>  解释型语言位于最高层。很多程序员使用诸如C＃、Perl、.NET、Java等解释语言。这一层的代码不会被编译为机器码，而是被翻译为了字节码。字节码 （bytecode）是特定于该语言的一种中间表示，它在解释器中执行。解释器（interpreter）是一个在运行时将字节码实时翻译为可执行机器码的程序。相比于传统被编译的代码，解释器提供了一种自动的抽象层次，因为它可以独立于操作系统，自己处理错误和管理内存。</p>
+<h2 id="4x2-逆向工程"><a href="#4x2-逆向工程" class="headerlink" title="4x2 逆向工程"></a>4x2 逆向工程</h2><blockquote>
+<p>恶意代码存储在磁盘上时，通常是机器码层的二进制形式。前面提到，机器码是一种计算机可以快速高效执行的代码形式。而我们反汇编恶意代码，就是使用反汇编器（disassembler），将恶意代码二进制文件作为输入，输出汇编语言代码。</p>
+<p>汇编语言实际上是一类语言的统称。每种汇编语言的方言，都是用来对一 类微处理器家族编程的，例如，x86、x64、SPARC、PowerPC、MIPS、ARM 等。目前，x86是PC上最流行的体系结构。</p>
+<p>x86，又称为IntelIA-32，是大部分32位PC使用的体系结构，微软目前所有的32位Windows系统也都运行在 x86上。此外，大部分运行在AM D64和Intel64体系结构上的W indows也都支持x86的32位二进制程序。正因如此，大部分恶意代码是为x86编译的。</p>
+</blockquote>
+<h2 id="4x3-x86体系结构"><a href="#4x3-x86体系结构" class="headerlink" title="4x3 x86体系结构"></a>4x3 x86体系结构</h2><p>大部分现代计算机体系结构（包括x86）在内部实现上遵循冯·诺依曼结构。这种结构包含3种硬件组件：</p>
+<blockquote>
+<p>•    中央处理单元（ CPU ），负责执行代码<br>•    内存（RAM），负责存储所有的数据和代码。<br>•    输入／输出系统（IO），为硬盘、键盘、显示器等设备提供接口。</p>
+</blockquote>
+<p>指针（instruction pointer）的寄存器（register）从内存取得要执行的指令，这个寄存器中存有指令的地址。寄存器是CPU中数据的基本存储单元，通过它，很多时候CPU不再需要访问内存，从而节省了时间。算术逻辑单元（arithmetic logic unit, ALU）执行从内存取来的指令，并将结果放到寄存器或内存中。一条条取指令、执行指令的过程不断重复，就形成了程序的运行。</p>
+<p>冯诺依曼体系结构<br><img src="https://i.loli.net/2018/07/19/5b501e7100c59.jpg" alt="mark"></p>
+<h3 id="1-内存"><a href="#1-内存" class="headerlink" title="1.内存"></a>1.内存</h3><p>一个程序的内存可分为如下四个主要的节<br><img src="https://i.loli.net/2018/07/19/5b501e71145f6.jpg" alt="mark"></p>
+<blockquote>
+<p><strong>数据</strong> 这个词指的是内存中一 个特定的节，名为数据节 （data section），其中包含了一 些值。这些值在程序初始加载时被放到这里，称为静态值（static value），因为程序运行时它们可能并不发生变化，还可以称为全局值（global value），因为程序的任何部分都可以使用它们。</p>
+<p><strong>代码</strong> 代码节包含了在执行程序任务时CPU所取得的指令。这些代码决定了程序是做什么的，以及程序中的任务如何协调工作。</p>
+<p><strong>堆</strong> 堆是为程序执行期间需要的动态内存准备的，用于创建（分配）新的值，以及消除（释放）不再需要的值。将其称为动态内存（dynamic memory），是因为其内容在程序运行期间经常被改变。</p>
+<p><strong>栈</strong> 栈用于函数的局部变量和参数，以及控制程序执行流。</p>
+</blockquote>
+<h3 id="2-指令"><a href="#2-指令" class="headerlink" title="2. 指令"></a>2. 指令</h3><p>指令是汇编程序的构成块。在x86、汇编语言中，一条指令由一个助记符，以及零个或多个操作数组成。</p>
+<h3 id="3-操作码和字节序"><a href="#3-操作码和字节序" class="headerlink" title="3. 操作码和字节序"></a>3. 操作码和字节序</h3><p>每条指令使用操作码告诉CPU程序要执行什么样的操作。<br>反汇编器将操作码翻译为人类易读的指令。</p>
+<p>数据的字节序（enclianness）是指在一个大数据项中，最高位（大端，big-endian）还是最低位（小端，little-enclian）被排在第一位 （即排在最低的地址上）。</p>
+<h3 id="4-操作数"><a href="#4-操作数" class="headerlink" title="4. 操作数"></a>4. 操作数</h3><p>操作数说明指令要使用的数据。有以下三种类型：</p>
+<blockquote>
+<p>立即数（immediate）操作数是一个固定的值<br>寄存器（register）操作数指向寄存器<br>内存地址（memory address）操作数指向感兴趣的值所在的内存地址，一般由方括号内包含值、寄存器或方程式组成，如［eax］。</p>
+</blockquote>
+<h3 id="5-寄存器"><a href="#5-寄存器" class="headerlink" title="5. 寄存器"></a>5. 寄存器</h3><p>寄存器是可以被CPU使用的少量数据存储器，访问其中内容的速度会比访问其他存储器要快。x86处理器中有一组寄存器，可以用于临时存储或者作为工作区。</p>
+<p>最常用的x86寄存器，可以将它们归为以下四类：</p>
+<blockquote>
+<p>通用寄存器，CPU在执行期间使用。<br>段寄存器，用于定位内存节。<br>状态标志，用于做出决定。<br>指令指针，用于定位要执行的下一条指令。</p>
+</blockquote>
+<p>x86寄存器<br><img src="https://i.loli.net/2018/07/19/5b501e712850c.jpg" alt="mark"></p>
+<p>所有通用寄存器的大小都是32位，可以在汇编代码中以32位或16位引用。</p>
+<p>有4个寄存器（EAX、EBX、ECX、EDX）还可以8位值的方式引用，从而使用其最低的8位，或次低的8位。</p>
+<p><strong>通用寄存器</strong>  通用寄存器一般用于存储数据或内存地址，而且经常交换着使用以完成程序。不过，虽然它们被称为通用寄存器，但它们并不完全通用。</p>
+<p>一些x86指令只能使用特定的寄存器。例如，乘法和除法指令就只能使用EAX和EDX。</p>
+<p><strong>标志寄存器</strong>  EFLAGS寄存器是一个标志寄存器。在x86架构中，它是32位的，每一位是一个标志。在执行期间，每一位表示要么是置位（值为1），要么是清除（值为0），并由这些值来控制CPU 的运算，或者给出某些CPU运算的值。</p>
+<p>对恶意代码分析来说，最重要的一些标志介绍如下：</p>
+<blockquote>
+<p><strong>ZF</strong>  当一个运算的结果等于0时，ZF被置位，否则被清除。<br><strong>CF</strong>  当一个运算的结果相对于目标操作数太大或太小时，CF被置位，否则被清除。<br><strong>SF</strong>  当一 个运算的结果为负数，SF被置位；若结果为正数，SF被清除。对算术运算，当运算结果的最高位值为l时，SF也会被置位。<br><strong>TF</strong> TF用于调试。当它被置位时，x86处理器每次只执行一条指令。</p>
+</blockquote>
+<p><strong>EIP指令指针</strong><br>在x86架构中，EIP寄存器，又称为指令指针或程序计数器，保存了程序将要执行的下一条指令在内存中的地址。EIP的唯一作用就是告诉处理器接下来要做什么。</p>
+<blockquote>
+<p>注意：当EIP被破坏（即指向了一个不包含合法程序代码的内存地址 ）时，CPU 无法取得一条合法指令来执行，此时正在运行的程序就可能崩溃。当你控制了EIP，也就控制了CPU将要执行什么，这也就是为什么攻击者试图通过漏洞利用获得对EIP的控制。通常，攻击者先妥使攻击代码进入内存，然后改变EIP使其指向那段代码，从而攻击系统。</p>
+</blockquote>
+<h3 id="6-简单指令"><a href="#6-简单指令" class="headerlink" title="6. 简单指令"></a>6. 简单指令</h3><h4 id="mov"><a href="#mov" class="headerlink" title="mov"></a><strong>mov</strong></h4><p>用于将数据从一个位置移动到另一个位置</p>
+<p>mov指令可以将数据移动到寄存器或内存，其格式是：mov destination, source</p>
+<p>由方括号括起来的操作数是对内存中数据的引用。例如，［ebx]指向内存中地址为EBX处的数据。</p>
+<h4 id="lea"><a href="#lea" class="headerlink" title="lea"></a><strong>lea</strong></h4><p>lea指令用来将一个内存地址赋给目的操作数。</p>
+<p> “load effective address“（加载有效地址）的缩写。它的格式是lea destination, source。</p>
+<p>例如，lea eax, [ebx+8］就将EBX+8的值给EAX。</p>
+<p>lea指令并非专门用于计算内存地址。它还被用来计算普通的值，因为它所需的指令更少。</p>
+<h4 id="算术运算"><a href="#算术运算" class="headerlink" title="算术运算"></a>算术运算</h4><p>加法和减法是从目标操作数中加上或减去一个值。</p>
+<p>加法指令的格式是add destination, value。</p>
+<p>减法的指令是sub destination, value。<br>sub指令会修改两个重要的标志：ZF和CF。<br>如果结果为零，ZF被置位；如果目标操作数比要减去的值小，则CF被置位。</p>
+<p>inc和dec指令将一个寄存器加一和减一 。</p>
+<p><img src="https://i.loli.net/2018/07/19/5b501e713bdd5.jpg" alt="mark"></p>
+<p>乘法和除法都使用了一个预先规定的寄存器，因此其指令很简单，就是指令码加上寄存器要去乘或除的值。</p>
+<p>mul指令的格式是mul value;<br>div指令的格式是div value。</p>
+<p>mul或div指令要操作的寄存器一般会在之前许多条指令的地方被赋值，因此你可能需要在程序的上下文中来寻找。</p>
+<p><img src="https://i.loli.net/2018/07/19/5b501e7150bf6.jpg" alt="mark"></p>
+<p>mul value指令总是将eax乘上value。因此，EAX寄存器必须在乘法指令出现前就赋值好。乘法的结果以64位的形式分开存储在两个寄存器中：EDX和EAX。其中，EDX存储了高的32位，EAX存储低的32位。</p>
+<p>div value指令将EDX和EAX合起来存储的64位值除以value。因此，在做除法之前，EDX和EAX这两个寄存器必须赋值好。除法的商将存储到EAX，余数则存储在EDX中。</p>
+<p><strong>模（mod）</strong>运算会被编译为在div指令后取EDX寄存器的值（因为除法保留了余数）</p>
+<h4 id="逻辑运算"><a href="#逻辑运算" class="headerlink" title="逻辑运算"></a>逻辑运算</h4><p>x86架构还使用逻辑运算符，例如OR、AND和XOR。其相应指令的用法与add和sub类似，对源操作数和目的操作数做相应的操作，并将结果保存在目的操作数中。</p>
+<p><em>xor eax, eax就一种将EAX寄存器快速置0的方法。这么做是为了优化，因为这条指令只需要2个字节，而mov eax, 0需要5个字节。</em></p>
+<p>shr和shl指令用于对寄存器做移位操作。</p>
+<p>shr指令的格式是 “shr destination, count”<br>shl指令的格式是 “shl destination, count” </p>
+<p>shr和shl指令对目的操作数右移或左移，由count决定移多少位。移出目的操作数边界的位则会先移动到CF标志位中。在移位时，使用0填充新的位。移位运算全部完成后，CF标志位中就包含了最后移出目的操作数的那一位。</p>
+<p>循环移位指令ror和rol与移位指令类似，但移出的那一位会被填到另一端空出来的位上，即右循环移位（ror）会将最低位循环移到最高位；左循环移位Crol)则相反。</p>
+<p>移位经常被用于对乘法运算的优化。由于不需要像乘法那样设置寄存器、移动数据，移位会更简单、更快。</p>
+<p>在分析恶意代码时，如果遇到一个函数中只有xor、or、and、shl、ror、shr、rol这样的指令，并且它们反复出现，看起来随机排列的样子，就可能是遇到了一个加密或者压缩函数。最好是将其标记为一个加密函数，然后继续后面的分析。</p>
+<p><img src="https://i.loli.net/2018/07/19/5b501e7165db8.jpg" alt="mark"></p>
+<h4 id="NOP指令"><a href="#NOP指令" class="headerlink" title="NOP指令"></a><strong>NOP指令</strong></h4><p>当它出现时，直接执行下一条指令。</p>
+<p>这条指令的opcode是Ox90。在缓冲区溢出攻击中，当攻击者无法完美地控制利用代码，就经常使用NOP滑板。它起到了填充代码的作用，以降低shellcode可能在中间部分开始执行所造成的风险。</p>
+<h3 id="7-栈"><a href="#7-栈" class="headerlink" title="7. 栈"></a>7. 栈</h3><p>用于函数的内存、局部变量、流控制结构等被存储在栈中。</p>
+<p>栈是一种用压和弹操作来刻画的数据结构，向战中压入一些东西，然后再把它们弹出来。</p>
+<p>它是一种后入先出（LIFO）的结构。</p>
+<p>与栈有关的指令包括push、pop、call、leave、enter、和ret。在内存中，栈被分配成自顶向下的，最高的地址最先被使用。当一个值被压入战时，使用低一点的地址。</p>
+<p>栈只能用于短期存储。它经常用于保存局部变量、参数和返回地址。其主要用途是管理函数调用之间的数据交换。而不同的编译器对这种管理方法的具体实现有所不同，但大部分常见约定都使用相对EBP的地址来引用局部变量与参数。</p>
+<h4 id="函数调用"><a href="#函数调用" class="headerlink" title="函数调用"></a>函数调用</h4><p>许多函数包含一 段 “序言” （prologue），它是在函数开始处的少数几行代码，用于保存函数中要用到的栈和寄存器。相应的，在函数结尾的 “结语” （epilogue）则将技和这些寄存器恢复至函数被调用前的状态。</p>
+<p>下面列举了函数调用最常见的实现流程</p>
+<blockquote>
+<ol>
+<li>使用push指令将参数压入栈中。</li>
+<li>使用call memory_location来调用函数。此时，当前指令地址（指EIP寄存器中的内容）被压入栈中。这个地址会在函数结束后，被用于返回到主代码。当函数开始执行时，EIP的值被设为memory_location （即函数的起始地址）。</li>
+<li>通过函数的序言部分，分配栈中用于局部变量的空间，EBP （基址指针）也被压入栈中。这样就达到了为调用函数保存EBP的目的。</li>
+<li>函数开始做它的工作。</li>
+<li>通过函数的结语部分，恢复。调整E回来释放局部变量，恢复EBP，以使得调用函数可以准确地定位它的变量。leave指令可以用作结语，因为它的功能是使ESP等于EBP，然后从栈中弹出EBP。</li>
+<li>函数通过调用ret指令返回。这个指令会从栈中弹出返回地址给EIP，因此程序会从原来调用的地方继续执行。</li>
+<li>调整栈，以移除此前压入的参数，除非它们在后面还要被使用。</li>
+</ol>
+</blockquote>
+<p>x86架构还提供了其他弹出和压入的指令，其中最常用的是pusha和pushad。它们将所有的寄存器都压入战中，并且常与popa和popad结合使用，后者从栈中弹出所有的寄存器。</p>
+<p>pusha和pushad的具体功能如下。</p>
+<blockquote>
+<p>•    pusha以下面的顺序将所有16位寄存器压入栈中：AX、EX、DX 、BX 、SP、BP、SI、DI<br>• pushad以下面的顺序将所有32位寄存器压入栈中：EAX、ECX 、EDX 、EBX 、ESP、EBP、ESI、 EDI</p>
+</blockquote>
+<p><em>在shellcode中，如果要将寄存器的当前状态全部保存在栈上，以便稍后恢复，就常使用这些指令。编译器很少使用它们，因此，看到它们，通常说明是某人手工写的汇编代码或者shellcode。</em></p>
+<h3 id="8-条件指令"><a href="#8-条件指令" class="headerlink" title="8. 条件指令"></a>8. 条件指令</h3><p>最常见的两个条件指令是test和cmp。</p>
+<p>test指令与and指令的功能一样，但它并不会修改其使用的操作数。test指令只设置标志位。</p>
+<p>对某个东西与它自身的test经常被用于检查它是否是一个NULL值。</p>
+<p>cmp指令与sub指令的功能一样，但它不影响其操作数。cmp指令也是只用于设置标志位，其执行结果是，ZF和CF标志位可能发生变化。</p>
+<h3 id="9-分支指令"><a href="#9-分支指令" class="headerlink" title="9. 分支指令"></a>9. 分支指令</h3><p>最常见的分支指令是跳转指令。程序中使用了大量的跳转指令，其中最简单的是jmp指令，它使得下一条要被执行的指令是其格式jmp location中指定位置的指令，又被称为无条件跳转，因为总会跳到目的位置去执行。这个简单的跳转无法满足所有的跳转需求。</p>
+<p><img src="https://i.loli.net/2018/07/19/5b501e7188b0c.jpg" alt="mark"></p>
+<h3 id="10-重复指令"><a href="#10-重复指令" class="headerlink" title="10. 重复指令"></a>10. 重复指令</h3><p>重复指令是一组操作数据缓冲区的指令。数据缓冲区通常是一个字节数组的形式，也可以是单字或者双字。</p>
+<p>常见的数据缓冲区操作指令是movsx, cmpsx、stosx和scasx，其中x可以是b、w或者d，分别表示字节、字和双字。这些指令对任何形式的数据都有效。</p>
+<p>在这些操作中，使用ESI和EDI寄存器。ESI是源索引寄存器，EDI是目的索引寄存器。还有ECX用作计数的变量。</p>
+<p>这些指令还需要一 个前缀，用于对长度超过1的数据做操作。movsb指令本身只会移动一 个字节，而不使用ECX 寄存器。</p>
+<p><img src="https://i.loli.net/2018/07/19/5b501e71a088e.jpg" alt="mark"></p>
+<p>在x86下，使用重复前缀来做多字节操作。rep指令会增加ESI和EDI这两个偏移，减少ECX寄存器。rep前缀会不断重复，直至ECX=O。repe／repz和repne/repnz前缀则不断重复，直至ECX=O或直至ZF= 1或0。</p>
+<p>movsb指令用于将一串字节从一个位置移动到另一 个位置。rep前缀经常与movsb一起使用，从而复制一串长度由ECX 决定的字节。从逻辑上说，rep movsb指令等价于C语言的memcpy函数。movsb指令从ESI指向地址取出一 个字节，将其存入ED I指向地址，然后根据方向标志（DF）的设置，将ESI和EDI的值加1或者减1。如果DF=O，则加，否则减。</p>
+<p>在由C代码编译后的结果中，很少能看到DF标志。但是在shellcode里，人们有时候会调换方向标志，这样就可以反方向存储数据。如果有rep前缀，就会检查ECX是否为0，如果不等于0，则指令继续从ESI移动一个字节到EDI并将ECX 寄存器减1。这个过程会不断重复，直至ECX=0。</p>
+<p>cmpsb指令用于比较两串字节，以确定其是否是相同的数据。cmpsb指令用ESI指向地址的字节减去EDI指向地址的字节，并更新相关的标志位。它经常与repe前缀一起使用。此时，cmpsb指令逐一比较两串字节，直至发现一处不同，或比较到头。cmpsb指令从地址ESI获得一 个字节，将其与ED I指向位置的字节进行比较，并设置标志位，然后对ESI和EDI分别加1。如果有「epe前缀，就检查ECX的值和标志位，如果ECX=O或者ZF=O，就停止重复。这相当于C语言中的memcmp函数。</p>
+<p>scasb指令用于从一串字节中搜索一 个值。这个值由AL寄存器给出。它的工作方式与cmpsb一样，但是它是将ESI指向地址的字节与AL进行比较，而不是与EDI指向地址的字节比较。repe操作会使得这个比较不断继续，直到找到该字节，或者ECX=O。如果在这串字节中找到了那个值，则其位置会被存储在ESI中。</p>
+<p>stosb指令用于将值存储到EDI指向的地址。它与scasb一样，但不是去搜索，而是将指定的字节存入EDI指向的地址。rep前缀与scasb一起使用后，就初始化了一段内存缓冲区，其中的每个字节都是相同的值。这等价于C语言的memset函数。</p>
+<p><img src="https://i.loli.net/2018/07/19/5b501e71b359d.jpg" alt="mark"><br><img src="https://i.loli.net/2018/07/19/5b501e7e0729d.jpg" alt="mark"></p>
+<h3 id="11-C语言主函数和偏移"><a href="#11-C语言主函数和偏移" class="headerlink" title="11. C语言主函数和偏移"></a>11. C语言主函数和偏移</h3><p>一个标准C程序的主函数有两个参数，形式如下：<br><code>int main(int argc, char** argv)</code><br>参数argc和argv在运行时决定。其中，参数argc是一个整数，说明了命令行中参数的个数，包括程序名字本身：参数argv是一个字符串数据指针，指向了所有的命令行参数。</p>
+<p><img src="https://i.loli.net/2018/07/19/5b501e7e24a3e.jpg" alt="mark"><br><img src="https://i.loli.net/2018/07/19/5b501e7e38f9b.jpg" alt="mark"></p>
+<h3 id="12-更多信息：Intel×86-Architecture-Manual"><a href="#12-更多信息：Intel×86-Architecture-Manual" class="headerlink" title="12. 更多信息：Intel×86 Architecture Manual"></a>12. 更多信息：Intel×86 Architecture Manual</h3><p><img src="https://i.loli.net/2018/07/19/5b501e7e50e23.jpg" alt="mark"><br><img src="https://i.loli.net/2018/07/19/5b501e7e66ddb.jpg" alt="mark"></p>
+<p>From <a href="https://kabeor.github.io/第4章 x86反汇编速成班/">https://kabeor.github.io/第4章 x86反汇编速成班/</a> bye</p>
+
+        
+                <blockquote style="margin: 2em 0 0;padding: 0.5em 1em;border-left: 3px solid #F44336;background-color: #F5F5F5;list-style: none;">
+                    <p><strong>
+                         
+                            This blog is under a <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0 Unported License</a>
+                        </strong>
+                        <br>
+                        <strong>本文链接：</strong><a href="https://kabeor.github.io/第4章 x86反汇编速成班/">https://kabeor.github.io/第4章 x86反汇编速成班/</a>
+                    </p>
+                </blockquote>
+        
+    
+
+    
+</div>
+
+                
+                <!-- Post Comments -->
+                
+                    
+    <div id="comment" style="padding:10px;" class="vcomment"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+    var GUEST_INFO = ['nick','mail','link'];
+    var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+        return GUEST_INFO.indexOf(item) > -1
+    });
+    var notify = 'true' == true;
+    var verify = 'true' == true;
+    new Valine({
+        el: '.vcomment',
+        notify: notify,
+        verify: verify,
+        appId: "53gELcU5PPzXKUh1q21E5Nkh-gzGzoHsz",
+        appKey: "pSNnuMbRDkWAE7j44yChrEce",
+        placeholder: "都看到这里了还不评论一下吗(╯‵□′)╯︵┻━┻",
+        pageSize:'10',
+        avatar:'identicon',
+        lang:'zh-cn'
+    });
+</script>
+
+                
+            </div>
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+        <a href="/对强网杯2018“Web签到”的思考/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/Snert-2018春季淘汰赛Misc,Crypto WriteUp/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
+
+                    
+                        <!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay"></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored sidebar-fixed-left" role="navigation">
+    <div id="sidebar-main">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.png);">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+        <i class="material-icons">clear_all</i>
+        <span class="mdl-button__ripple-container">
+            <span class="mdl-ripple">
+            </span>
+        </span>
+    </button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="/img/avatar.png" alt="kabeor's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        Trust me,Lisa.
+        <b class="caret"></b>
+    </a>
+</div>
+
+
+        <!-- Sidebar Navigation  -->
+        <ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+            
+                <li>
+                    <a href="mailto:1597915586@qq.com" target="_blank" title="Email Me">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
+                        
+                        Email Me
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://github.com/kabeor" target="_blank" title="GitHub">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">code</i>
+                        
+                        GitHub
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    
+        <li id="sidebar-first-li">
+            <a href="/">
+                
+                    <i class="material-icons sidebar-material-icons">home</i>
+                
+                主页
+            </a>
+        </li>
+        
+    
+
+    <!-- Archives  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">inbox</i>
+                
+                    归档
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+            <li>
+                <a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/02/">二月 2018<span class="sidebar_archives-count">47</span></a>
+            </li></ul>
+        </li>
+        
+    
+
+    <!-- Categories  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">chrome_reader_mode</i>
+                
+                分类
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                <a class="sidebar_archives-link" href="/categories/Code/">Code<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/Linux/">Linux<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/Linux/Kali/">Kali<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/Linux/网络/">网络<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/NexT/">NexT<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/Web/">Web<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/Web/WriteUP/">WriteUP<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/Web/渗透/">渗透<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/Web/渗透/工具集/">工具集<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/blog搭建/">blog搭建<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/密码学和杂项/">密码学和杂项<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/树莓派/">树莓派<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/汇编/">汇编<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/汇编/漏洞银行逆向教程/">漏洞银行逆向教程<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/">病毒分析<span class="sidebar_archives-count">16</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/《恶意代码分析实战》笔记/">《恶意代码分析实战》笔记<span class="sidebar_archives-count">16</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/《恶意代码分析实战》笔记/第一篇-静态分析/">第一篇 静态分析<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/《恶意代码分析实战》笔记/第三篇-动态分析高级技术篇/">第三篇 动态分析高级技术篇<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/《恶意代码分析实战》笔记/第二篇-静态分析高级技术篇/">第二篇 静态分析高级技术篇<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/《恶意代码分析实战》笔记/第五篇-逆向工程/">第五篇 逆向工程<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/《恶意代码分析实战》笔记/第四篇-恶意代码功能篇/">第四篇 恶意代码功能篇<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/计算机系统/">计算机系统<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/计算机系统/PE/">PE<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/逆向/">逆向<span class="sidebar_archives-count">37</span></a></li><li><a class="sidebar_archives-link" href="/categories/逆向/i春秋/">i春秋<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/逆向/i春秋Reverse赛题/">i春秋Reverse赛题<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/categories/逆向/吾爱破解培训/">吾爱破解培训<span class="sidebar_archives-count">10</span></a>
+            </li></ul>
+        </li>
+        
+    
+
+    <!-- Pages  -->
+    
+        <li>
+            <a href="/about" title="关于">
+                
+                    <i class="material-icons sidebar-material-icons">person</i>
+                
+                关于
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/links" title="各位大佬(╯°□°）╯︵ ┻━┻">
+                
+                    <i class="material-icons sidebar-material-icons">link</i>
+                
+                各位大佬(╯°□°）╯︵ ┻━┻
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/timeline" title="时间轴">
+                
+                    <i class="material-icons sidebar-material-icons">timeline</i>
+                
+                时间轴
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/gallery" title="EVERSPACE(请等待加载哦)">
+                
+                    <i class="material-icons sidebar-material-icons">flight</i>
+                
+                EVERSPACE(请等待加载哦)
+            </a>
+        </li>
+        
+    
+
+    <!-- Article Number  -->
+    
+        <li>
+            <a href="/archives">
+                文章总数
+                <span class="sidebar-badge">89</span>
+            </a>
+        </li>
+        
+    
+</ul>
+
+
+    <div id="music163player">
+         <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="310" src="//music.163.com/outchain/player?type=0&id=2194265908&auto=0&height=430">
+         </iframe>
+    </div>
+
+        <!-- Sidebar Footer -->
+        <!--
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持和动力。 :)
+-->
+
+<!-- Sidebar Divider -->
+
+    <div class="sidebar-divider"></div>
+
+
+<!-- Theme Material -->
+
+    <a href="https://github.com/viosey/hexo-theme-material" class="sidebar-footer-text-a" target="_blank">
+        <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+            主题 - Material
+            <span class="sidebar-badge badge-circle">i</span>
+        </div>
+    </a>
+
+
+<!-- Help & Support -->
+<!--
+
+    <a href="mailto:hiviosey@gmail.com" class="sidebar-footer-text-a">
+        <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+        sidebar.help
+        <span class="mdl-button__ripple-container">
+          <span class="mdl-ripple"></span>
+        </span>
+      </div>
+    </a>
+
+-->
+
+<!-- Feedback -->
+<!--
+
+    <a href="https://github.com/viosey/hexo-theme-material/issues" target="_blank" class="sidebar-footer-text-a">
+        <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+        sidebar.feedback
+        <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></div>
+    </a>
+
+-->
+
+<!-- About Theme -->
+<!--
+
+    <a href="https://blog.viosey.com/index.php/Material.html" target="_blank" class="sidebar-footer-text-a">
+        <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+             sidebar.about_theme
+            <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></div>
+    </a>
+
+-->
+
+    </div>
+
+
+
+    <!-- Sidebar Image -->
+    
+
+</aside>
+
+                    
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+
+                    
+
+                    <!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+    
+        <!-- Paradox Footer Left Section -->
+        <div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+
+    <!-- Facebook -->
+    
+
+    <!-- Google + -->
+    
+
+    <!-- Weibo -->
+    
+
+    <!-- Instagram -->
+    
+
+    <!-- Tumblr -->
+    
+
+    <!-- Github -->
+    
+        <a href="https://github.com/kabeor" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-github">
+                <span class="visuallyhidden">Github</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- LinkedIn -->
+    
+
+    <!-- Zhihu -->
+    
+
+    <!-- Bilibili -->
+    
+
+    <!-- Telegram -->
+    
+    
+    <!-- V2EX -->
+    
+
+    <span class="post-count">全站共</span> 
+    148.3k 
+    <span>字</span>
+</div>
+
+
+        <!--Copyright-->
+        <div id="copyright">
+            Copyright&nbsp;©<script type="text/javascript">var fd = new Date();document.write("&nbsp;" + fd.getFullYear() + "&nbsp;");</script>K's House
+            
+                <br>
+                
+                    2018
+                
+            
+        </div>
+
+        <!-- Paradox Footer Right Section -->
+
+        <!--
+        I am glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+        It will not impact the appearance and can give developers a lot of support :)
+
+        很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+        它不会影响美观并可以给开发者很大的支持。 :)
+        -->
+
+        <div class="mdl-mini-footer--right-section">
+            <div>
+                <div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
+                <div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+            </div>
+        </div>
+    
+</footer>
+
+
+                    <!-- Import JS File -->
+
+    <script>lsloader.load("lazyload_js","/js/lazyload.min.js?wgjW/HuQG9JDgvPDPoRAng==", true)</script>
+
+
+
+    <script>lsloader.load("js_js","/js/js.min.js?V/53wGualMuiPM3xoetD5Q==", true)</script>
+
+
+
+    <script>lsloader.load("np_js","https://cdn.bootcss.com/nprogress/0.2.0/nprogress.js", true)</script>
+
+
+<script type="text/ls-javascript" id="NProgress-script">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    $('#nprogress .bar').css({
+        'background': '#FF1493'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #FF1493, 0 0 15px #FF1493'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#FF1493',
+        'border-left-color': '#FF1493'
+    });
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+    
+        <script>lsloader.load("sm_js","/js/smoothscroll.js?tNQK2Tw2SUL8a1Scn/Mgew==", true)</script>
+    
+
+
+
+
+
+    <!-- Busuanzi -->
+    <script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+   
+
+
+
+
+
+<!-- UC Browser Compatible -->
+<script>
+	var agent = navigator.userAgent.toLowerCase();
+	if(agent.indexOf('ucbrowser')>0) {
+		document.write('<link rel="stylesheet" href="/css/uc.css">');
+	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+	}
+</script>
+
+<!-- Import prettify js  -->
+
+    
+        
+            <script>lsloader.load("prettify_js","https://cdn.bootcss.com/prettify/r298/prettify.js", true)</script>
+        
+    
+
+
+
+<!-- Window Load -->
+<!-- add class for prettify -->
+<script type="text/ls-javascript" id="window-load">
+    $(window).on('load', function() {
+        // Post_Toc parent position fixed
+        $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
+    });
+
+    
+        
+            $(function() {
+                $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto;');
+                prettyPrint();
+                })
+        
+    
+    
+</script>
+
+<!-- MathJax Load-->
+
+
+<!-- Bing Background -->
+
+
+<script type="text/ls-javascript" id="lazy-load">
+    // Offer LazyLoad
+    queue.offer(function(){
+        $('.lazy').lazyload({
+            effect : 'show'
+        });
+    });
+
+    // Start Queue
+    $(document).ready(function(){
+        setInterval(function(){
+            queue.execNext();
+        },200);
+    });
+</script>
+
+<!-- Custom Footer -->
+
+
+
+<script>
+    (function(){
+        var scriptList = document.querySelectorAll('script[type="text/ls-javascript"]')
+
+        for (var i = 0; i < scriptList.length; ++i) {
+            var item = scriptList[i];
+            lsloader.runInlineScript(item.id,item.id);
+        }
+    })()
+console.log('\n %c © Material Theme | Version: 1.5.2 | https://github.com/viosey/hexo-theme-material %c \n', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-left-radius:5px;border-bottom-left-radius:5px;', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-right-radius:5px;border-bottom-right-radius:5px;');
+</script>
+
+                </main>
+            </div>
+        </body>
+    
+</html>

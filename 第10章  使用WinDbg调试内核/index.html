@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html style="display: none;" lang="zh">
+    <head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <!--
+        © Material Theme
+        https://github.com/viosey/hexo-theme-material
+        Version: 1.5.2 -->
+    <script>
+        window.materialVersion = "1.5.2"
+        // Delete localstorage with these tags
+        window.oldVersion = [
+            'codestartv1',
+            '1.3.4',
+            '1.4.0',
+            '1.4.0b1',
+            '1.5.0'
+        ]
+    </script>
+
+    <!-- dns prefetch -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+
+
+    <link rel="dns-prefetch" href="https://cdn1.lncld.net">
+
+
+    <link rel="dns-prefetch" href="https://busuanzi.ibruce.info">
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Meta & Info -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!-- Title -->
+    
+    <title>
+        
+            第10章  使用WinDbg调试内核 | 
+        
+        K&#39;s House
+    </title>
+
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/img/favicon.png">
+    <link rel="icon" href="/img/favicon.png">
+
+    <meta name="format-detection" content="telephone=no">
+    <meta name="description" itemprop="description" content="Trust me,Lisa.">
+    <meta name="keywords" content=",病毒分析">
+    <meta name="theme-color" content="#0097A7">
+
+    <!-- Disable Fucking Bloody Baidu Tranformation -->
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+
+    <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+
+        
+            <script src="/js/ie-blocker.zhCN.js"></script>
+        
+    <![endif]-->
+
+    <!-- Import lsloader -->
+    <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(a){try{localStorage.removeItem(a)}catch(b){}};lsloader.setLS=function(a,c){try{localStorage.setItem(a,c)}catch(b){}};lsloader.getLS=function(a){var c="";try{c=localStorage.getItem(a)}catch(b){c=""}return c};versionString="/*"+(window.materialVersion||"unknownVersion")+"*/";lsloader.clean=function(){try{var b=[];for(var a=0;a<localStorage.length;a++){b.push(localStorage.key(a))}b.forEach(function(e){var f=lsloader.getLS(e);if(window.oldVersion){var d=window.oldVersion.reduce(function(g,h){return g||f.indexOf("/*"+h+"*/")!==-1},false);if(d){lsloader.removeLS(e)}}})}catch(c){}};lsloader.clean();lsloader.load=function(f,a,b,d){if(typeof b==="boolean"){d=b;b=undefined}d=d||false;b=b||function(){};var e;e=this.getLS(f);if(e&&e.indexOf(versionString)===-1){this.removeLS(f);this.requestResource(f,a,b,d);return}if(e){var c=e.split(versionString)[0];if(c!=a){console.log("reload:"+a);this.removeLS(f);this.requestResource(f,a,b,d);return}e=e.split(versionString)[1];if(d){this.jsRunSequence.push({name:f,code:e});this.runjs(a,f,e)}else{document.getElementById(f).appendChild(document.createTextNode(e));b()}}else{this.requestResource(f,a,b,d)}};lsloader.requestResource=function(b,e,a,c){var d=this;if(c){this.iojs(e,b,function(h,f,g){d.setLS(f,h+versionString+g);d.runjs(h,f,g)})}else{this.iocss(e,b,function(f){document.getElementById(b).appendChild(document.createTextNode(f));d.setLS(b,e+versionString+f)},a)}};lsloader.iojs=function(d,b,g){var a=this;a.jsRunSequence.push({name:b,code:""});try{var f=new XMLHttpRequest();f.open("get",d,true);f.onreadystatechange=function(){if(f.readyState==4){if((f.status>=200&&f.status<300)||f.status==304){if(f.response!=""){g(d,b,f.response);return}}a.jsfallback(d,b)}};f.send(null)}catch(c){a.jsfallback(d,b)}};lsloader.iocss=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.iofonts=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.runjs=function(f,c,e){if(!!c&&!!e){for(var b in this.jsRunSequence){if(this.jsRunSequence[b].name==c){this.jsRunSequence[b].code=e}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var a=document.createElement("script");a.appendChild(document.createTextNode(this.jsRunSequence[0].code));a.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(a);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else{if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var d=this;var a=document.createElement("script");a.src=this.jsRunSequence[0].path;a.type="text/javascript";this.jsRunSequence[0].status="loading";a.onload=function(){d.jsRunSequence.shift();if(d.jsRunSequence.length>0){d.runjs()}};document.body.appendChild(a)}}};lsloader.tagLoad=function(b,a){this.jsRunSequence.push({name:a,code:"",path:b,status:"failed"});this.runjs()};lsloader.jsfallback=function(c,b){if(!!this.jsnamemap[b]){return}else{this.jsnamemap[b]=b}for(var a in this.jsRunSequence){if(this.jsRunSequence[a].name==b){this.jsRunSequence[a].code="";this.jsRunSequence[a].status="failed";this.jsRunSequence[a].path=c}}this.runjs()};lsloader.cssfallback=function(e,c,b){if(!!this.cssnamemap[c]){return}else{this.cssnamemap[c]=1}var d=document.createElement("link");d.type="text/css";d.href=e;d.rel="stylesheet";d.onload=d.onerror=b;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(d,a)};lsloader.runInlineScript=function(c,b){var a=document.getElementById(b).innerText;this.jsRunSequence.push({name:c,code:a});this.runjs()}})();</script>
+
+    <!-- Import queue -->
+    <script>function Queue(){this.dataStore=[];this.offer=b;this.poll=d;this.execNext=a;this.debug=false;this.startDebug=c;function b(e){if(this.debug){console.log("Offered a Queued Function.")}if(typeof e==="function"){this.dataStore.push(e)}else{console.log("You must offer a function.")}}function d(){if(this.debug){console.log("Polled a Queued Function.")}return this.dataStore.shift()}function a(){var e=this.poll();if(e!==undefined){if(this.debug){console.log("Run a Queued Function.")}e()}}function c(){this.debug=true}}var queue=new Queue();</script>
+
+    <!-- Import CSS -->
+    
+        <style id="material_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_css","/css/material.min.css?Z7a72R1E4SxzBKR/WGctOA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+        <style id="style_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("style_css","/css/style.min.css?MKetZV3cUTfDxvMffaOezg==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+        
+            
+                <style id="prettify_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_css","/css/prettify.min.css?zp8STOU9v89XWFEnN+6YmQ==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+                <style id="prettify_theme"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_theme","/css/prettify/tomorrow-night-eighties.min.css?2LJQzURO+Kr8r/fl/T8oMA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+            
+        
+
+    
+
+    
+
+    <!-- Config CSS -->
+
+<!-- Other Styles -->
+<style>
+  body, html {
+    font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    overflow-x: hidden !important;
+  }
+  
+  code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  a {
+    color: #00838F;
+  }
+
+  .mdl-card__media,
+  #search-label,
+  #search-form-label:after,
+  #scheme-Paradox .hot_tags-count,
+  #scheme-Paradox .sidebar_archives-count,
+  #scheme-Paradox .sidebar-colored .sidebar-header,
+  #scheme-Paradox .sidebar-colored .sidebar-badge{
+    background-color: #8eb515 !important;
+  }
+
+  /* Sidebar User Drop Down Menu Text Color */
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus {
+    color: #8eb515 !important;
+  }
+
+  #post_entry-right-info,
+  .sidebar-colored .sidebar-nav li:hover > a,
+  .sidebar-colored .sidebar-nav li:hover > a i,
+  .sidebar-colored .sidebar-nav li > a:hover,
+  .sidebar-colored .sidebar-nav li > a:hover i,
+  .sidebar-colored .sidebar-nav li > a:focus i,
+  .sidebar-colored .sidebar-nav > .open > a,
+  .sidebar-colored .sidebar-nav > .open > a:hover,
+  .sidebar-colored .sidebar-nav > .open > a:focus,
+  #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a {
+    color: #8eb515 !important;
+  }
+
+  .toTop {
+    background: #66FFCC !important;
+  }
+
+  .material-layout .material-post>.material-nav,
+  .material-layout .material-index>.material-nav,
+  .material-nav a {
+    color: #66FFCC;
+  }
+
+  #scheme-Paradox .MD-burger-layer {
+    background-color: #66FFCC;
+  }
+
+  #scheme-Paradox #post-toc-trigger-btn {
+    color: #66FFCC;
+  }
+
+  .post-toc a:hover {
+    color: #00838F;
+    text-decoration: underline;
+  }
+
+</style>
+
+
+<!-- Theme Background Related-->
+
+    <style>
+      body{
+        background-image: url(https://i.loli.net/2018/07/14/5b49ef4ea363b.png);
+      }
+    </style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+      .fade {
+        transition: all 800ms linear;
+        -webkit-transform: translate3d(0,0,0);
+        -moz-transform: translate3d(0,0,0);
+        -ms-transform: translate3d(0,0,0);
+        -o-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+        opacity: 1;
+      }
+
+      .fade.out{
+        opacity: 0;
+      }
+    </style>
+
+
+<!-- Import Font -->
+<!-- Import Roboto -->
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+
+
+<!-- Import Material Icons -->
+
+
+    <style id="material_icons"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_icons","/css/material-icons.css?pqhB/Rd/ab0H2+kZp0RDmw==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+
+
+
+    <!-- Import jQuery -->
+    
+        <script>lsloader.load("jq_js","https://cdn.bootcss.com/jquery/2.2.1/jquery.js", true)</script>
+    
+
+    <!-- WebAPP Icons -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="K&#39;s House">
+    <meta name="msapplication-starturl" content="https://kabeor.github.io/第10章  使用WinDbg调试内核/">
+    <meta name="msapplication-navbutton-color" content="#0097A7">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="K&#39;s House">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" href="/img/favicon.png">
+
+    <!-- Site Verification -->
+    <meta name="google-site-verification" content="Etqhw6dphuFVSwU2ZmblJOkL25LXRDWPJGSxC4cp3Ww">
+    
+
+    <!-- RSS -->
+    
+
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="https://kabeor.github.io/第10章  使用WinDbg调试内核/">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="第10章  使用WinDbg调试内核 | K&#39;s House">
+    <meta property="og:image" content="/img/favicon.png">
+    <meta property="og:description" content="Trust me,Lisa.">
+    <meta property="og:article:tag" content="病毒分析"> 
+
+    
+        <meta property="article:published_time" content="Sun Jul 22 2018 20:50:32 GMT+0800">
+        <meta property="article:modified_time" content="Sun Sep 02 2018 20:36:56 GMT+0800">
+    
+
+    <!-- The Twitter Card protocol -->
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Add canonical link for SEO -->
+    
+        <link rel="canonical" href="https://kabeor.github.io/第10章  使用WinDbg调试内核/index.html">
+    
+
+    <!-- Structured-data for SEO -->
+    
+        
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": "https://kabeor.github.io/第10章  使用WinDbg调试内核/index.html",
+    "headline": "第10章  使用WinDbg调试内核",
+    "datePublished": "Sun Jul 22 2018 20:50:32 GMT+0800",
+    "dateModified": "Sun Sep 02 2018 20:36:56 GMT+0800",
+    "author": {
+        "@type": "Person",
+        "name": "kabeor",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/avatar.png"
+        },
+        "description": "We1C0me_t0_K's_House"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "K&#39;s House",
+        "logo": {
+            "@type":"ImageObject",
+            "url": "/img/favicon.png"
+        }
+    },
+    "keywords": ",病毒分析",
+    "description": "Trust me,Lisa.",
+}
+</script>
+
+
+    
+
+    <!-- Analytics -->
+    
+        <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-113413523-1', 'auto');ga('send', 'pageview');
+</script>
+    
+    
+        <script>
+    var _hmt = _hmt || [];
+    (function() {var hm = document.createElement('script');
+    hm.src = 'https://hm.baidu.com/hm.js?36fc4c782bfb2b103fe864229cd9ea5d';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+    
+    
+
+    <!-- Custom Head -->
+    
+
+</head>
+
+
+    
+        <body id="scheme-Paradox" class="lazy">
+            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+                
+
+                <!-- Main Container -->
+                <main class="material-layout__content" id="main">
+
+                    <!-- Top Anchor -->
+                    <div id="top"></div>
+
+                    
+                        <!-- Hamburger Button -->
+                        <button class="MD-burger-icon sidebar-toggle">
+                            <span class="MD-burger-layer"></span>
+                        </button>
+                    
+
+                    <!-- Post TOC -->
+
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+
+    <!-- Left aligned menu below button -->
+    
+    
+    <button id="post-toc-trigger-btn" class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#第10章-使用WinDbg调试内核"><span class="post-toc-text">第10章  使用WinDbg调试内核</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#10x1-驱动与内核代码"><span class="post-toc-text">10x1 驱动与内核代码</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#10x2-安装内核调试"><span class="post-toc-text">10x2 安装内核调试</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#10x3-使用WinDbg"><span class="post-toc-text">10x3 使用WinDbg</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-从内存中读取"><span class="post-toc-text">1. 从内存中读取</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-使用算术操作符"><span class="post-toc-text">2. 使用算术操作符</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-设置断点"><span class="post-toc-text">3. 设置断点</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-列举模块"><span class="post-toc-text">4. 列举模块</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#10x4-微软符号表"><span class="post-toc-text">10x4 微软符号表</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-搜索符号"><span class="post-toc-text">1. 搜索符号</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-查看结构信息"><span class="post-toc-text">2. 查看结构信息</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-配置Windows符号表"><span class="post-toc-text">3. 配置Windows符号表</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#10x5-内核调试实践"><span class="post-toc-text">10x5 内核调试实践</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-用户空间的代码"><span class="post-toc-text">1. 用户空间的代码</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-内核模式的代码"><span class="post-toc-text">2. 内核模式的代码</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-查找驱动对象"><span class="post-toc-text">3. 查找驱动对象</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#10x6-Rootkit"><span class="post-toc-text">10x6 Rootkit</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-Rootkit分析实践"><span class="post-toc-text">1. Rootkit分析实践</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-中断"><span class="post-toc-text">2. 中断</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#10x7-加载驱动"><span class="post-toc-text">10x7 加载驱动</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#10x8-Windows-vista、-Windows7和x64版本的内核问题"><span class="post-toc-text">10x8 Windows vista、 Windows7和x64版本的内核问题</span></a></li></ol></li></ol>
+    </ul>
+    
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
+    
+        <!-- Custom Thumbnail -->
+        <div class="post_thumbnail-custom mdl-card__media mdl-color-text--grey-50" style="background-image:url(https://i.loli.net/2018/07/16/5b4c62735d971.png)">
+    
+            <p class="article-headline-p">
+                第10章  使用WinDbg调试内核
+            </p>
+        </div>
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar">
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>kabeor</strong>
+        <span>7月 22, 2018</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/病毒分析/">病毒分析</a>
+    </li></ul>
+    
+
+    <!-- Share -->
+    
+        <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+        
+            <!-- Busuanzi Views -->
+            <a class="post_share-link" href="#">
+                <li class="mdl-menu__item">
+                    <span id="busuanzi_container_page_pv">
+                        <span id="busuanzi_value_page_pv"></span>&nbsp;浏览量
+                    </span>
+                </li>
+            </a>
+        
+    
+
+    <!-- Share Weibo -->
+    
+
+    <!-- Share Twitter -->
+    
+
+    <!-- Share Facebook -->
+    
+
+    <!-- Share Google+ -->
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+    
+</div>
+                
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <h1 id="第10章-使用WinDbg调试内核"><a href="#第10章-使用WinDbg调试内核" class="headerlink" title="第10章  使用WinDbg调试内核"></a>第10章  使用WinDbg调试内核</h1><p>本章将探索使用WinDbg进行内核调试和Rootkit分析的方法。</p>
+<h2 id="10x1-驱动与内核代码"><a href="#10x1-驱动与内核代码" class="headerlink" title="10x1 驱动与内核代码"></a>10x1 驱动与内核代码</h2><p>Windows设备驱动简称为驱动，它让第三方开发商在Windows内核模式下运行代码。</p>
+<p>由于驱动程序常驻内存，并且负责响应用户态应用程序的请求，因此分析它十分困难。另外，由于应用程序不直接与驱动程序通信，而是直接访问设备对象，向具体的物理设备发送请求，使得<br>驱动程序更加难以分析。设备对象由驱动程序创建和销毁，可以被用户态的程序直接访问，但它们并非一定是真实的物理设备。</p>
+<p>为了系统能够正常工作，驱动程序必须加载到内核空间，这与DLL需加载到进程空间是同样的道理。当驱动首次被加载时，DriverEntry函数将被调用，这与DLLMain相似。</p>
+<p>与DLL通过函数导出表提供其功能接口不同，驱动通过注册回调函数来提供功能。当用户态的应用程序请求一个服务时，这些回调函数将会被调用。回调函数在DriverEntry程序中被注册。</p>
+<p>Windows会为每个驱动创建一个驱动对象，并以参数形式将其传给DriverEntry函数，DriverEntry函数用回调函数填充这个驱动对象。然后DriverEntry会创建一个可以被用户态应用程序访问的设<br>备对象，应用程序与驱动的交互请求都将通过这个设备对象进行。</p>
+<p>考虑来自用户态应用程序的一个读数据请求。最终这个请求被发送到负责管理硬件并存储读入数据的驱动程序。首先，用户态应用程序应该获得该硬件设备的一个文件句柄，然后在该句柄上调<br>用函数ReadFile。接着内核将会处理ReadFile函数的请求，最终由驱动程序的回调函数来响应对I/O设备的读请求。</p>
+<p>请求内核态恶意组件的最常见函数是DeviceIoControl，它是从用户态模块到内核设备的一种通用请求方法。使用该函数时，用户态应用程序传递一个任意长度的缓冲区数据作为输入，并且接<br>收一个任意长度的缓冲区数据作为输出。</p>
+<p>用户态应用程序到内核态驱动的调用由操作系统完成，这种调用难以被跟踪．如图展示了请求从用户态程序发起并最终到达一个内核驱动的过程。从图中可以看出，请求由用户态程序发起，最后到达内核驱动。在发送到内核的请求中，一部分请求发送到设备驱动去控制硬件设备，而另外一部分仅仅影响一些内核的内部状态。<br><img src="https://i.loli.net/2018/07/22/5b545fac1cab8.jpg" alt="im"></p>
+<p>恶意驱动通常不控制硬件设备，而是与Windows操作系统主要的内核组件ntoskrnl. exe、hal.dll进行交互。ntoskrnl.exe组件包含操作系统核心功能的代码，hal.dll包含与主要硬件设备交互的代码。恶意代码常通过从一个或者多个这样的内核组件中导入函数，来操纵内核。</p>
+<h2 id="10x2-安装内核调试"><a href="#10x2-安装内核调试" class="headerlink" title="10x2 安装内核调试"></a>10x2 安装内核调试</h2><p>内核调试比起用户模式调试来说更加复杂，因为进行内核调试时，操作系统将被冻结，这种情况下不可能运行调试器。因此，调试内核的常用方法是使用VMware。</p>
+<p>与用户态调试不同，内核调试需要一些初始化设置。首先需要设置虚拟操作系统并开启内核调试，然后配置VMware使虚拟机与宿主系统之间有一条虚拟化的串口，同时还应该配置宿主操作系统中的WinDbg。</p>
+<p>虚拟操作系统的设置是编辑C:\boot.ini(Windows XP下请确保文件夹选项设置为显示隐藏文件)。该文件在系统中通常是隐藏的。建议在编辑boot.ini文件之前，为你的虚拟操作系统做一个快照，如果配置文件错误或者损坏了boot.ini，你可以使用快照还原系统。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[boot loader]</span><br><span class="line">timeout=30</span><br><span class="line">default=multi(0)disk(0)rdisk(0)partition(1)\WINDOWS</span><br><span class="line">[operating systems]</span><br><span class="line">multi(0)disk(0)rdisk(0)partition(1)WINDOWS=&quot;Microsoft Windows XP Professional&quot;   编号1</span><br><span class="line">/noexecute=optin /fastdetect</span><br><span class="line">multi(0)disk(0)rdisk(0)partition(1)\WINDOWS=&quot;Microsoft Windows XP Professional with Kernel Debugging&quot;   编号2</span><br><span class="line">/noexecute=optin /fastdetect /debug /debugport=COM1/baudrate=115200</span><br></pre></td></tr></table></figure>
+<p>以Windows XP为例，代码中编号1处指明默认加载的操作系统。编号2处是为了设置内核调试而加入的一行。通常你系统中的boot.ini与编号1类似．</p>
+<p>复制系统中boot.ini最后一行，然后粘贴到boot. ini中新的一行，除了你应该加入的附加选项<code>/debug /debugport=COMl /baudrate=115200</code>外．其他项均与上一行相同(不用考虑行上其他的元素，如<code>multi(0)disk(0)</code>，简单的完全复制，只需加入附加选项）。其中<code>/debug</code>标记代表开启内核调试，<code>/debugport=COM1</code>标记告诉系统使用哪个端口来连接调试系统与被调试系统，<code>/baudrate=115200</code>标记用来指定串口数据传输速率。在本例中，我们使用VMware创建的串口。为了方便识别开机系统选项，我们将第二启动项命为“Microsoft Windows XP Professional with Kernel Debugging”。</p>
+<p>当下次开机运行你的虚拟操作系统时，系统会提供一个开启内核调试的选项’止你选择。另外，系统会给你30秒的时间，决定是否以调试模式启动系统。如果想要连接内核调试器（即WinDbg），你需要在每次开机时选择调试版本启动项。</p>
+<p>下一步，需要设置VMware，在虚拟操作系统和宿主操作系统之间创建一个虚拟连接。为此，我们在VMware上添加一个新的设备来使用宿主系统中的一个命名管道上的串口。下面是添加设备的步骤：</p>
+<p><strong>1. 单击VM-&gt;Settings．然后会弹出VMware设置对话框。</strong><br><strong>2. 在VMware设置对话框中，单击右下角的Add按钮，在弹出的设备类型选择窗口中选择Serial Port，然后单击下一步。</strong><br><strong>3. 在请求串口类型的对话框中，选择Output to Named Pipe，然后单击下一步。</strong><br><strong>4. 在接下来的窗口中，输入\.\pipe\com_1对管道进行命名，然后选择This end is the server和The other end is an application。</strong><br><strong>5. 选中Yield CPU on poll单选框。</strong></p>
+<p><img src="https://i.loli.net/2018/07/22/5b5468e9c465b.jpg" alt="enter description here"></p>
+<p>完成虚拟机的配置后启动虚拟机。在宿主操作系统中，使用下列步骤使WinDbg连接虚拟机并开始调试内核。<br><strong>1．启动WinDbg。</strong><br><strong>2．选择File—Kemel Debug．单击COM标签，然后输入文件名和先前在boot.ini文件中设置的波特率</strong></p>
+<p>如果虚拟操作系统处于运行状态，调试器会在数秒内连接到虚拟机操作系统。如果虚拟操作系统没有运行，调试器将处于等待，直到虚拟操作系统启动，启动过程中调试器将连接到被调试系统。调试器连接后，为了更加全面地获取到调试过程发生的事件，建议在调试过程中启用详细信息输出功能。启用详细信息输出功能后，每当驱动程序被加载和卸载时，你将会得到通知。这些信息在某些情况下可以帮助你识别恶意驱动的加载。</p>
+<h2 id="10x3-使用WinDbg"><a href="#10x3-使用WinDbg" class="headerlink" title="10x3 使用WinDbg"></a>10x3 使用WinDbg</h2><h3 id="1-从内存中读取"><a href="#1-从内存中读取" class="headerlink" title="1. 从内存中读取"></a>1. 从内存中读取</h3><p>WinDbg的内存窗口支持直接通过命令来浏览内存。命令d是用来读取如程序数据或堆栈等内存位置的命令。</p>
+<blockquote>
+<p>基本语法</p>
+</blockquote>
+<p><code>dx addressToRead</code><br>这里x是显示数据格式的一个选项。<br><img src="https://i.loli.net/2018/07/22/5b546adbe93c1.jpg" alt="几种显示数据常用的方式"></p>
+<p>e命令使用方法相同，来改变内存的值<br><code>ex addressToWrite dataToWrite</code><br>其中x与dx命令中的x值相同</p>
+<h3 id="2-使用算术操作符"><a href="#2-使用算术操作符" class="headerlink" title="2. 使用算术操作符"></a>2. 使用算术操作符</h3><p>WinDbg支持在命令行中使用简单的算术操作符，对内存和寄存器进行直接操作，如加(+)、减（-）、乘(* )、除(/)。在试图创建一个条件表达式断点时，命令行选项就如快捷方式一样好用。</p>
+<p>命令dwo用来解引用一个32位的指针，并查看该指针代表地址的值。</p>
+<h3 id="3-设置断点"><a href="#3-设置断点" class="headerlink" title="3. 设置断点"></a>3. 设置断点</h3><p>在WinDbg调试器中，bp命令用来设置基本断点。同时WinDbg也可以使用一些命令，这些命令可以在断点触发时、控制转给用户之前自动运行。使用go(g)命令在断点处执行一个动作后继续执行，而不用等待用户。</p>
+<h3 id="4-列举模块"><a href="#4-列举模块" class="headerlink" title="4. 列举模块"></a>4. 列举模块</h3><p>在OllyDbg调试中，内存映射可以列举出所有内存段与加载模块，但是WinDbg却没有相似的功能。然而,WinDbg的lm命令可以列举出加载到进程空间的所有模块，包括用户模式下的可执行模块,DLL以及内核模式下的内核驱动，同时也会列举出每个模块的起始与结束地址。</p>
+<h2 id="10x4-微软符号表"><a href="#10x4-微软符号表" class="headerlink" title="10x4 微软符号表"></a>10x4 微软符号表</h2><p>调试符号表提供了有限的源代码信息，来帮助理解汇编代码。微软提供的调试符号表中包含某些函数和变量的名字。</p>
+<p>在这里所说的调试符号就是某个特定内存地址的一个名称，大多数调试符号提供一个地址名称来表示一个函数，也有一些地址名称表示数据地址。</p>
+<h3 id="1-搜索符号"><a href="#1-搜索符号" class="headerlink" title="1. 搜索符号"></a>1. 搜索符号</h3><p>WinDbg中符号的格式如下所示<br><code>moduleName!symbolName</code></p>
+<p>这种语法可以在任意一个拥有正常地址的地方使用。其中moduleName表示.exe、.dll或者.sys格式文件的文件名（不包括其扩展名）。symbolName是与这个地址相关联一个名字。然向，ntoskrnl.exe是一个特例，它的module Name是nt，而不是ntoskrnl。</p>
+<p>bu命令允许你用符号在没有加载的代码中设置一个延迟断点。延迟断点是一个断点，仅当加载一个名字匹配的模块时，延迟断点才会被设置。</p>
+<p>x命令允许你使用通配符来搜索函数或符号。</p>
+<p>Ln用来列出最接近给定内存地址的符号，它可以用来确认指针指向的函数。</p>
+<h3 id="2-查看结构信息"><a href="#2-查看结构信息" class="headerlink" title="2. 查看结构信息"></a>2. 查看结构信息</h3><p>微软符号也包含多个数据结构的类型信息，包括没有被公开的内部类型。对于恶意代码分析人员，这些信息非常有用，因为恶意代码经常操作未公开的数据结构。</p>
+<h3 id="3-配置Windows符号表"><a href="#3-配置Windows符号表" class="headerlink" title="3. 配置Windows符号表"></a>3. 配置Windows符号表</h3><p>符号表依赖于被分析文件的具体版本，它们随着文件的更新或修复而改变。如果配置正确。WinDbg将查询微软的服务器，自动获得正在调试文件的正确符号表。你可以通过选择File-&gt;Symbol File Path，来设置符号文件路径。为了配置WinDbg，让其使用在线符号服务器，输入以F路径：<br><code>SRV*c:\websymbols*http://msdl.microsoft.com/download/symbols</code><br>SRV配置了一个服务器，路径C:\websymbols是符号信息的本地缓存，网址则是微软符号服务器的<br>固定位置。</p>
+<p>如果要调试的机器并不能一直连接互联网，你可以根据你使用操作系统、服务包、机器的体系结构等信息，手动从微软服务器下载指定的符号包。符号文件通常有几百兆大小，因为它们包含操作系统和服务包的所有修改和补丁版本的符号信息。</p>
+<h2 id="10x5-内核调试实践"><a href="#10x5-内核调试实践" class="headerlink" title="10x5 内核调试实践"></a>10x5 内核调试实践</h2><p>对于恶意代码编码者，从内核空间写文件的好处是更加难以被觉察。虽然不是以秘密方式写入一个文件，但是它可以绕过一些安全产品，同时也可以误导那些试图查找用户空间中CreateFile、WriteFile函数调用证据的恶意代码分析师。呈现在恶意代码编写者面前的一个挑战是：在内核模式中，普通Win32函数不能直接被调用。但在内核模式下有相似的函数，这些函数可以被内核态的恶意代码所使用。由于CreateFile和WriteFile函数在内核模式下不可用，所以内核模式下提供NtCreateFile和NtWriteFile函数作为替代。</p>
+<h3 id="1-用户空间的代码"><a href="#1-用户空间的代码" class="headerlink" title="1. 用户空间的代码"></a>1. 用户空间的代码</h3><h3 id="2-内核模式的代码"><a href="#2-内核模式的代码" class="headerlink" title="2. 内核模式的代码"></a>2. 内核模式的代码</h3><h3 id="3-查找驱动对象"><a href="#3-查找驱动对象" class="headerlink" title="3. 查找驱动对象"></a>3. 查找驱动对象</h3><h2 id="10x6-Rootkit"><a href="#10x6-Rootkit" class="headerlink" title="10x6 Rootkit"></a>10x6 Rootkit</h2><p>Rootkit通过修改操作系统内部函数,来隐藏自己存在的痕迹。通过这种修改, Rootkit可以隐藏一个正在运行程序的文件、进程、网络连接以及其他资源。这使得其恶意活动难以被反病毒产品、管理员以及安全分析员发现。</p>
+<p>现在大部分 Rootkit都是通过采用某种方式修改操作系统内核来工作的。尽管 Rootkit可以使用多种隐藏技术,但在实际应用中,系统服务描述表(SSDT: System Service Descriptor Table)挂钩技术的使用程度远远超过其他技术。这种技术已经有几年的历史,与其他 rootkits技术相比,它更容易被探测。然而,由于它容易理解、实现灵活且容易,因此到现在它依然被恶意代码所使用。</p>
+<p>系统服务描述表(SSDT),也称为系统服务分发表,微软使用它来查找进入内核的系统调用,它通常不被第三方应用程序或者驱动程序访问。内核态代码只能被用户态的<br>SYSCALL、 SYSENTER或INT 0x2E指令来访问。当前 Windows版本( Windows XP之后)使用 SYSENTER指令,它从存储在寄存器EAX的函数代码中获取指令。</p>
+<h3 id="1-Rootkit分析实践"><a href="#1-Rootkit分析实践" class="headerlink" title="1. Rootkit分析实践"></a>1. Rootkit分析实践</h3><blockquote>
+<p>一个 Rootkit挂钩SSDT的例子</p>
+</blockquote>
+<p>分析一个假设已感染的系统,并认为系统已经安装有恶意驱动。</p>
+<p>首先最直接的方式是检查SSDT是否被挂钩,在 WinDbg中通过存放在nt!KeServiceDescriptorTable表中的偏移量查看SSDT表。SSDT表中所有函数偏移量都应该指向位于NT模块地址范围内的函数,所以我们首先要做的工作就是获取NT模块的地址边界。如果 Rootkit挂钩了其中的某个函数,则这个函数指针可能不在NT模块的地址范围内。当我们检查SSDT时,应该观察其函数指针是否在NT模块的地址范围内。</p>
+<h3 id="2-中断"><a href="#2-中断" class="headerlink" title="2. 中断"></a>2. 中断</h3><p>有时．Rootkit会使用中断来干扰系统事件。现代的处理器实现了用硬件方式触发软件事件的中断。系统发送一条命令到硬件，硬件处理完请求事件后会中断处理器。</p>
+<p>有时，驱动或者Rootkit会利用中断来执行代码，驱动程序调用IoConnectlnterrupt函数为特定中断注册一个处理程序，然后为这个中断指定一个中断服务例程(ISR)，每当触发该中断时，系统都会调用注册的中断服务例程。</p>
+<p>中断描述表(IDT)存储着ISR的信息，在WinDbg中可以通过lidt命令查看</p>
+<p>如果中断位于一个没有名字、没有签名或可疑的驱动中,则表明存在 Rootkit或者恶意代码。</p>
+<h2 id="10x7-加载驱动"><a href="#10x7-加载驱动" class="headerlink" title="10x7 加载驱动"></a>10x7 加载驱动</h2><p>假设你拥有一个恶意的驱动程序,但没有用户态应用程序安装它,这个时候就可以用如 OSR Driver Loader的加载工具来加载它。 OSR Driver Loader驱动加载器非常容易使用而且免费,但需要注册。一旦安装了 OSR Driver Loader,只需在它运行后指定需要加载的驱动,然后单击 Register Service和 Start Service就可以启动驱动。</p>
+<h2 id="10x8-Windows-vista、-Windows7和x64版本的内核问题"><a href="#10x8-Windows-vista、-Windows7和x64版本的内核问题" class="headerlink" title="10x8 Windows vista、 Windows7和x64版本的内核问题"></a>10x8 Windows vista、 Windows7和x64版本的内核问题</h2><p>Vista及之后的Windows版本使用一个名为BCDEdit的程序来编辑引导配置数据，因此你可以在新版本的Windows操作系统中，使用BCDEdit开启内核调试。</p>
+<p>在安全方面，最大的改变是使用了一种内核保护补丁机制，通常被称为PatchGuard，这种机制从Windows XP开始在x64系统上实施。内核补丁保护能够阻止第三方程序修改内核，这包括修改内核代码自身、修改系统服务表、修改IDT以及其他补丁修改技术。引入这种功能时存在一定程度上的争议，因为不仅恶意程序使用内核补丁，正常程序也使用它。</p>
+<p>同时，在64位系统中，内核补丁保护也能干扰调试过程，因为调试器在插入断点时会修改代码。因此．如果内核调试器在系统引导时附加到系统的话，补丁保护将不会运行。如果系统引导结束后再将内核调试器附加到系统．PatchGuard将会使系统崩溃。</p>
+<p>从64位版本的Vista开始．Windows强制执行驱动签名机制，这也就意味着在没有数字签名的情况下，你不能将驱动加载到Windows Vista系统中。因为恶意代码通常不会使用数字签名，所以这是一种对抗恶意内核驱动的有效安全措施。事实上．x64系统上的恶意内核驱动实际上还不存在，但是随着x64版本的Windows越来越普及，恶意代码无疑将会解决这一个障碍。如果你需要加载一个未签名的驱动到x64的Vista系统中，你可以使用BCDEdit工具去修改引导项。具体来说就是将要求驱动签名的功能关闭，即关闭nointegritychecks。</p>
+<p>From <a href="https://kabeor.github.io/第10章  使用WinDbg调试内核/">https://kabeor.github.io/第10章  使用WinDbg调试内核/</a> bye</p>
+
+        
+                <blockquote style="margin: 2em 0 0;padding: 0.5em 1em;border-left: 3px solid #F44336;background-color: #F5F5F5;list-style: none;">
+                    <p><strong>
+                         
+                            This blog is under a <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0 Unported License</a>
+                        </strong>
+                        <br>
+                        <strong>本文链接：</strong><a href="https://kabeor.github.io/第10章  使用WinDbg调试内核/">https://kabeor.github.io/第10章  使用WinDbg调试内核/</a>
+                    </p>
+                </blockquote>
+        
+    
+
+    
+</div>
+
+                
+                <!-- Post Comments -->
+                
+                    
+    <div id="comment" style="padding:10px;" class="vcomment"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+    var GUEST_INFO = ['nick','mail','link'];
+    var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+        return GUEST_INFO.indexOf(item) > -1
+    });
+    var notify = 'true' == true;
+    var verify = 'true' == true;
+    new Valine({
+        el: '.vcomment',
+        notify: notify,
+        verify: verify,
+        appId: "53gELcU5PPzXKUh1q21E5Nkh-gzGzoHsz",
+        appKey: "pSNnuMbRDkWAE7j44yChrEce",
+        placeholder: "都看到这里了还不评论一下吗(╯‵□′)╯︵┻━┻",
+        pageSize:'10',
+        avatar:'identicon',
+        lang:'zh-cn'
+    });
+</script>
+
+                
+            </div>
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+        <a href="/第11章  恶意代码行为/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/第9章 OllyDbg/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
+
+                    
+                        <!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay"></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored sidebar-fixed-left" role="navigation">
+    <div id="sidebar-main">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.png);">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+        <i class="material-icons">clear_all</i>
+        <span class="mdl-button__ripple-container">
+            <span class="mdl-ripple">
+            </span>
+        </span>
+    </button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="/img/avatar.png" alt="kabeor's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        Trust me,Lisa.
+        <b class="caret"></b>
+    </a>
+</div>
+
+
+        <!-- Sidebar Navigation  -->
+        <ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+            
+                <li>
+                    <a href="mailto:1597915586@qq.com" target="_blank" title="Email Me">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
+                        
+                        Email Me
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://github.com/kabeor" target="_blank" title="GitHub">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">code</i>
+                        
+                        GitHub
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    
+        <li id="sidebar-first-li">
+            <a href="/">
+                
+                    <i class="material-icons sidebar-material-icons">home</i>
+                
+                主页
+            </a>
+        </li>
+        
+    
+
+    <!-- Archives  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">inbox</i>
+                
+                    归档
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+            <li>
+                <a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/02/">二月 2018<span class="sidebar_archives-count">47</span></a>
+            </li></ul>
+        </li>
+        
+    
+
+    <!-- Categories  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">chrome_reader_mode</i>
+                
+                分类
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                <a class="sidebar_archives-link" href="/categories/Code/">Code<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/Linux/">Linux<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/Linux/Kali/">Kali<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/Linux/网络/">网络<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/NexT/">NexT<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/Web/">Web<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/Web/WriteUP/">WriteUP<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/Web/渗透/">渗透<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/Web/渗透/工具集/">工具集<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/blog搭建/">blog搭建<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/密码学和杂项/">密码学和杂项<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/树莓派/">树莓派<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/汇编/">汇编<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/汇编/漏洞银行逆向教程/">漏洞银行逆向教程<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/">病毒分析<span class="sidebar_archives-count">16</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/《恶意代码分析实战》笔记/">《恶意代码分析实战》笔记<span class="sidebar_archives-count">16</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/《恶意代码分析实战》笔记/第一篇-静态分析/">第一篇 静态分析<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/《恶意代码分析实战》笔记/第三篇-动态分析高级技术篇/">第三篇 动态分析高级技术篇<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/《恶意代码分析实战》笔记/第二篇-静态分析高级技术篇/">第二篇 静态分析高级技术篇<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/《恶意代码分析实战》笔记/第五篇-逆向工程/">第五篇 逆向工程<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/《恶意代码分析实战》笔记/第四篇-恶意代码功能篇/">第四篇 恶意代码功能篇<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/计算机系统/">计算机系统<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/计算机系统/PE/">PE<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/逆向/">逆向<span class="sidebar_archives-count">37</span></a></li><li><a class="sidebar_archives-link" href="/categories/逆向/i春秋/">i春秋<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/逆向/i春秋Reverse赛题/">i春秋Reverse赛题<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/categories/逆向/吾爱破解培训/">吾爱破解培训<span class="sidebar_archives-count">10</span></a>
+            </li></ul>
+        </li>
+        
+    
+
+    <!-- Pages  -->
+    
+        <li>
+            <a href="/about" title="关于">
+                
+                    <i class="material-icons sidebar-material-icons">person</i>
+                
+                关于
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/links" title="各位大佬(╯°□°）╯︵ ┻━┻">
+                
+                    <i class="material-icons sidebar-material-icons">link</i>
+                
+                各位大佬(╯°□°）╯︵ ┻━┻
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/timeline" title="时间轴">
+                
+                    <i class="material-icons sidebar-material-icons">timeline</i>
+                
+                时间轴
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/gallery" title="EVERSPACE(请等待加载哦)">
+                
+                    <i class="material-icons sidebar-material-icons">flight</i>
+                
+                EVERSPACE(请等待加载哦)
+            </a>
+        </li>
+        
+    
+
+    <!-- Article Number  -->
+    
+        <li>
+            <a href="/archives">
+                文章总数
+                <span class="sidebar-badge">89</span>
+            </a>
+        </li>
+        
+    
+</ul>
+
+
+    <div id="music163player">
+         <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="310" src="//music.163.com/outchain/player?type=0&id=2194265908&auto=0&height=430">
+         </iframe>
+    </div>
+
+        <!-- Sidebar Footer -->
+        <!--
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持和动力。 :)
+-->
+
+<!-- Sidebar Divider -->
+
+    <div class="sidebar-divider"></div>
+
+
+<!-- Theme Material -->
+
+    <a href="https://github.com/viosey/hexo-theme-material" class="sidebar-footer-text-a" target="_blank">
+        <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+            主题 - Material
+            <span class="sidebar-badge badge-circle">i</span>
+        </div>
+    </a>
+
+
+<!-- Help & Support -->
+<!--
+
+    <a href="mailto:hiviosey@gmail.com" class="sidebar-footer-text-a">
+        <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+        sidebar.help
+        <span class="mdl-button__ripple-container">
+          <span class="mdl-ripple"></span>
+        </span>
+      </div>
+    </a>
+
+-->
+
+<!-- Feedback -->
+<!--
+
+    <a href="https://github.com/viosey/hexo-theme-material/issues" target="_blank" class="sidebar-footer-text-a">
+        <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+        sidebar.feedback
+        <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></div>
+    </a>
+
+-->
+
+<!-- About Theme -->
+<!--
+
+    <a href="https://blog.viosey.com/index.php/Material.html" target="_blank" class="sidebar-footer-text-a">
+        <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+             sidebar.about_theme
+            <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></div>
+    </a>
+
+-->
+
+    </div>
+
+
+
+    <!-- Sidebar Image -->
+    
+
+</aside>
+
+                    
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+
+                    
+
+                    <!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+    
+        <!-- Paradox Footer Left Section -->
+        <div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+
+    <!-- Facebook -->
+    
+
+    <!-- Google + -->
+    
+
+    <!-- Weibo -->
+    
+
+    <!-- Instagram -->
+    
+
+    <!-- Tumblr -->
+    
+
+    <!-- Github -->
+    
+        <a href="https://github.com/kabeor" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-github">
+                <span class="visuallyhidden">Github</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- LinkedIn -->
+    
+
+    <!-- Zhihu -->
+    
+
+    <!-- Bilibili -->
+    
+
+    <!-- Telegram -->
+    
+    
+    <!-- V2EX -->
+    
+
+    <span class="post-count">全站共</span> 
+    148.3k 
+    <span>字</span>
+</div>
+
+
+        <!--Copyright-->
+        <div id="copyright">
+            Copyright&nbsp;©<script type="text/javascript">var fd = new Date();document.write("&nbsp;" + fd.getFullYear() + "&nbsp;");</script>K's House
+            
+                <br>
+                
+                    2018
+                
+            
+        </div>
+
+        <!-- Paradox Footer Right Section -->
+
+        <!--
+        I am glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+        It will not impact the appearance and can give developers a lot of support :)
+
+        很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+        它不会影响美观并可以给开发者很大的支持。 :)
+        -->
+
+        <div class="mdl-mini-footer--right-section">
+            <div>
+                <div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
+                <div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+            </div>
+        </div>
+    
+</footer>
+
+
+                    <!-- Import JS File -->
+
+    <script>lsloader.load("lazyload_js","/js/lazyload.min.js?wgjW/HuQG9JDgvPDPoRAng==", true)</script>
+
+
+
+    <script>lsloader.load("js_js","/js/js.min.js?V/53wGualMuiPM3xoetD5Q==", true)</script>
+
+
+
+    <script>lsloader.load("np_js","https://cdn.bootcss.com/nprogress/0.2.0/nprogress.js", true)</script>
+
+
+<script type="text/ls-javascript" id="NProgress-script">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    $('#nprogress .bar').css({
+        'background': '#FF1493'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #FF1493, 0 0 15px #FF1493'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#FF1493',
+        'border-left-color': '#FF1493'
+    });
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+    
+        <script>lsloader.load("sm_js","/js/smoothscroll.js?tNQK2Tw2SUL8a1Scn/Mgew==", true)</script>
+    
+
+
+
+
+
+    <!-- Busuanzi -->
+    <script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+   
+
+
+
+
+
+<!-- UC Browser Compatible -->
+<script>
+	var agent = navigator.userAgent.toLowerCase();
+	if(agent.indexOf('ucbrowser')>0) {
+		document.write('<link rel="stylesheet" href="/css/uc.css">');
+	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+	}
+</script>
+
+<!-- Import prettify js  -->
+
+    
+        
+            <script>lsloader.load("prettify_js","https://cdn.bootcss.com/prettify/r298/prettify.js", true)</script>
+        
+    
+
+
+
+<!-- Window Load -->
+<!-- add class for prettify -->
+<script type="text/ls-javascript" id="window-load">
+    $(window).on('load', function() {
+        // Post_Toc parent position fixed
+        $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
+    });
+
+    
+        
+            $(function() {
+                $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto;');
+                prettyPrint();
+                })
+        
+    
+    
+</script>
+
+<!-- MathJax Load-->
+
+
+<!-- Bing Background -->
+
+
+<script type="text/ls-javascript" id="lazy-load">
+    // Offer LazyLoad
+    queue.offer(function(){
+        $('.lazy').lazyload({
+            effect : 'show'
+        });
+    });
+
+    // Start Queue
+    $(document).ready(function(){
+        setInterval(function(){
+            queue.execNext();
+        },200);
+    });
+</script>
+
+<!-- Custom Footer -->
+
+
+
+<script>
+    (function(){
+        var scriptList = document.querySelectorAll('script[type="text/ls-javascript"]')
+
+        for (var i = 0; i < scriptList.length; ++i) {
+            var item = scriptList[i];
+            lsloader.runInlineScript(item.id,item.id);
+        }
+    })()
+console.log('\n %c © Material Theme | Version: 1.5.2 | https://github.com/viosey/hexo-theme-material %c \n', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-left-radius:5px;border-bottom-left-radius:5px;', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-right-radius:5px;border-bottom-right-radius:5px;');
+</script>
+
+                </main>
+            </div>
+        </body>
+    
+</html>

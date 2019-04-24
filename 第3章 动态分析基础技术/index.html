@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html style="display: none;" lang="zh">
+    <head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <!--
+        © Material Theme
+        https://github.com/viosey/hexo-theme-material
+        Version: 1.5.2 -->
+    <script>
+        window.materialVersion = "1.5.2"
+        // Delete localstorage with these tags
+        window.oldVersion = [
+            'codestartv1',
+            '1.3.4',
+            '1.4.0',
+            '1.4.0b1',
+            '1.5.0'
+        ]
+    </script>
+
+    <!-- dns prefetch -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+
+
+    <link rel="dns-prefetch" href="https://cdn1.lncld.net">
+
+
+    <link rel="dns-prefetch" href="https://busuanzi.ibruce.info">
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Meta & Info -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!-- Title -->
+    
+    <title>
+        
+            第3章 动态分析基础技术 | 
+        
+        K&#39;s House
+    </title>
+
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/img/favicon.png">
+    <link rel="icon" href="/img/favicon.png">
+
+    <meta name="format-detection" content="telephone=no">
+    <meta name="description" itemprop="description" content="Trust me,Lisa.">
+    <meta name="keywords" content=",病毒分析">
+    <meta name="theme-color" content="#0097A7">
+
+    <!-- Disable Fucking Bloody Baidu Tranformation -->
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+
+    <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+
+        
+            <script src="/js/ie-blocker.zhCN.js"></script>
+        
+    <![endif]-->
+
+    <!-- Import lsloader -->
+    <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(a){try{localStorage.removeItem(a)}catch(b){}};lsloader.setLS=function(a,c){try{localStorage.setItem(a,c)}catch(b){}};lsloader.getLS=function(a){var c="";try{c=localStorage.getItem(a)}catch(b){c=""}return c};versionString="/*"+(window.materialVersion||"unknownVersion")+"*/";lsloader.clean=function(){try{var b=[];for(var a=0;a<localStorage.length;a++){b.push(localStorage.key(a))}b.forEach(function(e){var f=lsloader.getLS(e);if(window.oldVersion){var d=window.oldVersion.reduce(function(g,h){return g||f.indexOf("/*"+h+"*/")!==-1},false);if(d){lsloader.removeLS(e)}}})}catch(c){}};lsloader.clean();lsloader.load=function(f,a,b,d){if(typeof b==="boolean"){d=b;b=undefined}d=d||false;b=b||function(){};var e;e=this.getLS(f);if(e&&e.indexOf(versionString)===-1){this.removeLS(f);this.requestResource(f,a,b,d);return}if(e){var c=e.split(versionString)[0];if(c!=a){console.log("reload:"+a);this.removeLS(f);this.requestResource(f,a,b,d);return}e=e.split(versionString)[1];if(d){this.jsRunSequence.push({name:f,code:e});this.runjs(a,f,e)}else{document.getElementById(f).appendChild(document.createTextNode(e));b()}}else{this.requestResource(f,a,b,d)}};lsloader.requestResource=function(b,e,a,c){var d=this;if(c){this.iojs(e,b,function(h,f,g){d.setLS(f,h+versionString+g);d.runjs(h,f,g)})}else{this.iocss(e,b,function(f){document.getElementById(b).appendChild(document.createTextNode(f));d.setLS(b,e+versionString+f)},a)}};lsloader.iojs=function(d,b,g){var a=this;a.jsRunSequence.push({name:b,code:""});try{var f=new XMLHttpRequest();f.open("get",d,true);f.onreadystatechange=function(){if(f.readyState==4){if((f.status>=200&&f.status<300)||f.status==304){if(f.response!=""){g(d,b,f.response);return}}a.jsfallback(d,b)}};f.send(null)}catch(c){a.jsfallback(d,b)}};lsloader.iocss=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.iofonts=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.runjs=function(f,c,e){if(!!c&&!!e){for(var b in this.jsRunSequence){if(this.jsRunSequence[b].name==c){this.jsRunSequence[b].code=e}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var a=document.createElement("script");a.appendChild(document.createTextNode(this.jsRunSequence[0].code));a.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(a);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else{if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var d=this;var a=document.createElement("script");a.src=this.jsRunSequence[0].path;a.type="text/javascript";this.jsRunSequence[0].status="loading";a.onload=function(){d.jsRunSequence.shift();if(d.jsRunSequence.length>0){d.runjs()}};document.body.appendChild(a)}}};lsloader.tagLoad=function(b,a){this.jsRunSequence.push({name:a,code:"",path:b,status:"failed"});this.runjs()};lsloader.jsfallback=function(c,b){if(!!this.jsnamemap[b]){return}else{this.jsnamemap[b]=b}for(var a in this.jsRunSequence){if(this.jsRunSequence[a].name==b){this.jsRunSequence[a].code="";this.jsRunSequence[a].status="failed";this.jsRunSequence[a].path=c}}this.runjs()};lsloader.cssfallback=function(e,c,b){if(!!this.cssnamemap[c]){return}else{this.cssnamemap[c]=1}var d=document.createElement("link");d.type="text/css";d.href=e;d.rel="stylesheet";d.onload=d.onerror=b;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(d,a)};lsloader.runInlineScript=function(c,b){var a=document.getElementById(b).innerText;this.jsRunSequence.push({name:c,code:a});this.runjs()}})();</script>
+
+    <!-- Import queue -->
+    <script>function Queue(){this.dataStore=[];this.offer=b;this.poll=d;this.execNext=a;this.debug=false;this.startDebug=c;function b(e){if(this.debug){console.log("Offered a Queued Function.")}if(typeof e==="function"){this.dataStore.push(e)}else{console.log("You must offer a function.")}}function d(){if(this.debug){console.log("Polled a Queued Function.")}return this.dataStore.shift()}function a(){var e=this.poll();if(e!==undefined){if(this.debug){console.log("Run a Queued Function.")}e()}}function c(){this.debug=true}}var queue=new Queue();</script>
+
+    <!-- Import CSS -->
+    
+        <style id="material_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_css","/css/material.min.css?Z7a72R1E4SxzBKR/WGctOA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+        <style id="style_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("style_css","/css/style.min.css?MKetZV3cUTfDxvMffaOezg==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+        
+            
+                <style id="prettify_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_css","/css/prettify.min.css?zp8STOU9v89XWFEnN+6YmQ==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+                <style id="prettify_theme"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_theme","/css/prettify/tomorrow-night-eighties.min.css?2LJQzURO+Kr8r/fl/T8oMA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+            
+        
+
+    
+
+    
+
+    <!-- Config CSS -->
+
+<!-- Other Styles -->
+<style>
+  body, html {
+    font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    overflow-x: hidden !important;
+  }
+  
+  code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  a {
+    color: #00838F;
+  }
+
+  .mdl-card__media,
+  #search-label,
+  #search-form-label:after,
+  #scheme-Paradox .hot_tags-count,
+  #scheme-Paradox .sidebar_archives-count,
+  #scheme-Paradox .sidebar-colored .sidebar-header,
+  #scheme-Paradox .sidebar-colored .sidebar-badge{
+    background-color: #8eb515 !important;
+  }
+
+  /* Sidebar User Drop Down Menu Text Color */
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus {
+    color: #8eb515 !important;
+  }
+
+  #post_entry-right-info,
+  .sidebar-colored .sidebar-nav li:hover > a,
+  .sidebar-colored .sidebar-nav li:hover > a i,
+  .sidebar-colored .sidebar-nav li > a:hover,
+  .sidebar-colored .sidebar-nav li > a:hover i,
+  .sidebar-colored .sidebar-nav li > a:focus i,
+  .sidebar-colored .sidebar-nav > .open > a,
+  .sidebar-colored .sidebar-nav > .open > a:hover,
+  .sidebar-colored .sidebar-nav > .open > a:focus,
+  #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a {
+    color: #8eb515 !important;
+  }
+
+  .toTop {
+    background: #66FFCC !important;
+  }
+
+  .material-layout .material-post>.material-nav,
+  .material-layout .material-index>.material-nav,
+  .material-nav a {
+    color: #66FFCC;
+  }
+
+  #scheme-Paradox .MD-burger-layer {
+    background-color: #66FFCC;
+  }
+
+  #scheme-Paradox #post-toc-trigger-btn {
+    color: #66FFCC;
+  }
+
+  .post-toc a:hover {
+    color: #00838F;
+    text-decoration: underline;
+  }
+
+</style>
+
+
+<!-- Theme Background Related-->
+
+    <style>
+      body{
+        background-image: url(https://i.loli.net/2018/07/14/5b49ef4ea363b.png);
+      }
+    </style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+      .fade {
+        transition: all 800ms linear;
+        -webkit-transform: translate3d(0,0,0);
+        -moz-transform: translate3d(0,0,0);
+        -ms-transform: translate3d(0,0,0);
+        -o-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+        opacity: 1;
+      }
+
+      .fade.out{
+        opacity: 0;
+      }
+    </style>
+
+
+<!-- Import Font -->
+<!-- Import Roboto -->
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+
+
+<!-- Import Material Icons -->
+
+
+    <style id="material_icons"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_icons","/css/material-icons.css?pqhB/Rd/ab0H2+kZp0RDmw==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+
+
+
+    <!-- Import jQuery -->
+    
+        <script>lsloader.load("jq_js","https://cdn.bootcss.com/jquery/2.2.1/jquery.js", true)</script>
+    
+
+    <!-- WebAPP Icons -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="K&#39;s House">
+    <meta name="msapplication-starturl" content="https://kabeor.github.io/第3章 动态分析基础技术/">
+    <meta name="msapplication-navbutton-color" content="#0097A7">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="K&#39;s House">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" href="/img/favicon.png">
+
+    <!-- Site Verification -->
+    <meta name="google-site-verification" content="Etqhw6dphuFVSwU2ZmblJOkL25LXRDWPJGSxC4cp3Ww">
+    
+
+    <!-- RSS -->
+    
+
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="https://kabeor.github.io/第3章 动态分析基础技术/">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="第3章 动态分析基础技术 | K&#39;s House">
+    <meta property="og:image" content="/img/favicon.png">
+    <meta property="og:description" content="Trust me,Lisa.">
+    <meta property="og:article:tag" content="病毒分析"> 
+
+    
+        <meta property="article:published_time" content="Tue Feb 20 2018 16:41:51 GMT+0800">
+        <meta property="article:modified_time" content="Sun Jul 15 2018 23:15:23 GMT+0800">
+    
+
+    <!-- The Twitter Card protocol -->
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Add canonical link for SEO -->
+    
+        <link rel="canonical" href="https://kabeor.github.io/第3章 动态分析基础技术/index.html">
+    
+
+    <!-- Structured-data for SEO -->
+    
+        
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": "https://kabeor.github.io/第3章 动态分析基础技术/index.html",
+    "headline": "第3章 动态分析基础技术",
+    "datePublished": "Tue Feb 20 2018 16:41:51 GMT+0800",
+    "dateModified": "Sun Jul 15 2018 23:15:23 GMT+0800",
+    "author": {
+        "@type": "Person",
+        "name": "kabeor",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/avatar.png"
+        },
+        "description": "We1C0me_t0_K's_House"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "K&#39;s House",
+        "logo": {
+            "@type":"ImageObject",
+            "url": "/img/favicon.png"
+        }
+    },
+    "keywords": ",病毒分析",
+    "description": "Trust me,Lisa.",
+}
+</script>
+
+
+    
+
+    <!-- Analytics -->
+    
+        <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-113413523-1', 'auto');ga('send', 'pageview');
+</script>
+    
+    
+        <script>
+    var _hmt = _hmt || [];
+    (function() {var hm = document.createElement('script');
+    hm.src = 'https://hm.baidu.com/hm.js?36fc4c782bfb2b103fe864229cd9ea5d';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+    
+    
+
+    <!-- Custom Head -->
+    
+
+</head>
+
+
+    
+        <body id="scheme-Paradox" class="lazy">
+            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+                
+
+                <!-- Main Container -->
+                <main class="material-layout__content" id="main">
+
+                    <!-- Top Anchor -->
+                    <div id="top"></div>
+
+                    
+                        <!-- Hamburger Button -->
+                        <button class="MD-burger-icon sidebar-toggle">
+                            <span class="MD-burger-layer"></span>
+                        </button>
+                    
+
+                    <!-- Post TOC -->
+
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+
+    <!-- Left aligned menu below button -->
+    
+    
+    <button id="post-toc-trigger-btn" class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#第3章-动态分析基础技术"><span class="post-toc-text">第3章 动态分析基础技术</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3x1-沙箱：简便但粗糙的方法"><span class="post-toc-text">3x1 沙箱：简便但粗糙的方法</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-使用恶意代码沙箱"><span class="post-toc-text">1. 使用恶意代码沙箱</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-沙箱的缺点"><span class="post-toc-text">2. 沙箱的缺点</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#潜在的缺点"><span class="post-toc-text">潜在的缺点</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3x2-运行恶意代码"><span class="post-toc-text">3x2 运行恶意代码</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3x3-进程监视器"><span class="post-toc-text">3x3 进程监视器</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-进程监视器的显示"><span class="post-toc-text">1. 进程监视器的显示</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-进程监视器中的过滤"><span class="post-toc-text">2. 进程监视器中的过滤</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3x4-使用进程浏览器（-Process-Explorer-）来查看进程"><span class="post-toc-text">3x4 使用进程浏览器（ Process Explorer ）来查看进程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-进程浏览器的显示"><span class="post-toc-text">1. 进程浏览器的显示</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-使用验证选项"><span class="post-toc-text">2. 使用验证选项</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-比较字符串"><span class="post-toc-text">3. 比较字符串</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-使用依赖遍历器（-Dependency-Walker"><span class="post-toc-text">4. 使用依赖遍历器（ Dependency Walker )</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5-分析恶意文档"><span class="post-toc-text">5. 分析恶意文档</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3x5-使用Regshot来比较注册表快照"><span class="post-toc-text">3x5 使用Regshot来比较注册表快照</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3x6-模拟网络"><span class="post-toc-text">3x6 模拟网络</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-使用ApateDNS"><span class="post-toc-text">1. 使用ApateDNS</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-使用Netcat进行监视"><span class="post-toc-text">2. 使用Netcat进行监视</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3x7-使用Wireshark进行数据包监听"><span class="post-toc-text">3x7 使用Wireshark进行数据包监听</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3x8-使用INetSim"><span class="post-toc-text">3x8 使用INetSim</span></a></li></ol></li></ol>
+    </ul>
+    
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
+    
+        
+            <!-- Random Thumbnail -->
+            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
+
+    $('.post_thumbnail-random').attr('data-original', '/img/random1/m-' + randomNum + '.png');
+    $('.post_thumbnail-random').addClass('lazy');
+</script>
+
+        
+    
+            <p class="article-headline-p">
+                第3章 动态分析基础技术
+            </p>
+        </div>
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar">
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>kabeor</strong>
+        <span>2月 20, 2018</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/病毒分析/">病毒分析</a>
+    </li></ul>
+    
+
+    <!-- Share -->
+    
+        <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+        
+            <!-- Busuanzi Views -->
+            <a class="post_share-link" href="#">
+                <li class="mdl-menu__item">
+                    <span id="busuanzi_container_page_pv">
+                        <span id="busuanzi_value_page_pv"></span>&nbsp;浏览量
+                    </span>
+                </li>
+            </a>
+        
+    
+
+    <!-- Share Weibo -->
+    
+
+    <!-- Share Twitter -->
+    
+
+    <!-- Share Facebook -->
+    
+
+    <!-- Share Google+ -->
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+    
+</div>
+                
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <h1 id="第3章-动态分析基础技术"><a href="#第3章-动态分析基础技术" class="headerlink" title="第3章 动态分析基础技术"></a>第3章 动态分析基础技术</h1><h2 id="3x1-沙箱：简便但粗糙的方法"><a href="#3x1-沙箱：简便但粗糙的方法" class="headerlink" title="3x1 沙箱：简便但粗糙的方法"></a>3x1 沙箱：简便但粗糙的方法</h2><p>沙箱是一种在安全环境里运行不信任程序的安全机制，不用担心伤害到 “真正的” 系统。沙箱包含一个虚拟环境，通过某种方式模拟网络服务，以确保被测试的软件或恶意代码能正常执行。</p>
+<h3 id="1-使用恶意代码沙箱"><a href="#1-使用恶意代码沙箱" class="headerlink" title="1. 使用恶意代码沙箱"></a>1. 使用恶意代码沙箱</h3><p>在计算机安全专业人士眼中， Norman沙箱、GFI沙箱（也就是以前的CWSandbox）是最受欢迎的。</p>
+<h3 id="2-沙箱的缺点"><a href="#2-沙箱的缺点" class="headerlink" title="2. 沙箱的缺点"></a>2. 沙箱的缺点</h3><blockquote>
+<p>沙箱只能简单地运行可执行程序，不能带有命令行选项。如果恶意代码需要一 些命令选项才能执行，在不提供选项的条件下，任何代码都不会被执行。另外，如果你分析的恶意程序样本是一 个后门程序，需要等待一条控制指令，才会启动特定行为，那么在沙箱中这个后门程序将无法被启动和分析。</p>
+<p> 沙箱也不能记录所有事件，因为不管是你或是沙箱，都不会等待足够长的时间让所有事件发生。</p>
+</blockquote>
+<h4 id="潜在的缺点"><a href="#潜在的缺点" class="headerlink" title="潜在的缺点"></a>潜在的缺点</h4><blockquote>
+<p>恶意代码经常检测它是否运行在一 个虚拟机里，并且如果检测到了虚拟机，恶意代码将会停止运行，或者表现异常。不是所有沙箱都能完善地考虑这一问题。</p>
+<p>一些恶意代码需要系统上拥有特定的注册表项或者文件才会执行，而这些在沙箱内是找不到的。这些就可能需要包含一 些合法数据，比如控制命令或者加密钥。</p>
+<p>如果恶意代码是一个DLL，一些导出函数可能不会被恰当地调用，因为一个DLL文件不像可执行文件那样容易运行。</p>
+<p>沙箱环境的操作系统对恶意代码来说可能不正确。例如，恶意代码在Windows XP上正常运行，而在Windows 7上跑不通。</p>
+<p>沙箱不能告诉你恶意代码做了什么。它能报告基本功能，但是它不能告诉你恶意代码是一个定制的SAM密文记录器，或是一个加密的键盘记录后门程序。这些结论需要你自己总结。</p>
+</blockquote>
+<h2 id="3x2-运行恶意代码"><a href="#3x2-运行恶意代码" class="headerlink" title="3x2 运行恶意代码"></a>3x2 运行恶意代码</h2><blockquote>
+<p>如何成功启动DLL文件，来进行动态分析。</p>
+</blockquote>
+<p>在所有的Windows 版本中都包含rundll32.exe程序，它提供了一 个运行DLL的平台，用下面的语法格式：<br><code>C:\&gt;rundll32.exe DLLname, Export arguments</code></p>
+<p>Export值必须是一个DLL文件导出函数表中的函数名或者序号。可以用PEview或者PE Explorer工具查看导出函数表。</p>
+<p>因为恶意的DLL文件通常在DLLMain （称作DLL函数入口点）执行它们的代码，因为无论DLL什么时候被加载，DLLMain函数总会被执行，这样你就总能通过使用rundll32.exe1J口载D LL，而动态地获取信息。除此之外，你甚至可以通过修改PE头部，并改变它的扩展名，使得Windows以一 种可执行文件的方式来加载DLL。</p>
+<p>我们可以使用如下方法来修改PE头部，就是从IMAGE_FILE_HEADER的特征域里擦除IMAGE_FILE_DLL (0x2000）标记。尽管这样的改变不会执行任何输入函数，但它会调用DLLMain方法，而且有可能造成恶意代码意想不到的崩溃或者终止。然而，只要你的修改能使恶意代码执行它的恶意部分，你就能为你的分析收集到信息，余下的就不重要了。</p>
+<p>DLL形态的恶意代码也可能需要被安装成一个服务，SerνiceName参数必须提供给恶意代码，让它能被安装并运行起来。而在Windows系统中启动指定的服务，可以使用net start命令。</p>
+<p>当你看见一个ServiceMain函数，没有像Install或InstallSer、vice这样方便地导出函数，你需妥手动地安装服务。你可以使用Windows系统下的SC命令，或者修改注册表为一个未使用服务进行手动安装，然后使用net start启动服务。Windows服务的注册表项位于HKLM\SYSTEM\CurrentControlSet\Serviceso</p>
+<h2 id="3x3-进程监视器"><a href="#3x3-进程监视器" class="headerlink" title="3x3 进程监视器"></a>3x3 进程监视器</h2><p>进程监视器（Process Monitor）是Windows系统下的高级监视工具，它提供一 种方式来监控注册表、文件系统、网络、进程和线程行为。它结合并增强了两种工具的功能：文件监视器FileMon和注册表监视器RegMon。</p>
+<blockquote>
+<p>由于进程监视器使用内存来记录事件，直到告知它停止捕获，这就可能因耗尽所有可用内存而使虚拟机崩溃。为了避免这样，运行进程监视器就需要限定一 个比较短的时间。为停止进程监视器捕获事件，选择File→Capture Events。在使用进程监视器进行分析之前，首先要清空当前所有截获的事件，通过选择Edit→Clear Display清除掉不相关数据，接下来再执行分析对象，开启监视器捕旗。几分钟之后，就可以终止事件捕获。</p>
+</blockquote>
+<h3 id="1-进程监视器的显示"><a href="#1-进程监视器的显示" class="headerlink" title="1. 进程监视器的显示"></a>1. 进程监视器的显示</h3><p>进程监视器展示了一个可配置栏，包含了每个事件的不同信息，如事件序列号、时间戳、引发事件的进程名、事件操作、事件使用的路径、事件结果等。这些详细的信息可能太长而不适合屏幕显示，或者可能难以清晰地阅读。如果你发现这种情况，可以通过双击该行，来查看这个事件的全部细节。</p>
+<h3 id="2-进程监视器中的过滤"><a href="#2-进程监视器中的过滤" class="headerlink" title="2. 进程监视器中的过滤"></a>2. 进程监视器中的过滤</h3><p>为了设置一 个过滤器，我们选择Filter→Filter打开过滤菜单。当设置一个过滤器时，首先通过左上角的下拉菜单（Reset按钮上面〉选择一栏。对恶意代码分析最重要的过滤栏是进程名、操作和细节。然后，选择一 个比较器，从is、contains、less than中选一项。最后，选择在过滤器里是包含还是排除。因为在默认情况下，过滤器要呈现所有系统调用，所以减少呈现结果的数量十分重要。</p>
+<blockquote>
+<p>进程监视器在工具栏里提供有用的自动过滤功能，它们通过以下四个分类进行过滤：注册表、文件系统、网络和进程行为。</p>
+<p>注册表：通过检查注册表操作，你能辨别一个恶意程序是怎样把自己添加到注册表中去的。</p>
+<p>文件系统：检查文件系统能显示恶意程序创建的所有文件，或它使用的配置文件。</p>
+<p>进程行为：检查进程行为能告诉你恶意程序是否启动了其他的进程。</p>
+<p>网络：识别网络连接能向你展示恶意程序监听的任意端口。</p>
+<p>所有的这四个过滤器都是默认选择的。如果要关闭过滤器，只需简单地单击工具栏上相应的图标即可。</p>
+</blockquote>
+<h2 id="3x4-使用进程浏览器（-Process-Explorer-）来查看进程"><a href="#3x4-使用进程浏览器（-Process-Explorer-）来查看进程" class="headerlink" title="3x4 使用进程浏览器（ Process Explorer ）来查看进程"></a>3x4 使用进程浏览器（ Process Explorer ）来查看进程</h2><p>进程浏览器（Process Explorer）是微软的免费产品，它是一 款非常强大的任务管理器，是进行动态分析时必备的工具。它能对当前系统上运行的进程提供非常有价值的洞察能力。</p>
+<p>你可以用进程浏览器来列出所有活跃的进程、被进程载入的DLL、、各种进程属性和整体系统信息。你也能用它杀死一 个进程、退出用户登录、启动与激活进程。</p>
+<h3 id="1-进程浏览器的显示"><a href="#1-进程浏览器的显示" class="headerlink" title="1. 进程浏览器的显示"></a>1. 进程浏览器的显示</h3><p>进程浏览器监视系统上执行的进程，以树状结构进行显示。</p>
+<p>进程浏览器显示了五栏：Process （进程名）、PID （进程号）、CPU (CPU使用率）、Description（进程描述〉、Company Name （软件公司名〉。视图每一 秒更新一次。默认情况下，服务以粉色高亮显示，进程显示为蓝色，新进程为绿色，被终止进程则为红色。绿色和红色的高亮显示是临时的，当进程被完全启动或终止后颜色就会改变。当分析恶意代码时，需要实时观察进程浏览器窗口中进程的改变或新建进程，保证能够完全地调查它们。</p>
+<h3 id="2-使用验证选项"><a href="#2-使用验证选项" class="headerlink" title="2. 使用验证选项"></a>2. 使用验证选项</h3><p>进程浏览器一个特别有用的功能就是镜像标签里的验证 （Verify）按钮。单击此按钮，可以验证磁盘上的镜像文件是否具有微软的签名认证。因为微软为大部分核心的可执行文件使用了数字签名。通过进程浏览器验证签名是否有效，你就能确定该文件是否确实是微软发布的可执行文件。这一功能对验证磁盘上Windows文件没有被破坏时尤其有用，因为恶意代码经常替换Windows认证文件，并且试图隐藏。</p>
+<p>验证按钮验证的是磁盘上的镜像文件，而不是内存中的，因此它可能会失效，如果一个攻击者使用进程替换技术process replacement，包括在系统上执行进程并用恶意代码重写内存空间，这时候这个功能就不再有用武之地了。进程替换技术为恶意代码提供了和其他进程同样的特权，恶意代码看起来就像一个合法执行的进程一样，但是它在内存中的镜像会和磁盘上的不一样。</p>
+<h3 id="3-比较字符串"><a href="#3-比较字符串" class="headerlink" title="3. 比较字符串"></a>3. 比较字符串</h3><p>一种识别进程替换的方法就是使用进程属性窗口的字符串 （Strings）标签，通过比较包含在磁盘上可执行文件的字符串与内存中同一个可执行文件的字符串，来看两者是否相同。可以用左下角的单选按钮在这两个字符串视图间切换。如果这两个字符串列表有很大不同，那么可能就发生了进程替换。</p>
+<h3 id="4-使用依赖遍历器（-Dependency-Walker"><a href="#4-使用依赖遍历器（-Dependency-Walker" class="headerlink" title="4. 使用依赖遍历器（ Dependency Walker )"></a>4. 使用依赖遍历器（ Dependency Walker )</h3><p>进程浏览器允许你在运行进程上启动depends.exe (Dependency Walker），通过右击进程名并选择Launch→Depends。它也能让你通过选择Find→ Find Handle or DLL找到一个句柄或D LL。</p>
+<p>Find DLL选项在有些时候特别有用，比如当你在磁盘上尝试发现一 个恶意的DLL，并且想知道是否有运行进程使用了这个DLL时。验证按钮验证磁盘上的EXE文件，但不会对所有动态时刻装载的DLL文件进行验证。为了判断一 个DLL是否被加载到进程，你可以比较进程浏览器中的DLL列表与在Dependency Walker工具中显示的导入DLL列表。</p>
+<h3 id="5-分析恶意文档"><a href="#5-分析恶意文档" class="headerlink" title="5. 分析恶意文档"></a>5. 分析恶意文档</h3><p>还可以使用进程浏览器来分析恶意文挡，比如PDF和Word文档。一种快速确定一个文档是否恶意的方法，就是打开进程浏览器，然后再打开文档。若文档启动了任意进程，你都能在进程浏览器中看到，并能通过属性窗口中的镜像Clmage）标签来定位恶意代码在磁盘上的位置。</p>
+<h2 id="3x5-使用Regshot来比较注册表快照"><a href="#3x5-使用Regshot来比较注册表快照" class="headerlink" title="3x5 使用Regshot来比较注册表快照"></a>3x5 使用Regshot来比较注册表快照</h2><p>Regshot是一个开源的注册表比较工具，它可以让你比较两个注册表的快照，发现差异。</p>
+<p>使用Regshot工具分析恶意代码，只要简单地单击1st Shot按钮进行第一次快照，然后运行恶意代码，等待它对系统做出改变，然后单击2nd Shot按钮进行第二次快照，最后单击Compare按钮比较这两次快照。</p>
+<h2 id="3x6-模拟网络"><a href="#3x6-模拟网络" class="headerlink" title="3x6 模拟网络"></a>3x6 模拟网络</h2><p>恶意代码经常会连接到命令与控制服务器。你需要采用一些模拟网络的基本步骤，用来快速获得网络资源，而不需要实际地连接互联网。这些资源可以包括DNS域名系统、IP地址和数据包记录器。</p>
+<p>为了能够成功模拟网络，你必须防止恶意代码探测到自己正运行在一个虚拟环境中 </p>
+<h3 id="1-使用ApateDNS"><a href="#1-使用ApateDNS" class="headerlink" title="1. 使用ApateDNS"></a>1. 使用ApateDNS</h3><p>ApateDNS是一款来自Mandiant公司的免费软件（www.mandiant.com/products/research/mandiant_apatedns/download），是用来查看 恶意代码发出DNS请求最快速的方式。ApateDNS在本机上通过监听UDP的53端口，对用户指定的IP地址给出虚假的DNS响应。它用你指定的IP地址去响应DNS查询请求。ApateDNS可以使用十六进制和ASCII码来显示所有接收到的请求。</p>
+<p>为了使用ApateDNS，需要设置你想在DNS响应包中发出的IP地址，并选择接口。接下来，单击Start Server按钮，这将自动启动DNS服务，并修改DNS设置到localhost上。然后，运行你要分析的恶意代码，就可以在ApateDNS的窗口观察出现的DNS请求。</p>
+<h3 id="2-使用Netcat进行监视"><a href="#2-使用Netcat进行监视" class="headerlink" title="2. 使用Netcat进行监视"></a>2. 使用Netcat进行监视</h3><p>Netcat被称作 “TCP/IP协议枝瑞士军刀” ，可以被用在支持端口扫描、隧道、代理、端口转发等的对内对外连接上。在监听模式下，Netcat充当一个服务器，而在连接模式下作为一 个客户端。Netcat从标准输入得到数据进行网络传输，而它得到的数据，又可以通过标准输出显示到屏幕上。</p>
+<h2 id="3x7-使用Wireshark进行数据包监听"><a href="#3x7-使用Wireshark进行数据包监听" class="headerlink" title="3x7 使用Wireshark进行数据包监听"></a>3x7 使用Wireshark进行数据包监听</h2><p>Wireshark是一 个开源的嗅探器，是一个截获并记录网络数据包的工具。 Wireshark提供可视化、包一流分析和单个数据包的深入分析。</p>
+<blockquote>
+<p>Wireshark的界面显示有四部分</p>
+<p>过滤栏。用来过滤显示的数据包。<br>数据包列表显示了所有满足过滤条件的数据包。<br>数据包细节窗口显示了当前选中包的详细内容。<br>十六进制窗口。显示了当前数据包的十六进制内容，十六进制窗口和数据包细节窗口紧密关联，会高亮显示你所选择的任何域。</p>
+</blockquote>
+<h2 id="3x8-使用INetSim"><a href="#3x8-使用INetSim" class="headerlink" title="3x8 使用INetSim"></a>3x8 使用INetSim</h2><p>INetSim是一款基于Linux模拟常见网络服务的免费软件。</p>
+<p>INetSim是一 款提供 模 拟服 务最 好 的免 费工 具 ，它通 过 模拟 服 务 〈如Http、HTTPS、FTP、IRC、DNS、SMTP等），允许你分析未知恶意代码的网络行为。</p>
+<blockquote>
+<p>INetSim努力伪装得像一 台真正的服务器，有许多容易配置的特性来保证其成功。例如，若被扫描到，它会返回Microsoft IIS网络服务器的旗标。</p>
+<p>INetSim一 些最好的特性被融进了HTTP和HTTPS服务模拟中。例如，IN etSim 几乎能提供所有的文件请求服务：如果一 个恶意程序从一 个站点请求JPEG 以继续它的操作，IN etSim 就会回应一 个适当的JPEG。虽然这个图片可能不是恶意代码要找的，但服务器不至于给出404或者其他错误。这个响应即使不正确，仍能保证恶意代码继续运行。</p>
+<p>INetSim也可以记录所有的连入请求与连接，你会发现这个功能特别有用，比如可以判断一 个恶意代码是否连接到一 个标准服务，或是查看它所发出的请求。IN etSim 也非常容易配置，例如，你可以设置请求后返回一 个页面或者一 个项 目，因此如果你发现你分析的恶意代码在查找一 个特别的网页，然后才能继续执行，你就可以提供这个网页：你也能修改不同服务监听的端口号，这对恶意代码使用非标准端口时非常有用。 </p>
+<p>INetSim专为恶意代码分析而创建，所以它也提供了许多独特的优点，比如它的Dummy服务就记录了所有从客户端口收到的数据。Dummy服务在捕获所有从客户端向端口发出的数据时最有用，而不受制于其他服务模块。你可以使用它记录恶意代码连接的所有端口和发送数据。至少TCP握手会完整地进行，一些进一 步传输的额外数据也可以收集到。</p>
+</blockquote>
+<p>From <a href="https://kabeor.github.io/第3章 动态分析基础技术/">https://kabeor.github.io/第3章 动态分析基础技术/</a> bye</p>
+
+        
+                <blockquote style="margin: 2em 0 0;padding: 0.5em 1em;border-left: 3px solid #F44336;background-color: #F5F5F5;list-style: none;">
+                    <p><strong>
+                         
+                            This blog is under a <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0 Unported License</a>
+                        </strong>
+                        <br>
+                        <strong>本文链接：</strong><a href="https://kabeor.github.io/第3章 动态分析基础技术/">https://kabeor.github.io/第3章 动态分析基础技术/</a>
+                    </p>
+                </blockquote>
+        
+    
+
+    
+</div>
+
+                
+                <!-- Post Comments -->
+                
+                    
+    <div id="comment" style="padding:10px;" class="vcomment"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+    var GUEST_INFO = ['nick','mail','link'];
+    var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+        return GUEST_INFO.indexOf(item) > -1
+    });
+    var notify = 'true' == true;
+    var verify = 'true' == true;
+    new Valine({
+        el: '.vcomment',
+        notify: notify,
+        verify: verify,
+        appId: "53gELcU5PPzXKUh1q21E5Nkh-gzGzoHsz",
+        appKey: "pSNnuMbRDkWAE7j44yChrEce",
+        placeholder: "都看到这里了还不评论一下吗(╯‵□′)╯︵┻━┻",
+        pageSize:'10',
+        avatar:'identicon',
+        lang:'zh-cn'
+    });
+</script>
+
+                
+            </div>
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+        <a href="/001_Acid_burn.exe/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/PE文件结构图/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
+
+                    
+                        <!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay"></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored sidebar-fixed-left" role="navigation">
+    <div id="sidebar-main">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.png);">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+        <i class="material-icons">clear_all</i>
+        <span class="mdl-button__ripple-container">
+            <span class="mdl-ripple">
+            </span>
+        </span>
+    </button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="/img/avatar.png" alt="kabeor's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        Trust me,Lisa.
+        <b class="caret"></b>
+    </a>
+</div>
+
+
+        <!-- Sidebar Navigation  -->
+        <ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+            
+                <li>
+                    <a href="mailto:1597915586@qq.com" target="_blank" title="Email Me">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
+                        
+                        Email Me
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://github.com/kabeor" target="_blank" title="GitHub">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">code</i>
+                        
+                        GitHub
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    
+        <li id="sidebar-first-li">
+            <a href="/">
+                
+                    <i class="material-icons sidebar-material-icons">home</i>
+                
+                主页
+            </a>
+        </li>
+        
+    
+
+    <!-- Archives  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">inbox</i>
+                
+                    归档
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+            <li>
+                <a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/02/">二月 2018<span class="sidebar_archives-count">47</span></a>
+            </li></ul>
+        </li>
+        
+    
+
+    <!-- Categories  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">chrome_reader_mode</i>
+                
+                分类
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                <a class="sidebar_archives-link" href="/categories/Code/">Code<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/Linux/">Linux<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/Linux/Kali/">Kali<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/Linux/网络/">网络<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/NexT/">NexT<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/Web/">Web<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/Web/WriteUP/">WriteUP<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/Web/渗透/">渗透<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/Web/渗透/工具集/">工具集<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/blog搭建/">blog搭建<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/密码学和杂项/">密码学和杂项<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/树莓派/">树莓派<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/汇编/">汇编<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/汇编/漏洞银行逆向教程/">漏洞银行逆向教程<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/">病毒分析<span class="sidebar_archives-count">16</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/《恶意代码分析实战》笔记/">《恶意代码分析实战》笔记<span class="sidebar_archives-count">16</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/《恶意代码分析实战》笔记/第一篇-静态分析/">第一篇 静态分析<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/《恶意代码分析实战》笔记/第三篇-动态分析高级技术篇/">第三篇 动态分析高级技术篇<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/《恶意代码分析实战》笔记/第二篇-静态分析高级技术篇/">第二篇 静态分析高级技术篇<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/《恶意代码分析实战》笔记/第五篇-逆向工程/">第五篇 逆向工程<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/《恶意代码分析实战》笔记/第四篇-恶意代码功能篇/">第四篇 恶意代码功能篇<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/计算机系统/">计算机系统<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/计算机系统/PE/">PE<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/逆向/">逆向<span class="sidebar_archives-count">37</span></a></li><li><a class="sidebar_archives-link" href="/categories/逆向/i春秋/">i春秋<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/逆向/i春秋Reverse赛题/">i春秋Reverse赛题<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/categories/逆向/吾爱破解培训/">吾爱破解培训<span class="sidebar_archives-count">10</span></a>
+            </li></ul>
+        </li>
+        
+    
+
+    <!-- Pages  -->
+    
+        <li>
+            <a href="/about" title="关于">
+                
+                    <i class="material-icons sidebar-material-icons">person</i>
+                
+                关于
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/links" title="各位大佬(╯°□°）╯︵ ┻━┻">
+                
+                    <i class="material-icons sidebar-material-icons">link</i>
+                
+                各位大佬(╯°□°）╯︵ ┻━┻
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/timeline" title="时间轴">
+                
+                    <i class="material-icons sidebar-material-icons">timeline</i>
+                
+                时间轴
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/gallery" title="EVERSPACE(请等待加载哦)">
+                
+                    <i class="material-icons sidebar-material-icons">flight</i>
+                
+                EVERSPACE(请等待加载哦)
+            </a>
+        </li>
+        
+    
+
+    <!-- Article Number  -->
+    
+        <li>
+            <a href="/archives">
+                文章总数
+                <span class="sidebar-badge">89</span>
+            </a>
+        </li>
+        
+    
+</ul>
+
+
+    <div id="music163player">
+         <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="310" src="//music.163.com/outchain/player?type=0&id=2194265908&auto=0&height=430">
+         </iframe>
+    </div>
+
+        <!-- Sidebar Footer -->
+        <!--
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持和动力。 :)
+-->
+
+<!-- Sidebar Divider -->
+
+    <div class="sidebar-divider"></div>
+
+
+<!-- Theme Material -->
+
+    <a href="https://github.com/viosey/hexo-theme-material" class="sidebar-footer-text-a" target="_blank">
+        <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+            主题 - Material
+            <span class="sidebar-badge badge-circle">i</span>
+        </div>
+    </a>
+
+
+<!-- Help & Support -->
+<!--
+
+    <a href="mailto:hiviosey@gmail.com" class="sidebar-footer-text-a">
+        <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+        sidebar.help
+        <span class="mdl-button__ripple-container">
+          <span class="mdl-ripple"></span>
+        </span>
+      </div>
+    </a>
+
+-->
+
+<!-- Feedback -->
+<!--
+
+    <a href="https://github.com/viosey/hexo-theme-material/issues" target="_blank" class="sidebar-footer-text-a">
+        <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+        sidebar.feedback
+        <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></div>
+    </a>
+
+-->
+
+<!-- About Theme -->
+<!--
+
+    <a href="https://blog.viosey.com/index.php/Material.html" target="_blank" class="sidebar-footer-text-a">
+        <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+             sidebar.about_theme
+            <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></div>
+    </a>
+
+-->
+
+    </div>
+
+
+
+    <!-- Sidebar Image -->
+    
+
+</aside>
+
+                    
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+
+                    
+
+                    <!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+    
+        <!-- Paradox Footer Left Section -->
+        <div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+
+    <!-- Facebook -->
+    
+
+    <!-- Google + -->
+    
+
+    <!-- Weibo -->
+    
+
+    <!-- Instagram -->
+    
+
+    <!-- Tumblr -->
+    
+
+    <!-- Github -->
+    
+        <a href="https://github.com/kabeor" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-github">
+                <span class="visuallyhidden">Github</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- LinkedIn -->
+    
+
+    <!-- Zhihu -->
+    
+
+    <!-- Bilibili -->
+    
+
+    <!-- Telegram -->
+    
+    
+    <!-- V2EX -->
+    
+
+    <span class="post-count">全站共</span> 
+    148.3k 
+    <span>字</span>
+</div>
+
+
+        <!--Copyright-->
+        <div id="copyright">
+            Copyright&nbsp;©<script type="text/javascript">var fd = new Date();document.write("&nbsp;" + fd.getFullYear() + "&nbsp;");</script>K's House
+            
+                <br>
+                
+                    2018
+                
+            
+        </div>
+
+        <!-- Paradox Footer Right Section -->
+
+        <!--
+        I am glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+        It will not impact the appearance and can give developers a lot of support :)
+
+        很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+        它不会影响美观并可以给开发者很大的支持。 :)
+        -->
+
+        <div class="mdl-mini-footer--right-section">
+            <div>
+                <div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
+                <div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+            </div>
+        </div>
+    
+</footer>
+
+
+                    <!-- Import JS File -->
+
+    <script>lsloader.load("lazyload_js","/js/lazyload.min.js?wgjW/HuQG9JDgvPDPoRAng==", true)</script>
+
+
+
+    <script>lsloader.load("js_js","/js/js.min.js?V/53wGualMuiPM3xoetD5Q==", true)</script>
+
+
+
+    <script>lsloader.load("np_js","https://cdn.bootcss.com/nprogress/0.2.0/nprogress.js", true)</script>
+
+
+<script type="text/ls-javascript" id="NProgress-script">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    $('#nprogress .bar').css({
+        'background': '#FF1493'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #FF1493, 0 0 15px #FF1493'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#FF1493',
+        'border-left-color': '#FF1493'
+    });
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+    
+        <script>lsloader.load("sm_js","/js/smoothscroll.js?tNQK2Tw2SUL8a1Scn/Mgew==", true)</script>
+    
+
+
+
+
+
+    <!-- Busuanzi -->
+    <script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+   
+
+
+
+
+
+<!-- UC Browser Compatible -->
+<script>
+	var agent = navigator.userAgent.toLowerCase();
+	if(agent.indexOf('ucbrowser')>0) {
+		document.write('<link rel="stylesheet" href="/css/uc.css">');
+	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+	}
+</script>
+
+<!-- Import prettify js  -->
+
+    
+        
+            <script>lsloader.load("prettify_js","https://cdn.bootcss.com/prettify/r298/prettify.js", true)</script>
+        
+    
+
+
+
+<!-- Window Load -->
+<!-- add class for prettify -->
+<script type="text/ls-javascript" id="window-load">
+    $(window).on('load', function() {
+        // Post_Toc parent position fixed
+        $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
+    });
+
+    
+        
+            $(function() {
+                $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto;');
+                prettyPrint();
+                })
+        
+    
+    
+</script>
+
+<!-- MathJax Load-->
+
+
+<!-- Bing Background -->
+
+
+<script type="text/ls-javascript" id="lazy-load">
+    // Offer LazyLoad
+    queue.offer(function(){
+        $('.lazy').lazyload({
+            effect : 'show'
+        });
+    });
+
+    // Start Queue
+    $(document).ready(function(){
+        setInterval(function(){
+            queue.execNext();
+        },200);
+    });
+</script>
+
+<!-- Custom Footer -->
+
+
+
+<script>
+    (function(){
+        var scriptList = document.querySelectorAll('script[type="text/ls-javascript"]')
+
+        for (var i = 0; i < scriptList.length; ++i) {
+            var item = scriptList[i];
+            lsloader.runInlineScript(item.id,item.id);
+        }
+    })()
+console.log('\n %c © Material Theme | Version: 1.5.2 | https://github.com/viosey/hexo-theme-material %c \n', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-left-radius:5px;border-bottom-left-radius:5px;', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-right-radius:5px;border-bottom-right-radius:5px;');
+</script>
+
+                </main>
+            </div>
+        </body>
+    
+</html>

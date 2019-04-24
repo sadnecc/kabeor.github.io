@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html style="display: none;" lang="zh">
+    <head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <!--
+        © Material Theme
+        https://github.com/viosey/hexo-theme-material
+        Version: 1.5.2 -->
+    <script>
+        window.materialVersion = "1.5.2"
+        // Delete localstorage with these tags
+        window.oldVersion = [
+            'codestartv1',
+            '1.3.4',
+            '1.4.0',
+            '1.4.0b1',
+            '1.5.0'
+        ]
+    </script>
+
+    <!-- dns prefetch -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+
+
+    <link rel="dns-prefetch" href="https://cdn1.lncld.net">
+
+
+    <link rel="dns-prefetch" href="https://busuanzi.ibruce.info">
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Meta & Info -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!-- Title -->
+    
+    <title>
+        
+            吾爱破解培训第七课：手把手教你从实例看如何攻破常见的网络验证 | 
+        
+        K&#39;s House
+    </title>
+
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/img/favicon.png">
+    <link rel="icon" href="/img/favicon.png">
+
+    <meta name="format-detection" content="telephone=no">
+    <meta name="description" itemprop="description" content="Trust me,Lisa.">
+    <meta name="keywords" content=",逆向,脱壳，网络验证">
+    <meta name="theme-color" content="#0097A7">
+
+    <!-- Disable Fucking Bloody Baidu Tranformation -->
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+
+    <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+
+        
+            <script src="/js/ie-blocker.zhCN.js"></script>
+        
+    <![endif]-->
+
+    <!-- Import lsloader -->
+    <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(a){try{localStorage.removeItem(a)}catch(b){}};lsloader.setLS=function(a,c){try{localStorage.setItem(a,c)}catch(b){}};lsloader.getLS=function(a){var c="";try{c=localStorage.getItem(a)}catch(b){c=""}return c};versionString="/*"+(window.materialVersion||"unknownVersion")+"*/";lsloader.clean=function(){try{var b=[];for(var a=0;a<localStorage.length;a++){b.push(localStorage.key(a))}b.forEach(function(e){var f=lsloader.getLS(e);if(window.oldVersion){var d=window.oldVersion.reduce(function(g,h){return g||f.indexOf("/*"+h+"*/")!==-1},false);if(d){lsloader.removeLS(e)}}})}catch(c){}};lsloader.clean();lsloader.load=function(f,a,b,d){if(typeof b==="boolean"){d=b;b=undefined}d=d||false;b=b||function(){};var e;e=this.getLS(f);if(e&&e.indexOf(versionString)===-1){this.removeLS(f);this.requestResource(f,a,b,d);return}if(e){var c=e.split(versionString)[0];if(c!=a){console.log("reload:"+a);this.removeLS(f);this.requestResource(f,a,b,d);return}e=e.split(versionString)[1];if(d){this.jsRunSequence.push({name:f,code:e});this.runjs(a,f,e)}else{document.getElementById(f).appendChild(document.createTextNode(e));b()}}else{this.requestResource(f,a,b,d)}};lsloader.requestResource=function(b,e,a,c){var d=this;if(c){this.iojs(e,b,function(h,f,g){d.setLS(f,h+versionString+g);d.runjs(h,f,g)})}else{this.iocss(e,b,function(f){document.getElementById(b).appendChild(document.createTextNode(f));d.setLS(b,e+versionString+f)},a)}};lsloader.iojs=function(d,b,g){var a=this;a.jsRunSequence.push({name:b,code:""});try{var f=new XMLHttpRequest();f.open("get",d,true);f.onreadystatechange=function(){if(f.readyState==4){if((f.status>=200&&f.status<300)||f.status==304){if(f.response!=""){g(d,b,f.response);return}}a.jsfallback(d,b)}};f.send(null)}catch(c){a.jsfallback(d,b)}};lsloader.iocss=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.iofonts=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.runjs=function(f,c,e){if(!!c&&!!e){for(var b in this.jsRunSequence){if(this.jsRunSequence[b].name==c){this.jsRunSequence[b].code=e}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var a=document.createElement("script");a.appendChild(document.createTextNode(this.jsRunSequence[0].code));a.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(a);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else{if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var d=this;var a=document.createElement("script");a.src=this.jsRunSequence[0].path;a.type="text/javascript";this.jsRunSequence[0].status="loading";a.onload=function(){d.jsRunSequence.shift();if(d.jsRunSequence.length>0){d.runjs()}};document.body.appendChild(a)}}};lsloader.tagLoad=function(b,a){this.jsRunSequence.push({name:a,code:"",path:b,status:"failed"});this.runjs()};lsloader.jsfallback=function(c,b){if(!!this.jsnamemap[b]){return}else{this.jsnamemap[b]=b}for(var a in this.jsRunSequence){if(this.jsRunSequence[a].name==b){this.jsRunSequence[a].code="";this.jsRunSequence[a].status="failed";this.jsRunSequence[a].path=c}}this.runjs()};lsloader.cssfallback=function(e,c,b){if(!!this.cssnamemap[c]){return}else{this.cssnamemap[c]=1}var d=document.createElement("link");d.type="text/css";d.href=e;d.rel="stylesheet";d.onload=d.onerror=b;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(d,a)};lsloader.runInlineScript=function(c,b){var a=document.getElementById(b).innerText;this.jsRunSequence.push({name:c,code:a});this.runjs()}})();</script>
+
+    <!-- Import queue -->
+    <script>function Queue(){this.dataStore=[];this.offer=b;this.poll=d;this.execNext=a;this.debug=false;this.startDebug=c;function b(e){if(this.debug){console.log("Offered a Queued Function.")}if(typeof e==="function"){this.dataStore.push(e)}else{console.log("You must offer a function.")}}function d(){if(this.debug){console.log("Polled a Queued Function.")}return this.dataStore.shift()}function a(){var e=this.poll();if(e!==undefined){if(this.debug){console.log("Run a Queued Function.")}e()}}function c(){this.debug=true}}var queue=new Queue();</script>
+
+    <!-- Import CSS -->
+    
+        <style id="material_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_css","/css/material.min.css?Z7a72R1E4SxzBKR/WGctOA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+        <style id="style_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("style_css","/css/style.min.css?MKetZV3cUTfDxvMffaOezg==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+        
+            
+                <style id="prettify_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_css","/css/prettify.min.css?zp8STOU9v89XWFEnN+6YmQ==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+                <style id="prettify_theme"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_theme","/css/prettify/tomorrow-night-eighties.min.css?2LJQzURO+Kr8r/fl/T8oMA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+            
+        
+
+    
+
+    
+
+    <!-- Config CSS -->
+
+<!-- Other Styles -->
+<style>
+  body, html {
+    font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    overflow-x: hidden !important;
+  }
+  
+  code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  a {
+    color: #00838F;
+  }
+
+  .mdl-card__media,
+  #search-label,
+  #search-form-label:after,
+  #scheme-Paradox .hot_tags-count,
+  #scheme-Paradox .sidebar_archives-count,
+  #scheme-Paradox .sidebar-colored .sidebar-header,
+  #scheme-Paradox .sidebar-colored .sidebar-badge{
+    background-color: #8eb515 !important;
+  }
+
+  /* Sidebar User Drop Down Menu Text Color */
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus {
+    color: #8eb515 !important;
+  }
+
+  #post_entry-right-info,
+  .sidebar-colored .sidebar-nav li:hover > a,
+  .sidebar-colored .sidebar-nav li:hover > a i,
+  .sidebar-colored .sidebar-nav li > a:hover,
+  .sidebar-colored .sidebar-nav li > a:hover i,
+  .sidebar-colored .sidebar-nav li > a:focus i,
+  .sidebar-colored .sidebar-nav > .open > a,
+  .sidebar-colored .sidebar-nav > .open > a:hover,
+  .sidebar-colored .sidebar-nav > .open > a:focus,
+  #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a {
+    color: #8eb515 !important;
+  }
+
+  .toTop {
+    background: #66FFCC !important;
+  }
+
+  .material-layout .material-post>.material-nav,
+  .material-layout .material-index>.material-nav,
+  .material-nav a {
+    color: #66FFCC;
+  }
+
+  #scheme-Paradox .MD-burger-layer {
+    background-color: #66FFCC;
+  }
+
+  #scheme-Paradox #post-toc-trigger-btn {
+    color: #66FFCC;
+  }
+
+  .post-toc a:hover {
+    color: #00838F;
+    text-decoration: underline;
+  }
+
+</style>
+
+
+<!-- Theme Background Related-->
+
+    <style>
+      body{
+        background-image: url(https://i.loli.net/2018/07/14/5b49ef4ea363b.png);
+      }
+    </style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+      .fade {
+        transition: all 800ms linear;
+        -webkit-transform: translate3d(0,0,0);
+        -moz-transform: translate3d(0,0,0);
+        -ms-transform: translate3d(0,0,0);
+        -o-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+        opacity: 1;
+      }
+
+      .fade.out{
+        opacity: 0;
+      }
+    </style>
+
+
+<!-- Import Font -->
+<!-- Import Roboto -->
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+
+
+<!-- Import Material Icons -->
+
+
+    <style id="material_icons"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_icons","/css/material-icons.css?pqhB/Rd/ab0H2+kZp0RDmw==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+
+
+
+    <!-- Import jQuery -->
+    
+        <script>lsloader.load("jq_js","https://cdn.bootcss.com/jquery/2.2.1/jquery.js", true)</script>
+    
+
+    <!-- WebAPP Icons -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="K&#39;s House">
+    <meta name="msapplication-starturl" content="https://kabeor.github.io/吾爱破解培训第七课：手把手教你从实例看如何攻破常见的网络验证/">
+    <meta name="msapplication-navbutton-color" content="#0097A7">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="K&#39;s House">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" href="/img/favicon.png">
+
+    <!-- Site Verification -->
+    <meta name="google-site-verification" content="Etqhw6dphuFVSwU2ZmblJOkL25LXRDWPJGSxC4cp3Ww">
+    
+
+    <!-- RSS -->
+    
+
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="https://kabeor.github.io/吾爱破解培训第七课：手把手教你从实例看如何攻破常见的网络验证/">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="吾爱破解培训第七课：手把手教你从实例看如何攻破常见的网络验证 | K&#39;s House">
+    <meta property="og:image" content="/img/favicon.png">
+    <meta property="og:description" content="Trust me,Lisa.">
+    <meta property="og:article:tag" content="逆向"> <meta property="og:article:tag" content="脱壳，网络验证"> 
+
+    
+        <meta property="article:published_time" content="Thu Feb 01 2018 20:03:01 GMT+0800">
+        <meta property="article:modified_time" content="Sat Jul 14 2018 21:10:09 GMT+0800">
+    
+
+    <!-- The Twitter Card protocol -->
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Add canonical link for SEO -->
+    
+        <link rel="canonical" href="https://kabeor.github.io/吾爱破解培训第七课：手把手教你从实例看如何攻破常见的网络验证/index.html">
+    
+
+    <!-- Structured-data for SEO -->
+    
+        
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": "https://kabeor.github.io/吾爱破解培训第七课：手把手教你从实例看如何攻破常见的网络验证/index.html",
+    "headline": "吾爱破解培训第七课：手把手教你从实例看如何攻破常见的网络验证",
+    "datePublished": "Thu Feb 01 2018 20:03:01 GMT+0800",
+    "dateModified": "Sat Jul 14 2018 21:10:09 GMT+0800",
+    "author": {
+        "@type": "Person",
+        "name": "kabeor",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/avatar.png"
+        },
+        "description": "We1C0me_t0_K's_House"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "K&#39;s House",
+        "logo": {
+            "@type":"ImageObject",
+            "url": "/img/favicon.png"
+        }
+    },
+    "keywords": ",逆向,脱壳，网络验证",
+    "description": "Trust me,Lisa.",
+}
+</script>
+
+
+    
+
+    <!-- Analytics -->
+    
+        <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-113413523-1', 'auto');ga('send', 'pageview');
+</script>
+    
+    
+        <script>
+    var _hmt = _hmt || [];
+    (function() {var hm = document.createElement('script');
+    hm.src = 'https://hm.baidu.com/hm.js?36fc4c782bfb2b103fe864229cd9ea5d';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+    
+    
+
+    <!-- Custom Head -->
+    
+
+</head>
+
+
+    
+        <body id="scheme-Paradox" class="lazy">
+            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+                
+
+                <!-- Main Container -->
+                <main class="material-layout__content" id="main">
+
+                    <!-- Top Anchor -->
+                    <div id="top"></div>
+
+                    
+                        <!-- Hamburger Button -->
+                        <button class="MD-burger-icon sidebar-toggle">
+                            <span class="MD-burger-layer"></span>
+                        </button>
+                    
+
+                    <!-- Post TOC -->
+
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+
+    <!-- Left aligned menu below button -->
+    
+    
+    <button id="post-toc-trigger-btn" class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#吾爱破解培训第七课：手把手教你从实例看如何攻破常见的网络验证"><span class="post-toc-text">吾爱破解培训第七课：手把手教你从实例看如何攻破常见的网络验证</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#TCP-（传输控制协议）"><span class="post-toc-text">TCP （传输控制协议）</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#UDP"><span class="post-toc-text">UDP</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#Asp验证"><span class="post-toc-text">Asp验证</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#php验证"><span class="post-toc-text">php验证</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#云验证"><span class="post-toc-text">云验证</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#exe程序互相通信验证"><span class="post-toc-text">exe程序互相通信验证</span></a></li></ol></li></ol><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#实例"><span class="post-toc-text">实例</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#第二个暗桩"><span class="post-toc-text">第二个暗桩</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#第三个暗桩"><span class="post-toc-text">第三个暗桩</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#第四个暗桩"><span class="post-toc-text">第四个暗桩</span></a></li></ol></li>
+    </ul>
+    
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
+    
+        
+            <!-- Random Thumbnail -->
+            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
+
+    $('.post_thumbnail-random').attr('data-original', '/img/random1/m-' + randomNum + '.png');
+    $('.post_thumbnail-random').addClass('lazy');
+</script>
+
+        
+    
+            <p class="article-headline-p">
+                吾爱破解培训第七课：手把手教你从实例看如何攻破常见的网络验证
+            </p>
+        </div>
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar">
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>kabeor</strong>
+        <span>2月 01, 2018</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/脱壳，网络验证/">脱壳，网络验证</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/逆向/">逆向</a>
+    </li></ul>
+    
+
+    <!-- Share -->
+    
+        <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+        
+            <!-- Busuanzi Views -->
+            <a class="post_share-link" href="#">
+                <li class="mdl-menu__item">
+                    <span id="busuanzi_container_page_pv">
+                        <span id="busuanzi_value_page_pv"></span>&nbsp;浏览量
+                    </span>
+                </li>
+            </a>
+        
+    
+
+    <!-- Share Weibo -->
+    
+
+    <!-- Share Twitter -->
+    
+
+    <!-- Share Facebook -->
+    
+
+    <!-- Share Google+ -->
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+    
+</div>
+                
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <h1 id="吾爱破解培训第七课：手把手教你从实例看如何攻破常见的网络验证"><a href="#吾爱破解培训第七课：手把手教你从实例看如何攻破常见的网络验证" class="headerlink" title="吾爱破解培训第七课：手把手教你从实例看如何攻破常见的网络验证"></a>吾爱破解培训第七课：手把手教你从实例看如何攻破常见的网络验证</h1><blockquote>
+<p>协议：</p>
+</blockquote>
+<p>网络验证协议分为UDP和TCP协议。</p>
+<p>目前市面上流行的网络验证一半都是TCP协议的。</p>
+<p>采用TCP协议程序发送数据所用API为：send，接收数据所用API为：recv<br>采用UDP协议程序发送数据所用API为：WSASend，接收数据所用API为：WSARecv</p>
+<p>在分析封包时，了解程序使用的协议类型，采用相对应抓包工具。有的抓包工具只能抓到TCP协议发送的封包数据，比如用易语言网截所写的抓包工具，那种工具只能抓到TCP协议的封包</p>
+<h6 id="TCP-（传输控制协议）"><a href="#TCP-（传输控制协议）" class="headerlink" title="TCP （传输控制协议）"></a>TCP （传输控制协议）</h6><p>TCP（Transmission Control Protocol 传输控制协议）是一种面向连接的、可靠的、基于字节流的传输层通信协议，由IETF的RFC 793定义。在简化的计算机网络OSI模型中，它完成第四层传输层所指定的功能，用户数据报协议（UDP）是同一层内 另一个重要的传输协议。在因特网协议族（Internet protocol suite）中，TCP层是位于IP层之上，应用层之下的中间层。不同主机的应用层之间经常需要可靠的、像管道一样的连接，但是IP层不提供这样的流机制，而是提供不可靠的包交换。</p>
+<p>应用层向TCP层发送用于网间传输的、用8位字节表示的数据流，然后TCP把数据流分区成适当长度的报文段（通常受该计算机连接的网络的数据链路层的最大传输单元（[1]  MTU）的限制）。之后TCP把结果包传给IP层，由它来通过网络将包传送给接收端实体的TCP层。TCP为了保证不发生丢包，就给每个包一个序号，同时序号也保证了传送到接收端实体的包的按序接收。然后接收端实体对已成功收到的包发回一个相应的确认（ACK）；如果发送端实体在合理的往返时延（RTT）内未收到确认，那么对应的数据包就被假设为已丢失将会被进行重传。TCP用一个校验和函数来检验数据是否有错误；在发送和接收时都要计算校验和。</p>
+<h6 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h6><p>UDP 是User Datagram Protocol的简称， 中文名是用户数据报协议，是OSI（Open System Interconnection，开放式系统互联） 参考模型中一种无连接的传输层协议，提供面向事务的简单不可靠信息传送服务，IETF RFC 768是UDP的正式规范。UDP在IP报文的协议号是17。</p>
+<p>UDP协议全称是用户数据报协议，在网络中它与TCP协议一样用于处理数据包，是一种无连接的协议。在OSI模型中，在第四层——传输层，处于IP协议的上一层。UDP有不提供数据包分组、组装和不能对数据包进行排序的缺点，也就是说，当报文发送之后，是无法得知其是否安全完整到达的。UDP用来支持那些需要在计算机之间传输数据的网络应用。包括网络视频会议系统在内的众多的客户/服务器模式的网络应用都需要使用UDP协议。UDP协议从问世至今已经被使用了很多年，虽然其最初的光彩已经被一些类似协议所掩盖，但是即使是在今天UDP仍然不失为一项非常实用和可行的网络传输层协议。</p>
+<p>与所熟知的TCP（传输控制协议）协议一样，UDP协议直接位于IP（网际协议）协议的顶层。根据OSI（开放系统互连）参考模型，UDP和TCP都属于传输层协议。UDP协议的主要作用是将网络数据流量压缩成数据包的形式。一个典型的数据包就是一个二进制数据的传输单位。每一个数据包的前8个字节用来包含报头信息，剩余字节则用来包含具体的传输数据。</p>
+<blockquote>
+<p>网络验证类型</p>
+</blockquote>
+<h6 id="Asp验证"><a href="#Asp验证" class="headerlink" title="Asp验证"></a>Asp验证</h6><h6 id="php验证"><a href="#php验证" class="headerlink" title="php验证"></a>php验证</h6><h6 id="云验证"><a href="#云验证" class="headerlink" title="云验证"></a>云验证</h6><h6 id="exe程序互相通信验证"><a href="#exe程序互相通信验证" class="headerlink" title="exe程序互相通信验证"></a>exe程序互相通信验证</h6><blockquote>
+<p>判断验证类型</p>
+</blockquote>
+<p>Asp验证  飘零网络验证</p>
+<p>Php验证  可可网络验证</p>
+<p>云验证    注册宝网络验证</p>
+<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><blockquote>
+<p>易语言按钮事件</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">FF 55 FC 5F 5E</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>查壳</p>
+</blockquote>
+<p>Microsoft Visual C++ ver 5.0/6.0</p>
+<blockquote>
+<p>爆破</p>
+</blockquote>
+<p>CTRL+G 输入0401000<br>中文智能搜索 –智能搜索<br>查找ENO 双击回车过去<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">004017FD   . /74 09         je short 第七课作.00401808</span><br><span class="line">004017FF   . |53            push ebx</span><br><span class="line">00401800   . |E8 31860000   call 第七课作.00409E36</span><br><span class="line">00401805   . |83C4 04       add esp,0x4</span><br><span class="line">00401808     \837D EC 01    cmp dword ptr ss:[ebp-0x14],0x1          ;  把0改1</span><br><span class="line">0040180C   .  0F84 07000000 je 第七课作.00401819</span><br><span class="line">00401812   .  B8 01000000   mov eax,0x1</span><br><span class="line">00401817   .  EB 05         jmp short 第七课作.0040181E</span><br><span class="line">00401819   &gt;  B8 00000000   mov eax,0x0</span><br></pre></td></tr></table></figure></p>
+<p>F9跑起来，登陆试下，软件直接关闭了<br>有退出暗桩</p>
+<p>CTRL+B<br>输入FF 25  查找退出CALL,<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">00406729  |. /0F84 18040000 je 第七课作.00406B47                  ;  nop掉，大跳转开始</span><br><span class="line">0040672F  |. |B8 3CC65500   mov eax,第七课作.0055C63C             ;  v_geta</span><br><span class="line">00406734  |. |8945 F4       mov [local.3],eax                 ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00406737  |. |8D45 F4       lea eax,[local.3]</span><br><span class="line">0040673A  |. |50            push eax                          ;  kernel32.BaseThreadInitThunk</span><br><span class="line">0040673B  |. |E8 F9060000   call 第七课作.00406E39</span><br><span class="line">00406740  |. |8B5D F4       mov ebx,[local.3]</span><br><span class="line">00406743  |. |85DB          test ebx,ebx</span><br><span class="line">00406745  |. |74 09         je short 第七课作.00406750</span><br><span class="line">00406747  |. |53            push ebx</span><br><span class="line">00406748  |. |E8 E9360000   call 第七课作.00409E36</span><br><span class="line">0040674D  |. |83C4 04       add esp,0x4</span><br><span class="line">00406750  |&gt; |68 01030080   push 0x80000301</span><br><span class="line">00406755  |. |6A 00         push 0x0</span><br><span class="line">00406757  |. |FF75 FC       push [local.1]</span><br><span class="line">0040675A  |. |68 01000000   push 0x1</span><br><span class="line">0040675F  |. |BB 10B04000   mov ebx,第七课作.0040B010</span><br><span class="line">00406764  |. |E8 E5360000   call 第七课作.00409E4E</span><br><span class="line">00406769  |. |83C4 10       add esp,0x10</span><br><span class="line">0040676C  |. |8945 F4       mov [local.3],eax                 ;  kernel32.BaseThreadInitThunk</span><br><span class="line">0040676F  |. |68 01030080   push 0x80000301</span><br><span class="line">00406774  |. |6A 00         push 0x0</span><br><span class="line">00406776  |. |FF75 F8       push [local.2]                    ;  kernel32.76A4336A</span><br><span class="line">00406779  |. |68 01000000   push 0x1</span><br><span class="line">0040677E  |. |BB 10B04000   mov ebx,第七课作.0040B010</span><br><span class="line">00406783  |. |E8 C6360000   call 第七课作.00409E4E</span><br><span class="line">00406788  |. |83C4 10       add esp,0x10</span><br><span class="line">0040678B  |. |8945 F0       mov [local.4],eax                 ;  kernel32.BaseThreadInitThunk</span><br><span class="line">0040678E  |. |FF75 F0       push [local.4]</span><br><span class="line">00406791  |. |68 12C65500   push 第七课作.0055C612                ;  ,</span><br><span class="line">00406796  |. |FF75 F4       push [local.3]</span><br><span class="line">00406799  |. |68 5BC65500   push 第七课作.0055C65B                ;  v_getb,</span><br><span class="line">0040679E  |. |B9 04000000   mov ecx,0x4</span><br><span class="line">004067A3  |. |E8 CEEEFFFF   call 第七课作.00405676</span><br><span class="line">004067A8  |. |83C4 10       add esp,0x10</span><br><span class="line">004067AB  |. |8945 EC       mov [local.5],eax                 ;  kernel32.BaseThreadInitThunk</span><br><span class="line">004067AE  |. |8B5D F4       mov ebx,[local.3]</span><br><span class="line">004067B1  |. |85DB          test ebx,ebx</span><br><span class="line">004067B3  |. |74 09         je short 第七课作.004067BE</span><br><span class="line">004067B5  |. |53            push ebx</span><br><span class="line">004067B6  |. |E8 7B360000   call 第七课作.00409E36</span><br><span class="line">004067BB  |. |83C4 04       add esp,0x4</span><br><span class="line">004067BE  |&gt; |8B5D F0       mov ebx,[local.4]</span><br><span class="line">004067C1  |. |85DB          test ebx,ebx</span><br><span class="line">004067C3  |. |74 09         je short 第七课作.004067CE</span><br><span class="line">004067C5  |. |53            push ebx</span><br><span class="line">004067C6  |. |E8 6B360000   call 第七课作.00409E36</span><br><span class="line">004067CB  |. |83C4 04       add esp,0x4</span><br><span class="line">004067CE  |&gt; |8D45 EC       lea eax,[local.5]</span><br><span class="line">004067D1  |. |50            push eax                          ;  kernel32.BaseThreadInitThunk</span><br><span class="line">004067D2  |. |E8 AD030000   call 第七课作.00406B84</span><br><span class="line">004067D7  |. |8945 E8       mov [local.6],eax                 ;  kernel32.BaseThreadInitThunk</span><br><span class="line">004067DA  |. |8B5D EC       mov ebx,[local.5]</span><br><span class="line">004067DD  |. |85DB          test ebx,ebx</span><br><span class="line">004067DF  |. |74 09         je short 第七课作.004067EA</span><br><span class="line">004067E1  |. |53            push ebx</span><br><span class="line">004067E2  |. |E8 4F360000   call 第七课作.00409E36</span><br><span class="line">004067E7  |. |83C4 04       add esp,0x4</span><br><span class="line">004067EA  |&gt; |68 04000080   push 0x80000004</span><br><span class="line">004067EF  |. |6A 00         push 0x0</span><br><span class="line">004067F1  |. |8B45 E8       mov eax,[local.6]</span><br><span class="line">004067F4  |. |85C0          test eax,eax                      ;  kernel32.BaseThreadInitThunk</span><br><span class="line">004067F6  |. |75 05         jnz short 第七课作.004067FD</span><br><span class="line">004067F8  |. |B8 3E264900   mov eax,第七课作.0049263E</span><br><span class="line">004067FD  |&gt; |50            push eax                          ;  kernel32.BaseThreadInitThunk</span><br><span class="line">004067FE  |. |68 01000000   push 0x1</span><br><span class="line">00406803  |. |BB 50A64000   mov ebx,第七课作.0040A650</span><br><span class="line">00406808  |. |E8 41360000   call 第七课作.00409E4E</span><br><span class="line">0040680D  |. |83C4 10       add esp,0x10</span><br><span class="line">00406810  |. |8945 E4       mov [local.7],eax                 ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00406813  |. |8B5D E8       mov ebx,[local.6]</span><br><span class="line">00406816  |. |85DB          test ebx,ebx</span><br><span class="line">00406818  |. |74 09         je short 第七课作.00406823</span><br><span class="line">0040681A  |. |53            push ebx</span><br><span class="line">0040681B  |. |E8 16360000   call 第七课作.00409E36</span><br><span class="line">00406820  |. |83C4 04       add esp,0x4</span><br><span class="line">00406823  |&gt; |DB45 FC       fild [local.1]</span><br><span class="line">00406826  |. |DD5D DC       fstp qword ptr ss:[ebp-0x24]</span><br><span class="line">00406829  |. |DD45 DC       fld qword ptr ss:[ebp-0x24]</span><br><span class="line">0040682C  |. |DB45 F8       fild [local.2]</span><br><span class="line">0040682F  |. |DD5D D4       fstp qword ptr ss:[ebp-0x2C]</span><br><span class="line">00406832  |. |DC45 D4       fadd qword ptr ss:[ebp-0x2C]</span><br><span class="line">00406835  |. |DD5D CC       fstp qword ptr ss:[ebp-0x34]</span><br><span class="line">00406838  |. |DB45 E4       fild [local.7]</span><br><span class="line">0040683B  |. |DD5D C4       fstp qword ptr ss:[ebp-0x3C]</span><br><span class="line">0040683E  |. |DD45 C4       fld qword ptr ss:[ebp-0x3C]</span><br><span class="line">00406841  |. |DC65 CC       fsub qword ptr ss:[ebp-0x34]</span><br><span class="line">00406844  |. |D9E4          ftst</span><br><span class="line">00406846  |. |DFE0          fstsw ax</span><br><span class="line">00406848  |. |F6C4 01       test ah,0x1</span><br><span class="line">0040684B  |. |74 02         je short 第七课作.0040684F</span><br><span class="line">0040684D  |. |D9E0          fchs</span><br><span class="line">0040684F  |&gt; |DC1D 63C65500 fcomp qword ptr ds:[0x55C663]</span><br><span class="line">00406855  |. |DFE0          fstsw ax</span><br><span class="line">00406857  |. |F6C4 41       test ah,0x41</span><br><span class="line">0040685A  |. |0F84 E7020000 je 第七课作.00406B47                  ;  nop掉</span><br><span class="line">00406860  |. |B8 3CC65500   mov eax,第七课作.0055C63C             ;  v_geta</span><br><span class="line">00406865  |. |8945 F4       mov [local.3],eax                 ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00406868  |. |8D45 F4       lea eax,[local.3]</span><br><span class="line">0040686B  |. |50            push eax                          ;  kernel32.BaseThreadInitThunk</span><br><span class="line">0040686C  |. |E8 13030000   call 第七课作.00406B84</span><br><span class="line">00406871  |. |8945 F0       mov [local.4],eax                 ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00406874  |. |8B5D F4       mov ebx,[local.3]</span><br><span class="line">00406877  |. |85DB          test ebx,ebx</span><br><span class="line">00406879  |. |74 09         je short 第七课作.00406884</span><br><span class="line">0040687B  |. |53            push ebx</span><br><span class="line">0040687C  |. |E8 B5350000   call 第七课作.00409E36</span><br><span class="line">00406881  |. |83C4 04       add esp,0x4</span><br><span class="line">00406884  |&gt; |68 04000080   push 0x80000004</span><br><span class="line">00406889  |. |6A 00         push 0x0</span><br><span class="line">0040688B  |. |8B45 F0       mov eax,[local.4]</span><br><span class="line">0040688E  |. |85C0          test eax,eax                      ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00406890  |. |75 05         jnz short 第七课作.00406897</span><br><span class="line">00406892  |. |B8 3E264900   mov eax,第七课作.0049263E</span><br><span class="line">00406897  |&gt; |50            push eax                          ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00406898  |. |68 01000000   push 0x1</span><br><span class="line">0040689D  |. |BB F0AC4000   mov ebx,第七课作.0040ACF0</span><br><span class="line">004068A2  |. |E8 A7350000   call 第七课作.00409E4E</span><br><span class="line">004068A7  |. |83C4 10       add esp,0x10</span><br><span class="line">004068AA  |. |8945 EC       mov [local.5],eax                 ;  kernel32.BaseThreadInitThunk</span><br><span class="line">004068AD  |. |8B5D F0       mov ebx,[local.4]</span><br><span class="line">004068B0  |. |85DB          test ebx,ebx</span><br><span class="line">004068B2  |. |74 09         je short 第七课作.004068BD</span><br><span class="line">004068B4  |. |53            push ebx</span><br><span class="line">004068B5  |. |E8 7C350000   call 第七课作.00409E36</span><br><span class="line">004068BA  |. |83C4 04       add esp,0x4</span><br><span class="line">004068BD  |&gt; |B8 43C65500   mov eax,第七课作.0055C643</span><br><span class="line">004068C2  |. |33C9          xor ecx,ecx</span><br><span class="line">004068C4  |. |85C0          test eax,eax                      ;  kernel32.BaseThreadInitThunk</span><br><span class="line">004068C6  |. |74 03         je short 第七课作.004068CB</span><br><span class="line">004068C8  |. |8B48 04       mov ecx,dword ptr ds:[eax+0x4]</span><br><span class="line">004068CB  |&gt; |51            push ecx</span><br><span class="line">004068CC  |. |83C0 08       add eax,0x8</span><br><span class="line">004068CF  |. |50            push eax                          ;  kernel32.BaseThreadInitThunk</span><br><span class="line">004068D0  |. |8B45 EC       mov eax,[local.5]</span><br><span class="line">004068D3  |. |33DB          xor ebx,ebx</span><br><span class="line">004068D5  |. |85C0          test eax,eax                      ;  kernel32.BaseThreadInitThunk</span><br><span class="line">004068D7  |. |74 03         je short 第七课作.004068DC</span><br><span class="line">004068D9  |. |8B58 04       mov ebx,dword ptr ds:[eax+0x4]</span><br><span class="line">004068DC  |&gt; |83C0 08       add eax,0x8</span><br><span class="line">004068DF  |. |50            push eax                          ;  kernel32.BaseThreadInitThunk</span><br><span class="line">004068E0  |. |3BD9          cmp ebx,ecx</span><br><span class="line">004068E2  |. |B8 01000000   mov eax,0x1</span><br><span class="line">004068E7  |. |75 0A         jnz short 第七课作.004068F3</span><br><span class="line">004068E9  |. |48            dec eax                           ;  kernel32.BaseThreadInitThunk</span><br><span class="line">004068EA  |. |85C9          test ecx,ecx</span><br><span class="line">004068EC  |. |74 05         je short 第七课作.004068F3</span><br><span class="line">004068EE  |. |E8 62FCFFFF   call 第七课作.00406555</span><br><span class="line">004068F3  |&gt; |83C4 0C       add esp,0xC</span><br><span class="line">004068F6  |. |85C0          test eax,eax                      ;  kernel32.BaseThreadInitThunk</span><br><span class="line">004068F8  |. |B8 00000000   mov eax,0x0</span><br><span class="line">004068FD  |. |0f94c0        sete al</span><br><span class="line">00406900  |. |8945 E8       mov [local.6],eax                 ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00406903  |. |8B5D EC       mov ebx,[local.5]</span><br><span class="line">00406906  |. |85DB          test ebx,ebx</span><br><span class="line">00406908  |. |74 09         je short 第七课作.00406913</span><br><span class="line">0040690A  |. |53            push ebx</span><br><span class="line">0040690B  |. |E8 26350000   call 第七课作.00409E36</span><br><span class="line">00406910  |. |83C4 04       add esp,0x4</span><br><span class="line">00406913  |&gt; |837D E8 00    cmp [local.6],0x0</span><br><span class="line">00406917  |. |0F84 2A020000 je 第七课作.00406B47                  ;  nop掉</span><br><span class="line">0040691D  |. |68 01000000   push 0x1</span><br><span class="line">00406922  |. |E8 16060000   call 第七课作.00406F3D</span><br><span class="line">00406927  |. |8945 F4       mov [local.3],eax                 ;  kernel32.BaseThreadInitThunk</span><br><span class="line">0040692A  |. |68 04000080   push 0x80000004</span><br><span class="line">0040692F  |. |6A 00         push 0x0</span><br><span class="line">00406931  |. |8B45 F4       mov eax,[local.3]</span><br><span class="line">00406934  |. |85C0          test eax,eax                      ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00406936  |. |75 05         jnz short 第七课作.0040693D</span><br><span class="line">00406938  |. |B8 3E264900   mov eax,第七课作.0049263E</span><br><span class="line">0040693D  |&gt; |50            push eax                          ;  kernel32.BaseThreadInitThunk</span><br><span class="line">0040693E  |. |68 01000000   push 0x1</span><br><span class="line">00406943  |. |BB F0AC4000   mov ebx,第七课作.0040ACF0</span><br><span class="line">00406948  |. |E8 01350000   call 第七课作.00409E4E</span><br><span class="line">0040694D  |. |83C4 10       add esp,0x10</span><br><span class="line">00406950  |. |8945 F0       mov [local.4],eax                 ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00406953  |. |8B5D F4       mov ebx,[local.3]</span><br><span class="line">00406956  |. |85DB          test ebx,ebx</span><br><span class="line">00406958  |. |74 09         je short 第七课作.00406963</span><br><span class="line">0040695A  |. |53            push ebx</span><br><span class="line">0040695B  |. |E8 D6340000   call 第七课作.00409E36</span><br><span class="line">00406960  |. |83C4 04       add esp,0x4</span><br><span class="line">00406963  |&gt; |B8 6BC65500   mov eax,第七课作.0055C66B</span><br><span class="line">00406968  |. |33C9          xor ecx,ecx</span><br><span class="line">0040696A  |. |85C0          test eax,eax                      ;  kernel32.BaseThreadInitThunk</span><br><span class="line">0040696C  |. |74 03         je short 第七课作.00406971</span><br><span class="line">0040696E  |. |8B48 04       mov ecx,dword ptr ds:[eax+0x4]</span><br><span class="line">00406971  |&gt; |51            push ecx</span><br><span class="line">00406972  |. |83C0 08       add eax,0x8</span><br><span class="line">00406975  |. |50            push eax                          ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00406976  |. |8B45 F0       mov eax,[local.4]</span><br><span class="line">00406979  |. |33DB          xor ebx,ebx</span><br><span class="line">0040697B  |. |85C0          test eax,eax                      ;  kernel32.BaseThreadInitThunk</span><br><span class="line">0040697D  |. |74 03         je short 第七课作.00406982</span><br><span class="line">0040697F  |. |8B58 04       mov ebx,dword ptr ds:[eax+0x4]</span><br><span class="line">00406982  |&gt; |83C0 08       add eax,0x8</span><br><span class="line">00406985  |. |50            push eax                          ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00406986  |. |3BD9          cmp ebx,ecx</span><br><span class="line">00406988  |. |B8 01000000   mov eax,0x1</span><br><span class="line">0040698D  |. |75 0A         jnz short 第七课作.00406999</span><br><span class="line">0040698F  |. |48            dec eax                           ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00406990  |. |85C9          test ecx,ecx</span><br><span class="line">00406992  |. |74 05         je short 第七课作.00406999</span><br><span class="line">00406994  |. |E8 BCFBFFFF   call 第七课作.00406555</span><br><span class="line">00406999  |&gt; |83C4 0C       add esp,0xC</span><br><span class="line">0040699C  |. |85C0          test eax,eax                      ;  kernel32.BaseThreadInitThunk</span><br><span class="line">0040699E  |. |B8 00000000   mov eax,0x0</span><br><span class="line">004069A3  |. |0f94c0        sete al</span><br><span class="line">004069A6  |. |8945 EC       mov [local.5],eax                 ;  kernel32.BaseThreadInitThunk</span><br><span class="line">004069A9  |. |8B5D F0       mov ebx,[local.4]</span><br><span class="line">004069AC  |. |85DB          test ebx,ebx</span><br><span class="line">004069AE  |. |74 09         je short 第七课作.004069B9</span><br><span class="line">004069B0  |. |53            push ebx</span><br><span class="line">004069B1  |. |E8 80340000   call 第七课作.00409E36</span><br><span class="line">004069B6  |. |83C4 04       add esp,0x4</span><br><span class="line">004069B9  |&gt; |837D EC 00    cmp [local.5],0x0</span><br><span class="line">004069BD  |. |0F84 84010000 je 第七课作.00406B47                  ;  nop掉</span><br><span class="line">004069C3  |. |68 02000000   push 0x2</span><br><span class="line">004069C8  |. |E8 70050000   call 第七课作.00406F3D</span><br><span class="line">004069CD  |. |8945 F4       mov [local.3],eax                 ;  kernel32.BaseThreadInitThunk</span><br><span class="line">004069D0  |. |68 04000080   push 0x80000004</span><br><span class="line">004069D5  |. |6A 00         push 0x0</span><br><span class="line">004069D7  |. |8B45 F4       mov eax,[local.3]</span><br><span class="line">004069DA  |. |85C0          test eax,eax                      ;  kernel32.BaseThreadInitThunk</span><br><span class="line">004069DC  |. |75 05         jnz short 第七课作.004069E3</span><br><span class="line">004069DE  |. |B8 3E264900   mov eax,第七课作.0049263E</span><br><span class="line">004069E3  |&gt; |50            push eax                          ;  kernel32.BaseThreadInitThunk</span><br><span class="line">004069E4  |. |68 01000000   push 0x1</span><br><span class="line">004069E9  |. |BB F0AC4000   mov ebx,第七课作.0040ACF0</span><br><span class="line">004069EE  |. |E8 5B340000   call 第七课作.00409E4E</span><br><span class="line">004069F3  |. |83C4 10       add esp,0x10</span><br><span class="line">004069F6  |. |8945 F0       mov [local.4],eax                 ;  kernel32.BaseThreadInitThunk</span><br><span class="line">004069F9  |. |8B5D F4       mov ebx,[local.3]</span><br><span class="line">004069FC  |. |85DB          test ebx,ebx</span><br><span class="line">004069FE  |. |74 09         je short 第七课作.00406A09</span><br><span class="line">00406A00  |. |53            push ebx</span><br><span class="line">00406A01  |. |E8 30340000   call 第七课作.00409E36</span><br><span class="line">00406A06  |. |83C4 04       add esp,0x4</span><br><span class="line">00406A09  |&gt; |B8 7EC65500   mov eax,第七课作.0055C67E</span><br><span class="line">00406A0E  |. |33C9          xor ecx,ecx</span><br><span class="line">00406A10  |. |85C0          test eax,eax                      ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00406A12  |. |74 03         je short 第七课作.00406A17</span><br><span class="line">00406A14  |. |8B48 04       mov ecx,dword ptr ds:[eax+0x4]</span><br><span class="line">00406A17  |&gt; |51            push ecx</span><br><span class="line">00406A18  |. |83C0 08       add eax,0x8</span><br><span class="line">00406A1B  |. |50            push eax                          ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00406A1C  |. |8B45 F0       mov eax,[local.4]</span><br><span class="line">00406A1F  |. |33DB          xor ebx,ebx</span><br><span class="line">00406A21  |. |85C0          test eax,eax                      ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00406A23  |. |74 03         je short 第七课作.00406A28</span><br><span class="line">00406A25  |. |8B58 04       mov ebx,dword ptr ds:[eax+0x4]</span><br><span class="line">00406A28  |&gt; |83C0 08       add eax,0x8</span><br><span class="line">00406A2B  |. |50            push eax                          ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00406A2C  |. |3BD9          cmp ebx,ecx</span><br><span class="line">00406A2E  |. |B8 01000000   mov eax,0x1</span><br><span class="line">00406A33  |. |75 0A         jnz short 第七课作.00406A3F</span><br><span class="line">00406A35  |. |48            dec eax                           ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00406A36  |. |85C9          test ecx,ecx</span><br><span class="line">00406A38  |. |74 05         je short 第七课作.00406A3F</span><br><span class="line">00406A3A  |. |E8 16FBFFFF   call 第七课作.00406555</span><br><span class="line">00406A3F  |&gt; |83C4 0C       add esp,0xC</span><br><span class="line">00406A42  |. |85C0          test eax,eax                      ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00406A44  |. |B8 00000000   mov eax,0x0</span><br><span class="line">00406A49  |. |0f94c0        sete al</span><br><span class="line">00406A4C  |. |8945 EC       mov [local.5],eax                 ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00406A4F  |. |8B5D F0       mov ebx,[local.4]</span><br><span class="line">00406A52  |. |85DB          test ebx,ebx</span><br><span class="line">00406A54  |. |74 09         je short 第七课作.00406A5F</span><br><span class="line">00406A56  |. |53            push ebx</span><br><span class="line">00406A57  |. |E8 DA330000   call 第七课作.00409E36</span><br><span class="line">00406A5C  |. |83C4 04       add esp,0x4</span><br><span class="line">00406A5F  |&gt; |837D EC 00    cmp [local.5],0x0</span><br><span class="line">00406A63  |. |0F84 DE000000 je 第七课作.00406B47                  ;  nop掉</span><br><span class="line">00406A69  |. |68 0F000000   push 0xF</span><br><span class="line">00406A6E  |. |E8 CA040000   call 第七课作.00406F3D</span><br><span class="line">00406A73  |. |8945 F4       mov [local.3],eax                 ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00406A76  |. |68 04000080   push 0x80000004</span><br><span class="line">00406A7B  |. |6A 00         push 0x0</span><br><span class="line">00406A7D  |. |8B45 F4       mov eax,[local.3]</span><br><span class="line">00406A80  |. |85C0          test eax,eax                      ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00406A82  |. |75 05         jnz short 第七课作.00406A89</span><br><span class="line">00406A84  |. |B8 3E264900   mov eax,第七课作.0049263E</span><br><span class="line">00406A89  |&gt; |50            push eax                          ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00406A8A  |. |68 01000000   push 0x1</span><br><span class="line">00406A8F  |. |BB F0AC4000   mov ebx,第七课作.0040ACF0</span><br><span class="line">00406A94  |. |E8 B5330000   call 第七课作.00409E4E</span><br><span class="line">00406A99  |. |83C4 10       add esp,0x10</span><br><span class="line">00406A9C  |. |8945 F0       mov [local.4],eax                 ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00406A9F  |. |8B5D F4       mov ebx,[local.3]</span><br><span class="line">00406AA2  |. |85DB          test ebx,ebx</span><br><span class="line">00406AA4  |. |74 09         je short 第七课作.00406AAF</span><br><span class="line">00406AA6  |. |53            push ebx</span><br><span class="line">00406AA7  |. |E8 8A330000   call 第七课作.00409E36</span><br><span class="line">00406AAC  |. |83C4 04       add esp,0x4</span><br><span class="line">00406AAF  |&gt; |B8 91C65500   mov eax,第七课作.0055C691</span><br><span class="line">00406AB4  |. |33C9          xor ecx,ecx</span><br><span class="line">00406AB6  |. |85C0          test eax,eax                      ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00406AB8  |. |74 03         je short 第七课作.00406ABD</span><br><span class="line">00406ABA  |. |8B48 04       mov ecx,dword ptr ds:[eax+0x4]</span><br><span class="line">00406ABD  |&gt; |51            push ecx</span><br><span class="line">00406ABE  |. |83C0 08       add eax,0x8</span><br><span class="line">00406AC1  |. |50            push eax                          ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00406AC2  |. |8B45 F0       mov eax,[local.4]</span><br><span class="line">00406AC5  |. |33DB          xor ebx,ebx</span><br><span class="line">00406AC7  |. |85C0          test eax,eax                      ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00406AC9  |. |74 03         je short 第七课作.00406ACE</span><br><span class="line">00406ACB  |. |8B58 04       mov ebx,dword ptr ds:[eax+0x4]</span><br><span class="line">00406ACE  |&gt; |83C0 08       add eax,0x8</span><br><span class="line">00406AD1  |. |50            push eax                          ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00406AD2  |. |3BD9          cmp ebx,ecx</span><br><span class="line">00406AD4  |. |B8 01000000   mov eax,0x1</span><br><span class="line">00406AD9  |. |75 0A         jnz short 第七课作.00406AE5</span><br><span class="line">00406ADB  |. |48            dec eax                           ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00406ADC  |. |85C9          test ecx,ecx</span><br><span class="line">00406ADE  |. |74 05         je short 第七课作.00406AE5</span><br><span class="line">00406AE0  |. |E8 70FAFFFF   call 第七课作.00406555</span><br><span class="line">00406AE5  |&gt; |83C4 0C       add esp,0xC</span><br><span class="line">00406AE8  |. |85C0          test eax,eax                      ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00406AEA  |. |B8 00000000   mov eax,0x0</span><br><span class="line">00406AEF  |. |0f94c0        sete al</span><br><span class="line">00406AF2  |. |8945 EC       mov [local.5],eax                 ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00406AF5  |. |8B5D F0       mov ebx,[local.4]</span><br><span class="line">00406AF8  |. |85DB          test ebx,ebx</span><br><span class="line">00406AFA  |. |74 09         je short 第七课作.00406B05</span><br><span class="line">00406AFC  |. |53            push ebx</span><br><span class="line">00406AFD  |. |E8 34330000   call 第七课作.00409E36</span><br><span class="line">00406B02  |. |83C4 04       add esp,0x4</span><br><span class="line">00406B05  |&gt; |837D EC 00    cmp [local.5],0x0</span><br><span class="line">00406B09  |. |0F84 38000000 je 第七课作.00406B47                  ;  nop掉</span><br><span class="line">00406B0F  |. |6A 00         push 0x0</span><br><span class="line">00406B11  |. |6A 00         push 0x0</span><br><span class="line">00406B13  |. |6A 00         push 0x0</span><br><span class="line">00406B15  |. |68 04000080   push 0x80000004</span><br><span class="line">00406B1A  |. |6A 00         push 0x0</span><br><span class="line">00406B1C  |. |68 B0C65500   push 第七课作.0055C6B0                ;  三级效验通过</span><br><span class="line">00406B21  |. |68 0F000100   push 0x1000F</span><br><span class="line">00406B26  |. |68 7D6B0116   push 0x16016B7D</span><br><span class="line">00406B2B  |. |68 2B010152   push 0x5201012B</span><br><span class="line">00406B30  |. |68 03000000   push 0x3</span><br><span class="line">00406B35  |. |BB E0B94000   mov ebx,第七课作.0040B9E0</span><br><span class="line">00406B3A  |. |E8 0F330000   call 第七课作.00409E4E</span><br><span class="line">00406B3F  |. |83C4 28       add esp,0x28</span><br><span class="line">00406B42  |. |E9 39000000   jmp 第七课作.00406B80</span><br><span class="line">00406B47  |&gt; \BB 06000000   mov ebx,0x6                       ;  nop掉，大跳转终点</span><br></pre></td></tr></table></figure></p>
+<h5 id="第二个暗桩"><a href="#第二个暗桩" class="headerlink" title="第二个暗桩"></a>第二个暗桩</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">004076DE  |. /0F84 26020000 je 第七课作.0040790A                  ;  nop掉，大跳转开始</span><br><span class="line">004076E4  |. |B8 3CC65500   mov eax,第七课作.0055C63C             ;  v_geta</span><br><span class="line">004076E9  |. |8945 F4       mov [local.3],eax                 ;  kernel32.BaseThreadInitThunk</span><br><span class="line">004076EC  |. |8D45 F4       lea eax,[local.3]</span><br><span class="line">004076EF  |. |50            push eax                          ;  kernel32.BaseThreadInitThunk</span><br><span class="line">004076F0  |. |E8 44F7FFFF   call 第七课作.00406E39</span><br><span class="line">004076F5  |. |8B5D F4       mov ebx,[local.3]</span><br><span class="line">004076F8  |. |85DB          test ebx,ebx</span><br><span class="line">004076FA  |. |74 09         je short 第七课作.00407705</span><br><span class="line">004076FC  |. |53            push ebx</span><br><span class="line">004076FD  |. |E8 34270000   call 第七课作.00409E36</span><br><span class="line">00407702  |. |83C4 04       add esp,0x4</span><br><span class="line">00407705  |&gt; |68 01030080   push 0x80000301</span><br><span class="line">0040770A  |. |6A 00         push 0x0</span><br><span class="line">0040770C  |. |FF75 FC       push [local.1]</span><br><span class="line">0040770F  |. |68 01000000   push 0x1</span><br><span class="line">00407714  |. |BB 10B04000   mov ebx,第七课作.0040B010</span><br><span class="line">00407719  |. |E8 30270000   call 第七课作.00409E4E</span><br><span class="line">0040771E  |. |83C4 10       add esp,0x10</span><br><span class="line">00407721  |. |8945 F4       mov [local.3],eax                 ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00407724  |. |68 01030080   push 0x80000301</span><br><span class="line">00407729  |. |6A 00         push 0x0</span><br><span class="line">0040772B  |. |FF75 F8       push [local.2]                    ;  kernel32.76A4336A</span><br><span class="line">0040772E  |. |68 01000000   push 0x1</span><br><span class="line">00407733  |. |BB 10B04000   mov ebx,第七课作.0040B010</span><br><span class="line">00407738  |. |E8 11270000   call 第七课作.00409E4E</span><br><span class="line">0040773D  |. |83C4 10       add esp,0x10</span><br><span class="line">00407740  |. |8945 F0       mov [local.4],eax                 ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00407743  |. |FF75 F0       push [local.4]</span><br><span class="line">00407746  |. |68 12C65500   push 第七课作.0055C612                ;  ,</span><br><span class="line">0040774B  |. |FF75 F4       push [local.3]</span><br><span class="line">0040774E  |. |68 5BC65500   push 第七课作.0055C65B                ;  v_getb,</span><br><span class="line">00407753  |. |B9 04000000   mov ecx,0x4</span><br><span class="line">00407758  |. |E8 19DFFFFF   call 第七课作.00405676</span><br><span class="line">0040775D  |. |83C4 10       add esp,0x10</span><br><span class="line">00407760  |. |8945 EC       mov [local.5],eax                 ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00407763  |. |8B5D F4       mov ebx,[local.3]</span><br><span class="line">00407766  |. |85DB          test ebx,ebx</span><br><span class="line">00407768  |. |74 09         je short 第七课作.00407773</span><br><span class="line">0040776A  |. |53            push ebx</span><br><span class="line">0040776B  |. |E8 C6260000   call 第七课作.00409E36</span><br><span class="line">00407770  |. |83C4 04       add esp,0x4</span><br><span class="line">00407773  |&gt; |8B5D F0       mov ebx,[local.4]</span><br><span class="line">00407776  |. |85DB          test ebx,ebx</span><br><span class="line">00407778  |. |74 09         je short 第七课作.00407783</span><br><span class="line">0040777A  |. |53            push ebx</span><br><span class="line">0040777B  |. |E8 B6260000   call 第七课作.00409E36</span><br><span class="line">00407780  |. |83C4 04       add esp,0x4</span><br><span class="line">00407783  |&gt; |8D45 EC       lea eax,[local.5]</span><br><span class="line">00407786  |. |50            push eax                          ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00407787  |. |E8 F8F3FFFF   call 第七课作.00406B84</span><br><span class="line">0040778C  |. |8945 E8       mov [local.6],eax                 ;  kernel32.BaseThreadInitThunk</span><br><span class="line">0040778F  |. |8B5D EC       mov ebx,[local.5]</span><br><span class="line">00407792  |. |85DB          test ebx,ebx</span><br><span class="line">00407794  |. |74 09         je short 第七课作.0040779F</span><br><span class="line">00407796  |. |53            push ebx</span><br><span class="line">00407797  |. |E8 9A260000   call 第七课作.00409E36</span><br><span class="line">0040779C  |. |83C4 04       add esp,0x4</span><br><span class="line">0040779F  |&gt; |68 04000080   push 0x80000004</span><br><span class="line">004077A4  |. |6A 00         push 0x0</span><br><span class="line">004077A6  |. |8B45 E8       mov eax,[local.6]</span><br><span class="line">004077A9  |. |85C0          test eax,eax                      ;  kernel32.BaseThreadInitThunk</span><br><span class="line">004077AB  |. |75 05         jnz short 第七课作.004077B2</span><br><span class="line">004077AD  |. |B8 3E264900   mov eax,第七课作.0049263E</span><br><span class="line">004077B2  |&gt; |50            push eax                          ;  kernel32.BaseThreadInitThunk</span><br><span class="line">004077B3  |. |68 01000000   push 0x1</span><br><span class="line">004077B8  |. |BB 50A64000   mov ebx,第七课作.0040A650</span><br><span class="line">004077BD  |. |E8 8C260000   call 第七课作.00409E4E</span><br><span class="line">004077C2  |. |83C4 10       add esp,0x10</span><br><span class="line">004077C5  |. |8945 E4       mov [local.7],eax                 ;  kernel32.BaseThreadInitThunk</span><br><span class="line">004077C8  |. |8B5D E8       mov ebx,[local.6]</span><br><span class="line">004077CB  |. |85DB          test ebx,ebx</span><br><span class="line">004077CD  |. |74 09         je short 第七课作.004077D8</span><br><span class="line">004077CF  |. |53            push ebx</span><br><span class="line">004077D0  |. |E8 61260000   call 第七课作.00409E36</span><br><span class="line">004077D5  |. |83C4 04       add esp,0x4</span><br><span class="line">004077D8  |&gt; |DB45 FC       fild [local.1]</span><br><span class="line">004077DB  |. |DD5D DC       fstp qword ptr ss:[ebp-0x24]</span><br><span class="line">004077DE  |. |DD45 DC       fld qword ptr ss:[ebp-0x24]</span><br><span class="line">004077E1  |. |DB45 F8       fild [local.2]</span><br><span class="line">004077E4  |. |DD5D D4       fstp qword ptr ss:[ebp-0x2C]</span><br><span class="line">004077E7  |. |DC45 D4       fadd qword ptr ss:[ebp-0x2C]</span><br><span class="line">004077EA  |. |DD5D CC       fstp qword ptr ss:[ebp-0x34]</span><br><span class="line">004077ED  |. |DB45 E4       fild [local.7]</span><br><span class="line">004077F0  |. |DD5D C4       fstp qword ptr ss:[ebp-0x3C]</span><br><span class="line">004077F3  |. |DD45 C4       fld qword ptr ss:[ebp-0x3C]</span><br><span class="line">004077F6  |. |DC65 CC       fsub qword ptr ss:[ebp-0x34]</span><br><span class="line">004077F9  |. |D9E4          ftst</span><br><span class="line">004077FB  |. |DFE0          fstsw ax</span><br><span class="line">004077FD  |. |F6C4 01       test ah,0x1</span><br><span class="line">00407800  |. |74 02         je short 第七课作.00407804</span><br><span class="line">00407802  |. |D9E0          fchs</span><br><span class="line">00407804  |&gt; |DC1D 63C65500 fcomp qword ptr ds:[0x55C663]</span><br><span class="line">0040780A  |. |DFE0          fstsw ax</span><br><span class="line">0040780C  |. |F6C4 41       test ah,0x41</span><br><span class="line">0040780F  |. |0F84 F5000000 je 第七课作.0040790A                  ;  nop掉</span><br><span class="line">00407815  |. |B8 3CC65500   mov eax,第七课作.0055C63C             ;  v_geta</span><br><span class="line">0040781A  |. |8945 F4       mov [local.3],eax                 ;  kernel32.BaseThreadInitThunk</span><br><span class="line">0040781D  |. |8D45 F4       lea eax,[local.3]</span><br><span class="line">00407820  |. |50            push eax                          ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00407821  |. |E8 5EF3FFFF   call 第七课作.00406B84</span><br><span class="line">00407826  |. |8945 F0       mov [local.4],eax                 ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00407829  |. |8B5D F4       mov ebx,[local.3]</span><br><span class="line">0040782C  |. |85DB          test ebx,ebx</span><br><span class="line">0040782E  |. |74 09         je short 第七课作.00407839</span><br><span class="line">00407830  |. |53            push ebx</span><br><span class="line">00407831  |. |E8 00260000   call 第七课作.00409E36</span><br><span class="line">00407836  |. |83C4 04       add esp,0x4</span><br><span class="line">00407839  |&gt; |68 04000080   push 0x80000004</span><br><span class="line">0040783E  |. |6A 00         push 0x0</span><br><span class="line">00407840  |. |8B45 F0       mov eax,[local.4]</span><br><span class="line">00407843  |. |85C0          test eax,eax                      ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00407845  |. |75 05         jnz short 第七课作.0040784C</span><br><span class="line">00407847  |. |B8 3E264900   mov eax,第七课作.0049263E</span><br><span class="line">0040784C  |&gt; |50            push eax                          ;  kernel32.BaseThreadInitThunk</span><br><span class="line">0040784D  |. |68 01000000   push 0x1</span><br><span class="line">00407852  |. |BB F0AC4000   mov ebx,第七课作.0040ACF0</span><br><span class="line">00407857  |. |E8 F2250000   call 第七课作.00409E4E</span><br><span class="line">0040785C  |. |83C4 10       add esp,0x10</span><br><span class="line">0040785F  |. |8945 EC       mov [local.5],eax                 ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00407862  |. |8B5D F0       mov ebx,[local.4]</span><br><span class="line">00407865  |. |85DB          test ebx,ebx</span><br><span class="line">00407867  |. |74 09         je short 第七课作.00407872</span><br><span class="line">00407869  |. |53            push ebx</span><br><span class="line">0040786A  |. |E8 C7250000   call 第七课作.00409E36</span><br><span class="line">0040786F  |. |83C4 04       add esp,0x4</span><br><span class="line">00407872  |&gt; |B8 43C65500   mov eax,第七课作.0055C643</span><br><span class="line">00407877  |. |33C9          xor ecx,ecx</span><br><span class="line">00407879  |. |85C0          test eax,eax                      ;  kernel32.BaseThreadInitThunk</span><br><span class="line">0040787B  |. |74 03         je short 第七课作.00407880</span><br><span class="line">0040787D  |. |8B48 04       mov ecx,dword ptr ds:[eax+0x4]</span><br><span class="line">00407880  |&gt; |51            push ecx</span><br><span class="line">00407881  |. |83C0 08       add eax,0x8</span><br><span class="line">00407884  |. |50            push eax                          ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00407885  |. |8B45 EC       mov eax,[local.5]</span><br><span class="line">00407888  |. |33DB          xor ebx,ebx</span><br><span class="line">0040788A  |. |85C0          test eax,eax                      ;  kernel32.BaseThreadInitThunk</span><br><span class="line">0040788C  |. |74 03         je short 第七课作.00407891</span><br><span class="line">0040788E  |. |8B58 04       mov ebx,dword ptr ds:[eax+0x4]</span><br><span class="line">00407891  |&gt; |83C0 08       add eax,0x8</span><br><span class="line">00407894  |. |50            push eax                          ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00407895  |. |3BD9          cmp ebx,ecx</span><br><span class="line">00407897  |. |B8 01000000   mov eax,0x1</span><br><span class="line">0040789C  |. |75 0A         jnz short 第七课作.004078A8</span><br><span class="line">0040789E  |. |48            dec eax                           ;  kernel32.BaseThreadInitThunk</span><br><span class="line">0040789F  |. |85C9          test ecx,ecx</span><br><span class="line">004078A1  |. |74 05         je short 第七课作.004078A8</span><br><span class="line">004078A3  |. |E8 ADECFFFF   call 第七课作.00406555</span><br><span class="line">004078A8  |&gt; |83C4 0C       add esp,0xC</span><br><span class="line">004078AB  |. |85C0          test eax,eax                      ;  kernel32.BaseThreadInitThunk</span><br><span class="line">004078AD  |. |B8 00000000   mov eax,0x0</span><br><span class="line">004078B2  |. |0f94c0        sete al</span><br><span class="line">004078B5  |. |8945 E8       mov [local.6],eax                 ;  kernel32.BaseThreadInitThunk</span><br><span class="line">004078B8  |. |8B5D EC       mov ebx,[local.5]</span><br><span class="line">004078BB  |. |85DB          test ebx,ebx</span><br><span class="line">004078BD  |. |74 09         je short 第七课作.004078C8</span><br><span class="line">004078BF  |. |53            push ebx</span><br><span class="line">004078C0  |. |E8 71250000   call 第七课作.00409E36</span><br><span class="line">004078C5  |. |83C4 04       add esp,0x4</span><br><span class="line">004078C8  |&gt; |837D E8 00    cmp [local.6],0x0</span><br><span class="line">004078CC  |. |0F84 38000000 je 第七课作.0040790A                  ;  nop掉</span><br><span class="line">004078D2  |. |6A 00         push 0x0</span><br><span class="line">004078D4  |. |6A 00         push 0x0</span><br><span class="line">004078D6  |. |6A 00         push 0x0</span><br><span class="line">004078D8  |. |68 04000080   push 0x80000004</span><br><span class="line">004078DD  |. |6A 00         push 0x0</span><br><span class="line">004078DF  |. |68 04C75500   push 第七课作.0055C704                ;  二级效验通过</span><br><span class="line">004078E4  |. |68 0F000100   push 0x1000F</span><br><span class="line">004078E9  |. |68 7D6B0116   push 0x16016B7D</span><br><span class="line">004078EE  |. |68 2B010152   push 0x5201012B</span><br><span class="line">004078F3  |. |68 03000000   push 0x3</span><br><span class="line">004078F8  |. |BB E0B94000   mov ebx,第七课作.0040B9E0</span><br><span class="line">004078FD  |. |E8 4C250000   call 第七课作.00409E4E</span><br><span class="line">00407902  |. |83C4 28       add esp,0x28</span><br><span class="line">00407905  |. |E9 39000000   jmp 第七课作.00407943</span><br><span class="line">0040790A  |&gt; \BB 06000000   mov ebx,0x6                       ;  nop掉，大跳转结束</span><br><span class="line">0040790F  |.  E8 2799FFFF   call 第七课作.0040123B</span><br><span class="line">00407914  |.  68 01030080   push 0x80000301</span><br><span class="line">00407919  |.  6A 00         push 0x0</span><br><span class="line">0040791B  |.  68 00000000   push 0x0</span><br><span class="line">00407920  |.  68 04000080   push 0x80000004</span><br><span class="line">00407925  |.  6A 00         push 0x0</span><br><span class="line">00407927  |.  68 BDC65500   push 第七课作.0055C6BD                ;  暗桩</span><br><span class="line">0040792C  |.  68 04000000   push 0x4</span><br><span class="line">00407931  |.  BB 20B14000   mov ebx,第七课作.0040B120</span><br><span class="line">00407936  |.  E8 13250000   call 第七课作.00409E4E</span><br><span class="line">0040793B  |.  83C4 34       add esp,0x34</span><br><span class="line">0040793E  |.  E9 00000000   jmp 第七课作.00407943</span><br><span class="line">00407943  |&gt;  8BE5          mov esp,ebp</span><br><span class="line">00407945  |.  5D            pop ebp                           ;  kernel32.76A4336A</span><br><span class="line">00407946  \.  C3            retn</span><br><span class="line">00407947  /.  55            push ebp</span><br></pre></td></tr></table></figure>
+<h5 id="第三个暗桩"><a href="#第三个暗桩" class="headerlink" title="第三个暗桩"></a>第三个暗桩</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">00408907  |. /0F84 2D020000 je 第七课作.00408B3A                  ;  nop掉,大跳转开始</span><br><span class="line">0040890D  |. |B8 3CC65500   mov eax,第七课作.0055C63C             ;  v_geta</span><br><span class="line">00408912  |. |8945 F4       mov [local.3],eax                 ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00408915  |. |8D45 F4       lea eax,[local.3]</span><br><span class="line">00408918  |. |50            push eax                          ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00408919  |. |E8 1BE5FFFF   call 第七课作.00406E39</span><br><span class="line">0040891E  |. |8B5D F4       mov ebx,[local.3]</span><br><span class="line">00408921  |. |85DB          test ebx,ebx</span><br><span class="line">00408923  |. |74 09         je short 第七课作.0040892E</span><br><span class="line">00408925  |. |53            push ebx</span><br><span class="line">00408926  |. |E8 0B150000   call 第七课作.00409E36</span><br><span class="line">0040892B  |. |83C4 04       add esp,0x4</span><br><span class="line">0040892E  |&gt; |68 01030080   push 0x80000301</span><br><span class="line">00408933  |. |6A 00         push 0x0</span><br><span class="line">00408935  |. |FF75 FC       push [local.1]</span><br><span class="line">00408938  |. |68 01000000   push 0x1</span><br><span class="line">0040893D  |. |BB 10B04000   mov ebx,第七课作.0040B010</span><br><span class="line">00408942  |. |E8 07150000   call 第七课作.00409E4E</span><br><span class="line">00408947  |. |83C4 10       add esp,0x10</span><br><span class="line">0040894A  |. |8945 F4       mov [local.3],eax                 ;  kernel32.BaseThreadInitThunk</span><br><span class="line">0040894D  |. |68 01030080   push 0x80000301</span><br><span class="line">00408952  |. |6A 00         push 0x0</span><br><span class="line">00408954  |. |FF75 F8       push [local.2]                    ;  kernel32.76A4336A</span><br><span class="line">00408957  |. |68 01000000   push 0x1</span><br><span class="line">0040895C  |. |BB 10B04000   mov ebx,第七课作.0040B010</span><br><span class="line">00408961  |. |E8 E8140000   call 第七课作.00409E4E</span><br><span class="line">00408966  |. |83C4 10       add esp,0x10</span><br><span class="line">00408969  |. |8945 F0       mov [local.4],eax                 ;  kernel32.BaseThreadInitThunk</span><br><span class="line">0040896C  |. |FF75 F0       push [local.4]</span><br><span class="line">0040896F  |. |68 12C65500   push 第七课作.0055C612                ;  ,</span><br><span class="line">00408974  |. |FF75 F4       push [local.3]</span><br><span class="line">00408977  |. |68 5BC65500   push 第七课作.0055C65B                ;  v_getb,</span><br><span class="line">0040897C  |. |B9 04000000   mov ecx,0x4</span><br><span class="line">00408981  |. |E8 F0CCFFFF   call 第七课作.00405676</span><br><span class="line">00408986  |. |83C4 10       add esp,0x10</span><br><span class="line">00408989  |. |8945 EC       mov [local.5],eax                 ;  kernel32.BaseThreadInitThunk</span><br><span class="line">0040898C  |. |8B5D F4       mov ebx,[local.3]</span><br><span class="line">0040898F  |. |85DB          test ebx,ebx</span><br><span class="line">00408991  |. |74 09         je short 第七课作.0040899C</span><br><span class="line">00408993  |. |53            push ebx</span><br><span class="line">00408994  |. |E8 9D140000   call 第七课作.00409E36</span><br><span class="line">00408999  |. |83C4 04       add esp,0x4</span><br><span class="line">0040899C  |&gt; |8B5D F0       mov ebx,[local.4]</span><br><span class="line">0040899F  |. |85DB          test ebx,ebx</span><br><span class="line">004089A1  |. |74 09         je short 第七课作.004089AC</span><br><span class="line">004089A3  |. |53            push ebx</span><br><span class="line">004089A4  |. |E8 8D140000   call 第七课作.00409E36</span><br><span class="line">004089A9  |. |83C4 04       add esp,0x4</span><br><span class="line">004089AC  |&gt; |8D45 EC       lea eax,[local.5]</span><br><span class="line">004089AF  |. |50            push eax                          ;  kernel32.BaseThreadInitThunk</span><br><span class="line">004089B0  |. |E8 CFE1FFFF   call 第七课作.00406B84</span><br><span class="line">004089B5  |. |8945 E8       mov [local.6],eax                 ;  kernel32.BaseThreadInitThunk</span><br><span class="line">004089B8  |. |8B5D EC       mov ebx,[local.5]</span><br><span class="line">004089BB  |. |85DB          test ebx,ebx</span><br><span class="line">004089BD  |. |74 09         je short 第七课作.004089C8</span><br><span class="line">004089BF  |. |53            push ebx</span><br><span class="line">004089C0  |. |E8 71140000   call 第七课作.00409E36</span><br><span class="line">004089C5  |. |83C4 04       add esp,0x4</span><br><span class="line">004089C8  |&gt; |68 04000080   push 0x80000004</span><br><span class="line">004089CD  |. |6A 00         push 0x0</span><br><span class="line">004089CF  |. |8B45 E8       mov eax,[local.6]</span><br><span class="line">004089D2  |. |85C0          test eax,eax                      ;  kernel32.BaseThreadInitThunk</span><br><span class="line">004089D4  |. |75 05         jnz short 第七课作.004089DB</span><br><span class="line">004089D6  |. |B8 3E264900   mov eax,第七课作.0049263E</span><br><span class="line">004089DB  |&gt; |50            push eax                          ;  kernel32.BaseThreadInitThunk</span><br><span class="line">004089DC  |. |68 01000000   push 0x1</span><br><span class="line">004089E1  |. |BB 50A64000   mov ebx,第七课作.0040A650</span><br><span class="line">004089E6  |. |E8 63140000   call 第七课作.00409E4E</span><br><span class="line">004089EB  |. |83C4 10       add esp,0x10</span><br><span class="line">004089EE  |. |8945 E4       mov [local.7],eax                 ;  kernel32.BaseThreadInitThunk</span><br><span class="line">004089F1  |. |8B5D E8       mov ebx,[local.6]</span><br><span class="line">004089F4  |. |85DB          test ebx,ebx</span><br><span class="line">004089F6  |. |74 09         je short 第七课作.00408A01</span><br><span class="line">004089F8  |. |53            push ebx</span><br><span class="line">004089F9  |. |E8 38140000   call 第七课作.00409E36</span><br><span class="line">004089FE  |. |83C4 04       add esp,0x4</span><br><span class="line">00408A01  |&gt; |DB45 FC       fild [local.1]</span><br><span class="line">00408A04  |. |DD5D DC       fstp qword ptr ss:[ebp-0x24]</span><br><span class="line">00408A07  |. |DD45 DC       fld qword ptr ss:[ebp-0x24]</span><br><span class="line">00408A0A  |. |DB45 F8       fild [local.2]</span><br><span class="line">00408A0D  |. |DD5D D4       fstp qword ptr ss:[ebp-0x2C]</span><br><span class="line">00408A10  |. |DC45 D4       fadd qword ptr ss:[ebp-0x2C]</span><br><span class="line">00408A13  |. |DD5D CC       fstp qword ptr ss:[ebp-0x34]</span><br><span class="line">00408A16  |. |DB45 E4       fild [local.7]</span><br><span class="line">00408A19  |. |DD5D C4       fstp qword ptr ss:[ebp-0x3C]</span><br><span class="line">00408A1C  |. |DD45 C4       fld qword ptr ss:[ebp-0x3C]</span><br><span class="line">00408A1F  |. |DC65 CC       fsub qword ptr ss:[ebp-0x34]</span><br><span class="line">00408A22  |. |D9E4          ftst</span><br><span class="line">00408A24  |. |DFE0          fstsw ax</span><br><span class="line">00408A26  |. |F6C4 01       test ah,0x1</span><br><span class="line">00408A29  |. |74 02         je short 第七课作.00408A2D</span><br><span class="line">00408A2B  |. |D9E0          fchs</span><br><span class="line">00408A2D  |&gt; |DC1D 63C65500 fcomp qword ptr ds:[0x55C663]</span><br><span class="line">00408A33  |. |DFE0          fstsw ax</span><br><span class="line">00408A35  |. |F6C4 41       test ah,0x41</span><br><span class="line">00408A38  |. |0F84 FC000000 je 第七课作.00408B3A                  ;  nop掉</span><br><span class="line">00408A3E  |. |B8 3CC65500   mov eax,第七课作.0055C63C             ;  v_geta</span><br><span class="line">00408A43  |. |8945 F4       mov [local.3],eax                 ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00408A46  |. |8D45 F4       lea eax,[local.3]</span><br><span class="line">00408A49  |. |50            push eax                          ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00408A4A  |. |E8 35E1FFFF   call 第七课作.00406B84</span><br><span class="line">00408A4F  |. |8945 F0       mov [local.4],eax                 ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00408A52  |. |8B5D F4       mov ebx,[local.3]</span><br><span class="line">00408A55  |. |85DB          test ebx,ebx</span><br><span class="line">00408A57  |. |74 09         je short 第七课作.00408A62</span><br><span class="line">00408A59  |. |53            push ebx</span><br><span class="line">00408A5A  |. |E8 D7130000   call 第七课作.00409E36</span><br><span class="line">00408A5F  |. |83C4 04       add esp,0x4</span><br><span class="line">00408A62  |&gt; |68 04000080   push 0x80000004</span><br><span class="line">00408A67  |. |6A 00         push 0x0</span><br><span class="line">00408A69  |. |8B45 F0       mov eax,[local.4]</span><br><span class="line">00408A6C  |. |85C0          test eax,eax                      ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00408A6E  |. |75 05         jnz short 第七课作.00408A75</span><br><span class="line">00408A70  |. |B8 3E264900   mov eax,第七课作.0049263E</span><br><span class="line">00408A75  |&gt; |50            push eax                          ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00408A76  |. |68 01000000   push 0x1</span><br><span class="line">00408A7B  |. |BB F0AC4000   mov ebx,第七课作.0040ACF0</span><br><span class="line">00408A80  |. |E8 C9130000   call 第七课作.00409E4E</span><br><span class="line">00408A85  |. |83C4 10       add esp,0x10</span><br><span class="line">00408A88  |. |8945 EC       mov [local.5],eax                 ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00408A8B  |. |8B5D F0       mov ebx,[local.4]</span><br><span class="line">00408A8E  |. |85DB          test ebx,ebx</span><br><span class="line">00408A90  |. |74 09         je short 第七课作.00408A9B</span><br><span class="line">00408A92  |. |53            push ebx</span><br><span class="line">00408A93  |. |E8 9E130000   call 第七课作.00409E36</span><br><span class="line">00408A98  |. |83C4 04       add esp,0x4</span><br><span class="line">00408A9B  |&gt; |B8 43C65500   mov eax,第七课作.0055C643</span><br><span class="line">00408AA0  |. |33C9          xor ecx,ecx</span><br><span class="line">00408AA2  |. |85C0          test eax,eax                      ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00408AA4  |. |74 03         je short 第七课作.00408AA9</span><br><span class="line">00408AA6  |. |8B48 04       mov ecx,dword ptr ds:[eax+0x4]</span><br><span class="line">00408AA9  |&gt; |51            push ecx</span><br><span class="line">00408AAA  |. |83C0 08       add eax,0x8</span><br><span class="line">00408AAD  |. |50            push eax                          ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00408AAE  |. |8B45 EC       mov eax,[local.5]</span><br><span class="line">00408AB1  |. |33DB          xor ebx,ebx</span><br><span class="line">00408AB3  |. |85C0          test eax,eax                      ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00408AB5  |. |74 03         je short 第七课作.00408ABA</span><br><span class="line">00408AB7  |. |8B58 04       mov ebx,dword ptr ds:[eax+0x4]</span><br><span class="line">00408ABA  |&gt; |83C0 08       add eax,0x8</span><br><span class="line">00408ABD  |. |50            push eax                          ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00408ABE  |. |3BD9          cmp ebx,ecx</span><br><span class="line">00408AC0  |. |B8 01000000   mov eax,0x1</span><br><span class="line">00408AC5  |. |75 0A         jnz short 第七课作.00408AD1</span><br><span class="line">00408AC7  |. |48            dec eax                           ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00408AC8  |. |85C9          test ecx,ecx</span><br><span class="line">00408ACA  |. |74 05         je short 第七课作.00408AD1</span><br><span class="line">00408ACC  |. |E8 84DAFFFF   call 第七课作.00406555</span><br><span class="line">00408AD1  |&gt; |83C4 0C       add esp,0xC</span><br><span class="line">00408AD4  |. |85C0          test eax,eax                      ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00408AD6  |. |B8 00000000   mov eax,0x0</span><br><span class="line">00408ADB  |. |0f94c0        sete al</span><br><span class="line">00408ADE  |. |8945 E8       mov [local.6],eax                 ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00408AE1  |. |8B5D EC       mov ebx,[local.5]</span><br><span class="line">00408AE4  |. |85DB          test ebx,ebx</span><br><span class="line">00408AE6  |. |74 09         je short 第七课作.00408AF1</span><br><span class="line">00408AE8  |. |53            push ebx</span><br><span class="line">00408AE9  |. |E8 48130000   call 第七课作.00409E36</span><br><span class="line">00408AEE  |. |83C4 04       add esp,0x4</span><br><span class="line">00408AF1  |&gt; |837D E8 00    cmp [local.6],0x0</span><br><span class="line">00408AF5  |. |0F84 3F000000 je 第七课作.00408B3A                  ;  nop掉</span><br><span class="line">00408AFB  |. |6A 00         push 0x0</span><br><span class="line">00408AFD  |. |68 00000000   push 0x0</span><br><span class="line">00408B02  |. |6A FF         push -0x1</span><br><span class="line">00408B04  |. |6A 06         push 0x6</span><br><span class="line">00408B06  |. |68 7C6B0116   push 0x16016B7C</span><br><span class="line">00408B0B  |. |68 2B010152   push 0x5201012B</span><br><span class="line">00408B10  |. |E8 2D130000   call 第七课作.00409E42</span><br><span class="line">00408B15  |. |83C4 18       add esp,0x18</span><br><span class="line">00408B18  |. |6A 00         push 0x0</span><br><span class="line">00408B1A  |. |68 00000000   push 0x0</span><br><span class="line">00408B1F  |. |6A FF         push -0x1</span><br><span class="line">00408B21  |. |6A 06         push 0x6</span><br><span class="line">00408B23  |. |68 7B6B0116   push 0x16016B7B</span><br><span class="line">00408B28  |. |68 2B010152   push 0x5201012B</span><br><span class="line">00408B2D  |. |E8 10130000   call 第七课作.00409E42</span><br><span class="line">00408B32  |. |83C4 18       add esp,0x18</span><br><span class="line">00408B35  |. |E9 39000000   jmp 第七课作.00408B73</span><br><span class="line">00408B3A  |&gt; \BB 06000000   mov ebx,0x6                       ;  nop掉，大跳转结束</span><br><span class="line">00408B3F  |.  E8 F786FFFF   call 第七课作.0040123B</span><br><span class="line">00408B44  |.  68 01030080   push 0x80000301</span><br><span class="line">00408B49  |.  6A 00         push 0x0</span><br><span class="line">00408B4B  |.  68 00000000   push 0x0</span><br><span class="line">00408B50  |.  68 04000080   push 0x80000004</span><br><span class="line">00408B55  |.  6A 00         push 0x0</span><br><span class="line">00408B57  |.  68 BDC65500   push 第七课作.0055C6BD                ;  暗桩</span><br><span class="line">00408B5C  |.  68 04000000   push 0x4</span><br><span class="line">00408B61  |.  BB 20B14000   mov ebx,第七课作.0040B120</span><br><span class="line">00408B66  |.  E8 E3120000   call 第七课作.00409E4E</span><br><span class="line">00408B6B  |.  83C4 34       add esp,0x34</span><br><span class="line">00408B6E  |.  E9 00000000   jmp 第七课作.00408B73</span><br><span class="line">00408B73  |&gt;  8BE5          mov esp,ebp</span><br><span class="line">00408B75  |.  5D            pop ebp                           ;  kernel32.76A4336A</span><br><span class="line">00408B76  \.  C3            retn</span><br></pre></td></tr></table></figure>
+<h5 id="第四个暗桩"><a href="#第四个暗桩" class="headerlink" title="第四个暗桩"></a>第四个暗桩</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">0040946A  |. /0F84 84010000 je 第七课作.004095F4                  ;  nop掉，大跳转开始</span><br><span class="line">00409470  |. |68 02000000   push 0x2</span><br><span class="line">00409475  |. |E8 C3DAFFFF   call 第七课作.00406F3D</span><br><span class="line">0040947A  |. |8945 FC       mov [local.1],eax                 ;  kernel32.BaseThreadInitThunk</span><br><span class="line">0040947D  |. |68 04000080   push 0x80000004</span><br><span class="line">00409482  |. |6A 00         push 0x0</span><br><span class="line">00409484  |. |8B45 FC       mov eax,[local.1]</span><br><span class="line">00409487  |. |85C0          test eax,eax                      ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00409489  |. |75 05         jnz short 第七课作.00409490</span><br><span class="line">0040948B  |. |B8 3E264900   mov eax,第七课作.0049263E</span><br><span class="line">00409490  |&gt; |50            push eax                          ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00409491  |. |68 01000000   push 0x1</span><br><span class="line">00409496  |. |BB F0AC4000   mov ebx,第七课作.0040ACF0</span><br><span class="line">0040949B  |. |E8 AE090000   call 第七课作.00409E4E</span><br><span class="line">004094A0  |. |83C4 10       add esp,0x10</span><br><span class="line">004094A3  |. |8945 F8       mov [local.2],eax                 ;  kernel32.BaseThreadInitThunk</span><br><span class="line">004094A6  |. |8B5D FC       mov ebx,[local.1]</span><br><span class="line">004094A9  |. |85DB          test ebx,ebx</span><br><span class="line">004094AB  |. |74 09         je short 第七课作.004094B6</span><br><span class="line">004094AD  |. |53            push ebx</span><br><span class="line">004094AE  |. |E8 83090000   call 第七课作.00409E36</span><br><span class="line">004094B3  |. |83C4 04       add esp,0x4</span><br><span class="line">004094B6  |&gt; |B8 7EC65500   mov eax,第七课作.0055C67E</span><br><span class="line">004094BB  |. |33C9          xor ecx,ecx</span><br><span class="line">004094BD  |. |85C0          test eax,eax                      ;  kernel32.BaseThreadInitThunk</span><br><span class="line">004094BF  |. |74 03         je short 第七课作.004094C4</span><br><span class="line">004094C1  |. |8B48 04       mov ecx,dword ptr ds:[eax+0x4]</span><br><span class="line">004094C4  |&gt; |51            push ecx</span><br><span class="line">004094C5  |. |83C0 08       add eax,0x8</span><br><span class="line">004094C8  |. |50            push eax                          ;  kernel32.BaseThreadInitThunk</span><br><span class="line">004094C9  |. |8B45 F8       mov eax,[local.2]                 ;  kernel32.76A4336A</span><br><span class="line">004094CC  |. |33DB          xor ebx,ebx</span><br><span class="line">004094CE  |. |85C0          test eax,eax                      ;  kernel32.BaseThreadInitThunk</span><br><span class="line">004094D0  |. |74 03         je short 第七课作.004094D5</span><br><span class="line">004094D2  |. |8B58 04       mov ebx,dword ptr ds:[eax+0x4]</span><br><span class="line">004094D5  |&gt; |83C0 08       add eax,0x8</span><br><span class="line">004094D8  |. |50            push eax                          ;  kernel32.BaseThreadInitThunk</span><br><span class="line">004094D9  |. |3BD9          cmp ebx,ecx</span><br><span class="line">004094DB  |. |B8 01000000   mov eax,0x1</span><br><span class="line">004094E0  |. |75 0A         jnz short 第七课作.004094EC</span><br><span class="line">004094E2  |. |48            dec eax                           ;  kernel32.BaseThreadInitThunk</span><br><span class="line">004094E3  |. |85C9          test ecx,ecx</span><br><span class="line">004094E5  |. |74 05         je short 第七课作.004094EC</span><br><span class="line">004094E7  |. |E8 69D0FFFF   call 第七课作.00406555</span><br><span class="line">004094EC  |&gt; |83C4 0C       add esp,0xC</span><br><span class="line">004094EF  |. |85C0          test eax,eax                      ;  kernel32.BaseThreadInitThunk</span><br><span class="line">004094F1  |. |B8 00000000   mov eax,0x0</span><br><span class="line">004094F6  |. |0f94c0        sete al</span><br><span class="line">004094F9  |. |8945 F4       mov [local.3],eax                 ;  kernel32.BaseThreadInitThunk</span><br><span class="line">004094FC  |. |8B5D F8       mov ebx,[local.2]                 ;  kernel32.76A4336A</span><br><span class="line">004094FF  |. |85DB          test ebx,ebx</span><br><span class="line">00409501  |. |74 09         je short 第七课作.0040950C</span><br><span class="line">00409503  |. |53            push ebx</span><br><span class="line">00409504  |. |E8 2D090000   call 第七课作.00409E36</span><br><span class="line">00409509  |. |83C4 04       add esp,0x4</span><br><span class="line">0040950C  |&gt; |837D F4 00    cmp [local.3],0x0</span><br><span class="line">00409510  |. |0F84 DE000000 je 第七课作.004095F4                  ;  nop掉</span><br><span class="line">00409516  |. |68 0F000000   push 0xF</span><br><span class="line">0040951B  |. |E8 1DDAFFFF   call 第七课作.00406F3D</span><br><span class="line">00409520  |. |8945 FC       mov [local.1],eax                 ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00409523  |. |68 04000080   push 0x80000004</span><br><span class="line">00409528  |. |6A 00         push 0x0</span><br><span class="line">0040952A  |. |8B45 FC       mov eax,[local.1]</span><br><span class="line">0040952D  |. |85C0          test eax,eax                      ;  kernel32.BaseThreadInitThunk</span><br><span class="line">0040952F  |. |75 05         jnz short 第七课作.00409536</span><br><span class="line">00409531  |. |B8 3E264900   mov eax,第七课作.0049263E</span><br><span class="line">00409536  |&gt; |50            push eax                          ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00409537  |. |68 01000000   push 0x1</span><br><span class="line">0040953C  |. |BB F0AC4000   mov ebx,第七课作.0040ACF0</span><br><span class="line">00409541  |. |E8 08090000   call 第七课作.00409E4E</span><br><span class="line">00409546  |. |83C4 10       add esp,0x10</span><br><span class="line">00409549  |. |8945 F8       mov [local.2],eax                 ;  kernel32.BaseThreadInitThunk</span><br><span class="line">0040954C  |. |8B5D FC       mov ebx,[local.1]</span><br><span class="line">0040954F  |. |85DB          test ebx,ebx</span><br><span class="line">00409551  |. |74 09         je short 第七课作.0040955C</span><br><span class="line">00409553  |. |53            push ebx</span><br><span class="line">00409554  |. |E8 DD080000   call 第七课作.00409E36</span><br><span class="line">00409559  |. |83C4 04       add esp,0x4</span><br><span class="line">0040955C  |&gt; |B8 91C65500   mov eax,第七课作.0055C691</span><br><span class="line">00409561  |. |33C9          xor ecx,ecx</span><br><span class="line">00409563  |. |85C0          test eax,eax                      ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00409565  |. |74 03         je short 第七课作.0040956A</span><br><span class="line">00409567  |. |8B48 04       mov ecx,dword ptr ds:[eax+0x4]</span><br><span class="line">0040956A  |&gt; |51            push ecx</span><br><span class="line">0040956B  |. |83C0 08       add eax,0x8</span><br><span class="line">0040956E  |. |50            push eax                          ;  kernel32.BaseThreadInitThunk</span><br><span class="line">0040956F  |. |8B45 F8       mov eax,[local.2]                 ;  kernel32.76A4336A</span><br><span class="line">00409572  |. |33DB          xor ebx,ebx</span><br><span class="line">00409574  |. |85C0          test eax,eax                      ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00409576  |. |74 03         je short 第七课作.0040957B</span><br><span class="line">00409578  |. |8B58 04       mov ebx,dword ptr ds:[eax+0x4]</span><br><span class="line">0040957B  |&gt; |83C0 08       add eax,0x8</span><br><span class="line">0040957E  |. |50            push eax                          ;  kernel32.BaseThreadInitThunk</span><br><span class="line">0040957F  |. |3BD9          cmp ebx,ecx</span><br><span class="line">00409581  |. |B8 01000000   mov eax,0x1</span><br><span class="line">00409586  |. |75 0A         jnz short 第七课作.00409592</span><br><span class="line">00409588  |. |48            dec eax                           ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00409589  |. |85C9          test ecx,ecx</span><br><span class="line">0040958B  |. |74 05         je short 第七课作.00409592</span><br><span class="line">0040958D  |. |E8 C3CFFFFF   call 第七课作.00406555</span><br><span class="line">00409592  |&gt; |83C4 0C       add esp,0xC</span><br><span class="line">00409595  |. |85C0          test eax,eax                      ;  kernel32.BaseThreadInitThunk</span><br><span class="line">00409597  |. |B8 00000000   mov eax,0x0</span><br><span class="line">0040959C  |. |0f94c0        sete al</span><br><span class="line">0040959F  |. |8945 F4       mov [local.3],eax                 ;  kernel32.BaseThreadInitThunk</span><br><span class="line">004095A2  |. |8B5D F8       mov ebx,[local.2]                 ;  kernel32.76A4336A</span><br><span class="line">004095A5  |. |85DB          test ebx,ebx</span><br><span class="line">004095A7  |. |74 09         je short 第七课作.004095B2</span><br><span class="line">004095A9  |. |53            push ebx</span><br><span class="line">004095AA  |. |E8 87080000   call 第七课作.00409E36</span><br><span class="line">004095AF  |. |83C4 04       add esp,0x4</span><br><span class="line">004095B2  |&gt; |837D F4 00    cmp [local.3],0x0</span><br><span class="line">004095B6  |. |0F84 38000000 je 第七课作.004095F4                  ;  nop掉</span><br><span class="line">004095BC  |. |6A 00         push 0x0</span><br><span class="line">004095BE  |. |6A 00         push 0x0</span><br><span class="line">004095C0  |. |6A 00         push 0x0</span><br><span class="line">004095C2  |. |68 04000080   push 0x80000004</span><br><span class="line">004095C7  |. |6A 00         push 0x0</span><br><span class="line">004095C9  |. |68 AFD15500   push 第七课作.0055D1AF                ;  一级效验通过</span><br><span class="line">004095CE  |. |68 0F000100   push 0x1000F</span><br><span class="line">004095D3  |. |68 7D6B0116   push 0x16016B7D</span><br><span class="line">004095D8  |. |68 2B010152   push 0x5201012B</span><br><span class="line">004095DD  |. |68 03000000   push 0x3</span><br><span class="line">004095E2  |. |BB E0B94000   mov ebx,第七课作.0040B9E0</span><br><span class="line">004095E7  |. |E8 62080000   call 第七课作.00409E4E</span><br><span class="line">004095EC  |. |83C4 28       add esp,0x28</span><br><span class="line">004095EF  |. |E9 39000000   jmp 第七课作.0040962D</span><br><span class="line">004095F4  |&gt; \BB 06000000   mov ebx,0x6                       ;  nop掉，大跳转结束</span><br><span class="line">004095F9  |.  E8 3D7CFFFF   call 第七课作.0040123B</span><br><span class="line">004095FE  |.  68 01030080   push 0x80000301</span><br><span class="line">00409603  |.  6A 00         push 0x0</span><br><span class="line">00409605  |.  68 00000000   push 0x0</span><br><span class="line">0040960A  |.  68 04000080   push 0x80000004</span><br><span class="line">0040960F  |.  6A 00         push 0x0</span><br><span class="line">00409611  |.  68 BDC65500   push 第七课作.0055C6BD                ;  暗桩</span><br><span class="line">00409616  |.  68 04000000   push 0x4</span><br><span class="line">0040961B  |.  BB 20B14000   mov ebx,第七课作.0040B120</span><br><span class="line">00409620  |.  E8 29080000   call 第七课作.00409E4E</span><br><span class="line">00409625  |.  83C4 34       add esp,0x34</span><br><span class="line">00409628  |.  E9 00000000   jmp 第七课作.0040962D</span><br><span class="line">0040962D  |&gt;  8BE5          mov esp,ebp</span><br><span class="line">0040962F  |.  5D            pop ebp                           ;  kernel32.76A4336A</span><br><span class="line">00409630  \.  C3            retn</span><br></pre></td></tr></table></figure>
+<p>运行起来</p>
+<p><img src="https://i.loli.net/2018/07/14/5b49f62eb38fa.jpg" alt="image"></p>
+<p>完美</p>
+<p>From <a href="https://kabeor.github.io/吾爱破解培训第七课：手把手教你从实例看如何攻破常见的网络验证/">https://kabeor.github.io/吾爱破解培训第七课：手把手教你从实例看如何攻破常见的网络验证/</a> bye</p>
+
+        
+                <blockquote style="margin: 2em 0 0;padding: 0.5em 1em;border-left: 3px solid #F44336;background-color: #F5F5F5;list-style: none;">
+                    <p><strong>
+                         
+                            This blog is under a <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0 Unported License</a>
+                        </strong>
+                        <br>
+                        <strong>本文链接：</strong><a href="https://kabeor.github.io/吾爱破解培训第七课：手把手教你从实例看如何攻破常见的网络验证/">https://kabeor.github.io/吾爱破解培训第七课：手把手教你从实例看如何攻破常见的网络验证/</a>
+                    </p>
+                </blockquote>
+        
+    
+
+    
+</div>
+
+                
+                <!-- Post Comments -->
+                
+                    
+    <div id="comment" style="padding:10px;" class="vcomment"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+    var GUEST_INFO = ['nick','mail','link'];
+    var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+        return GUEST_INFO.indexOf(item) > -1
+    });
+    var notify = 'true' == true;
+    var verify = 'true' == true;
+    new Valine({
+        el: '.vcomment',
+        notify: notify,
+        verify: verify,
+        appId: "53gELcU5PPzXKUh1q21E5Nkh-gzGzoHsz",
+        appKey: "pSNnuMbRDkWAE7j44yChrEce",
+        placeholder: "都看到这里了还不评论一下吗(╯‵□′)╯︵┻━┻",
+        pageSize:'10',
+        avatar:'identicon',
+        lang:'zh-cn'
+    });
+</script>
+
+                
+            </div>
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+        <a href="/吾爱破解培训第八课：短兵相接--深入浅出探讨脱壳细节（上）/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/吾爱破解培训第六课：潜伏在程序身边的黑影--实战给程序补丁/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
+
+                    
+                        <!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay"></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored sidebar-fixed-left" role="navigation">
+    <div id="sidebar-main">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.png);">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+        <i class="material-icons">clear_all</i>
+        <span class="mdl-button__ripple-container">
+            <span class="mdl-ripple">
+            </span>
+        </span>
+    </button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="/img/avatar.png" alt="kabeor's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        Trust me,Lisa.
+        <b class="caret"></b>
+    </a>
+</div>
+
+
+        <!-- Sidebar Navigation  -->
+        <ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+            
+                <li>
+                    <a href="mailto:1597915586@qq.com" target="_blank" title="Email Me">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
+                        
+                        Email Me
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://github.com/kabeor" target="_blank" title="GitHub">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">code</i>
+                        
+                        GitHub
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    
+        <li id="sidebar-first-li">
+            <a href="/">
+                
+                    <i class="material-icons sidebar-material-icons">home</i>
+                
+                主页
+            </a>
+        </li>
+        
+    
+
+    <!-- Archives  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">inbox</i>
+                
+                    归档
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+            <li>
+                <a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/02/">二月 2018<span class="sidebar_archives-count">47</span></a>
+            </li></ul>
+        </li>
+        
+    
+
+    <!-- Categories  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">chrome_reader_mode</i>
+                
+                分类
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                <a class="sidebar_archives-link" href="/categories/Code/">Code<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/Linux/">Linux<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/Linux/Kali/">Kali<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/Linux/网络/">网络<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/NexT/">NexT<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/Web/">Web<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/Web/WriteUP/">WriteUP<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/Web/渗透/">渗透<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/Web/渗透/工具集/">工具集<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/blog搭建/">blog搭建<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/密码学和杂项/">密码学和杂项<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/树莓派/">树莓派<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/汇编/">汇编<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/汇编/漏洞银行逆向教程/">漏洞银行逆向教程<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/">病毒分析<span class="sidebar_archives-count">16</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/《恶意代码分析实战》笔记/">《恶意代码分析实战》笔记<span class="sidebar_archives-count">16</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/《恶意代码分析实战》笔记/第一篇-静态分析/">第一篇 静态分析<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/《恶意代码分析实战》笔记/第三篇-动态分析高级技术篇/">第三篇 动态分析高级技术篇<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/《恶意代码分析实战》笔记/第二篇-静态分析高级技术篇/">第二篇 静态分析高级技术篇<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/《恶意代码分析实战》笔记/第五篇-逆向工程/">第五篇 逆向工程<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/《恶意代码分析实战》笔记/第四篇-恶意代码功能篇/">第四篇 恶意代码功能篇<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/计算机系统/">计算机系统<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/计算机系统/PE/">PE<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/逆向/">逆向<span class="sidebar_archives-count">37</span></a></li><li><a class="sidebar_archives-link" href="/categories/逆向/i春秋/">i春秋<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/逆向/i春秋Reverse赛题/">i春秋Reverse赛题<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/categories/逆向/吾爱破解培训/">吾爱破解培训<span class="sidebar_archives-count">10</span></a>
+            </li></ul>
+        </li>
+        
+    
+
+    <!-- Pages  -->
+    
+        <li>
+            <a href="/about" title="关于">
+                
+                    <i class="material-icons sidebar-material-icons">person</i>
+                
+                关于
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/links" title="各位大佬(╯°□°）╯︵ ┻━┻">
+                
+                    <i class="material-icons sidebar-material-icons">link</i>
+                
+                各位大佬(╯°□°）╯︵ ┻━┻
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/timeline" title="时间轴">
+                
+                    <i class="material-icons sidebar-material-icons">timeline</i>
+                
+                时间轴
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/gallery" title="EVERSPACE(请等待加载哦)">
+                
+                    <i class="material-icons sidebar-material-icons">flight</i>
+                
+                EVERSPACE(请等待加载哦)
+            </a>
+        </li>
+        
+    
+
+    <!-- Article Number  -->
+    
+        <li>
+            <a href="/archives">
+                文章总数
+                <span class="sidebar-badge">89</span>
+            </a>
+        </li>
+        
+    
+</ul>
+
+
+    <div id="music163player">
+         <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="310" src="//music.163.com/outchain/player?type=0&id=2194265908&auto=0&height=430">
+         </iframe>
+    </div>
+
+        <!-- Sidebar Footer -->
+        <!--
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持和动力。 :)
+-->
+
+<!-- Sidebar Divider -->
+
+    <div class="sidebar-divider"></div>
+
+
+<!-- Theme Material -->
+
+    <a href="https://github.com/viosey/hexo-theme-material" class="sidebar-footer-text-a" target="_blank">
+        <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+            主题 - Material
+            <span class="sidebar-badge badge-circle">i</span>
+        </div>
+    </a>
+
+
+<!-- Help & Support -->
+<!--
+
+    <a href="mailto:hiviosey@gmail.com" class="sidebar-footer-text-a">
+        <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+        sidebar.help
+        <span class="mdl-button__ripple-container">
+          <span class="mdl-ripple"></span>
+        </span>
+      </div>
+    </a>
+
+-->
+
+<!-- Feedback -->
+<!--
+
+    <a href="https://github.com/viosey/hexo-theme-material/issues" target="_blank" class="sidebar-footer-text-a">
+        <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+        sidebar.feedback
+        <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></div>
+    </a>
+
+-->
+
+<!-- About Theme -->
+<!--
+
+    <a href="https://blog.viosey.com/index.php/Material.html" target="_blank" class="sidebar-footer-text-a">
+        <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+             sidebar.about_theme
+            <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></div>
+    </a>
+
+-->
+
+    </div>
+
+
+
+    <!-- Sidebar Image -->
+    
+
+</aside>
+
+                    
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+
+                    
+
+                    <!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+    
+        <!-- Paradox Footer Left Section -->
+        <div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+
+    <!-- Facebook -->
+    
+
+    <!-- Google + -->
+    
+
+    <!-- Weibo -->
+    
+
+    <!-- Instagram -->
+    
+
+    <!-- Tumblr -->
+    
+
+    <!-- Github -->
+    
+        <a href="https://github.com/kabeor" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-github">
+                <span class="visuallyhidden">Github</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- LinkedIn -->
+    
+
+    <!-- Zhihu -->
+    
+
+    <!-- Bilibili -->
+    
+
+    <!-- Telegram -->
+    
+    
+    <!-- V2EX -->
+    
+
+    <span class="post-count">全站共</span> 
+    148.3k 
+    <span>字</span>
+</div>
+
+
+        <!--Copyright-->
+        <div id="copyright">
+            Copyright&nbsp;©<script type="text/javascript">var fd = new Date();document.write("&nbsp;" + fd.getFullYear() + "&nbsp;");</script>K's House
+            
+                <br>
+                
+                    2018
+                
+            
+        </div>
+
+        <!-- Paradox Footer Right Section -->
+
+        <!--
+        I am glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+        It will not impact the appearance and can give developers a lot of support :)
+
+        很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+        它不会影响美观并可以给开发者很大的支持。 :)
+        -->
+
+        <div class="mdl-mini-footer--right-section">
+            <div>
+                <div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
+                <div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+            </div>
+        </div>
+    
+</footer>
+
+
+                    <!-- Import JS File -->
+
+    <script>lsloader.load("lazyload_js","/js/lazyload.min.js?wgjW/HuQG9JDgvPDPoRAng==", true)</script>
+
+
+
+    <script>lsloader.load("js_js","/js/js.min.js?V/53wGualMuiPM3xoetD5Q==", true)</script>
+
+
+
+    <script>lsloader.load("np_js","https://cdn.bootcss.com/nprogress/0.2.0/nprogress.js", true)</script>
+
+
+<script type="text/ls-javascript" id="NProgress-script">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    $('#nprogress .bar').css({
+        'background': '#FF1493'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #FF1493, 0 0 15px #FF1493'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#FF1493',
+        'border-left-color': '#FF1493'
+    });
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+    
+        <script>lsloader.load("sm_js","/js/smoothscroll.js?tNQK2Tw2SUL8a1Scn/Mgew==", true)</script>
+    
+
+
+
+
+
+    <!-- Busuanzi -->
+    <script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+   
+
+
+
+
+
+<!-- UC Browser Compatible -->
+<script>
+	var agent = navigator.userAgent.toLowerCase();
+	if(agent.indexOf('ucbrowser')>0) {
+		document.write('<link rel="stylesheet" href="/css/uc.css">');
+	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+	}
+</script>
+
+<!-- Import prettify js  -->
+
+    
+        
+            <script>lsloader.load("prettify_js","https://cdn.bootcss.com/prettify/r298/prettify.js", true)</script>
+        
+    
+
+
+
+<!-- Window Load -->
+<!-- add class for prettify -->
+<script type="text/ls-javascript" id="window-load">
+    $(window).on('load', function() {
+        // Post_Toc parent position fixed
+        $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
+    });
+
+    
+        
+            $(function() {
+                $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto;');
+                prettyPrint();
+                })
+        
+    
+    
+</script>
+
+<!-- MathJax Load-->
+
+
+<!-- Bing Background -->
+
+
+<script type="text/ls-javascript" id="lazy-load">
+    // Offer LazyLoad
+    queue.offer(function(){
+        $('.lazy').lazyload({
+            effect : 'show'
+        });
+    });
+
+    // Start Queue
+    $(document).ready(function(){
+        setInterval(function(){
+            queue.execNext();
+        },200);
+    });
+</script>
+
+<!-- Custom Footer -->
+
+
+
+<script>
+    (function(){
+        var scriptList = document.querySelectorAll('script[type="text/ls-javascript"]')
+
+        for (var i = 0; i < scriptList.length; ++i) {
+            var item = scriptList[i];
+            lsloader.runInlineScript(item.id,item.id);
+        }
+    })()
+console.log('\n %c © Material Theme | Version: 1.5.2 | https://github.com/viosey/hexo-theme-material %c \n', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-left-radius:5px;border-bottom-left-radius:5px;', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-right-radius:5px;border-bottom-right-radius:5px;');
+</script>
+
+                </main>
+            </div>
+        </body>
+    
+</html>
