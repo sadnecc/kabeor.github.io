@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html style="display: none;" lang="zh">
+    <head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <!--
+        © Material Theme
+        https://github.com/viosey/hexo-theme-material
+        Version: 1.5.2 -->
+    <script>
+        window.materialVersion = "1.5.2"
+        // Delete localstorage with these tags
+        window.oldVersion = [
+            'codestartv1',
+            '1.3.4',
+            '1.4.0',
+            '1.4.0b1',
+            '1.5.0'
+        ]
+    </script>
+
+    <!-- dns prefetch -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+
+
+    <link rel="dns-prefetch" href="https://cdn1.lncld.net">
+
+
+    <link rel="dns-prefetch" href="https://busuanzi.ibruce.info">
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Meta & Info -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!-- Title -->
+    
+    <title>
+        
+            Capstone反汇编引擎数据类型及API分析及示例(三) | 
+        
+        K&#39;s House
+    </title>
+
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/img/favicon.png">
+    <link rel="icon" href="/img/favicon.png">
+
+    <meta name="format-detection" content="telephone=no">
+    <meta name="description" itemprop="description" content="Trust me,Lisa.">
+    <meta name="keywords" content=",反汇编">
+    <meta name="theme-color" content="#0097A7">
+
+    <!-- Disable Fucking Bloody Baidu Tranformation -->
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+
+    <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+
+        
+            <script src="/js/ie-blocker.zhCN.js"></script>
+        
+    <![endif]-->
+
+    <!-- Import lsloader -->
+    <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(a){try{localStorage.removeItem(a)}catch(b){}};lsloader.setLS=function(a,c){try{localStorage.setItem(a,c)}catch(b){}};lsloader.getLS=function(a){var c="";try{c=localStorage.getItem(a)}catch(b){c=""}return c};versionString="/*"+(window.materialVersion||"unknownVersion")+"*/";lsloader.clean=function(){try{var b=[];for(var a=0;a<localStorage.length;a++){b.push(localStorage.key(a))}b.forEach(function(e){var f=lsloader.getLS(e);if(window.oldVersion){var d=window.oldVersion.reduce(function(g,h){return g||f.indexOf("/*"+h+"*/")!==-1},false);if(d){lsloader.removeLS(e)}}})}catch(c){}};lsloader.clean();lsloader.load=function(f,a,b,d){if(typeof b==="boolean"){d=b;b=undefined}d=d||false;b=b||function(){};var e;e=this.getLS(f);if(e&&e.indexOf(versionString)===-1){this.removeLS(f);this.requestResource(f,a,b,d);return}if(e){var c=e.split(versionString)[0];if(c!=a){console.log("reload:"+a);this.removeLS(f);this.requestResource(f,a,b,d);return}e=e.split(versionString)[1];if(d){this.jsRunSequence.push({name:f,code:e});this.runjs(a,f,e)}else{document.getElementById(f).appendChild(document.createTextNode(e));b()}}else{this.requestResource(f,a,b,d)}};lsloader.requestResource=function(b,e,a,c){var d=this;if(c){this.iojs(e,b,function(h,f,g){d.setLS(f,h+versionString+g);d.runjs(h,f,g)})}else{this.iocss(e,b,function(f){document.getElementById(b).appendChild(document.createTextNode(f));d.setLS(b,e+versionString+f)},a)}};lsloader.iojs=function(d,b,g){var a=this;a.jsRunSequence.push({name:b,code:""});try{var f=new XMLHttpRequest();f.open("get",d,true);f.onreadystatechange=function(){if(f.readyState==4){if((f.status>=200&&f.status<300)||f.status==304){if(f.response!=""){g(d,b,f.response);return}}a.jsfallback(d,b)}};f.send(null)}catch(c){a.jsfallback(d,b)}};lsloader.iocss=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.iofonts=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.runjs=function(f,c,e){if(!!c&&!!e){for(var b in this.jsRunSequence){if(this.jsRunSequence[b].name==c){this.jsRunSequence[b].code=e}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var a=document.createElement("script");a.appendChild(document.createTextNode(this.jsRunSequence[0].code));a.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(a);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else{if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var d=this;var a=document.createElement("script");a.src=this.jsRunSequence[0].path;a.type="text/javascript";this.jsRunSequence[0].status="loading";a.onload=function(){d.jsRunSequence.shift();if(d.jsRunSequence.length>0){d.runjs()}};document.body.appendChild(a)}}};lsloader.tagLoad=function(b,a){this.jsRunSequence.push({name:a,code:"",path:b,status:"failed"});this.runjs()};lsloader.jsfallback=function(c,b){if(!!this.jsnamemap[b]){return}else{this.jsnamemap[b]=b}for(var a in this.jsRunSequence){if(this.jsRunSequence[a].name==b){this.jsRunSequence[a].code="";this.jsRunSequence[a].status="failed";this.jsRunSequence[a].path=c}}this.runjs()};lsloader.cssfallback=function(e,c,b){if(!!this.cssnamemap[c]){return}else{this.cssnamemap[c]=1}var d=document.createElement("link");d.type="text/css";d.href=e;d.rel="stylesheet";d.onload=d.onerror=b;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(d,a)};lsloader.runInlineScript=function(c,b){var a=document.getElementById(b).innerText;this.jsRunSequence.push({name:c,code:a});this.runjs()}})();</script>
+
+    <!-- Import queue -->
+    <script>function Queue(){this.dataStore=[];this.offer=b;this.poll=d;this.execNext=a;this.debug=false;this.startDebug=c;function b(e){if(this.debug){console.log("Offered a Queued Function.")}if(typeof e==="function"){this.dataStore.push(e)}else{console.log("You must offer a function.")}}function d(){if(this.debug){console.log("Polled a Queued Function.")}return this.dataStore.shift()}function a(){var e=this.poll();if(e!==undefined){if(this.debug){console.log("Run a Queued Function.")}e()}}function c(){this.debug=true}}var queue=new Queue();</script>
+
+    <!-- Import CSS -->
+    
+        <style id="material_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_css","/css/material.min.css?Z7a72R1E4SxzBKR/WGctOA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+        <style id="style_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("style_css","/css/style.min.css?MKetZV3cUTfDxvMffaOezg==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+        
+            
+                <style id="prettify_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_css","/css/prettify.min.css?zp8STOU9v89XWFEnN+6YmQ==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+                <style id="prettify_theme"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_theme","/css/prettify/tomorrow-night-eighties.min.css?2LJQzURO+Kr8r/fl/T8oMA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+            
+        
+
+    
+
+    
+
+    <!-- Config CSS -->
+
+<!-- Other Styles -->
+<style>
+  body, html {
+    font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    overflow-x: hidden !important;
+  }
+  
+  code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  a {
+    color: #00838F;
+  }
+
+  .mdl-card__media,
+  #search-label,
+  #search-form-label:after,
+  #scheme-Paradox .hot_tags-count,
+  #scheme-Paradox .sidebar_archives-count,
+  #scheme-Paradox .sidebar-colored .sidebar-header,
+  #scheme-Paradox .sidebar-colored .sidebar-badge{
+    background-color: #8eb515 !important;
+  }
+
+  /* Sidebar User Drop Down Menu Text Color */
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus {
+    color: #8eb515 !important;
+  }
+
+  #post_entry-right-info,
+  .sidebar-colored .sidebar-nav li:hover > a,
+  .sidebar-colored .sidebar-nav li:hover > a i,
+  .sidebar-colored .sidebar-nav li > a:hover,
+  .sidebar-colored .sidebar-nav li > a:hover i,
+  .sidebar-colored .sidebar-nav li > a:focus i,
+  .sidebar-colored .sidebar-nav > .open > a,
+  .sidebar-colored .sidebar-nav > .open > a:hover,
+  .sidebar-colored .sidebar-nav > .open > a:focus,
+  #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a {
+    color: #8eb515 !important;
+  }
+
+  .toTop {
+    background: #66FFCC !important;
+  }
+
+  .material-layout .material-post>.material-nav,
+  .material-layout .material-index>.material-nav,
+  .material-nav a {
+    color: #66FFCC;
+  }
+
+  #scheme-Paradox .MD-burger-layer {
+    background-color: #66FFCC;
+  }
+
+  #scheme-Paradox #post-toc-trigger-btn {
+    color: #66FFCC;
+  }
+
+  .post-toc a:hover {
+    color: #00838F;
+    text-decoration: underline;
+  }
+
+</style>
+
+
+<!-- Theme Background Related-->
+
+    <style>
+      body{
+        background-image: url(https://i.loli.net/2018/07/14/5b49ef4ea363b.png);
+      }
+    </style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+      .fade {
+        transition: all 800ms linear;
+        -webkit-transform: translate3d(0,0,0);
+        -moz-transform: translate3d(0,0,0);
+        -ms-transform: translate3d(0,0,0);
+        -o-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+        opacity: 1;
+      }
+
+      .fade.out{
+        opacity: 0;
+      }
+    </style>
+
+
+<!-- Import Font -->
+<!-- Import Roboto -->
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+
+
+<!-- Import Material Icons -->
+
+
+    <style id="material_icons"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_icons","/css/material-icons.css?pqhB/Rd/ab0H2+kZp0RDmw==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+
+
+
+    <!-- Import jQuery -->
+    
+        <script>lsloader.load("jq_js","https://cdn.bootcss.com/jquery/2.2.1/jquery.js", true)</script>
+    
+
+    <!-- WebAPP Icons -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="K&#39;s House">
+    <meta name="msapplication-starturl" content="https://kabeor.github.io/Capstone反汇编引擎数据类型及API分析及示例(三)/">
+    <meta name="msapplication-navbutton-color" content="#0097A7">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="K&#39;s House">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" href="/img/favicon.png">
+
+    <!-- Site Verification -->
+    <meta name="google-site-verification" content="Etqhw6dphuFVSwU2ZmblJOkL25LXRDWPJGSxC4cp3Ww">
+    
+
+    <!-- RSS -->
+    
+
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="https://kabeor.github.io/Capstone反汇编引擎数据类型及API分析及示例(三)/">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="Capstone反汇编引擎数据类型及API分析及示例(三) | K&#39;s House">
+    <meta property="og:image" content="/img/favicon.png">
+    <meta property="og:description" content="Trust me,Lisa.">
+    <meta property="og:article:tag" content="反汇编"> 
+
+    
+        <meta property="article:published_time" content="Mon Jul 22 2019 13:20:08 GMT+0800">
+        <meta property="article:modified_time" content="Mon Jul 29 2019 12:07:15 GMT+0800">
+    
+
+    <!-- The Twitter Card protocol -->
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Add canonical link for SEO -->
+    
+        <link rel="canonical" href="https://kabeor.github.io/Capstone反汇编引擎数据类型及API分析及示例(三)/index.html">
+    
+
+    <!-- Structured-data for SEO -->
+    
+        
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": "https://kabeor.github.io/Capstone反汇编引擎数据类型及API分析及示例(三)/index.html",
+    "headline": "Capstone反汇编引擎数据类型及API分析及示例(三)",
+    "datePublished": "Mon Jul 22 2019 13:20:08 GMT+0800",
+    "dateModified": "Mon Jul 29 2019 12:07:15 GMT+0800",
+    "author": {
+        "@type": "Person",
+        "name": "kabeor",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/avatar.png"
+        },
+        "description": "We1C0me_t0_K's_House"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "K&#39;s House",
+        "logo": {
+            "@type":"ImageObject",
+            "url": "/img/favicon.png"
+        }
+    },
+    "keywords": ",反汇编",
+    "description": "Trust me,Lisa.",
+}
+</script>
+
+
+    
+
+    <!-- Analytics -->
+    
+        <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-113413523-1', 'auto');ga('send', 'pageview');
+</script>
+    
+    
+        <script>
+    var _hmt = _hmt || [];
+    (function() {var hm = document.createElement('script');
+    hm.src = 'https://hm.baidu.com/hm.js?36fc4c782bfb2b103fe864229cd9ea5d';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+    
+    
+
+    <!-- Custom Head -->
+    
+
+</head>
+
+
+    
+        <body id="scheme-Paradox" class="lazy">
+            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+                
+
+                <!-- Main Container -->
+                <main class="material-layout__content" id="main">
+
+                    <!-- Top Anchor -->
+                    <div id="top"></div>
+
+                    
+                        <!-- Hamburger Button -->
+                        <button class="MD-burger-icon sidebar-toggle">
+                            <span class="MD-burger-layer"></span>
+                        </button>
+                    
+
+                    <!-- Post TOC -->
+
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+
+    <!-- Left aligned menu below button -->
+    
+    
+    <button id="post-toc-trigger-btn" class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Capstone反汇编引擎数据类型及API分析及示例-三"><span class="post-toc-text">Capstone反汇编引擎数据类型及API分析及示例(三)</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#API分析"><span class="post-toc-text">API分析</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#cs-open"><span class="post-toc-text">cs_open</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#cs-close"><span class="post-toc-text">cs_close</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#cs-option"><span class="post-toc-text">cs_option</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#cs-errno"><span class="post-toc-text">cs_errno</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#cs-strerror"><span class="post-toc-text">cs_strerror</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#cs-disasm"><span class="post-toc-text">cs_disasm</span></a></li></ol></li></ol></li></ol>
+    </ul>
+    
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
+    
+        <!-- Custom Thumbnail -->
+        <div class="post_thumbnail-custom mdl-card__media mdl-color-text--grey-50" style="background-image:url(https://i.loli.net/2018/07/16/5b4c6341ac665.png)">
+    
+            <p class="article-headline-p">
+                Capstone反汇编引擎数据类型及API分析及示例(三)
+            </p>
+        </div>
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar">
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>kabeor</strong>
+        <span>7月 22, 2019</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/反汇编/">反汇编</a>
+    </li></ul>
+    
+
+    <!-- Share -->
+    
+        <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+        
+            <!-- Busuanzi Views -->
+            <a class="post_share-link" href="#">
+                <li class="mdl-menu__item">
+                    <span id="busuanzi_container_page_pv">
+                        <span id="busuanzi_value_page_pv"></span>&nbsp;浏览量
+                    </span>
+                </li>
+            </a>
+        
+    
+
+    <!-- Share Weibo -->
+    
+
+    <!-- Share Twitter -->
+    
+
+    <!-- Share Facebook -->
+    
+
+    <!-- Share Google+ -->
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+    
+</div>
+                
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <h1 id="Capstone反汇编引擎数据类型及API分析及示例-三"><a href="#Capstone反汇编引擎数据类型及API分析及示例-三" class="headerlink" title="Capstone反汇编引擎数据类型及API分析及示例(三)"></a>Capstone反汇编引擎数据类型及API分析及示例(三)</h1><blockquote>
+<p>本文由本人首发于先知社区 <a href="https://xz.aliyun.com/t/5772" target="_blank" rel="noopener">https://xz.aliyun.com/t/5772</a></p>
+</blockquote>
+<h2 id="API分析"><a href="#API分析" class="headerlink" title="API分析"></a>API分析</h2><h3 id="cs-open"><a href="#cs-open" class="headerlink" title="cs_open"></a>cs_open</h3><p><code>cs_err CAPSTONE_API cs_open(cs_arch arch, cs_mode mode, csh *handle);</code></p>
+<p>初始化cs句柄</p>
+<p>参数<br>arch: 架构类型 (CS<em>ARCH</em><em>)<br>mode: 硬件模式. CS<em>MODE</em></em>在cs_mode数据类型中可查<br>handle: 指向句柄, 返回时更新<br>return: 创建成功返回CS_ERR_OK，否则返回cs_err枚举中对应的错误信息</p>
+<p>实现代码</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function">cs_err CAPSTONE_API <span class="title">cs_open</span><span class="params">(cs_arch arch, cs_mode mode, csh *handle)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	cs_err err;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">cs_struct</span> *<span class="title">ud</span>;</span></span><br><span class="line">	<span class="keyword">if</span> (!cs_mem_malloc || !cs_mem_calloc || !cs_mem_realloc || !cs_mem_free || !cs_vsnprintf)</span><br><span class="line">		<span class="comment">// Error: 使用cs_open()前, 必须使用cs_option(CS_OPT_MEM)进行动态内存管理的初始化</span></span><br><span class="line">		<span class="keyword">return</span> CS_ERR_MEMSETUP;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (arch &lt; CS_ARCH_MAX &amp;&amp; cs_arch_init[arch]) &#123;</span><br><span class="line">		<span class="comment">// 验证架构是否使用，方式：架构在枚举中且可初始化</span></span><br><span class="line">		<span class="keyword">if</span> (mode &amp; cs_arch_disallowed_mode_mask[arch]) &#123;</span><br><span class="line">			*handle = <span class="number">0</span>;</span><br><span class="line">			<span class="keyword">return</span> CS_ERR_MODE;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		ud = cs_mem_calloc(<span class="number">1</span>, <span class="keyword">sizeof</span>(*ud));</span><br><span class="line">		<span class="keyword">if</span> (!ud) &#123;</span><br><span class="line">			<span class="comment">// 内存不足</span></span><br><span class="line">			<span class="keyword">return</span> CS_ERR_MEM;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		ud-&gt;errnum = CS_ERR_OK;</span><br><span class="line">		ud-&gt;arch = arch;</span><br><span class="line">		ud-&gt;mode = mode;</span><br><span class="line">		<span class="comment">// 默认情况指令不打开detail模式</span></span><br><span class="line">		ud-&gt;detail = CS_OPT_OFF;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 默认skipdata设置</span></span><br><span class="line">		ud-&gt;skipdata_setup.mnemonic = SKIPDATA_MNEM;</span><br><span class="line"></span><br><span class="line">		err = cs_arch_init[ud-&gt;arch](ud);</span><br><span class="line">		<span class="keyword">if</span> (err) &#123;</span><br><span class="line">			cs_mem_free(ud);</span><br><span class="line">			*handle = <span class="number">0</span>;</span><br><span class="line">			<span class="keyword">return</span> err;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		*handle = (<span class="keyword">uintptr_t</span>)ud;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">return</span> CS_ERR_OK;</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		*handle = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">return</span> CS_ERR_ARCH;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中，cs_struct结构体包含更多细节设定，如下</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">cs_struct</span> &#123;</span></span><br><span class="line">	cs_arch arch;</span><br><span class="line">	cs_mode mode;</span><br><span class="line">	Printer_t printer;	<span class="comment">// 打印asm</span></span><br><span class="line">	<span class="keyword">void</span> *printer_info; <span class="comment">// 打印信息</span></span><br><span class="line">	Disasm_t disasm;	<span class="comment">// 反编译</span></span><br><span class="line">	<span class="keyword">void</span> *getinsn_info; <span class="comment">// 打印辅助信息</span></span><br><span class="line">	GetName_t reg_name;</span><br><span class="line">	GetName_t insn_name;</span><br><span class="line">	GetName_t group_name;</span><br><span class="line">	GetID_t insn_id;</span><br><span class="line">	PostPrinter_t post_printer;</span><br><span class="line">	cs_err errnum;</span><br><span class="line">	ARM_ITStatus ITBlock;	<span class="comment">// ARM特殊选项</span></span><br><span class="line">	cs_opt_value detail, imm_unsigned;</span><br><span class="line">	<span class="keyword">int</span> syntax;	<span class="comment">//ARM, Mips &amp; PPC等架构的基本asm语法打印</span></span><br><span class="line">	<span class="keyword">bool</span> doing_mem;	<span class="comment">// 在InstPrinter代码中处理内存操作数</span></span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">short</span> *insn_cache;	<span class="comment">//为mapping.c建立缓存索引</span></span><br><span class="line">	GetRegisterName_t get_regname;</span><br><span class="line">	<span class="keyword">bool</span> skipdata;	<span class="comment">// 如果反编译时要跳过数据，该项设置为True</span></span><br><span class="line">	<span class="keyword">uint8_t</span> skipdata_size;	<span class="comment">//要跳过bytes的数量</span></span><br><span class="line">	cs_opt_skipdata skipdata_setup;	<span class="comment">// 自定义skipdata设置</span></span><br><span class="line">	<span class="keyword">const</span> <span class="keyword">uint8_t</span> *regsize_map;	<span class="comment">//映射register大小 (目前仅支持x86)</span></span><br><span class="line">	GetRegisterAccess_t reg_access;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">insn_mnem</span> *<span class="title">mnem_list</span>;</span>	<span class="comment">// 自定义指令助记符的链接list</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>示例(创建一个x86_64类型的cs句柄)：<br><code>cs_open(CS_ARCH_X86, CS_MODE_64, &amp;handle)</code></p>
+<h3 id="cs-close"><a href="#cs-close" class="headerlink" title="cs_close"></a>cs_close</h3><p><code>cs_err CAPSTONE_API cs_close(csh *handle);</code></p>
+<p>释放句柄<br>参数<br>handle: 指向一个cs_open()打开的句柄<br>return: 释放成功返回CS_ERR_OK,否则返回cs_err枚举的错误信息</p>
+<p>实现代码，可以看出释放句柄实质为将句柄值设置为0</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function">cs_err CAPSTONE_API <span class="title">cs_close</span><span class="params">(csh *handle)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">cs_struct</span> *<span class="title">ud</span>;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">insn_mnem</span> *<span class="title">next</span>, *<span class="title">tmp</span>;</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (*handle == <span class="number">0</span>)</span><br><span class="line">		<span class="comment">// 句柄不可用</span></span><br><span class="line">		<span class="keyword">return</span> CS_ERR_CSH;</span><br><span class="line"></span><br><span class="line">	ud = (struct cs_struct *)(*handle);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (ud-&gt;printer_info)</span><br><span class="line">		cs_mem_free(ud-&gt;printer_info);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 释放自定义助记符的链接list</span></span><br><span class="line">	tmp = ud-&gt;mnem_list;</span><br><span class="line">	<span class="keyword">while</span>(tmp) &#123;</span><br><span class="line">		next = tmp-&gt;next;</span><br><span class="line">		cs_mem_free(tmp);</span><br><span class="line">		tmp = next;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	cs_mem_free(ud-&gt;insn_cache);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">memset</span>(ud, <span class="number">0</span>, <span class="keyword">sizeof</span>(*ud));</span><br><span class="line">	cs_mem_free(ud);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// handle值设置为0，保证这个句柄在cs_close()释放后不可使用</span></span><br><span class="line">	*handle = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> CS_ERR_OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>示例：<br><code>cs_close(&amp;handle);</code></p>
+<h3 id="cs-option"><a href="#cs-option" class="headerlink" title="cs_option"></a>cs_option</h3><p><code>cs_err CAPSTONE_API cs_option(csh handle, cs_opt_type type, size_t value);</code></p>
+<p>反编译引擎的运行时选项</p>
+<p>handle: cs_open()打开的句柄<br>type: 设置选项的类型<br>value: 与type对应的选项值<br>return: 设置成功返回CS_ERR_OK,否则返回cs_err枚举的错误信息</p>
+<p>注意: 在CS_OPT_MEM的情况下，handle可以是任何值，因此cs_option(handle, CS_OPT_MEM, value)必须在cs_open()之前被调用</p>
+<p>实现代码</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function">cs_err CAPSTONE_API <span class="title">cs_option</span><span class="params">(csh ud, cs_opt_type type, <span class="keyword">size_t</span> value)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">cs_struct</span> *<span class="title">handle</span>;</span></span><br><span class="line">	cs_opt_mnem *opt;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 支持在所有API前支持 (even cs_open())</span></span><br><span class="line">	<span class="keyword">if</span> (type == CS_OPT_MEM) &#123;</span><br><span class="line">		cs_opt_mem *mem = (cs_opt_mem *)value;</span><br><span class="line"></span><br><span class="line">		cs_mem_malloc = mem-&gt;<span class="built_in">malloc</span>;</span><br><span class="line">		cs_mem_calloc = mem-&gt;<span class="built_in">calloc</span>;</span><br><span class="line">		cs_mem_realloc = mem-&gt;<span class="built_in">realloc</span>;</span><br><span class="line">		cs_mem_free = mem-&gt;<span class="built_in">free</span>;</span><br><span class="line">		cs_vsnprintf = mem-&gt;vsnprintf;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">return</span> CS_ERR_OK;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	handle = (struct cs_struct *)(<span class="keyword">uintptr_t</span>)ud;</span><br><span class="line">	<span class="keyword">if</span> (!handle)</span><br><span class="line">		<span class="keyword">return</span> CS_ERR_CSH;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">switch</span>(type) &#123;</span><br><span class="line">		<span class="keyword">default</span>:</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">case</span> CS_OPT_UNSIGNED:</span><br><span class="line">			handle-&gt;imm_unsigned = (cs_opt_value)value;</span><br><span class="line">			<span class="keyword">return</span> CS_ERR_OK;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">case</span> CS_OPT_DETAIL:</span><br><span class="line">			handle-&gt;detail = (cs_opt_value)value;</span><br><span class="line">			<span class="keyword">return</span> CS_ERR_OK;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">case</span> CS_OPT_SKIPDATA:</span><br><span class="line">			handle-&gt;skipdata = (value == CS_OPT_ON);</span><br><span class="line">			<span class="keyword">if</span> (handle-&gt;skipdata) &#123;</span><br><span class="line">				<span class="keyword">if</span> (handle-&gt;skipdata_size == <span class="number">0</span>) &#123;</span><br><span class="line">					handle-&gt;skipdata_size = skipdata_size(handle);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> CS_ERR_OK;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">case</span> CS_OPT_SKIPDATA_SETUP:</span><br><span class="line">			<span class="keyword">if</span> (value)</span><br><span class="line">				handle-&gt;skipdata_setup = *((cs_opt_skipdata *)value);</span><br><span class="line">			<span class="keyword">return</span> CS_ERR_OK;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">case</span> CS_OPT_MNEMONIC:</span><br><span class="line">			opt = (cs_opt_mnem *)value;</span><br><span class="line">			<span class="keyword">if</span> (opt-&gt;id) &#123;</span><br><span class="line">				<span class="keyword">if</span> (opt-&gt;mnemonic) &#123;</span><br><span class="line">					<span class="class"><span class="keyword">struct</span> <span class="title">insn_mnem</span> *<span class="title">tmp</span>;</span></span><br><span class="line"></span><br><span class="line">					<span class="comment">// 添加新指令或替换现有指令</span></span><br><span class="line">					<span class="comment">// 查看当前insn释放在list中</span></span><br><span class="line">					tmp = handle-&gt;mnem_list;</span><br><span class="line">					<span class="keyword">while</span>(tmp) &#123;</span><br><span class="line">						<span class="keyword">if</span> (tmp-&gt;insn.id == opt-&gt;id) &#123;</span><br><span class="line">							<span class="comment">// f找到指令，替换助记符</span></span><br><span class="line">							(<span class="keyword">void</span>)<span class="built_in">strncpy</span>(tmp-&gt;insn.mnemonic, opt-&gt;mnemonic, <span class="keyword">sizeof</span>(tmp-&gt;insn.mnemonic) - <span class="number">1</span>);</span><br><span class="line">							tmp-&gt;insn.mnemonic[<span class="keyword">sizeof</span>(tmp-&gt;insn.mnemonic) - <span class="number">1</span>] = <span class="string">'\0'</span>;</span><br><span class="line">							<span class="keyword">break</span>;</span><br><span class="line">						&#125;</span><br><span class="line">						tmp = tmp-&gt;next;</span><br><span class="line">					&#125;</span><br><span class="line"></span><br><span class="line">					<span class="comment">// 2. 如果没有就添加这条指令</span></span><br><span class="line">					<span class="keyword">if</span> (!tmp) &#123;</span><br><span class="line">						tmp = cs_mem_malloc(<span class="keyword">sizeof</span>(*tmp));</span><br><span class="line">						tmp-&gt;insn.id = opt-&gt;id;</span><br><span class="line">						(<span class="keyword">void</span>)<span class="built_in">strncpy</span>(tmp-&gt;insn.mnemonic, opt-&gt;mnemonic, <span class="keyword">sizeof</span>(tmp-&gt;insn.mnemonic) - <span class="number">1</span>);</span><br><span class="line">						tmp-&gt;insn.mnemonic[<span class="keyword">sizeof</span>(tmp-&gt;insn.mnemonic) - <span class="number">1</span>] = <span class="string">'\0'</span>;</span><br><span class="line">						<span class="comment">// 新指令放在list最前面</span></span><br><span class="line">						tmp-&gt;next = handle-&gt;mnem_list;</span><br><span class="line">						handle-&gt;mnem_list = tmp;</span><br><span class="line">					&#125;</span><br><span class="line">					<span class="keyword">return</span> CS_ERR_OK;</span><br><span class="line">				&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">					struct insn_mnem *prev, *tmp;</span><br><span class="line"></span><br><span class="line">					tmp = handle-&gt;mnem_list;</span><br><span class="line">					prev = tmp;</span><br><span class="line">					<span class="keyword">while</span>(tmp) &#123;</span><br><span class="line">						<span class="keyword">if</span> (tmp-&gt;insn.id == opt-&gt;id) &#123;</span><br><span class="line">							<span class="comment">// 删除指令</span></span><br><span class="line">							<span class="keyword">if</span> (tmp == prev) &#123;</span><br><span class="line">								handle-&gt;mnem_list = tmp-&gt;next;</span><br><span class="line">							&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">								prev-&gt;next = tmp-&gt;next;</span><br><span class="line">							&#125;</span><br><span class="line">							cs_mem_free(tmp);</span><br><span class="line">							<span class="keyword">break</span>;</span><br><span class="line">						&#125;</span><br><span class="line">						prev = tmp;</span><br><span class="line">						tmp = tmp-&gt;next;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> CS_ERR_OK;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">case</span> CS_OPT_MODE:</span><br><span class="line">			<span class="comment">// 验证所请求的模式是否有效</span></span><br><span class="line">			<span class="keyword">if</span> (value &amp; cs_arch_disallowed_mode_mask[handle-&gt;arch]) &#123;</span><br><span class="line">				<span class="keyword">return</span> CS_ERR_OPTION;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> cs_arch_option[handle-&gt;arch](handle, type, value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>示例，更改反汇编后显示的语法：<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"capstone.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"platform.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CODE <span class="meta-string">"\x55\x48\x8b\x05\xb8\x13\x00\x00"</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	csh handle;</span><br><span class="line">	cs_insn* insn;</span><br><span class="line">	<span class="keyword">size_t</span> count;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (cs_open(CS_ARCH_X86, CS_MODE_64, &amp;handle)) &#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"ERROR: Failed to initialize engine!\n"</span>);</span><br><span class="line">		<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	cs_option(handle, CS_OPT_SYNTAX, CS_OPT_SYNTAX_ATT);  <span class="comment">// 以AT&amp;T语法显示</span></span><br><span class="line">	count = cs_disasm(handle, (<span class="keyword">unsigned</span> <span class="keyword">char</span>*)CODE, <span class="keyword">sizeof</span>(CODE) - <span class="number">1</span>, <span class="number">0x1000</span>, <span class="number">0</span>, &amp;insn);</span><br><span class="line">	<span class="keyword">if</span> (count) &#123;</span><br><span class="line">		<span class="keyword">size_t</span> j;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">for</span> (j = <span class="number">0</span>; j &lt; count; j++) &#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"0x%"</span><span class="string">"Ix"</span><span class="string">":\t%s\t\t%s\n"</span>, insn[j].address, insn[j].mnemonic, insn[j].op_str);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		cs_free(insn, count);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"ERROR: Failed to disassemble given code!\n"</span>);</span><br><span class="line"></span><br><span class="line">	cs_close(&amp;handle);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出</p>
+<p><img src="https://i.loli.net/2019/07/22/5d35b1e72c20515640.jpg" alt></p>
+<h3 id="cs-errno"><a href="#cs-errno" class="headerlink" title="cs_errno"></a>cs_errno</h3><p><code>cs_err CAPSTONE_API cs_errno(csh handle);</code></p>
+<p>API出错时返回错误消息<br>参数<br>handle: cs_open()打开的句柄<br>return: 无错误返回CS_ERR_OK,否则返回cs_err枚举的错误信息</p>
+<p>实现很简单，判断到句柄不存在直接返回CS_ERR_CSH</p>
+<p>示例：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"capstone.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"platform.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CODE <span class="meta-string">"\x55\x48\x8b\x05\xb8\x13\x00\x00"</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	csh handle = <span class="number">0</span>;</span><br><span class="line">	cs_insn* insn;</span><br><span class="line">	<span class="keyword">size_t</span> count;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (cs_open(CS_ARCH_X86, CS_MODE_64, &amp;handle)) &#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"ERROR: Failed to initialize engine!\n"</span>);</span><br><span class="line">		<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	cs_close(&amp;handle);</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; cs_errno(handle);    <span class="comment">//关闭句柄后检查将报错</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出，错误码4即CS_ERR_CSH<br><img src="https://i.loli.net/2019/07/22/5d35bad79c9c384228.jpg" alt></p>
+<h3 id="cs-strerror"><a href="#cs-strerror" class="headerlink" title="cs_strerror"></a>cs_strerror</h3><p><code>const char * CAPSTONE_API cs_strerror(cs_err code);</code></p>
+<p>将上个API输出的错误码转换为详细错误信息</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">const</span> <span class="keyword">char</span> * CAPSTONE_API <span class="title">cs_strerror</span><span class="params">(cs_err code)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">switch</span>(code) &#123;</span><br><span class="line">		<span class="keyword">default</span>:</span><br><span class="line">			<span class="keyword">return</span> <span class="string">"Unknown error code"</span>;</span><br><span class="line">		<span class="keyword">case</span> CS_ERR_OK:</span><br><span class="line">			<span class="keyword">return</span> <span class="string">"OK (CS_ERR_OK)"</span>;</span><br><span class="line">		<span class="keyword">case</span> CS_ERR_MEM:</span><br><span class="line">			<span class="keyword">return</span> <span class="string">"Out of memory (CS_ERR_MEM)"</span>;</span><br><span class="line">		<span class="keyword">case</span> CS_ERR_ARCH:</span><br><span class="line">			<span class="keyword">return</span> <span class="string">"Invalid/unsupported architecture(CS_ERR_ARCH)"</span>;</span><br><span class="line">		<span class="keyword">case</span> CS_ERR_HANDLE:</span><br><span class="line">			<span class="keyword">return</span> <span class="string">"Invalid handle (CS_ERR_HANDLE)"</span>;</span><br><span class="line">		<span class="keyword">case</span> CS_ERR_CSH:</span><br><span class="line">			<span class="keyword">return</span> <span class="string">"Invalid csh (CS_ERR_CSH)"</span>;</span><br><span class="line">		<span class="keyword">case</span> CS_ERR_MODE:</span><br><span class="line">			<span class="keyword">return</span> <span class="string">"Invalid mode (CS_ERR_MODE)"</span>;</span><br><span class="line">		<span class="keyword">case</span> CS_ERR_OPTION:</span><br><span class="line">			<span class="keyword">return</span> <span class="string">"Invalid option (CS_ERR_OPTION)"</span>;</span><br><span class="line">		<span class="keyword">case</span> CS_ERR_DETAIL:</span><br><span class="line">			<span class="keyword">return</span> <span class="string">"Details are unavailable (CS_ERR_DETAIL)"</span>;</span><br><span class="line">		<span class="keyword">case</span> CS_ERR_MEMSETUP:</span><br><span class="line">			<span class="keyword">return</span> <span class="string">"Dynamic memory management uninitialized (CS_ERR_MEMSETUP)"</span>;</span><br><span class="line">		<span class="keyword">case</span> CS_ERR_VERSION:</span><br><span class="line">			<span class="keyword">return</span> <span class="string">"Different API version between core &amp; binding (CS_ERR_VERSION)"</span>;</span><br><span class="line">		<span class="keyword">case</span> CS_ERR_DIET:</span><br><span class="line">			<span class="keyword">return</span> <span class="string">"Information irrelevant in diet engine (CS_ERR_DIET)"</span>;</span><br><span class="line">		<span class="keyword">case</span> CS_ERR_SKIPDATA:</span><br><span class="line">			<span class="keyword">return</span> <span class="string">"Information irrelevant for 'data' instruction in SKIPDATA mode (CS_ERR_SKIPDATA)"</span>;</span><br><span class="line">		<span class="keyword">case</span> CS_ERR_X86_ATT:</span><br><span class="line">			<span class="keyword">return</span> <span class="string">"AT&amp;T syntax is unavailable (CS_ERR_X86_ATT)"</span>;</span><br><span class="line">		<span class="keyword">case</span> CS_ERR_X86_INTEL:</span><br><span class="line">			<span class="keyword">return</span> <span class="string">"INTEL syntax is unavailable (CS_ERR_X86_INTEL)"</span>;</span><br><span class="line">		<span class="keyword">case</span> CS_ERR_X86_MASM:</span><br><span class="line">			<span class="keyword">return</span> <span class="string">"MASM syntax is unavailable (CS_ERR_X86_MASM)"</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>示例，结合cs_errno使用：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"capstone.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"platform.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CODE <span class="meta-string">"\x55\x48\x8b\x05\xb8\x13\x00\x00"</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	csh handle = <span class="number">0</span>;</span><br><span class="line">	cs_insn* insn;</span><br><span class="line">	<span class="keyword">size_t</span> count;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (cs_open(CS_ARCH_X86, CS_MODE_64, &amp;handle)) &#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"ERROR: Failed to initialize engine!\n"</span>);</span><br><span class="line">		<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	cs_close(&amp;handle);</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; cs_strerror(cs_errno(handle));  <span class="comment">//直接输出报错信息</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出<br><img src="https://i.loli.net/2019/07/22/5d35bc1db170a33360.jpg" alt></p>
+<h3 id="cs-disasm"><a href="#cs-disasm" class="headerlink" title="cs_disasm"></a>cs_disasm</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">size_t</span> <span class="function">CAPSTONE_API <span class="title">cs_disasm</span><span class="params">(csh handle,</span></span></span><br><span class="line"><span class="function"><span class="params">		<span class="keyword">const</span> <span class="keyword">uint8_t</span> *code, <span class="keyword">size_t</span> code_size,</span></span></span><br><span class="line"><span class="function"><span class="params">		<span class="keyword">uint64_t</span> address,</span></span></span><br><span class="line"><span class="function"><span class="params">		<span class="keyword">size_t</span> count,</span></span></span><br><span class="line"><span class="function"><span class="params">		cs_insn **insn)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>给定缓冲区、大小、地址和编号，反编译机器码<br>API动态地分配内存来包含分解的指令，生成的指令将放在*insn中</p>
+<p>注意： 必须释放分配的内存，以避免内存泄漏。对于需要动态分配稀缺内存的系统(如OS内核或固件)，API cs_disasm_iter()可能是比cs_disasm()更好的选择。原因是，使用cs_disasm()时，基于有限的可用内存，必须预先计算要分解多少条指令。</p>
+<p>handle: cs_open()返回的句柄<br>code: 包含要反汇编的机器码的缓冲区。<br>code_size:上面代码缓冲区的大小。<br>address:给定原始代码缓冲区中的第一条指令的地址。<br>insn: 由这个API填写的指令数组。注意: insn将由这个函数分配，应该用cs_free () API释放<br>count: 需要分解的指令数量，或输入0分解所有指令<br>return:成功反汇编指令的数量，如果该函数未能反汇编给定的代码，则为0，失败时，调用cs_errno()获取错误代码。</p>
+<p>源码分析</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">size_t</span> <span class="function">CAPSTONE_API <span class="title">cs_disasm</span><span class="params">(csh ud, <span class="keyword">const</span> <span class="keyword">uint8_t</span> *buffer, <span class="keyword">size_t</span> size, <span class="keyword">uint64_t</span> offset, <span class="keyword">size_t</span> count, cs_insn **insn)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">cs_struct</span> *<span class="title">handle</span>;</span></span><br><span class="line">	MCInst mci;</span><br><span class="line">	<span class="keyword">uint16_t</span> insn_size;</span><br><span class="line">	<span class="keyword">size_t</span> c = <span class="number">0</span>, i;</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span> f = <span class="number">0</span>;	<span class="comment">// 缓存中下一条指令的索引</span></span><br><span class="line">	cs_insn *insn_cache;	<span class="comment">// 缓存反汇编后的指令</span></span><br><span class="line">	<span class="keyword">void</span> *total = <span class="literal">NULL</span>;</span><br><span class="line">	<span class="keyword">size_t</span> total_size = <span class="number">0</span>;	<span class="comment">//所有insn的输出缓冲区的总大小</span></span><br><span class="line">	<span class="keyword">bool</span> r;</span><br><span class="line">	<span class="keyword">void</span> *tmp;</span><br><span class="line">	<span class="keyword">size_t</span> skipdata_bytes;</span><br><span class="line">	<span class="keyword">uint64_t</span> offset_org; <span class="comment">// 保存缓冲区的所有原始信息</span></span><br><span class="line">	<span class="keyword">size_t</span> size_org;</span><br><span class="line">	<span class="keyword">const</span> <span class="keyword">uint8_t</span> *buffer_org;</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span> cache_size = INSN_CACHE_SIZE;</span><br><span class="line">	<span class="keyword">size_t</span> next_offset;</span><br><span class="line"></span><br><span class="line">	handle = (struct cs_struct *)(<span class="keyword">uintptr_t</span>)ud;</span><br><span class="line">	<span class="keyword">if</span> (!handle) &#123;</span><br><span class="line">		<span class="comment">// 修复方式:</span></span><br><span class="line">		<span class="comment">// handle-&gt;errnum = CS_ERR_HANDLE;</span></span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	handle-&gt;errnum = CS_ERR_OK;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 重设ARM架构的IT block</span></span><br><span class="line">	<span class="keyword">if</span> (handle-&gt;arch == CS_ARCH_ARM)</span><br><span class="line">		handle-&gt;ITBlock.size = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> CAPSTONE_USE_SYS_DYN_MEM</span></span><br><span class="line">	<span class="keyword">if</span> (count &gt; <span class="number">0</span> &amp;&amp; count &lt;= INSN_CACHE_SIZE)</span><br><span class="line">		cache_size = (<span class="keyword">unsigned</span> <span class="keyword">int</span>) count;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// 保存SKIPDATA原始偏移量</span></span><br><span class="line">	buffer_org = buffer;</span><br><span class="line">	offset_org = offset;</span><br><span class="line">	size_org = size;</span><br><span class="line"></span><br><span class="line">	total_size = <span class="keyword">sizeof</span>(cs_insn) * cache_size;</span><br><span class="line">	total = cs_mem_malloc(total_size);</span><br><span class="line">	<span class="keyword">if</span> (total == <span class="literal">NULL</span>) &#123;</span><br><span class="line">		<span class="comment">// 内存不足</span></span><br><span class="line">		handle-&gt;errnum = CS_ERR_MEM;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	insn_cache = total;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span> (size &gt; <span class="number">0</span>) &#123;</span><br><span class="line">		MCInst_Init(&amp;mci);</span><br><span class="line">		mci.csh = handle;</span><br><span class="line"></span><br><span class="line">		mci.address = offset;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (handle-&gt;detail) &#123;</span><br><span class="line">			<span class="comment">//给detail指针分配内存</span></span><br><span class="line">			insn_cache-&gt;detail = cs_mem_malloc(<span class="keyword">sizeof</span>(cs_detail));</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			insn_cache-&gt;detail = <span class="literal">NULL</span>;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 为non-detailed模式保存所有信息</span></span><br><span class="line">		mci.flat_insn = insn_cache;</span><br><span class="line">		mci.flat_insn-&gt;address = offset;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> CAPSTONE_DIET</span></span><br><span class="line">		<span class="comment">//mnemonic &amp; op_str0填充</span></span><br><span class="line">		mci.flat_insn-&gt;mnemonic[<span class="number">0</span>] = <span class="string">'\0'</span>;</span><br><span class="line">		mci.flat_insn-&gt;op_str[<span class="number">0</span>] = <span class="string">'\0'</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">		r = handle-&gt;disasm(ud, buffer, size, &amp;mci, &amp;insn_size, offset, handle-&gt;getinsn_info);</span><br><span class="line">		<span class="keyword">if</span> (r) &#123;</span><br><span class="line">			SStream ss;</span><br><span class="line">			SStream_Init(&amp;ss);</span><br><span class="line"></span><br><span class="line">			mci.flat_insn-&gt;size = insn_size;</span><br><span class="line"></span><br><span class="line">			<span class="comment">//将内部指令操作码映射到公共insn ID</span></span><br><span class="line">			handle-&gt;insn_id(handle, insn_cache, mci.Opcode);</span><br><span class="line"></span><br><span class="line">			handle-&gt;printer(&amp;mci, &amp;ss, handle-&gt;printer_info);</span><br><span class="line">			fill_insn(handle, insn_cache, ss.buffer, &amp;mci, handle-&gt;post_printer, buffer);</span><br><span class="line"></span><br><span class="line">			<span class="comment">// 调整opcode (X86)</span></span><br><span class="line">			<span class="keyword">if</span> (handle-&gt;arch == CS_ARCH_X86)</span><br><span class="line">				insn_cache-&gt;id += mci.popcode_adjust;</span><br><span class="line"></span><br><span class="line">			next_offset = insn_size;</span><br><span class="line">		&#125; <span class="keyword">else</span>	&#123;</span><br><span class="line">			<span class="comment">// 遇到中断指令</span></span><br><span class="line"></span><br><span class="line">			<span class="comment">// 为detail指针释放内存</span></span><br><span class="line">			<span class="keyword">if</span> (handle-&gt;detail) &#123;</span><br><span class="line">				cs_mem_free(insn_cache-&gt;detail);</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			<span class="keyword">if</span> (!handle-&gt;skipdata || handle-&gt;skipdata_size &gt; size)</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">			<span class="keyword">if</span> (handle-&gt;skipdata_setup.callback) &#123;</span><br><span class="line">				skipdata_bytes = handle-&gt;skipdata_setup.callback(buffer_org, size_org,</span><br><span class="line">						(<span class="keyword">size_t</span>)(offset - offset_org), handle-&gt;skipdata_setup.user_data);</span><br><span class="line">				<span class="keyword">if</span> (skipdata_bytes &gt; size)</span><br><span class="line">					<span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">				<span class="keyword">if</span> (!skipdata_bytes)</span><br><span class="line">					<span class="keyword">break</span>;</span><br><span class="line">			&#125; <span class="keyword">else</span></span><br><span class="line">				skipdata_bytes = handle-&gt;skipdata_size;</span><br><span class="line"></span><br><span class="line">			insn_cache-&gt;id = <span class="number">0</span>;</span><br><span class="line">			insn_cache-&gt;address = offset;</span><br><span class="line">			insn_cache-&gt;size = (<span class="keyword">uint16_t</span>)skipdata_bytes;</span><br><span class="line">			<span class="built_in">memcpy</span>(insn_cache-&gt;bytes, buffer, skipdata_bytes);</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> CAPSTONE_DIET</span></span><br><span class="line">			insn_cache-&gt;mnemonic[<span class="number">0</span>] = <span class="string">'\0'</span>;</span><br><span class="line">			insn_cache-&gt;op_str[<span class="number">0</span>] = <span class="string">'\0'</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line">			<span class="built_in">strncpy</span>(insn_cache-&gt;mnemonic, handle-&gt;skipdata_setup.mnemonic,</span><br><span class="line">					<span class="keyword">sizeof</span>(insn_cache-&gt;mnemonic) - <span class="number">1</span>);</span><br><span class="line">			skipdata_opstr(insn_cache-&gt;op_str, buffer, skipdata_bytes);</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">			insn_cache-&gt;detail = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">			next_offset = skipdata_bytes;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 一条新指令进入缓存</span></span><br><span class="line">		f++;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 反汇编了一条指令</span></span><br><span class="line">		c++;</span><br><span class="line">		<span class="keyword">if</span> (count &gt; <span class="number">0</span> &amp;&amp; c == count)</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (f == cache_size) &#123;</span><br><span class="line">			cache_size = cache_size * <span class="number">8</span> / <span class="number">5</span>; </span><br><span class="line">			total_size += (<span class="keyword">sizeof</span>(cs_insn) * cache_size);</span><br><span class="line">			tmp = cs_mem_realloc(total, total_size);</span><br><span class="line">			<span class="keyword">if</span> (tmp == <span class="literal">NULL</span>) &#123;	<span class="comment">//内存不足</span></span><br><span class="line">				<span class="keyword">if</span> (handle-&gt;detail) &#123;</span><br><span class="line">					insn_cache = (cs_insn *)total;</span><br><span class="line">					<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; c; i++, insn_cache++)</span><br><span class="line">						cs_mem_free(insn_cache-&gt;detail);</span><br><span class="line">				&#125;</span><br><span class="line"></span><br><span class="line">				cs_mem_free(total);</span><br><span class="line">				*insn = <span class="literal">NULL</span>;</span><br><span class="line">				handle-&gt;errnum = CS_ERR_MEM;</span><br><span class="line">				<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			total = tmp;</span><br><span class="line">			<span class="comment">//在最后一条指令之后继续填充缓存</span></span><br><span class="line">			insn_cache = (cs_insn *)((<span class="keyword">char</span> *)total + <span class="keyword">sizeof</span>(cs_insn) * c);</span><br><span class="line"></span><br><span class="line">			<span class="comment">// 将f重置为0，从一开始就填入缓存</span></span><br><span class="line">			f = <span class="number">0</span>;</span><br><span class="line">		&#125; <span class="keyword">else</span></span><br><span class="line">			insn_cache++;</span><br><span class="line"></span><br><span class="line">		buffer += next_offset;</span><br><span class="line">		size -= next_offset;</span><br><span class="line">		offset += next_offset;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (!c) &#123;</span><br><span class="line">		<span class="comment">//未反汇编任何指令</span></span><br><span class="line">		cs_mem_free(total);</span><br><span class="line">		total = <span class="literal">NULL</span>;</span><br><span class="line">	&#125; <span class="keyword">else</span> <span class="keyword">if</span> (f != cache_size) &#123;</span><br><span class="line">		<span class="comment">// 没有完全使用最后一个缓存，缩小大小</span></span><br><span class="line">		tmp = cs_mem_realloc(total, total_size - (cache_size - f) * <span class="keyword">sizeof</span>(*insn_cache));</span><br><span class="line">		<span class="keyword">if</span> (tmp == <span class="literal">NULL</span>) &#123;	<span class="comment">// 内存不足</span></span><br><span class="line">			<span class="comment">// 释放所有detail指针</span></span><br><span class="line">			<span class="keyword">if</span> (handle-&gt;detail) &#123;</span><br><span class="line">				insn_cache = (cs_insn *)total;</span><br><span class="line">				<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; c; i++, insn_cache++)</span><br><span class="line">					cs_mem_free(insn_cache-&gt;detail);</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			cs_mem_free(total);</span><br><span class="line">			*insn = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">			handle-&gt;errnum = CS_ERR_MEM;</span><br><span class="line">			<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		total = tmp;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	*insn = total;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> c;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>示例，x86_64:<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"capstone.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"platform.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CODE <span class="meta-string">"\x55\x48\x8b\x05\xb8\x13\x00\x00\xe9\xea\xbe\xad\xde\xff\x25\x23\x01\x00\x00\xe8\xdf\xbe\xad\xde\x74\xff"</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	csh handle = <span class="number">0</span>;</span><br><span class="line">	cs_insn* insn;</span><br><span class="line">	<span class="keyword">size_t</span> count;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (cs_open(CS_ARCH_X86, CS_MODE_64, &amp;handle)) &#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"ERROR: Failed to initialize engine!\n"</span>);</span><br><span class="line">		<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	count = cs_disasm(handle, (<span class="keyword">unsigned</span> <span class="keyword">char</span>*)CODE, <span class="keyword">sizeof</span>(CODE) - <span class="number">1</span>, <span class="number">0x1000</span>, <span class="number">0</span>, &amp;insn);   <span class="comment">//所有指令，基址0x1000，放入insn</span></span><br><span class="line">	<span class="keyword">if</span> (count) &#123;</span><br><span class="line">		<span class="keyword">size_t</span> j;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">for</span> (j = <span class="number">0</span>; j &lt; count; j++) &#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"0x%"</span><span class="string">"Ix"</span><span class="string">":\t%s\t\t%s\n"</span>, insn[j].address, insn[j].mnemonic, insn[j].op_str);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		cs_free(insn, count);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"ERROR: Failed to disassemble given code!\n"</span>);</span><br><span class="line"></span><br><span class="line">	cs_close(&amp;handle);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出</p>
+<p><img src="https://i.loli.net/2019/07/22/5d35c5087d17d31194.jpg" alt></p>
+<p>From <a href="https://kabeor.github.io/Capstone反汇编引擎数据类型及API分析及示例(三">https://kabeor.github.io/Capstone反汇编引擎数据类型及API分析及示例(三)/</a>/) bye</p>
+
+        
+                <blockquote style="margin: 2em 0 0;padding: 0.5em 1em;border-left: 3px solid #F44336;background-color: #F5F5F5;list-style: none;">
+                    <p><strong>
+                         
+                            This blog is under a <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0 Unported License</a>
+                        </strong>
+                        <br>
+                        <strong>本文链接：</strong><a href="https://kabeor.github.io/Capstone反汇编引擎数据类型及API分析及示例(三)/">https://kabeor.github.io/Capstone反汇编引擎数据类型及API分析及示例(三)/</a>
+                    </p>
+                </blockquote>
+        
+    
+
+    
+</div>
+
+                
+                <!-- Post Comments -->
+                
+                    
+    <div id="comment" style="padding:10px;" class="vcomment"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+    var GUEST_INFO = ['nick','mail','link'];
+    var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+        return GUEST_INFO.indexOf(item) > -1
+    });
+    var notify = 'true' == true;
+    var verify = 'true' == true;
+    new Valine({
+        el: '.vcomment',
+        notify: notify,
+        verify: verify,
+        appId: "53gELcU5PPzXKUh1q21E5Nkh-gzGzoHsz",
+        appKey: "pSNnuMbRDkWAE7j44yChrEce",
+        placeholder: "都看到这里了还不评论一下吗(╯‵□′)╯︵┻━┻",
+        pageSize:'10',
+        avatar:'identicon',
+        lang:'zh-cn'
+    });
+</script>
+
+                
+            </div>
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+        <a href="/SICNU-CTF逆向 Sign/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/Capstone反汇编引擎数据类型及API分析及示例(二)/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
+
+                    
+                        <!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay"></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored sidebar-fixed-left" role="navigation">
+    <div id="sidebar-main">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.png);">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+        <i class="material-icons">clear_all</i>
+        <span class="mdl-button__ripple-container">
+            <span class="mdl-ripple">
+            </span>
+        </span>
+    </button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="/img/avatar.png" alt="kabeor's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        Trust me,Lisa.
+        <b class="caret"></b>
+    </a>
+</div>
+
+
+        <!-- Sidebar Navigation  -->
+        <ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+            
+                <li>
+                    <a href="mailto:1597915586@qq.com" target="_blank" title="Email Me">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
+                        
+                        Email Me
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://github.com/kabeor" target="_blank" title="GitHub">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">code</i>
+                        
+                        GitHub
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    
+        <li id="sidebar-first-li">
+            <a href="/">
+                
+                    <i class="material-icons sidebar-material-icons">home</i>
+                
+                主页
+            </a>
+        </li>
+        
+    
+
+    <!-- Archives  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">inbox</i>
+                
+                    归档
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+            <li>
+                <a class="sidebar_archives-link" href="/archives/2019/07/">七月 2019<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/03/">三月 2019<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/01/">一月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/10/">十月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">九月 2018<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">八月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/06/">六月 2018<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">五月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">四月 2018<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/02/">二月 2018<span class="sidebar_archives-count">47</span></a>
+            </li></ul>
+        </li>
+        
+    
+
+    <!-- Categories  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">chrome_reader_mode</i>
+                
+                分类
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                <a class="sidebar_archives-link" href="/categories/Code/">Code<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/Linux/">Linux<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/Linux/Kali/">Kali<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/Linux/网络/">网络<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/NexT/">NexT<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/Web/">Web<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/Web/WriteUP/">WriteUP<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/Web/渗透/">渗透<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/Web/渗透/工具集/">工具集<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/blog搭建/">blog搭建<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/密码学和杂项/">密码学和杂项<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/树莓派/">树莓派<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/汇编/">汇编<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/汇编/漏洞银行逆向教程/">漏洞银行逆向教程<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/">病毒分析<span class="sidebar_archives-count">16</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/《恶意代码分析实战》笔记/">《恶意代码分析实战》笔记<span class="sidebar_archives-count">16</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/《恶意代码分析实战》笔记/第一篇-静态分析/">第一篇 静态分析<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/《恶意代码分析实战》笔记/第三篇-动态分析高级技术篇/">第三篇 动态分析高级技术篇<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/《恶意代码分析实战》笔记/第二篇-静态分析高级技术篇/">第二篇 静态分析高级技术篇<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/《恶意代码分析实战》笔记/第五篇-逆向工程/">第五篇 逆向工程<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/病毒分析/《恶意代码分析实战》笔记/第四篇-恶意代码功能篇/">第四篇 恶意代码功能篇<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/计算机系统/">计算机系统<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/计算机系统/PE/">PE<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/逆向/">逆向<span class="sidebar_archives-count">41</span></a></li><li><a class="sidebar_archives-link" href="/categories/逆向/i春秋/">i春秋<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/逆向/i春秋Reverse赛题/">i春秋Reverse赛题<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/categories/逆向/吾爱破解培训/">吾爱破解培训<span class="sidebar_archives-count">10</span></a>
+            </li></ul>
+        </li>
+        
+    
+
+    <!-- Pages  -->
+    
+        <li>
+            <a href="/about" title="关于">
+                
+                    <i class="material-icons sidebar-material-icons">person</i>
+                
+                关于
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/links" title="各位大佬(╯°□°）╯︵ ┻━┻">
+                
+                    <i class="material-icons sidebar-material-icons">link</i>
+                
+                各位大佬(╯°□°）╯︵ ┻━┻
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/timeline" title="时间轴">
+                
+                    <i class="material-icons sidebar-material-icons">timeline</i>
+                
+                时间轴
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/gallery" title="EVERSPACE(请等待加载哦)">
+                
+                    <i class="material-icons sidebar-material-icons">flight</i>
+                
+                EVERSPACE(请等待加载哦)
+            </a>
+        </li>
+        
+    
+
+    <!-- Article Number  -->
+    
+        <li>
+            <a href="/archives">
+                文章总数
+                <span class="sidebar-badge">93</span>
+            </a>
+        </li>
+        
+    
+</ul>
+
+
+    <div id="music163player">
+         <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="310" src="//music.163.com/outchain/player?type=0&id=2194265908&auto=0&height=430">
+         </iframe>
+    </div>
+
+        <!-- Sidebar Footer -->
+        <!--
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持和动力。 :)
+-->
+
+<!-- Sidebar Divider -->
+
+    <div class="sidebar-divider"></div>
+
+
+<!-- Theme Material -->
+
+    <a href="https://github.com/viosey/hexo-theme-material" class="sidebar-footer-text-a" target="_blank">
+        <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+            主题 - Material
+            <span class="sidebar-badge badge-circle">i</span>
+        </div>
+    </a>
+
+
+<!-- Help & Support -->
+<!--
+
+    <a href="mailto:hiviosey@gmail.com" class="sidebar-footer-text-a">
+        <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+        sidebar.help
+        <span class="mdl-button__ripple-container">
+          <span class="mdl-ripple"></span>
+        </span>
+      </div>
+    </a>
+
+-->
+
+<!-- Feedback -->
+<!--
+
+    <a href="https://github.com/viosey/hexo-theme-material/issues" target="_blank" class="sidebar-footer-text-a">
+        <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+        sidebar.feedback
+        <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></div>
+    </a>
+
+-->
+
+<!-- About Theme -->
+<!--
+
+    <a href="https://blog.viosey.com/index.php/Material.html" target="_blank" class="sidebar-footer-text-a">
+        <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+             sidebar.about_theme
+            <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></div>
+    </a>
+
+-->
+
+    </div>
+
+
+
+    <!-- Sidebar Image -->
+    
+
+</aside>
+
+                    
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+
+                    
+
+                    <!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+    
+        <!-- Paradox Footer Left Section -->
+        <div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+
+    <!-- Facebook -->
+    
+
+    <!-- Google + -->
+    
+
+    <!-- Weibo -->
+    
+
+    <!-- Instagram -->
+    
+
+    <!-- Tumblr -->
+    
+
+    <!-- Github -->
+    
+        <a href="https://github.com/kabeor" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-github">
+                <span class="visuallyhidden">Github</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- LinkedIn -->
+    
+
+    <!-- Zhihu -->
+    
+
+    <!-- Bilibili -->
+    
+
+    <!-- Telegram -->
+    
+    
+    <!-- V2EX -->
+    
+
+    <span class="post-count">全站共</span> 
+    156.4k 
+    <span>字</span>
+</div>
+
+
+        <!--Copyright-->
+        <div id="copyright">
+            Copyright&nbsp;©<script type="text/javascript">var fd = new Date();document.write("&nbsp;" + fd.getFullYear() + "&nbsp;");</script>K's House
+            
+                <br>
+                
+                    2018
+                
+            
+        </div>
+
+        <!-- Paradox Footer Right Section -->
+
+        <!--
+        I am glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+        It will not impact the appearance and can give developers a lot of support :)
+
+        很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+        它不会影响美观并可以给开发者很大的支持。 :)
+        -->
+
+        <div class="mdl-mini-footer--right-section">
+            <div>
+                <div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
+                <div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+            </div>
+        </div>
+    
+</footer>
+
+
+                    <!-- Import JS File -->
+
+    <script>lsloader.load("lazyload_js","/js/lazyload.min.js?wgjW/HuQG9JDgvPDPoRAng==", true)</script>
+
+
+
+    <script>lsloader.load("js_js","/js/js.min.js?V/53wGualMuiPM3xoetD5Q==", true)</script>
+
+
+
+    <script>lsloader.load("np_js","https://cdn.bootcss.com/nprogress/0.2.0/nprogress.js", true)</script>
+
+
+<script type="text/ls-javascript" id="NProgress-script">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    $('#nprogress .bar').css({
+        'background': '#FF1493'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #FF1493, 0 0 15px #FF1493'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#FF1493',
+        'border-left-color': '#FF1493'
+    });
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+    
+        <script>lsloader.load("sm_js","/js/smoothscroll.js?tNQK2Tw2SUL8a1Scn/Mgew==", true)</script>
+    
+
+
+
+
+
+    <!-- Busuanzi -->
+    <script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+   
+
+
+
+
+
+<!-- UC Browser Compatible -->
+<script>
+	var agent = navigator.userAgent.toLowerCase();
+	if(agent.indexOf('ucbrowser')>0) {
+		document.write('<link rel="stylesheet" href="/css/uc.css">');
+	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+	}
+</script>
+
+<!-- Import prettify js  -->
+
+    
+        
+            <script>lsloader.load("prettify_js","https://cdn.bootcss.com/prettify/r298/prettify.js", true)</script>
+        
+    
+
+
+
+<!-- Window Load -->
+<!-- add class for prettify -->
+<script type="text/ls-javascript" id="window-load">
+    $(window).on('load', function() {
+        // Post_Toc parent position fixed
+        $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
+    });
+
+    
+        
+            $(function() {
+                $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto;');
+                prettyPrint();
+                })
+        
+    
+    
+</script>
+
+<!-- MathJax Load-->
+
+
+<!-- Bing Background -->
+
+
+<script type="text/ls-javascript" id="lazy-load">
+    // Offer LazyLoad
+    queue.offer(function(){
+        $('.lazy').lazyload({
+            effect : 'show'
+        });
+    });
+
+    // Start Queue
+    $(document).ready(function(){
+        setInterval(function(){
+            queue.execNext();
+        },200);
+    });
+</script>
+
+<!-- Custom Footer -->
+
+
+
+<script>
+    (function(){
+        var scriptList = document.querySelectorAll('script[type="text/ls-javascript"]')
+
+        for (var i = 0; i < scriptList.length; ++i) {
+            var item = scriptList[i];
+            lsloader.runInlineScript(item.id,item.id);
+        }
+    })()
+console.log('\n %c © Material Theme | Version: 1.5.2 | https://github.com/viosey/hexo-theme-material %c \n', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-left-radius:5px;border-bottom-left-radius:5px;', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-right-radius:5px;border-bottom-right-radius:5px;');
+</script>
+
+                </main>
+            </div>
+        </body>
+    
+</html>
